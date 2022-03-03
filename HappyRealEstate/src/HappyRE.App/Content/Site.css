@@ -1,0 +1,269 @@
+﻿body {
+    padding-top: 50px;
+    /*padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select
+/*textarea*/ 
+{
+    max-width: 280px;
+}
+    input.text-up{
+        text-transform:uppercase;
+    }
+    /* styles for validation helpers */
+    .field-validation-error {
+        color: #b94a48;
+    }
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/*Highlight style*/
+.highlight {
+    background-color: #FFFF88;
+}
+
+/*History log style*/
+#rowComment {
+    font: normal 13px Consolas, Monaco;
+    margin: 3px;
+}
+#deleteIcon {
+    float: right;
+    display: none;
+}
+
+#rowComment:hover #deleteIcon {
+    display: inline;
+}
+
+#timeInfo {
+    color: #3b5998;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnSend {
+    width: 85px;
+    height: 50px;
+}
+
+#commentText {
+    width: 91%;   
+    resize:none;
+}
+
+/*Custom style*/
+#title {
+    padding-top: 5px;
+}
+
+
+/*DEMO*/
+.demo {
+  background: #eee;
+  border: solid 2px #ddd;
+  border-radius: 4px;
+  padding: 0.6em;
+}
+
+.demo p {
+	padding: 0.3em 0.6em;
+	margin: 0.3em auto;
+}
+
+.demo p.instructions {
+	font-family: serif;
+	font-style: italic;
+	/* font-size: 90%; */
+	color: #666;
+	line-height: 130%;
+}
+
+.product-item-link span {
+    display: block;
+    background-color: #d81116;
+    color: #fff;
+    position: absolute;
+    font-size: 8px;
+}
+
+div.frame {
+	background: #fff;
+	padding: 0.5em;
+	border: solid 2px #ddd;
+}
+.label-warning.label-pink {
+    background-color: #b90db9;
+}
+
+.k-widget.k-window {
+    top: 25% !important;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.k-widget.k-header {
+    background-color: #fff !important;
+}
+
+.k-widget.k-tooltip-validation {
+    display: block;
+    text-align: left;
+    color: red;
+    font-size: 90%;
+    background: none;
+    border: none;
+}
+
+
+.k-window-content .form-horizontal {
+    padding-top: 20px;
+}
+
+.k-window-content .form-horizontal .col-md-2 {
+    width: 120px;
+}
+
+.k-window-content .form-horizontal .col-md-10 {
+    width: calc(100% - 180px)
+}
+
+.k-window-content .form-horizontal .col-md-10 input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.k-window-content .form-horizontal .action {
+    text-align: right;
+    padding-top: 25px;
+}
+
+.k-window-content .form-horizontal .form-group {
+    margin: 10px 0;
+}
+
+
+#page-content dt, #page-content dd{
+    line-height:24px;
+}
+.bg-red {
+    background-color: #fc0303 !important;
+}
+#noti_count{
+    display:none;
+}
+#noti_list {
+    width: 300px;
+    max-height: 550px;
+}
+    #noti_list > li > a {
+        white-space:normal;
+    }
+    #noti_list > li > a span.time {
+        text-align: right;
+        float: right;
+        font-size: 11px;
+        line-height: 18px;
+        color: #999;
+    }
+    #noti_list > li.not-read {
+        background-color: #f4f1f1;
+    }
+
+.filter-block .k-widget.k-header,.filter-block .k-textbox, .filter-block .btn {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+.k-state-selected, .k-primary, .k-overflow-container .k-primary {
+    background-color: #ffb400 !important;
+    border-color: #ffb400 !important;
+}
+
+table thead.k-grid-header, table thead.k-grid-header th.k-header {
+    background-color: #FFC10E !important;
+    font-weight:600;
+    color:#333;
+}
+
+#title {
+    color: #f8b403;
+}
+
+.inline-page .form-inline {
+    padding-bottom: 15px;
+}
+
+    .inline-page .form-inline .col-md-10 {
+        width: auto;
+    }
+
+    .inline-page .form-inline label.control-label {
+        width: fit-content;
+        margin-left: 20px;
+    }
+
+    .inline-page .form-inline .form-group:first-child label {
+        width: 180px;
+    }
+
+.inline-page label.col-md-2 {
+    width: 200px;
+}
+
+.inline-page .col-md-offset-2 {
+    margin-left: 200px;
+}
+
+.foot-link {
+    border-top:solid 1px #ccc;
+    padding-top:15px;
+    margin-top: 35px;
+    display: inline-block;
+    line-height:35px;
+    width:100%;
+}
+    .foot-link .btn {
+        float: right;
+        margin-left: 10px;
+    }
+    .foot-link .btn:first-child {
+        margin-left:10px;
+    }
+    @media only screen and (max-width: 600px) {
+        .navbar-nav-custom.pull-right {
+        display: none;
+    }
+}

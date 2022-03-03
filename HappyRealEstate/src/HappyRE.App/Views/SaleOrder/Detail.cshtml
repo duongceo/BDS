@@ -1,0 +1,229 @@
+﻿@using Kendo.Mvc.UI
+@using HappyRE.Core.Entities
+@model HappyRE.Core.Entities.ViewModel.SaleOrderListViewModel
+@{
+    ViewBag.Title = "Thông tin chi tiết giao dịch";
+}
+
+<style>
+    .dl-horizontal img {
+        max-height: 130px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PropertyNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PropertyNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostedBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </dt>
+            <dd>
+                @(Model.OrderDate?.ToString("dd/MM/yyyy"))
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </dt>
+
+            <dd>
+                @Model.TotalAmount.ToString("N0")
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RewardPoint)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RewardPointCalc)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h4>Chủ nhà</h4><hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerAvatar)
+            </dt>
+
+            <dd>
+                <img src="@Model.OwnerAvatar" style="width:100px;padding-bottom:10px;" data-magnify="gallery" data-src='@Model.OwnerAvatar.Replace("s200x200","")' />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerPhone)
+            </dt>
+
+            <dd>
+                <a href='/customerinfo?id=@Model.OwnerPhone'>@Model.OwnerPhone</a>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerBirthday)
+            </dt>
+
+            <dd>
+                @(Model.OwnerBirthday?.ToString("dd/MM/yyyy"))
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerIDNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerIDNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerTargetId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerTargetHtml)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <h4>Khách hàng</h4><hr />
+                           <dl class="dl-horizontal">
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerAvatar)
+                               </dt>
+
+                               <dd>
+                                   <img src="@Model.CustomerAvatar" style="width:100px;padding-bottom:10px;" data-magnify="gallery" data-src='@Model.CustomerAvatar.Replace("s200x200","")' />
+                               </dd>
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerName)
+                               </dt>
+
+                               <dd>
+                                   @Html.DisplayFor(model => model.CustomerName)
+                               </dd>
+
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerPhone)
+                               </dt>
+                               @if (Model.SellBy == User.Identity.Name || User.IsInRole(Permission.ADMIN))
+                               {
+                                   <dd>
+                                       <a href='/customerinfo?id=@Model.CustomerPhone'>@Model.CustomerPhone</a>
+                                   </dd>
+                               }
+                               else
+                               {
+                                   <dd>
+                                       <span>**********</span>
+                                   </dd>
+                               }
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerBirthday)
+                               </dt>
+
+                               <dd>
+                                   @(Model.CustomerBirthday?.ToString("dd/MM/yyyy"))
+                               </dd>
+
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerIDNumber)
+                               </dt>
+
+                               <dd>
+                                   @Html.DisplayFor(model => model.CustomerIDNumber)
+                               </dd>
+
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerAddress)
+                               </dt>
+
+                               <dd>
+                                   @Html.DisplayFor(model => model.CustomerAddress)
+                               </dd>
+
+                               <dt>
+                                   @Html.DisplayNameFor(model => model.CustomerTargetId)
+                               </dt>
+
+                               <dd>
+                                   @Html.DisplayFor(model => model.CustomerTargetHtml)
+                               </dd>
+                           </dl>
+    </div>
+</div>
+
+<input type="hidden" id="canDelete" value="@(User.IsInRole(Permission.COMMENT_DELETE)?1:0)" />
+<div>
+    @(Html.Kendo().Grid<HappyRE.Core.Entities.Model.HistoryLog>()
+          .Name("_list")
+          .Columns(columns => columns.Bound(product => product.Contents).Title("Ghi chú").ClientTemplate(@"
+                    <div id='rowComment'>
+                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) #=CreatedBy#</span>: #=Contents#
+                        <div id='deleteIcon'><a href='javascript:void();'><span onclick='historyLog.onRemove(#=Id#)' class='#= bizHelper.renderCanDo('canDelete')# glyphicon glyphicon-remove'></span></a></div>
+                    </div>"))
+          .Scrollable(h => h.Height("250px"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Search", "HistoryLog", new {tableName = "SaleOrder", tableKeyId = @Model.Id}))
+          )
+          )
+    <br />
+    <div style="padding: 3px">
+        @Html.TextArea("commentText", new { onkeypress = "historyLog.sendCommentEnter('SaleOrder'," + @Model.Id + ")", placeholder = "Nhập nội dung để ghi chú, enter hoặc nhấn gởi để lưu.", rows = 3 })
+        <button class="k-button k-primary" style="width: 80px; height: 50px" onclick="historyLog.sendComment('SaleOrder', @Model.Id)">Gởi</button>
+    </div>
+</div>
+<div class="foot-link">
+    @Html.ActionLink("< Trở lại danh sách", "Index")
+
+    @if (User.IsInRole(Permission.SALEORDER_DELETE))
+    {
+        <button type='button' class='btn btn-danger' onclick="saleOrderListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
+    }
+
+    @if (User.IsInRole(Permission.SALEORDER_MODIFY))
+    {
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
+
+</div>

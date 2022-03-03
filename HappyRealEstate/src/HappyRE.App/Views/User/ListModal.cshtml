@@ -1,0 +1,63 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.UserProfileQuery
+
+@{
+    ViewBag.Title = "Danh sách người dùng";
+}
+
+<div class="filter-block">
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:400px", PlaceHolder = "Tên, email, số điện thoại.." })
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbDepartment")
+                          .Filter("contains")
+                        .Placeholder("Phòng ban..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Department"))))
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbRoleGroup")
+                          .Filter("contains")
+                        .Placeholder("Nhóm quyền..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "RoleGroup"))))
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbLevel")
+                          .Filter("contains")
+                        .Placeholder("Chức vụ..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new {tableId ="UserLevel"}))))
+    @Html.Hidden("cmbUserStatus", 0)
+
+    @Html.Kendo().Button().Name("Search").Content("Tìm kiếm").Events(e => e.Click("userListing.onSearch"))
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.UserProfileListViewModel>()
+      .Name("_listModal")
+      .Columns(columns =>
+      {
+          columns.Bound(e => e.UserName);
+          columns.Bound(e => e.FullName);
+          columns.Bound(e => e.Email);
+          columns.Bound(e => e.Mobile);
+          columns.Bound(e => e.DepartmentName);
+          columns.Bound(e => e.LevelName);
+          //columns.Bound(e => e.RoleGroupName);
+          //columns.Bound(e => e.UserStatus).ClientTemplate("<i style='color:green'>#= UserStatus==0?'<span class=\"glyphicon glyphicon-check\"></span>' :'<span class=\"glyphicon glyphicon-unchecked\"></span>' #</b>").HtmlAttributes(new { style = "text-align:center" });
+          columns.Bound(e => e.Avatar).ClientTemplate("<img style='width:48px;' src='#=Avatar#'/>");
+          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='userListing.choose(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-import' aria-hidden='true'></span></button>");
+      })
+      .Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(10)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "User").Data("userListing.additionalData"))
+      )
+)
+

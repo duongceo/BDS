@@ -1,0 +1,40 @@
+﻿@using ChildFashion.Models.Customer
+@using Kendo.Mvc.UI
+@model ChildFashion.Models.Customer.HistoryLog
+
+@Html.HiddenFor(x => x.TableName)
+@Html.HiddenFor(x => x.TableKeyId)
+
+<div>
+    @(Html.Kendo().Grid<HistoryLog>()
+          .Name("girdHistoryLog")
+          .Columns(columns => columns.Bound(product => product.Contents).ClientTemplate(@"                    
+                    <div id='rowComment'>                    
+                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) #=UserChanged#</span>: #=Contents#
+                        <div id='deleteIcon'><a href='javascript:void();'><span onclick='historyLog.onRemove(#=Id#)' class='glyphicon glyphicon-remove'></span></a></div>
+                    </div>"))
+          .Scrollable(h => h.Height("250px"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("GetHistoryLog", "Customer", new {tableName = @Model.TableName, tableKeyId = @Model.TableKeyId,}))
+          )
+          )
+    <br/>
+    @if (Model.TableName == "Customer")
+    {
+<div>
+    <a style="color: red" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Đã liên lạc nhưng khách Không bắt máy') ">#Không bắt máy</a>
+    <a style="color: orange" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Thuê bao không liên lạc được') ">&nbsp;&nbsp;#Không liên lạc được</a>
+    <a style="color: gray" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Khách đòi miễn phí vận chuyển') ">&nbsp;&nbsp;#Đòi miễn PVC</a>
+    <a style="color: darkslategray" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Khách mua sỉ') ">&nbsp;&nbsp;#Khách mua sỉ</a>
+    <a style="color: darkmagenta" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Khách không mua hàng') ">&nbsp;&nbsp;#Không mua hàng</a>
+    <a style="color: darkgoldenrod" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Hết hàng') ">&nbsp;&nbsp;#Hết hàng</a>
+    <a style="color: darkgoldenrod" href="javascript:void(0);" onclick="historyLog.quickComment('@Model.TableName', '@Model.TableKeyId', 'Gửi tin nhắn nhắc bắt máy',) ">&nbsp;&nbsp;#Gửi tin nhắn nhắc bắt máy</a>
+</div>
+    }
+    <div style="padding: 3px" class="comment-txt">
+        @Html.TextArea("commentText", new {onkeypress = "historyLog.sendCommentEnter('" + @Model.TableName + "'," + @Model.TableKeyId + ")", placeholder = "Nhập nội dung để ghi chú, enter hoặc nhấn gởi để lưu.", rows = 3 })
+        <button class="k-button k-primary" style="width: 80px; height: 50px" onclick="historyLog.sendComment('@Model.TableName', '@Model.TableKeyId')">Gởi</button>                
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/app/customer/historylog.js"></script>

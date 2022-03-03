@@ -1,0 +1,24 @@
+﻿@using HappyRE.App.Infrastructures.Notification
+@if (TempData.ContainsKey("Toastr"))
+{
+    Toastr toastr = TempData["Toastr"] as Toastr;
+    if (toastr != null)
+    {
+        <script>
+    $(document).ready(function() {
+        @foreach (ToastMessage message in toastr.ToastMessages)
+                {
+                    string toastTypeValue = message.ToastType.ToString("F").ToLower();
+                    @: var optionsOverride = { positionClass: 'toast-bottom-left' };
+                            if (message.IsSticky)
+                    {
+                        @:optionsOverride.timeOut = 0;
+                        @:optionsOverride.extendedTimeout = 0;
+                        
+                    }
+                    @:toastr['@toastTypeValue']('@message.Message', '@message.Title', optionsOverride);
+                        }
+    });
+        </script>
+    }
+}

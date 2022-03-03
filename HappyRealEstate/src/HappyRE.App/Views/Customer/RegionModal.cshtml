@@ -1,0 +1,62 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.CityQuery
+
+@{
+    ViewBag.Title = "Khu vực mong muốn";
+}
+
+<div>
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:600px", PlaceHolder = "Tên quận, phường, đường.." })
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbCity")
+                          .Filter("contains")
+                        .Placeholder("Tỉnh thành..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Value(Model.CityId.HasValue? Model.CityId.Value.ToString():"")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "City"))))
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbDistrict")
+                          .Filter("contains")
+                        .Placeholder("Quận huyện..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Value(Model.DistrictId.HasValue ? Model.DistrictId.Value.ToString() : "")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("_Gets", "District")
+                                    .Data("customerDetail.filterDistricts");
+                            })
+                            .ServerFiltering(true);
+                        })
+              .Enable(false)
+              .AutoBind(false)
+              .CascadeFrom("cmbCity"))
+
+    @Html.Kendo().Button().Name("Search").Content("Tìm kiếm").Events(e => e.Click("customerDetail.regionSearch"))
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.CustomerRegionTargetViewModel>()
+      .Name("_listModal")
+      .Columns(columns =>
+      {
+          columns.Bound(e => e.CityName);
+          columns.Bound(e => e.DistrictName);
+          columns.Bound(e => e.WardName);
+          columns.Bound(e => e.StreetName);
+          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='customerDetail.chooseRegion(#=CityId#,#=DistrictId#,#=WardId#,#=StreetId#)' class='btn btn-default'><span class='glyphicon glyphicon-import' aria-hidden='true'></span></button>");
+      })
+      .Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(10)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("LocationSearch", "CustomerRegionTarget").Data("customerDetail.regionAdditionalData"))
+      )
+)
+

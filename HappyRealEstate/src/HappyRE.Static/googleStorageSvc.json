@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "funnel-test-201618",
+  "private_key_id": "0bb1a8e8eb2c97e4bf246b29c4448addc5fb1c1a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC3SwBhI/+ulHL3\noU/WiyR3asrXQ0pd7jDt0+1hwo+BSRXHOgSRcS64Gm6mqD7H3JEdokfMd47OLEcP\n0MICHGAma0D3RwfHUfBJTYHiE35dLWYuYIgncGT5H4TRgQQqiJ/PUuaBtSTBX0k9\neT6nQ89m2vz5aqPE9GG/Hzc4+1s8ZErgmSVjllfLFzO8iLDG/JVwJ7FN5bspneqd\nBN06NTxTYnp/DEZAzsvq5ca2NFOPuIEnluKF5TUrsJiuuB9xJxvoPIOPWjjwfy2+\nOsIsik9Tyt5RbplDJrDuKxtIq/J9BLl23ievUaruKiC7bRMXLpdRGudM139W4n7s\n1H2qSYk1AgMBAAECggEAJtpbJjw/Qn5tMFidV9j+zeFxRdgZt3d6H6/ArexUBw+6\n8hQ2S642PQg9VE5toGf8ys9PcOQW/VUdaxjRRylEqGAr0T7ZQ0L3MFKhqY6ARrgM\n5N/JfLKydKxdtxsmCu4TEht8iRogxGyyVbmRslsJZ8Abx7L3LBSxc5XmWsnNOSuc\ngDYq1goCw2EMaUrPRjE0uSI9D5vy0bUzIW3blDkH7XsCpW3th1QY8MJUhPLEBlps\nfjTK7qlaQ0Ee3CBom5xt/M7B1QDt2p6B8iyfxhpriL49ahm0iK2KxvAySu+f71bf\nuUU1CMagP/PrWLWNPOIcvWfus8DMk+784DmZr1HsAQKBgQD5sG+G9575LasaLZ/Q\nyZD+p70wlmxK/9mZdJwwR+AQXB6MQPk9w4V++iSZN7eIh4pqxmPw5q3rSqlkgpUE\nwdk33BRZij5JK/TF28XIHFQgIrp/gtKk5Td69ItURZyyZPeMM9AcYcErVWwj80Bn\nPjfSpBGVeN1xBaoFhngYL5LMdQKBgQC77PZVS8/+LLiK4iTwe5sBZnj7x+S3of1t\nj+Gw9mAm6D9ukOpdFkgK4RFHTnDVenYf81heSGDrJgiQuyag/JvGPshwH73m22Jx\nmhk+atYbrGyeC5W22P6NiRXqCngWwsoK+8I57QI3YrVgR+Zjav+Vb4xzTIEW2rNW\nG0bpQi8xwQKBgBI95agCp0alI38CHk7uqv0v3A6Ursy77HXdoxuT5LbNRB4TESKG\nClbAh7P58hqzbFVosRyEfehWyBFjyOdUEj6WgZYZF3vZDkT2TXjVOQAwCVgPgrwx\nUuBUxWkevNf7sGo5ztaD/czgrMnjl6zzSrjE69PzxJnhRA6rSFLcBumRAoGAFsGb\nErkbdqvzrN21m2lcW88M13BdQd9b0Oiba9Jp0kxNYhYqSxtnnemjLf9RqogpxbSx\n/rjFA7SXVO9UvinYsyjnHKy7Ujk+soL2i5hkVPWMMZc1ie685Ga1QKID6L2tuabC\n3kDVA9/wFrieLWvHh1D6sPuSpjHVhZfH/ncFQAECgYAiy4GeczWbKnmwDOpP4Lb4\nd9dkiB69oOGhx9HxtXnh3wFunqQiAT5wdwdjlzTyfF42FHtXkvTmVA3rdGsmnmRx\ncFcXhG3IdU29EDcwFn9tlP5ukek/eFoY6XRIN6eCad/WtuSD3Cun+uVIGsOtGqhd\not9gYq5SARguS/QTPxo1ig==\n-----END PRIVATE KEY-----\n",
+  "client_email": "storage@funnel-test-201618.iam.gserviceaccount.com",
+  "client_id": "107875212409444917511",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage%40funnel-test-201618.iam.gserviceaccount.com"
+}

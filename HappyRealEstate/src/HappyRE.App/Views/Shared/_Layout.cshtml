@@ -1,0 +1,432 @@
+﻿@using Microsoft.AspNet.Identity
+@using HappyRE.Core.Entities
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+
+    <title>@ViewBag.Title - Hệ thống quản lý batdongsanhanhphuc.vn</title>
+
+    <meta name="description" content="Hệ thống quản lý batdongsanhanhphuc.vn">
+    <meta name="author" content="punnel">
+    <meta name="robots" content="noindex, nofollow">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/images/src/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/proui/css/styles")
+    @Styles.Render("~/Content/kendo/css")
+    <link href="~/Content/jquery.magnify.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("css", required: false)
+    @Styles.Render("~/Content/toastr")
+
+</head>
+<body ng-app="appMain">
+    <!-- Preloader -->
+    <div class="preloader themed-background">
+        <h1 class="push-top-bottom text-light text-center"><strong>batdongsanhanhphuc.vn</strong></h1>
+        <div class="inner">
+            <h3 class="text-light visible-lt-ie9 visible-lt-ie10"><strong>Đang tải..</strong></h3>
+            <div class="preloader-spinner hidden-lt-ie9 hidden-lt-ie10"></div>
+        </div>
+    </div>
+    <!-- END Preloader -->
+    @Html.Partial("_Toastr")
+
+    <div id="page-container" class="header-fixed-top sidebar-partial sidebar-visible-lg sidebar-no-animations">
+        <!-- Main Sidebar -->
+        <div id="sidebar">
+            <!-- Wrapper for scrolling functionality -->
+            <div class="sidebar-scroll">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Brand -->
+                    <a href="/" class="sidebar-brand">
+                        @*<i class="gi gi-flash"></i><strong>TQT Admin</strong>*@
+                        <img src="/Content/images/src/logo_admin.svg" style="width:176px;" />
+                    </a>
+                    <!-- END Brand -->
+                    <!-- Sidebar Navigation -->
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-header">
+                            <span class="sidebar-header-title">Cá nhân</span>
+                        </li>
+                        <li>
+                            <a href="~/notification"><i class="gi gi-bell sidebar-nav-icon"></i>Thông báo</a>
+                        </li>
+                        @if (User.IsInRole(Permission.NOTIFICATION_CREATE) || User.IsInRole(Permission.NOTIFICATION_DELETE))
+                        {
+                            <li>
+                                <a href="~/notification/admin"><i class="gi gi-bell sidebar-nav-icon"></i>Quản trị thông báo</a>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (User.IsInRole(Permission.PROPERTY_VIEW))
+                    {
+                        <ul class="sidebar-nav">
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-title">Bất động sản</span>
+                            </li>
+                            @if (User.IsInRole(Permission.PROPERTY_CREATE))
+                            {
+                                <li>
+                                    <a href="~/property/create"><i class="gi gi-plus sidebar-nav-icon"></i>Thêm bất động sản mới</a>
+                                </li>
+                            }
+                            <li>
+                                <a href="~/property"><i class="gi gi-calendar sidebar-nav-icon"></i>Danh sách bất động sản</a>
+                            </li>
+                        </ul>
+                    }
+                    @if (User.IsInRole(Permission.CUSTOMER_VIEW))
+                    {
+                        <ul class="sidebar-nav">
+
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-title">Khách hàng</span>
+                            </li>
+                            @if (User.IsInRole(Permission.CUSTOMER_CREATE))
+                            {
+                                <li>
+                                    <a href="~/customer/create"><i class="gi gi-plus sidebar-nav-icon"></i>Thêm khách hàng mới</a>
+                                </li>
+                            }
+                            <li>
+                                <a href="~/Customer"><i class="gi gi-parents sidebar-nav-icon"></i>Danh sách khách hàng</a>
+                            </li>
+                        </ul>
+                    }
+                    @if (User.IsInRole(Permission.SALEORDER_VIEW))
+                    {
+                        <ul class="sidebar-nav">
+
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-title">Chăm sóc khách hàng</span>
+                            </li>
+                            @if (User.IsInRole(Permission.SALEORDER_CREATE))
+                            {
+                                <li>
+                                    <a href="~/saleorder/create"><i class="gi gi-plus sidebar-nav-icon"></i>Thêm giao dịch</a>
+                                </li>
+                            }
+                            <li>
+                                <a href="~/saleorder"><i class="gi gi-notes sidebar-nav-icon"></i>Giao dịch BĐS</a>
+                            </li>
+                        </ul>
+                    }
+                    @if (User.IsInRole(Permission.ACCOUNT))
+                    {
+                        <ul class="sidebar-nav">
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-title">Hệ thống</span>
+                            </li>
+                            @if (User.IsInRole(Permission.ACCOUNT))
+                            {
+                                <li>
+                                    <a href="~/User"><i class="gi gi-user sidebar-nav-icon"></i>Người dùng</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(Permission.ACCOUNT))
+                            {
+                                <li>
+                                    <a href="~/Department"><i class="gi gi-inbox sidebar-nav-icon"></i>Phòng ban</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(Permission.ACCOUNT))
+                            {
+                                <li>
+                                    <a href="~/RoleGroup"><i class="gi gi-lock sidebar-nav-icon"></i>Nhóm quyền</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(Permission.ACCOUNT))
+                            {
+                                <li>
+                                    <a href="~/UserLog"><i class="gi gi-hdd sidebar-nav-icon"></i>Hoạt động nhân viên</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(Permission.ACCOUNT))
+                            {
+                                <li>
+                                    <a href="~/ipallowed"><i class="gi gi-wrench sidebar-nav-icon"></i>Ip hệ thống</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (User.IsInRole(Permission.SYS_ADMIN))
+                    {
+                        <ul class="sidebar-nav">
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-title">Danh mục</span>
+                            </li>
+                            <li>
+                                <a href="~/city"><i class="gi gi-list sidebar-nav-icon"></i>Tỉnh thành</a>
+                            </li>
+                            <li>
+                                <a href="~/street"><i class="gi gi-list sidebar-nav-icon"></i>Đường phố</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/contractType"><i class="gi gi-list sidebar-nav-icon"></i>Loại hợp đồng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/propertyType"><i class="gi gi-list sidebar-nav-icon"></i>Loại BĐS</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyStatusType"><i class="gi gi-list sidebar-nav-icon"></i>Trạng thái BĐS</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyLegalType"><i class="gi gi-list sidebar-nav-icon"></i>Pháp lý</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyUtilityType"><i class="gi gi-list sidebar-nav-icon"></i>Tiện ích</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertySourceType"><i class="gi gi-list sidebar-nav-icon"></i>Nguồn BĐS</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyStrongType"><i class="gi gi-list sidebar-nav-icon"></i>Đặc điểm tốt</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyWeakType"><i class="gi gi-list sidebar-nav-icon"></i>Đặc điểm xấu</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyContructType"><i class="gi gi-list sidebar-nav-icon"></i>Mức độ xây dựng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyStructureType"><i class="gi gi-list sidebar-nav-icon"></i>Kết cấu xây dựng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/PropertyPotentialType"><i class="gi gi-list sidebar-nav-icon"></i>Tiềm năng BĐS</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/CustomerStatusType"><i class="gi gi-list sidebar-nav-icon"></i>Trạng thái khách hàng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/CustomerDemandType"><i class="gi gi-list sidebar-nav-icon"></i>Nhu cầu khách hàng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/CustomerTargetType"><i class="gi gi-list sidebar-nav-icon"></i>Mục đích khách hàng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/CustomerSourceType"><i class="gi gi-list sidebar-nav-icon"></i>Nguồn khách hàng</a>
+                            </li>
+                            <li>
+                                <a href="~/syscode/UserLevel"><i class="gi gi-list sidebar-nav-icon"></i>Chức vụ</a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+                <!-- END Sidebar Content -->
+            </div>
+            <!-- END Wrapper for scrolling functionality -->
+        </div>
+        <!-- END Main Sidebar -->
+        <!-- Main Container -->
+        <div id="main-container">
+            <!-- Header -->
+            <!-- In the PHP version you can set the following options from inc/config file -->
+            <!--
+                Available header.navbar classes:
+
+                'navbar-default'            for the default light header
+                'navbar-inverse'            for an alternative dark header
+
+                'navbar-fixed-top'          for a top fixed header (fixed sidebars with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+                'navbar-fixed-bottom'       for a bottom fixed header (fixed sidebars with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                -->
+            <header class="navbar navbar-default navbar-fixed-top">
+                <!-- Left Header Navigation -->
+                <ul class="nav navbar-nav-custom">
+                    <!-- Main Sidebar Toggle Button -->
+                    @*                    @RenderSection("Search", required: false)   *@
+                    <li>
+                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
+                            <i class="fa fa-bars fa-fw"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav-custom pull-right" style="width: 550px">
+
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="gl_notification" role="presentation" class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span id="noti_count" class="badge bg-red">0</span>
+                                </a>
+                                <ul id="noti_list" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Chào @User.Identity.GetUserName()</a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    <li><a href="/account/manage">Đổi mật khẩu</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Thoát</a></li>
+                        </ul>
+                    }
+                </ul>
+                <h4 class="nav">
+                    <div id="title">@ViewBag.Title</div>
+                </h4>
+            </header>
+            <!-- END Header -->
+            <!-- Page content -->
+            <div id="page-content">
+                <!-- Dummy Content -->
+                <div class="block full block-alt-noborder container-fluid">
+                    @RenderBody()
+                </div>
+                <!-- END Dummy Content -->
+            </div>
+            <!-- END Page Content -->
+            <!-- Footer -->
+            <footer class="clearfix">
+                <div class="pull-right">
+                    2021 - Hệ thống quản lý <i class="fa fa-heart text-danger"></i> <a href="https://batdongsanhanhphuc.vn" target="_blank">batdongsanhanhphuc.vn</a>
+                </div>
+            </footer>
+            <!-- END Footer -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+    <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
+    <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- User Settings, modal which opens from Settings link (found in top right user menu) and the Cog link (found in sidebar user info) -->
+    <!--<div id="modal-user-settings" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">-->
+    <!-- Modal Header -->
+    <!--<div class="modal-header text-center">
+        <h2 class="modal-title"><i class="fa fa-pencil"></i> Settings</h2>
+    </div>-->
+    <!-- END Modal Header -->
+    <!-- Modal Body -->
+    <!--<div class="modal-body">
+        <form action="index.html" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" onsubmit="return false;">
+            <fieldset>
+                <legend>Vital Info</legend>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Username</label>
+                    <div class="col-md-8">
+                        <p class="form-control-static">Admin</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user-settings-email">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" id="user-settings-email" name="user-settings-email" class="form-control" value="admin@example.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user-settings-notifications">Email Notifications</label>
+                    <div class="col-md-8">
+                        <label class="switch switch-primary">
+                            <input type="checkbox" id="user-settings-notifications" name="user-settings-notifications" value="1" checked>
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Password Update</legend>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user-settings-password">New Password</label>
+                    <div class="col-md-8">
+                        <input type="password" id="user-settings-password" name="user-settings-password" class="form-control" placeholder="Please choose a complex one..">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New Password</label>
+                    <div class="col-md-8">
+                        <input type="password" id="user-settings-repassword" name="user-settings-repassword" class="form-control" placeholder="..and confirm it!">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group form-actions">
+                <div class="col-xs-12 text-right">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>-->
+    <!-- END Modal Body -->
+    <!--</div>
+        </div>
+    </div>-->
+
+    <script type="text/javascript">
+
+        window.ChildFashion = {};
+        (function (cr) {
+            var rootPath = "/";
+            cr.rootPath = rootPath;
+        }(window.ChildFashion));
+        ChildFashion.rootPath = '@Url.Content("~")';
+    </script>
+
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/kendo")
+    @*@Scripts.Render("~/bundles/printthis")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/proui")
+
+    @Scripts.Render("~/bundles/app")
+    @*<script async src='@Scripts.Url("~/bundles/app")' type="text/javascript"></script>*@
+    @RenderSection("scripts", required: false)
+    @*<script type="text/javascript" src="~/Scripts/app/global/common.js"></script>*@
+    <script type="text/javascript">
+        common.initPath('@Url.Content("~")');
+    </script>
+
+
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var hub = $.connection.notificationHub;
+            hub.client.subcribleNotify = function (v) {
+                toastr.success("Bạn có thông báo mới!");
+                var count = $('#noti_count').text() || "0";
+                var c = parseInt(count) + 1;
+                $('#noti_count').text(c);
+                if (c == 0) $('#noti_count').hide();
+                else $('#noti_count').show();
+                var h = $('#noti_list').html();
+                var li = '<li class="not-read"><a href="/notification/detail/' + v.Id + '"><span><span>' + v.Title + '</span><span class="time">' + v.TimeDisplay + '</span></span></a></li>';
+                $('#noti_list').html(li + h);
+            };
+
+            $.connection.hub.start()
+                .done(function () {
+                    console.log("Hub Connected!");
+
+                })
+                .fail(function () {
+                    console.log("Could not Connect!");
+                });
+
+            notificationDetail.unReadCount();
+            notificationDetail.search();
+        });
+    </script>
+    <script src="~/Scripts/imgviewer/jquery.magnify.min.js"></script>
+</body>
+
+</html>
+

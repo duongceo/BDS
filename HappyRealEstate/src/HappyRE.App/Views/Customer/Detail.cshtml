@@ -1,0 +1,278 @@
+﻿@model HappyRE.Core.Entities.ViewModel.CustomerListViewModel
+@using HappyRE.Core.Entities
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Thông tin khách hàng: " + Model.FullName;
+}
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Avatar)*@
+            </dt>
+            @if (Model.Avatar != null)
+            {
+                <dd>
+                    <img data-magnify="gallery" style="width:100px;" data-src='@Model.Avatar.Replace("s200x200", "")' src="@Model.Avatar" />
+                </dd>
+            }
+            @if ((bool)ViewBag.CanViewMobile == true)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </dt>
+                <dd>
+                    @if (Model.IsViewedMobileToday == true || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE))
+                    {
+                        @Html.DisplayFor(model => model.Phone)
+                    }
+                    else
+                    {
+                        <span id="txt_phone" style="display:none;">@Model.Phone</span>
+                        <a id="btn_phone" class='btn btn-default' onclick='customerListing.showMobile("@Model.Id")'>XEM SĐT</a>
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExtPhone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ExtPhone)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BirthdayDisplay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BirthdayDisplay)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SourceName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SourceName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.StatusHtml)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedByHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.CreatedByHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Model.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss")
+            </dd>
+
+            @if (Model.UpdatedDate.HasValue)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                </dt>
+
+                <dd>
+                    @Model.UpdatedDate.Value.ToString("dd/MM/yyyy HH:mm:ss")
+                </dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DemandHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.DemandHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TargetHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.TargetHtml)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DirectionHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.DirectionHtml)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RegionTargetHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.RegionTargetDisplay)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BudgetFrom)
+            </dt>
+
+            <dd>
+                @Model.BudgetFrom.ToString("N0") @Html.DisplayFor(model => model.CurrencyType) - @Model.BudgetTo.ToString("N0") @Html.DisplayFor(model => model.CurrencyType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumOfFloor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfFloor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumOfRoom)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfRoom)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MinArea)
+            </dt>
+
+            <dd>
+                @Model.MinArea.ToString("N0") m2
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MinWidth)
+            </dt>
+
+            <dd>
+                @Model.MinWidth.ToString("N1") m
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MinLength)
+            </dt>
+
+            <dd>
+                @Model.MinLength.ToString("N1") m
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StreetWidth)
+            </dt>
+
+            <dd>
+                @Model.StreetWidth.ToString("N1") m
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CalcMethod)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CalcMethod)
+            </dd>
+        </dl>
+    </div>
+</div>
+@if (User.IsInRole(Permission.CUSTOMER_MODIFY_HISTORY))
+{
+    <div style="margin-top:30px;">
+        <h4><span class="glyphicon glyphicon-time"></span> Lịch sử thay đổi</h4>
+        @(Html.Kendo().Grid<HappyRE.Core.Entities.Model.TrackChange>()
+  .Name("_listTrack")
+  .Columns(columns =>
+  {
+      columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#").Width(20);
+      columns.Bound(e => e.UpdatedDate).ClientTemplate("<span>#=kendo.toString(UpdatedDate,'dd/MM/yyyy HH:mm:ss')#</span>").Width(150);
+      columns.Bound(e => e.UpdatedBy).Width(160);
+      columns.Bound(e => e.ColumnName).Width(180);
+      columns.Bound(e => e.Old);
+      columns.Bound(e => e.New);
+  })
+  .Scrollable()
+      .Pageable(x => x.PageSizes(new[] { 20, 50 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("SearchTrack", "HistoryLog").Data("additionalData"))
+      )
+)
+    </div>
+}
+    <div class="foot-link">
+        @Html.ActionLink("< Trở lại danh sách", "Index")
+
+        @if (User.IsInRole(Permission.CUSTOMER_DELETE))
+        {
+            <button type='button' class='btn btn-danger' onclick="customerListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
+        }
+
+        @if (User.IsInRole(Permission.CUSTOMER_MODIFY))
+        {
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+        }
+
+    </div>
+
+    @section Scripts{
+        <script>
+        var counter = 1;
+
+        function onDataBound(e) {
+            counter = 1;
+        }
+
+        function renderNumber(data) {
+            return counter++;
+        }
+
+        function additionalData() {
+            return {
+                'TableKeyId': @Model.Id,
+                'TableId':'Customer'
+            }
+        }
+        </script>
+    }

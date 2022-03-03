@@ -1,0 +1,41 @@
+﻿@model HappyRE.Core.Entities.Model.RoleGroup
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Name) ? "Nhóm quyền mới" : @Model.Name;
+}
+
+<form name="ajaxform" id="ajaxform" method="POST">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id, new { })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Name).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @(Html.Kendo().MultiSelect()
+                                    .DataTextField("Name")
+                                    .Name("lckRoles")
+                                    .DataValueField("Id")
+                                    .Value((List<int>)ViewBag.selectedRoles)
+                                    .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                    .HtmlAttributes(new { required = "required" })
+                                    .DataSource(source => source.Read(read => read.Action("_GetRoles", "RoleGroup"))))
+                @Html.HiddenFor(model => model.Roles, new { })
+            </div>
+        </div>
+
+        <div class="form-group action">
+            <div class="col-md-offset-2">
+                <button onclick="baseDetailPopup.close()" id="btnClose" type="button" class="btn btn-default btn-close">Đóng</button>
+                <button onclick="roleGroup.detail.update()" id="btnUpdate" type="button" class="btn btn-primary btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</form>
+

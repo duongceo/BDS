@@ -1,0 +1,46 @@
+﻿@using Kendo.Mvc.UI
+
+<div style="text-align: center">
+    <br/>
+    Tính phí vận chuyển:
+
+    @(Html.Kendo().ComboBox()
+          .Name("cmbCity")
+          .DataTextField("Name")
+          .DataValueField("Id")
+          .Suggest(true)
+          .Placeholder("Chọn tỉnh để tính phí")
+          .Filter("contains")
+          .DataSource(source =>
+              source.Read(read => read.Action("GetCityList", "Customer"))
+          ))
+        
+    @Html.Kendo().Button().Name("CalcFee").Content("Tính phí").Events(e => e.Click("CalcFee"))        
+    <hr/>
+    <span id="result" style="color: red; font-weight: bold"></span>
+    <hr />
+
+    <img src="~/Content/Images/bang_size.jpg" />
+</div>
+<script type="text/javascript">
+    
+    $(document).keypress(function (e) {
+        if (e.which == 13) {
+            CalcFee();
+        }
+    });
+
+    function CalcFee() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("_CalcFeeForCustomer", "SalesOrder")',
+            data: { cityId: $("#cmbCity").data("kendoComboBox").value() },
+            dataType: "json",
+            success: function (data) {
+                data = "Phí vận chuyển đến " + $("#cmbCity").data("kendoComboBox").text() + " là (đã bao gồm thu tiền hộ 14k): " + data;
+                $('#result').text(data);
+            }
+            //error: errorFunc
+        });
+    }
+</script>

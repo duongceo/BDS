@@ -1,0 +1,74 @@
+﻿@model HappyRE.Core.Entities.Model.Department
+@using Kendo.Mvc.UI
+
+<style>
+    .form-horizontal{
+        padding-top:20px;
+    }
+    .form-horizontal .col-md-2 {
+        width: 120px;
+    }
+    .form-horizontal .col-md-10 {
+        width: calc(100% - 180px)
+    }
+    .form-horizontal .col-md-10 input {
+        width: 100%;
+        max-width:100%;
+    }
+    .form-horizontal .action{
+        text-align:right;
+        padding-top:25px;
+    }
+
+        .form-horizontal .form-group{
+            margin:10px 0;
+        }
+</style>
+
+<form name="ajaxform" id="ajaxform" method="POST">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id, new { })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Code).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Code)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Name).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Phone).HtmlAttributes(new { required = "required", pattern = "/^(03|05|07|08|09)[0-9]{8}$/", validationMessage = "Nhập số điện thoại hợp lệ" })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Note).HtmlAttributes(new { })
+                @Html.ValidationMessageFor(model => model.Note)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().DatePickerFor(x => x.StartDate).HtmlAttributes(new { @type = "" })
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+        </div>
+        <div class="form-group action">
+            <div class="col-md-offset-2">
+                <button onclick="baseDetailPopup.close()" id="btnClose" type="button" class="btn btn-default btn-close">Đóng</button>
+                <button onclick="baseDetailPopup.update('Department')" id="btnUpdate" type="button" class="btn btn-primary btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</form>

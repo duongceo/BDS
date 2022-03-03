@@ -1,0 +1,48 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.BaseQuery
+@{
+    ViewBag.Title = "Tỉnh thành";
+}
+
+<div class="filter-block">
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:600px", PlaceHolder = "Tên tỉnh thành.." })
+    <button id="btnSearch" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.City>()
+      .Name("_list")
+        @*.ToolBar(tools => tools.Template(@<text>
+        </text>))*@
+
+      .Columns(columns =>
+      {
+          columns.Bound(e => e.Id).ClientTemplate("<a href='/district?cityId=#=Id#'>#=Name#</a>").Title("Tỉnh thành");
+          //columns.Bound(p => p.Code).Width(100);
+          //columns.Command(command => command.Destroy().Text("Xóa")).Width(120);
+      })
+      .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+      .Events(events => events.DataBound("common.onDataBoundHandler"))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "City").Data("baseListing.additionalData"))
+      //.Destroy("Delete", "City")
+      )
+)
+
+@section Scripts {
+    <script>
+        //function additionalData() {
+        //    return {
+        //        'Keyword': $("#Keyword").val()
+        //    }
+        //}
+
+        $(document).ready(function () {
+            baseListing.init();
+        });
+
+    </script>
+}

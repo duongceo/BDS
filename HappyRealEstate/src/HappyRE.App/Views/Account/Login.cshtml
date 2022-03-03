@@ -1,0 +1,89 @@
+﻿@model HappyRE.App.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Đăng nhập hệ thống";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<style>
+    #loginForm .wrap {
+        display: inline-block;
+        max-width: 600px;
+        margin: 0 auto;
+        width: 500px;
+    }
+    .rmb-group {
+        float: left;
+        text-align: left;
+    }
+    #loginForm .field-validation-error{
+        float:left;
+        text-align:left;
+    }
+    @@media only screen and (max-width: 600px) {
+        #loginForm .wrap {
+            width: auto;
+        }
+        #loginForm .form-group{
+            padding-left:30px;
+        }
+        #loginForm .form-group label {
+            text-align: left;
+            width: 100%;
+            padding-bottom:10px;
+        }
+        .rmb-group label{
+            width:120px !important;
+        }
+        .login-btn{
+            float:left;
+        }
+}
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm" style="text-align: center">
+            <div class="wrap">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <img src="/Content/images/src/logo.svg" style="max-width:80%"/>
+                    <hr />
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-3  col-sm-12 control-label" })
+                        <div class="col-md-8 col-sm-12">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-3  col-sm-12 control-label" })
+                        <div class="col-md-8 col-sm-12">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-12"></div>
+                        <div class="col-md-8 col-sm-12" style="text-align: right; padding-right: 57px;">
+                            <div class="rmb-group">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-12"></div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="submit" value="Đăng nhập" class="btn btn-default login-btn" style="width: 100px;float:left" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

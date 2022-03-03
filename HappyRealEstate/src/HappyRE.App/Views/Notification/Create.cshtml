@@ -1,0 +1,107 @@
+﻿@model HappyRE.Core.Entities.Model.Notification
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Title) ? "Tạo thông báo mới" : @Model.Title;
+}
+
+<form name="ajaxform" id="ajaxform" method="POST">
+
+    <div class="form-horizontal">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.NotificationType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NotificationType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NotificationType, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.Kendo().EditorFor(model => model.Details)
+          .HtmlAttributes(new { style = "width: 100%; height:540px", aria_label = "editor" })
+          .StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+          )
+          .Tools(tools => tools
+            .Clear()
+            .Bold().Italic().Underline()
+            .JustifyLeft().JustifyCenter().JustifyRight()
+            .InsertUnorderedList().InsertOrderedList()
+            .Outdent().Indent()
+            .CreateLink().Unlink()
+            .InsertImage()
+            .TableEditing()
+            .FontName()
+            .FontSize()
+            .FontColor().BackColor()
+          )
+          .ImageBrowser(imageBrowser => imageBrowser
+              .Image("~/Content/UserFiles/Images/{0}")
+              .Read("Read", "ImageBrowser")
+              .Create("Create", "ImageBrowser")
+              .Destroy("Destroy", "ImageBrowser")
+              .Upload("Upload", "ImageBrowser")
+              .Thumbnail("Thumbnail", "ImageBrowser")
+          ))
+                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DetailsURL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DetailsURL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DetailsURL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SentTo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.Kendo().MultiSelect()
+          .Name("SendTos")
+          .DataTextField("Name")
+          .DataValueField("Id")
+          .Placeholder("Gửi đến...")
+          .AutoBind(false)
+          .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("GetUserOrDepartment", "User");
+              })
+              .ServerFiltering(true);
+          })
+    )
+                    <p style="margin-top:8px;font-size:90%;color:red;"><i>* Để trống nếu muốn gửi đến tất cả</i></p>
+                    @Html.ValidationMessageFor(model => model.SentTo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:30px;">
+                <div class="col-md-offset-2 col-md-10">
+                    <input onclick="notificationDetail.send()" type="button" value="Gửi thông báo" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("< Trở lại danh sách", "Admin")
+        </div>
+
+    </div>
+</form>

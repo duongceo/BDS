@@ -1,0 +1,15 @@
+﻿@model HappyRE.App.Models.UserListModel
+
+@{
+    foreach (var p in Model.Department)
+    {        
+        <optgroup label="@p.Name">
+            @foreach (var c in Model.User.Where(x => x.ParentId == p.Id))
+            {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </optgroup>
+    }
+}
+
+@*   <option value="" ng-disabled="!!userCheckoutModel.district">---Chọn quận/huyện---</option>*@

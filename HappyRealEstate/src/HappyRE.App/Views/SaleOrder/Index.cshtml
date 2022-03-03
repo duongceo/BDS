@@ -1,0 +1,154 @@
+﻿@using Kendo.Mvc.UI
+@using HappyRE.Core.Entities
+@model HappyRE.Core.Entities.SaleOrderQuery
+
+@{
+    ViewBag.Title = "Quản lý giao dịch BĐS";
+}
+<style>
+    .k-widget.k-window {
+        top: 25% !important;
+    }
+
+    .k-grid table tr td img {
+        margin-bottom: 5px;
+    }
+
+    .k-widget.k-header, .k-textbox, .btn {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+<div>
+    @using (Html.BeginForm("Export", "SaleOrder", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:300px", PlaceHolder = "Mã bđs, tên chủ nhà, khách hàng, địa chỉ.." })
+        @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Ngày giao dịch từ" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "đến ngày" })
+        @(Html.Kendo().AutoComplete().HtmlAttributes(new { style = "width:160px;" })
+          .Name("SellBy")
+          .Placeholder("Nhân viên bán..")
+          .DataTextField("NameDisplay")
+          .Filter("contains")
+          .MinLength(3)
+          .DataSource(source =>
+                  {
+              source.Read(read =>
+              {
+                  read.Action("_Gets", "User")
+                      .Data("additionalDataUser");
+              })
+              .ServerFiltering(true);
+          })
+    )
+        <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+        if (User.IsInRole(Permission.SALEORDER_EXPORT))
+        {
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-file"></i> Export</button>
+        }
+    }
+</div>
+<input type="hidden" id="hasAdminRole" value="@(User.IsInRole(Permission.ADMIN)?1:0)" />
+<input type="hidden" id="canEdit" value="@(User.IsInRole(Permission.SALEORDER_MODIFY)?1:0)" />
+<input type="hidden" id="canDelete" value="@(User.IsInRole(Permission.SALEORDER_DELETE)?1:0)" />
+<input type="hidden" id="userName" value="@User.Identity.Name" />
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.SaleOrderListViewModel>()
+      .Name("_list")
+      .ToolBar(tools =>
+      {
+      if (User.IsInRole(Permission.PROPERTY_CREATE))
+      {
+          tools.Template(@<text>
+            <a href="/SaleOrder/create" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tạo giao dịch mới</a>
+            </text>);
+          }
+      })
+      .Columns(columns =>
+      {
+          columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#");
+          columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian");
+          columns.Bound(e => e.PropertyId).ClientTemplate("<a href='/property/detail/#=PropertyId#'>#=PropertyNumber#</a>").Title("Mã BĐS");
+          columns.Bound(e => e.PostedBy).ClientTemplate("<strong>#=PostedBy#</strong>").Title("Nhân viên nhập");
+          columns.Bound(e => e.OwnerIDNumber).ClientTemplate(@"#=OwnerName#</br><b>SĐT</b>: <a href='/customerinfo?id=#=OwnerPhone#'>#=OwnerPhone#</a></br><b>Sinh nhật</b>: #=kendo.toString(OwnerBirthday,'dd/MM/yyyy')#</br><b>CMND</b>: #=common.raw(OwnerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(OwnerAddress)#<b></br>Tiềm năng</b>: #=common.raw(OwnerTargetHtml)#").Title("Thông tin chủ nhà");
+          columns.Bound(e => e.SellBy).ClientTemplate("<strong>#=SellBy#</strong></br><button style='margin-top:5px;' onclick='saleOrderDetail.showCustomerUpdateModal(#=Id#)' class='#= renderCustomerReport(SellBy)# btn btn-sm btn-primary'>BÁO CÁO</button>").Title("Nhân viên bán");
+          columns.Bound(e => e.CustomerIDNumber).ClientTemplate(@"#=common.raw(CustomerName)#</br><b>SĐT</b>: <a class='#= renderCustomerInfo(SellBy)#' href='/customerinfo?id=#=common.raw(CustomerPhone)#'>#=common.raw(CustomerPhone)#</a></br><b>Sinh nhật</b>: #=common.raw(kendo.toString(CustomerBirthday,'dd/MM/yyyy'))#</br><b>CMND</b>: #=common.raw(CustomerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(CustomerAddress)#</br><b>Tiềm năng</b>: #=common.raw(CustomerTargetHtml)#</br><b>Ngày giao dịch</b>: #=common.raw(kendo.toString(OrderDate,'dd/MM/yyyy'))#").Title("Thông tin khách hàng");
+          columns.Bound(e => e.Comment).Title("Ghi chú");
+          columns.Bound(e => e.Id).Width(120).Title("").ClientTemplate(@"<a title='Xem chi tiết' href='/SaleOrder/detail/#=Id#' class='btn btn-default'>Chi tiết</a>
+        <a title='Chỉnh sửa thông tin' href='/SaleOrder/edit/#=Id#' class='#= bizHelper.renderCanEdit('canEdit',CreatedBy)# btn btn-default'><span class='k-icon k-edit' aria-hidden='true'></span> Sửa</a>
+        <button type='button' onclick='saleOrderListing.delete(#=Id#)' class='#= bizHelper.renderCanDo('canDelete')# btn btn-default'><span class='k-icon k-delete'></span> Xóa</button>");
+      })
+        .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+        .Events(events => events.DataBound("common.onDataBoundHandler"))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Model(model => model.Id(p => p.Id))
+        .Events(events => events.Error("common.errorHandler"))
+        .Read(read => read.Action("Search", "SaleOrder").Data("additionalData"))      
+        //.Destroy("Delete", "SaleOrder")
+        )
+        )
+
+
+        @(Html.Kendo().Window()
+      .Name("_detail")
+      .Title("Báo cáo")
+      .Modal(true)
+      .Width(680)
+      .HtmlAttributes(new { style="top:25% !important;"})
+      //.Height(350)
+      .Visible(false)
+      .Scrollable(true))
+
+        @section Scripts {
+            <script>
+                function filterDistricts() {
+                    return {
+                        cityId: $("#cmbCity").val()
+                    }
+                }
+
+                function additionalData() {
+                    return {
+                        'Keyword': $("#Keyword").val(),
+                        'SellBy': $("#SellBy").val(),
+                        'FromDate': $("#FromDate").val(),
+                        'ToDate': $("#ToDate").val()
+                    }
+                }
+
+                function additionalDataUser() {
+                    return {
+                        'Keyword': $("#SellBy").val()
+                    }
+                }
+
+                $(document).ready(function () {
+                    baseListing.init();
+                });
+            </script>
+
+            <script>
+                var counter = 1;
+
+                function onDataBound(e) {
+                    counter = 1;
+                }
+
+                function renderNumber(data) {
+                    return counter++;
+                }
+
+                function renderCustomerReport(sellBy) {
+                    var usn = $('#userName').val();
+                    return sellBy == usn? '':'hidden';
+                }
+
+                function renderCustomerInfo(sellBy) {
+                    var usn = $('#userName').val();
+                    var hasAdminRole = parseInt($('#hasAdminRole').val());
+                    return (sellBy == usn || hasAdminRole == 1) ? '' : 'hidden';
+                }
+            </script>
+        }

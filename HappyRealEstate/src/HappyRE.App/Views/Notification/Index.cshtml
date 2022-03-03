@@ -1,0 +1,69 @@
+﻿@using Kendo.Mvc.UI
+@using HappyRE.Core.Entities
+@model HappyRE.Core.Entities.NotificationQuery
+@{
+    ViewBag.Title = "Thông báo";
+}
+
+<div class="filter-block">
+    @using (Html.BeginForm("Export", "Property", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:200px", PlaceHolder = "Tìm theo nội dung thông báo.." })
+        @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Từ ngày" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "Đến ngày" })
+        @(Html.Kendo().ComboBoxFor(x => x.IsRead).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Trạng thái")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Chưa đọc", Value = "false"
+                  },
+                  new SelectListItem() {
+                      Text = "Đã đọc", Value = "true"
+                  }
+                  })
+        )
+        <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+    }
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.Notification>()
+      .Name("_list")     
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.CreatedDate).Width(130).Format("{0: dd/MM/yyyy HH:mm}");
+          columns.Bound(e => e.Title).ClientTemplate(@"<a title='Chi tiết' href='/notification/detail/#=Id#'>#=Title#</a>");
+          //columns.Bound(e => e.DetailsURL).ClientTemplate("<a href='#=DetailsURL#'>Link chi tiết</a>");
+          //columns.Bound(p => p.SentTo).Width(250);
+          columns.Bound(p => p.IsRead).ClientTemplate("<i style='color:green'>#= IsRead==1?'<span class=\"glyphicon glyphicon-check\"></span>' :'<span class=\"glyphicon glyphicon-unchecked\"></span>' #</b>").HtmlAttributes(new { style = "text-align:center" });         
+      })
+      .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+      .Events(events => events.DataBound("common.onDataBoundHandler"))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "Notification",new { cityId= Model}).Data("additionalData"))
+                  //.Destroy("Delete", "Notification")
+      )
+)
+
+
+@section Scripts {
+    <script>
+        function additionalData() {
+            return {
+                'Keyword': $("#Keyword").val(),
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val(),
+                'IsRead': $("#IsRead").val()
+            }
+        }
+
+        $(document).ready(function () {
+            baseListing.init();
+        });
+    </script>
+}

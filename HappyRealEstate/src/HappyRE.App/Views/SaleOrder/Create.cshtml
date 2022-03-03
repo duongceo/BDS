@@ -1,0 +1,342 @@
+﻿@model HappyRE.Core.Entities.Model.SaleOrder
+@using HappyRE.Core.Entities
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = @Model.Id == 0 ? "Tạo giao dịch mới" : "Cập nhật thông tin giao dịch";
+}
+
+<style>
+    input.k-input {
+        max-width: 100%;
+    }
+
+    h4 {
+        font-weight: bold;
+    }
+</style>
+
+<form name="ajaxform" id="ajaxform" method="POST">
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PropertyId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        <select id="PropertyId" name="PropertyId" style="width:300px;" required validationMessage="Không được để trống">
+                            @{ Html.RenderAction("PropertyListPartial", "Property"); }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.PropertyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostedBy, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        <select id="PostedBy" name="PostedBy" style="width: 300px;" required validationMessage="Không được để trống">
+                            @{ Html.RenderAction("UserListPartial", "User"); }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.PostedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SellBy, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        <select id="SellBy" name="SellBy" style="width:300px;" required validationMessage="Không được để trống">
+                            @{ Html.RenderAction("UserListPartial", "Department"); }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.SellBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if (Model.SellBy == User.Identity.Name || User.IsInRole(Permission.ADMIN))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.Kendo().DatePickerFor(x => x.OrderDate).HtmlAttributes(new { @type = "" })
+                            @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group hidden">
+                        @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.Kendo().DatePickerFor(x => x.OrderDate).HtmlAttributes(new { @type = "", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        @Html.Kendo().NumericTextBoxFor(m => m.TotalAmount).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { required = "required", style="width:300px;" })
+                        @Html.ValidationMessageFor(model => model.TotalAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group hidden">
+                    @Html.LabelFor(model => model.RewardPoint, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RewardPoint, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @Html.ValidationMessageFor(model => model.RewardPoint, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-horizontal" style="padding-right:10px;">
+                <h4>Chủ nhà</h4><hr />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.OwnerName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.OwnerName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerPhone, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.OwnerPhone, new { htmlAttributes = new { @class = "form-control", required = "required", validationMessage = "Nhập số điện thoại hợp lệ" } })
+                        @Html.ValidationMessageFor(model => model.OwnerPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerBirthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.Kendo().DatePickerFor(x => x.OwnerBirthday).HtmlAttributes(new { @type = "" })
+                        @Html.ValidationMessageFor(model => model.OwnerBirthday, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.CheckBoxFor(x => x.AlertOwnerBirthDay) <strong>Báo sinh nhật</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerIDNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.OwnerIDNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OwnerIDNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.OwnerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OwnerAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerTargetId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                    <div class="col-md-10">
+                        @(Html.Kendo().MultiSelect()
+                                .DataTextField("Name")
+                                .Name("OwnerTargetIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedOwnerTarget)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                .HtmlAttributes(new { required = "required" })
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerTargetType" }))))
+                        @Html.HiddenFor(model => model.OwnerTargetId, new { })
+                        @Html.ValidationMessageFor(model => model.OwnerTargetId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerAvatar, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.OwnerAvatar, new { htmlAttributes = new { @class = "form-control" } })
+                        <img id="owner_avatar_img" src="@Model.OwnerAvatar" style="width:100px;height:100px;border:solid 1px #d7d3d3" />
+                        @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+.Name("files")
+.Multiple(false)
+.ShowFileList(false)
+.Async(a => a
+    .Save("Avatar", "Upload")
+    .Remove("Remove", "Upload")
+    .AutoUpload(true)
+
+).Events(events => events
+    .Complete("baseUpload.onComplete")
+    .Success("ownerAvatarSuccess")
+    .Upload("baseUpload.onUpload")
+))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-horizontal" style="padding-left:20px;">
+                <h4>Khách hàng</h4><hr />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if ((Model.SellBy == User.Identity.Name || User.IsInRole(Permission.ADMIN)))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CustomerPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control" , validationMessage = "Nhập số điện thoại hợp lệ" } })
+                            @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.HiddenFor(x=>x.CustomerPhone)
+                }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerBirthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.Kendo().DatePickerFor(x => x.CustomerBirthday).HtmlAttributes(new { @type = "" })
+                        @Html.ValidationMessageFor(model => model.CustomerBirthday, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.CheckBoxFor(x => x.AlertCustomerBirthDay) <strong>Báo sinh nhật</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerIDNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CustomerIDNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CustomerIDNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerTargetId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @(Html.Kendo().MultiSelect()
+                                .DataTextField("Name")
+                                .Name("CustomerTargetIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedCustomerTarget)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                //.HtmlAttributes(new { required = "required" })
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerTargetType" }))))
+                        @Html.HiddenFor(model => model.CustomerTargetId, new { })
+                        @Html.ValidationMessageFor(model => model.CustomerTargetId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerAvatar, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.CustomerAvatar, new { htmlAttributes = new { @class = "form-control" } })
+                        <img id="customer_avatar_img" src="@Model.CustomerAvatar" style="width:100px;height:100px;border:solid 1px #d7d3d3" />
+                        @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+                            .Name("files1")
+                            .Multiple(false)
+                            .ShowFileList(false)
+                            .Async(a => a
+                                .Save("Avatar1", "Upload")
+                                .Remove("Remove", "Upload")
+                                .AutoUpload(true)
+
+                            ).Events(events => events
+                                .Complete("baseUpload.onComplete")
+                                .Success("customerAvatarSuccess")
+                                .Upload("baseUpload.onUpload")
+                            ))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-group" style="margin-top:30px;">
+            <div class="col-md-offset-2 col-md-10" style="margin-left:121px !important;">
+                <input onclick="saleOrderDetail.update()" type="button" value="Lưu dữ liệu" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@(Html.Kendo().Window()
+      .Name("_propertyListModal")
+      .Title("Chọn bất động sản")
+      .Modal(true)
+      .Height(520)
+      .Width(1024)
+      .Visible(false)
+      .Scrollable(true))
+
+<div class="foot-link">
+    @Html.ActionLink("< Trở lại danh sách", "Index")
+</div>
+
+@section Scripts {
+    <script>
+        function ownerAvatarSuccess(e) {
+            if (e.operation == 'upload') {
+                $("#OwnerAvatar").val(e.response.data);
+                $("#owner_avatar_img").attr("src", e.response.data);
+            }
+        }
+
+        function customerAvatarSuccess(e) {
+            if (e.operation == 'upload') {
+                $("#CustomerAvatar").val(e.response.data);
+                $("#customer_avatar_img").attr("src", e.response.data);
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @*$("#PostedBy").select2({
+                placeholder: "---Chọn nhân viên---",
+            }).trigger("change");
+            $("#PostedBy").val('@Model.PostedBy').trigger("change");*@
+
+        @*$("#SellBy").select2({
+                placeholder: "---Chọn nhân viên---",
+            }).trigger("change");
+            $("#SellBy").val('@Model.SellBy').trigger("change");*@
+
+            $("#PostedBy").val(null).trigger("change");
+            $("#PostedBy").select2().val('@Model.PostedBy').trigger("change");
+
+            $("#SellBy").val(null).trigger("change");
+            $("#SellBy").select2().val('@Model.SellBy').trigger("change");
+
+            $("#PropertyId").val(null).trigger("change");
+            $("#PropertyId").select2().val('@Model.PropertyId').trigger("change");
+
+            @*$("#PropertyId").select2({
+                placeholder: "---Chọn BĐS---",
+            }).trigger("change");
+            $("#PropertyId").val('@Model.PropertyId').trigger("change");*@
+    });
+    </script>
+}

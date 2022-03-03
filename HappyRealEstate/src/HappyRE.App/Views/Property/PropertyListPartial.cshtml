@@ -1,0 +1,10 @@
+﻿@model HappyRE.App.Models.PropertyListModel
+
+@{
+    foreach (var p in Model.Property)
+    {        
+        <option value="@p.Id">@p.Name</option>
+    }
+}
+
+@*   <option value="" ng-disabled="!!userCheckoutModel.district">---Chọn quận/huyện---</option>*@

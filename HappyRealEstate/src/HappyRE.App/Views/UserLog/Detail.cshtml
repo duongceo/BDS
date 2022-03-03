@@ -1,0 +1,112 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.HistoryLogQuery
+@{
+    ViewBag.Title = "Hoạt động nhân viên: " + Model.CreatedBy;
+}
+<style>
+    .k-widget.k-window {
+        top: 25% !important;
+    }
+
+    .k-grid table tr td img {
+        margin-bottom: 5px;
+    }
+
+    .k-widget.k-header, .k-textbox, .btn {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div>
+    @using (Html.BeginForm("Export", "Property", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:200px", PlaceHolder = "Tìm.." })
+        @(Html.Kendo().ComboBoxFor(x => x.TableName).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Loại")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Bất động sản", Value = "Property"
+                  },
+                  new SelectListItem() {
+                      Text = "Khách hàng", Value = "Customer"
+                  }
+                  })
+        )
+
+        @(Html.Kendo().ComboBoxFor(x => x.Action).HtmlAttributes(new { style = "width:150px;" })
+                                    .Placeholder("Hoạt động")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Chỉnh sửa", Value = "IU"
+                  },
+                  new SelectListItem() {
+                      Text = "Xem danh sách", Value = "Search"
+                  },
+                  new SelectListItem() {
+                      Text = "Xem chi tiết", Value = "Detail"
+                  },
+                  new SelectListItem() {
+                      Text = "Xem SĐT", Value = "ShowMobile"
+                  },
+                  new SelectListItem() {
+                      Text = "Xuất dữ liệu", Value = "Export"
+                  }
+                  })
+        )
+        @Html.HiddenFor(x => x.CreatedBy)
+        <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+    }
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.HistoryLog>()
+      .Name("_list")
+
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.CreatedDate).Width(160).Format("{0: dd/MM/yyyy HH:mm:ss}").Title("Ngày");
+          columns.Bound(e => e.CreatedBy).ClientTemplate("#=FullName# (<a>#=CreatedBy#</a>)").Title("Nhân viên").Width(250);
+          columns.Bound(p => p.ContentDisplayDetail).ClientTemplate("#=Action=='Detail'? bizHelper.renderUserLogDetailUrl(TableKeyId, TableName,ContentDisplayDetail, ReferName) : ContentDisplayDetail#").Title("Nội dung");
+      })
+      .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+      .Events(events => events.DataBound("common.onDataBoundHandler"))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("SearchDetail", "UserLog",new {id= Model.CreatedBy}).Data("additionalData"))
+      )
+)
+
+<div style="padding-top:20px;">
+    <a href="/userlog/"><i class="fa fa-angle-left"></i>  Quay lại</a>
+</div>
+@section Scripts {
+    <script>
+        function additionalData() {
+            return {
+                'TableName': $("#TableName").val(),
+                'TableKeyId': $("#TableKeyId").val(),
+                'Action': $("#Action").val(),
+                'Keyword': $("#Keyword").val(),
+                'CreatedBy': $("#CreatedBy").val()
+            }
+        }
+
+        function additionalDataUser() {
+            return {
+                'Keyword': $("#CreatedBy").val()
+            }
+        }
+
+        $(document).ready(function () {
+            baseListing.init();
+        });
+    </script>
+}
+

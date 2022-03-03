@@ -1,0 +1,37 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.Model.SysCodeTable
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.SysCode>()
+      .Name("_list")
+        .ToolBar(tools => tools.Template(@<text>
+        <button onclick="sysCodeDetail.show('SysCode','@Model.Id',0)" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Thêm mới</button>
+        </text>))
+
+      .Columns(columns =>
+      {
+          columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='sysCodeDetail.show(\"SysCode\",\"#=TableId#\",#=Id#)'>#=Name#</a>").Title("Tên");
+          //columns.Bound(p => p.TableId).Width(200);
+          columns.Bound(p => p.Body).Width(200);
+          columns.Command(command => command.Destroy().Text("Xóa")).Width(100);
+      })
+      .Pageable(x => x.PageSizes(new[] { 20, 30, 50, 80, 100 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "SysCode", new { tableId = Model.Id }))
+                  .Destroy("Delete", "SysCode")
+      )
+)
+@(Html.Kendo().Window()
+      .Name("_detail")
+      .Title(Model.Name)
+      .Modal(true)
+      .Width(680)
+      //.Height(350)
+      .Visible(false)
+      .Scrollable(true))

@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E31FD1B2-1ECD-4491-93E1-35DF4DC5338C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HappyRE.Core.BLL</RootNamespace>
+    <AssemblyName>HappyRE.Core.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.4\lib\netstandard2.0\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.SimpleCRUD, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.SimpleCRUD.2.2.0.1\lib\netstandard2.0\Dapper.SimpleCRUD.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\libs\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.7.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.7.12\lib\net46\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.7.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.12\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.21.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.21\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net.ElasticSearch, Version=2.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.ElasticSearch.2.3.7\lib\net45\log4net.ElasticSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="MBN.Utils">
+      <HintPath>..\libs\MBN.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLinq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1c5d57eb9e11fe4b, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLinq.2.0\lib\net\SQLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\libs\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Linq.Async, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Async.5.0.0\lib\net461\System.Linq.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twilio, Version=5.68.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.68.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="vng.zalo.ZaloCSharpSDK, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\vng.zalo.ZaloCSharpSDK.1.0.12\lib\net452\vng.zalo.ZaloCSharpSDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessException.cs" />
+    <Compile Include="CacheRepositories\CacheFileRepository.cs" />
+    <Compile Include="DependencyResolution\BLLRegistry.cs" />
+    <Compile Include="DependencyResolution\CachedBLLRegistry.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Base\BaseDPRepository.cs" />
+    <Compile Include="Repositories\CustomerInfoRepository.cs" />
+    <Compile Include="Repositories\ICustomerInfoRepository.cs" />
+    <Compile Include="Repositories\IPropertyImageRepository.cs">
+      <DependentUpon>PropertyImageRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ISaleOrderRepository.cs">
+      <DependentUpon>SaleOrderRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleOrderRepository.cs" />
+    <Compile Include="Repositories\INotificationReadRepository.cs">
+      <DependentUpon>NotificationReadRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NotificationReadRepository.cs" />
+    <Compile Include="Repositories\INotificationRepository.cs">
+      <DependentUpon>NotificationRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NotificationRepository.cs" />
+    <Compile Include="Repositories\IHistoryLogRepository.cs">
+      <DependentUpon>HistoryLogRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PropertyImageRepository.cs" />
+    <Compile Include="Repositories\CustomerRegionTargetRepository.cs" />
+    <Compile Include="Repositories\IPropertyRepository.cs">
+      <DependentUpon>PropertyRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUserProfileRepository.cs">
+      <DependentUpon>UserProfileRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PropertyRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\DepartmentRepository.cs" />
+    <Compile Include="Repositories\ICityRepository.cs">
+      <DependentUpon>CityRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ICustomerRegionTargetRepository.cs">
+      <DependentUpon>CustomerRegionTargetRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ICustomerRepository.cs">
+      <DependentUpon>CustomerRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IDepartmentRepository.cs">
+      <DependentUpon>DepartmentRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IDistrictRepository.cs">
+      <DependentUpon>DistrictRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IIpAllowedsRepository.cs">
+      <DependentUpon>IpAllowedsRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ISysCodeRepository.cs">
+      <DependentUpon>SysCodeRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SysCodeRepository.cs" />
+    <Compile Include="Repositories\IStreetRepository.cs">
+      <DependentUpon>StreetRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IWardRepository.cs">
+      <DependentUpon>WardRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IpAllowedsRepository.cs" />
+    <Compile Include="Repositories\StreetRepository.cs" />
+    <Compile Include="Repositories\WardRepository.cs" />
+    <Compile Include="Repositories\DistrictRepository.cs" />
+    <Compile Include="Repositories\HistoryLogRepository.cs" />
+    <Compile Include="Repositories\IRoleGroupRepository.cs">
+      <DependentUpon>RoleGroupRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IRoleRepository.cs">
+      <DependentUpon>RoleRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ITokenRepository.cs">
+      <DependentUpon>TokenRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RoleGroupRepository.cs" />
+    <Compile Include="Repositories\CityRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\TokenRepository.cs" />
+    <Compile Include="Services\SendGridTask.cs" />
+    <Compile Include="Services\SmsService.cs" />
+    <Compile Include="Services\TokenService.cs" />
+    <Compile Include="Repositories\Base\BaseRepository.cs" />
+    <Compile Include="Repositories\Base\IBaseRepository.cs">
+      <DependentUpon>BaseRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Base\IUow.cs">
+      <DependentUpon>Uow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Base\Uow.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="Repositories\IFileRepository.cs">
+      <DependentUpon>FileRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserProfileRepository.cs" />
+    <Compile Include="Services\TwilioService.cs" />
+    <Compile Include="Utils\CommonUtils.cs" />
+    <Compile Include="Utils\CoreExtension.cs" />
+    <Compile Include="Utils\DateTimeUtils.cs" />
+    <Compile Include="Utils\EmailUtils.cs" />
+    <Compile Include="Utils\SmsUtils.cs" />
+    <Compile Include="Utils\ZaloUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HappyRE.Core.Entities\HappyRE.Core.Entities.csproj">
+      <Project>{9e1c2647-968c-45bb-9bed-d78cb0aa2545}</Project>
+      <Name>HappyRE.Core.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.Core.Model\HappyRE.Core.Model.csproj">
+      <Project>{0fa47710-d8d7-4b03-ac6a-5acba9374651}</Project>
+      <Name>HappyRE.Core.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.Core.Utils\HappyRE.Core.Utils.csproj">
+      <Project>{5d41c6c4-4da6-4ffc-b7d6-2a12865ca753}</Project>
+      <Name>HappyRE.Core.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.EmailServices\HappyRE.EmailServices.csproj">
+      <Project>{0b1222bb-a76d-441d-a8eb-fac24a17526a}</Project>
+      <Name>HappyRE.EmailServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.FileServiceProxy\HappyRE.FileServiceProxy.csproj">
+      <Project>{fe6e8b91-2857-4bd0-adc6-1432b295c9a2}</Project>
+      <Name>HappyRE.FileServiceProxy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,53 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.PropertyQuery
+
+@{
+    ViewBag.Title = "Danh sách BĐS";
+}
+
+<div>
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:400px", PlaceHolder = "Mã BĐS, địa chỉ..." })
+    @(Html.Kendo().ComboBoxFor(x => x.ContractId_Filter).HtmlAttributes(new { style = "width:120px;" })
+                              .Filter("contains")
+                            .Placeholder("Phân loại..")
+                            .DataTextField("Name")
+                            .DataValueField("Id")
+                            .Filter(FilterType.Contains)
+                            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "ContractType" }))))
+    @(Html.Kendo().ComboBoxFor(x => x.StatusId_Filter).HtmlAttributes(new { style = "width:120px;" })
+                              .Filter("contains")
+                            .Placeholder("Trạng thái..")
+                            .DataTextField("Name")
+                            .DataValueField("Id")
+                            .Filter(FilterType.Contains)
+                            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyStatusType" }))))
+
+    @Html.Kendo().Button().Name("Search").Content("Tìm kiếm").Events(e => e.Click("propertyListing.onSearch"))
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.PropertyListViewModel>()
+      .Name("_listModal")
+      .Columns(columns =>
+      {
+          columns.Bound(e => e.PropertyNumber).ClientTemplate("<a href='/property/detail/#=Id#'>#=PropertyNumber#</a>");
+          columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian");
+          columns.Bound(e => e.TypeHtml).Encoded(false).ClientTemplate("<div><strong>#=Code#</strong></br><span>#=TypeHtml#</span></div>").Title("Mã BĐS");
+          columns.Bound(e => e.AddressHtml).Encoded(false).Title("Vị trí BĐS");
+          columns.Bound(e => e.DetailHtml).Encoded(false).ClientTemplate("<div><b>DT đất: </b><span>#=Area# m2</span></br><b>Ngang: </b><span>#=Width# m</span></br><b>Dài: </b><span>#=Length# m</span></br><b>Số phòng ngủ: </b><span>#=NumOfBedroom#</span></br><b>Số toilet: </b><span>#=NumOfToilet#</span></br><b>Số tầng: </b><span>#=NumOfFloor#</span></br><b>Đường rộng: </b><span>#=StreetWidth# m</span></br><b>Hướng nhà: </b><span>#=DirectionName#</span></br><b>Ghi chú: </b><span>#=Note#</span></div>");
+          columns.Bound(e => e.Commission).ClientTemplate("<div><b>Phí MG: </b><span>#=Commission# %</span></br><b>Giá: </b><span>#=Price# #=CurrencyType#</span></br><b>Giá chốt: </b><span>#=PriceMatched# #=CurrencyType#</span></br></div>").Title("Phí MG - giá");
+          columns.Bound(e => e.Id).ClientTemplate("#=bizHelper.renderPropertyShowPhone(IsViewedMobileToday, Id, OwnerName, OwnerPhone)#").Title("Khách hàng");
+          columns.Bound(e => e.PostedHtml).Encoded(false).Title("Người nhập");
+          columns.Bound(e => e.IsChecked).Encoded(false).ClientTemplate("<div><span>#=StatusHtml#</span>#=IsChecked? '<span class=\"label label-success\">Đã check</span>':'<label></label>' #</div>").Title("Trạng thái"); ;
+          columns.Bound(e => e.PotentialHtml).Encoded(false);
+          columns.Bound(e => e.IsVerified).ClientTemplate("<i style='color:green'>#= IsVerified==true?'<span class=\"glyphicon glyphicon-check\"></span>' :'<span class=\"glyphicon glyphicon-unchecked\"></span>' #</i></br>#=IsChecked? '<span class=\"label label-danger\">HOT</span>':'' #").HtmlAttributes(new { style = "text-align:center" });
+          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='propertyListing.choose(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-import' aria-hidden='true'></span></button>");
+      })
+      .Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(10)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "Property").Data("propertyListing.additionalData"))
+      )
+)

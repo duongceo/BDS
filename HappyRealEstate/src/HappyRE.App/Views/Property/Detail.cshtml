@@ -1,0 +1,531 @@
+﻿@using Kendo.Mvc.UI
+@using HappyRE.Core.Entities
+@model HappyRE.Core.Entities.ViewModel.PropertyListViewModel
+@{
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Code) ? "Tạo bất động sản mới" : "Thông tin chi tiết BĐS: " + Model.Code;
+}
+<style>
+    .img-list img {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PropertyNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PropertyNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
+
+            <dd>
+                <strong class="highlight">@Model.Code</strong>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.StatusHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.TypeHtml)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Commission)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Commission)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AddressHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.AddressHtml)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Office)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Office)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RegionCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RegionCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MapCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MapCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LegalName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LegalName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                <strong class="highlight">@Model.PriceDisplay</strong>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PriceMatched)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PriceMatchedDisplay)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PricePerArea)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PricePerArea)
+            </dd>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.CurrencyType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CurrencyType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CalcMethod)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CalcMethod)
+                </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.DirectionId)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.DirectionName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Width)
+            </dt>
+
+            <dd>
+                <strong class="highlight">@Model.Width m</strong>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Length)
+            </dt>
+
+            <dd>
+                <strong class="highlight">@Model.Length m</strong>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Area)
+            </dt>
+
+            <dd>
+                <strong class="highlight">@Model.Area <span>m2</span></strong>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AreaForBuild)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AreaForBuild) <span>m2</span>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumOfBedroom)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfBedroom)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumOfToilet)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfToilet)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumOfFloor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfFloor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StreetWidth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StreetWidth) <span>m</span>
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            @if ((bool)ViewBag.CanViewMobile == true)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.OwnerName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OwnerName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OwnerPhone)
+                </dt>
+
+                <dd>
+                    @if (Model.IsViewedMobileToday == true || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE))
+                    {
+                        @Html.DisplayFor(model => model.OwnerPhone)
+                    }
+                    else
+                    {
+                        <span id="txt_phone" style="display:none;">@Model.OwnerPhone</span>
+                        <a id="btn_phone" class='btn btn-default' onclick='propertyListing.showMobile("@Model.Id")'>XEM SĐT</a>
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OwnerPhoneExt)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OwnerPhoneExt)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OwnerNote)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OwnerNote)
+                </dd>
+                <hr />
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+
+            <dd>
+                <div class="img-list">
+                    @Html.Raw(Model.ImageHtml)
+                </div>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VideoUrl)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UpdatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostedBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostedDate)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PotentialHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.PotentialHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SourceName)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.SourceName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UtilityId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UtilityHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SourceId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SourceName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StrongId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StrongHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WeakId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WeakHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContructId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContructHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StructureId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StructureHtml)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DetailHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.DetailHtml)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedHtml)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.PostedHtml)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsHot)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsHot)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsChecked)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsChecked)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsVerified)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsVerified)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<input type="hidden" id="canDelete" value="@(User.IsInRole(Permission.COMMENT_DELETE)?1:0)" />
+<div>
+    @(Html.Kendo().Grid<HappyRE.Core.Entities.Model.HistoryLog>()
+          .Name("_list")
+          .Columns(columns => columns.Bound(product => product.Contents).Title("Bình luận").ClientTemplate(@"
+                    <div id='rowComment'>
+                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) #=CreatedBy#</span>: #=Contents#
+                        <div id='deleteIcon'><a href='javascript:void();'><span class='#= bizHelper.renderCanDo('canDelete')# glyphicon glyphicon-remove' onclick='historyLog.onRemove(#=Id#)'></span></a></div>
+                    </div>"))
+          .Scrollable(h => h.Height("200px"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Search", "HistoryLog", new {tableName = "Property", tableKeyId = @Model.Id}))
+          )
+          )
+    <br />
+    <div style="padding: 3px">
+        @Html.TextArea("commentText", new { onkeypress = "historyLog.sendCommentEnter('Property'," + @Model.Id + ")", placeholder = "Nhập nội dung để ghi chú, enter hoặc nhấn gởi để lưu.", rows = 3 })
+        <button class="k-button k-primary" style="width: 80px; height: 50px" onclick="historyLog.sendComment('Property', @Model.Id)">Gởi</button>
+    </div>
+</div>
+
+@if (User.IsInRole(Permission.PROPERTY_MODIFY_HISTORY))
+{
+<div class="track-history-changed" style="margin-top:30px;">
+    <h4><span class="glyphicon glyphicon-time"></span> Lịch sử thay đổi</h4>
+    @(Html.Kendo().Grid<HappyRE.Core.Entities.Model.TrackChange>()
+      .Name("_listTrack")
+      .Columns(columns =>
+      {
+          columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#").Width(20);
+          columns.Bound(e => e.UpdatedDate).ClientTemplate("<span>#=kendo.toString(UpdatedDate,'dd/MM/yyyy HH:mm:ss')#</span>").Width(150);
+          columns.Bound(e => e.UpdatedBy).Width(160);
+          columns.Bound(e => e.ColumnName).Width(180);
+          columns.Bound(e => e.Old);
+          columns.Bound(e => e.New);
+      })
+      .Scrollable()
+          .Pageable(x => x.PageSizes(new[] { 20, 50 }))
+          .Events(events => events.DataBound("onDataBound"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(20)
+              .Model(model => model.Id(p => p.Id))
+              .Events(events => events.Error("common.errorHandler"))
+                      .Read(read => read.Action("SearchTrack", "HistoryLog").Data("additionalData"))
+          )
+)
+</div>
+}
+
+<div class="foot-link">
+    @Html.ActionLink("< Trở lại danh sách", "Index")
+
+    @if (User.IsInRole(Permission.PROPERTY_DELETE))
+    {
+        <button type='button' class='btn btn-danger' onclick="propertyListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
+    }
+
+    @if (User.IsInRole(Permission.PROPERTY_MODIFY))
+    {
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
+
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/app/property/historylog.js"></script>
+
+    <script>
+        var counter = 1;
+
+        function onDataBound(e) {
+            counter = 1;
+
+            var grid = e.sender;
+            console.log(grid.dataSource.total());
+            if (grid.dataSource.total() == 0) {
+                $('.track-history-changed').hide();
+            }
+            else {
+                //Show grid
+                $('.track-history-changed').show();
+            }
+        }
+
+        function renderNumber(data) {
+            return counter++;
+        }
+
+        function additionalData() {
+            return {
+                'TableKeyId': @Model.Id,
+                'TableId':'Property'
+            }
+        }
+    </script>
+}

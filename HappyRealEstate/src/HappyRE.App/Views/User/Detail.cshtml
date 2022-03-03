@@ -1,0 +1,151 @@
+﻿@model HappyRE.Core.Entities.Model.UserProfile
+@using Kendo.Mvc.UI
+
+<style>
+    .form-horizontal {
+        padding-top: 20px;
+    }
+
+        .form-horizontal .col-md-2 {
+            width: 120px;
+        }
+
+        .form-horizontal .col-md-10 {
+            width: calc(100% - 180px)
+        }
+
+            .form-horizontal .col-md-10 input {
+                width: 100%;
+                max-width: 100%;
+            }
+
+        .form-horizontal .action {
+            text-align: right;
+            padding-top: 25px;
+        }
+
+        .form-horizontal .form-group {
+            margin: 10px 0;
+        }
+</style>
+
+<form name="ajaxform" id="ajaxform" method="POST">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id, new { })
+        @Html.HiddenFor(model => model.Avatar, new { })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.FullName).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.FullName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Email).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Mobile).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Mobile)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @(Html.Kendo().ComboBoxFor(x=>x.DepartmentId)
+                          .Filter("contains")
+                        .Placeholder("Phòng ban..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .HtmlAttributes(new { required = "required" })
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Department"))))
+                @Html.ValidationMessageFor(model => model.DepartmentId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LevelId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @(Html.Kendo().ComboBoxFor(x=>x.LevelId)
+                          .Filter("contains")
+                        .Placeholder("Chức vụ..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .HtmlAttributes(new { required = "required" })
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "SysCode",new { tableId="UserLevel"}))))
+                @Html.ValidationMessageFor(model => model.LevelId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoleGroupId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @(Html.Kendo().ComboBoxFor(x=>x.RoleGroupId)
+                          .Filter("contains")
+                        .Placeholder("Nhóm quyền..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .HtmlAttributes(new { required = "required" })
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "RoleGroup"))))
+                @Html.ValidationMessageFor(model => model.RoleGroupId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserStatus, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @(Html.Kendo().ComboBoxFor(x => x.UserStatus).HtmlAttributes(new { style = "width:120px;" })
+                                    .Placeholder("Trạng thái..")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .HtmlAttributes(new { required = "required" })
+                                      .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Hoạt động", Value = "0"
+                  },
+                  new SelectListItem() {
+                      Text = "Ngưng", Value = "1"
+                  }
+                  }))
+                @Html.ValidationMessageFor(model => model.UserStatus)
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img id="avatar_img" src="@Model.Avatar" style="width:100px;height:100px;border:solid 1px #d7d3d3" />
+                @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+    .Name("files")
+    .Multiple(false)
+    .ShowFileList(false)
+    .Async(a => a
+        .Save("Avatar", "Upload")
+        .Remove("Remove", "Upload")
+        .AutoUpload(true)
+
+    ).Events(events => events
+        //.Cancel("onCancel")
+        .Complete("baseUpload.onComplete")
+        //.Error("onError")
+        //.Progress("onProgress")
+        //.Remove("onRemove")
+        //.Select("onSelect")
+        .Success("baseUpload.onSuccess")
+        .Upload("onUpload")
+    ))
+
+                @Html.ValidationMessageFor(model => model.Avatar)
+            </div>
+
+        </div>
+        <div class="form-group action">
+            <div class="col-md-offset-2">
+                <button onclick="baseDetailPopup.close()" id="btnClose" type="button" class="btn btn-default btn-close">Đóng</button>
+                <button onclick="baseDetailPopup.update('User')" id="btnUpdate" type="button" class="btn btn-primary btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</form>

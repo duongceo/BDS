@@ -1,0 +1,97 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.CityQuery
+
+@{
+    ViewBag.Title = "Phường xã";
+}
+
+<div class="filter-block">
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:600px", PlaceHolder = "Tên phường xã.." })
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbCity")
+                          .Filter("contains")
+                        .Placeholder("Tỉnh thành..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Value(Model.CityId.HasValue? Model.CityId.Value.ToString():"")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "City"))))
+    @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                          .Name("cmbDistrict")
+                          .Filter("contains")
+                        .Placeholder("Quận huyện..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Value(Model.DistrictId.HasValue ? Model.DistrictId.Value.ToString() : "")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("_Gets", "District")
+                                    .Data("filterDistricts");
+                            })
+                            .ServerFiltering(true);
+                        })
+              .Enable(false)
+              .AutoBind(false)
+              .CascadeFrom("cmbCity"))
+
+    <button id="btnSearch" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.Ward>()
+      .Name("_list")
+        .ToolBar(tools => tools.Template(@<text>
+        <button onclick="baseDetailPopup.show('Ward',0)" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Thêm mới</button>
+        </text>))
+
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.Prefix).Width(60).Title("");
+          columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='baseDetailPopup.show(\"Ward\",#=Id#)'>#=Name#</a>").Title("Phường xã");
+          columns.Command(command => command.Destroy().Text("Xóa")).Width(100);
+      })
+      .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+      .Events(events => events.DataBound("common.onDataBoundHandler"))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  .Read(read => read.Action("Search", "Ward",new { districtId= Model.DistrictId}).Data("additionalData"))
+                  .Destroy("Delete", "Ward")
+      )
+)
+@(Html.Kendo().Window()
+      .Name("_detail")
+      .Title("Cập nhật phường xã")
+      .Modal(true)
+      .Width(680)
+      //.Height(350)
+      .Visible(false)
+      .Scrollable(true))
+
+
+@section Scripts {
+    <script>
+        function filterDistricts() {
+            return {
+                cityId: $("#cmbCity").val()
+            }
+        }
+
+        function additionalData() {
+            return {
+                'CityId': $("#cmbCity").val(),
+                'DistrictId': $("#cmbDistrict").val(),
+                'Keyword': $("#Keyword").val()
+            }
+        }
+
+        $(document).ready(function () {
+            baseListing.init();
+        });
+
+    </script>
+}

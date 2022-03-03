@@ -1,0 +1,86 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.BaseQuery
+@using HappyRE.Core.Entities
+
+@{
+    ViewBag.Title = "Phòng ban";
+}
+
+<div class="filter-block">
+    @using (Html.BeginForm("Export", "Department", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:300px", PlaceHolder = "Tên, mã phòng ban.." })
+
+        <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+        if (User.IsInRole(Permission.ACCOUNT))
+        {
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-file"></i> Export</button>
+        }
+    }
+</div>
+
+@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.Department>()
+      .Name("_list")
+        .ToolBar(tools => tools.Template(@<text>
+        <button onclick="baseDetailPopup.show('Department',0)" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Thêm mới</button>
+        </text>))
+
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.StartDate).Width(40).Format("{0: dd/MM/yyyy}");
+          columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='baseDetailPopup.show(\"Department\",#=Id#)'>#=Code#</a>").Title("Mã phòng ban");
+          columns.Bound(e => e.Id).ClientTemplate("<a href='/user?departmentId=#=Id#'>#=Name#</a>").Title("Tên phòng ban");
+          columns.Bound(p => p.ManagerId).Width(180).ClientTemplate("<a href='javascript:void(0);' onclick='userListing.showUserListModal(#=Id#)'>#= ManagerName==null?'-- chọn --' : ManagerName # <i class='fa fa-edit'></i></a>").Title("Trưởng phòng");
+          columns.Bound(p => p.Phone).Width(40);
+          columns.Bound(p => p.Note).Width(300);
+          columns.Command(command => command.Destroy().Text("Xóa")).Width(100);
+      })
+      .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
+      .Events(events => events.DataBound("common.onDataBoundHandler"))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("handleError"))
+                  .Read(read => read.Action("Search", "Department").Data("additionalData"))
+                  .Destroy("Delete", "Department")
+      )
+)
+@(Html.Kendo().Window()
+      .Name("_detail")
+      .Title("Cập nhật phòng ban")
+      .Modal(true)
+      .Width(680)
+      //.Height(350)
+      .Visible(false)
+      .Scrollable(true))
+@(Html.Kendo().Window()
+      .Name("_userListModal")
+      .Title("Chọn quản lý phòng")
+      .Modal(true)
+      .Height(520)
+      .Width(1024)
+      .Visible(false)
+      .Scrollable(true))
+
+
+@section Scripts {
+    <script>
+        function additionalData() {
+            return {
+                'Keyword': $("#Keyword").val()
+            }
+        }
+
+        $(document).ready(function () {
+            baseListing.init();
+        });
+
+        function handleError(e) {
+            if (e.errors) {
+                toastr.error(e.errors);
+                $("#_list").data("kendoGrid").dataSource.read();
+            }
+        }
+    </script>
+}

@@ -1,0 +1,149 @@
+﻿@model HappyRE.App.Models.RegisterViewModel
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "Tạo người dùng mới";
+    //Layout = null;
+}
+<style>
+    .validation-summary-errors {
+        font-weight: 500;
+        line-height: 24px;
+        margin-bottom: 30px;
+        border-bottom: solid 1px #ede;
+    }
+    input.form-control{
+        width:350px;
+    }
+    .k-widget.k-upload.k-header{
+        margin-left:100px;
+        max-width:360px;
+        max-height:75px;
+        background-color:#fff;
+        border:none;
+        border-radius:0;
+    }
+    .k-upload-status{
+        display:none;
+    }
+</style>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new {type="email", @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Mobile, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", validationMessage = "Nhập số điện thoại hợp lệ" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DepartmentId, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @(Html.Kendo().ComboBoxFor(x=>x.DepartmentId).HtmlAttributes(new { style = "width:350px;"})
+                          .Filter("contains")
+                        .Placeholder("Phòng ban..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Department"))))
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LevelId, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @(Html.Kendo().ComboBoxFor(x=>x.LevelId).HtmlAttributes(new { style = "width:350px;" })
+                          .Filter("contains")
+                        .Placeholder("Chức vụ..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "SysCode",new { tableId="UserLevel"}))))
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.RoleGroupId, new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @(Html.Kendo().ComboBoxFor(x=>x.RoleGroupId).HtmlAttributes(new {style="width:350px;" })
+                          .Filter("contains")
+                        .Placeholder("Nhóm quyền..")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "RoleGroup"))))
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(m => m.Avatar,new { })
+            <img id="avatar_img" style="width:80px;height:80px;border:solid 1px #d7d3d3;float:left;margin-right:10px;" />
+            @(Html.Kendo().Upload().HtmlAttributes(new {  accept = "image/*" })
+    .Name("files")
+    .Multiple(false)
+    .ShowFileList(false)
+    .Async(a => a
+        .Save("Avatar", "Upload")
+        .Remove("Remove", "Upload")
+        .AutoUpload(true)
+
+    ).Events(events => events
+        .Complete("baseUpload.onComplete")
+        .Success("baseUpload.onSuccess")
+        .Upload("onUpload")
+    ))
+
+            @Html.ValidationMessageFor(model => model.Avatar)
+        </div>
+    </div>
+    <div class="form-group" style="margin-top:40px;">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Tạo tài khoản" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#files").kendoUpload({
+                multiple: false,
+                async: {
+                    saveUrl: "Home/Save"
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,98 @@
+﻿@model HappyRE.Core.Entities.ViewModel.CustomerInfoDetail
+@using Kendo.Mvc.UI
+
+@if (Model.Personal == null)
+{
+    <h4>Thông tin không tồn tại</h4>
+}
+else
+{
+<div class="row">
+    <h4>Thông tin khách hàng</h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Personal.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Personal.FullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Personal.Phone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Personal.Phone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Personal.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Personal.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Personal.Birthday)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Personal.Birthday)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Personal.IdCardNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Personal.IdCardNumber)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Summary.Total)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Summary.Total)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Summary.TotalAmount)
+            </dt>
+            <dd>
+                @Model.Summary.TotalAmount.ToString("N0") (<strong>@Model.Summary.TotalAmountB.ToString("N0") tỷ</strong>)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Summary.RewardPoint)
+            </dt>
+            <dd>
+                @Model.Summary.RewardPoint.ToString("N0")
+            </dd>
+            
+        </dl>
+    </div>
+</div>
+<div>
+    <hr />
+    <h4>Lịch sử giao dịch</h4>
+    @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.CustomerInfoTransaction>()
+          .Name("_list")
+          .Columns(columns =>
+          {
+              columns.Bound(e => e.TransactionDate).ClientTemplate("<div><span>#=kendo.toString(TransactionDate,'dd/MM/yyyy')#</span></div>").Title("Ngày");
+              columns.Bound(e => e.Type).ClientTemplate("<label class=''>#=Type#</label>").Title("Loại");
+              columns.Bound(e => e.PropertyId).ClientTemplate("<a href='/property/detail/#=PropertyId#'>#=PropertyNumber#</a>").Title("Mã BĐS");
+              columns.Bound(e => e.PropertyAddress).Encoded(false).Title("Địa chỉ BĐS");
+              columns.Bound(e => e.TranTo).Encoded(false).Title("Mua/bán cho");
+              columns.Bound(e => e.TotalAmountB).Encoded(false).Title("Giá trị GD");
+              columns.Bound(e => e.RewardPoint).Title("Điểm thưởng");
+              columns.Bound(e => e.Id).ClientTemplate("<a href='/saleorder/detail/#=Id#'>Chi tiết</a>").Title("");
+          })
+            .Pageable(x => x.PageSizes(new[] { 20, 50, 100 }))
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Model(model => model.Id(p => p.Id))
+            .Events(events => events.Error("common.errorHandler"))
+            .Read(read => read.Action("Transaction", "CustomerInfo", new { phone = ViewBag.Phone }).Data("additionalData"))
+            )
+        )
+</div>
+}

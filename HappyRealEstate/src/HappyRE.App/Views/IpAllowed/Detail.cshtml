@@ -1,0 +1,26 @@
+﻿@model HappyRE.Core.Entities.Model.IpAlloweds
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Ip) ? "Ip mới" : @Model.Ip;
+}
+
+<form name="ajaxform" id="ajaxform" method="POST">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id, new { })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ip, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Ip).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Ip)
+            </div>
+        </div>
+
+        <div class="form-group action">
+            <div class="col-md-offset-2">
+                <button onclick="baseDetailPopup.close()" id="btnClose" type="button" class="btn btn-default btn-close">Đóng</button>
+                <button onclick="baseDetailPopup.update('IpAllowed')" id="btnUpdate" type="button" class="btn btn-primary btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</form>
+

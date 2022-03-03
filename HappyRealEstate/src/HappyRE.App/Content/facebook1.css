@@ -1,0 +1,488 @@
+﻿.wrapper-content {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+.fb-chat {
+    width: 100%;
+    overflow: hidden;
+}
+
+.fb-chat .fb-chat-conversation {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.fb-chat div {
+    float: none;
+    vertical-align: top;
+}
+
+/*Chat list*/
+
+.fb-chat .fb-chat-list {
+    height: 100%;
+    width: 370px;
+    display: inline-block;
+    border-right: solid 1px #d8d8d8;
+}
+
+.fb-chat .fb-chat-list div {
+    display: block;
+}
+
+/*Top bar*/
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar {
+    padding: 0;
+    width: 100%;
+    display: block;
+    background-color: #f3f3f3;
+    height: 45px;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu {
+    display: inline-table;
+    height: 100%;
+    width: 100%;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div.active {
+    background-color: #fff;
+    border: solid 1px #ececec;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div.active, .fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div:hover {
+    color: #2980b9;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div.menu-icon {
+    min-width: 70px;
+    text-align: center;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div.active, .fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div:hover {
+    color: #2980b9;
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div {
+    cursor: pointer;
+    text-align: center;
+    color: #a9b7c3;
+    display: table-cell;
+    width: calc(20% - 1px);
+}
+
+.fb-chat .fb-chat-list div.fb-chat-action-bar .fb-chat-menu div i {
+    display: block;
+    line-height: 45px;
+}
+
+/*End top bar*/
+
+/*Search in chat list*/
+
+.fb-chat .fb-chat-list div.search-conversation {
+    height: 50px;
+    padding: 9px;
+}
+
+/*End search in chat list*/
+
+/*Chat list detail*/
+
+.fb-chat .fb-chat-list div.conversation.is-trial-plan {
+    /*height: calc(100% - 120px);*/
+    height: 440px;
+}
+
+.fb-chat .fb-chat-list div.conversation {
+    overflow-y: auto;
+    height: calc(100% - 95px);
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+}
+
+ul, ol {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li.is-actived, .fb-chat .fb-chat-list div.conversation ul li.is-limited.is-actived, .fb-chat .fb-chat-list div.conversation ul li:hover {
+    color: #191919;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li.is-actived {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li.is-unreaded {
+    background-color: #ebeef4;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    cursor: pointer;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #d8d8d8!important;
+}
+
+li {
+    list-style-type: none;
+    line-height: 20px;
+}
+
+
+.fb-chat .fb-chat-list div.conversation ul li div {
+    display: inline-block;
+    position: inherit;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-icon {
+    position: absolute;
+    height: 70px;
+    width: 60px;
+    text-align: center;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-icon img {
+    border-radius: 30px;
+    height: 55px;
+    width: 55px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-content {
+    position: absolute;
+    height: 70px;
+    left: 60px;
+    /*width: calc(100% - 150px);*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px;
+    line-height: 15px;
+}
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-content p {
+    display: block;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div p {
+    line-height: 15px;
+    margin-bottom: 0;
+}
+
+.bold-light {
+    font-weight: bold!important;
+}
+
+p, .pre-line {
+    white-space: pre-line;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-content .conversation-snippet {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /*width: calc(100% - 10px);*/
+    position: initial;
+    margin-top: 2px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-content .conversation-snippet span {
+    display: inline;
+}
+
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info {
+    font-size: 11px;
+    float: right;
+    padding: 5px 10px;
+    height: 70px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info div:first-child {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info div {
+    display: block;
+    line-height: 11px;
+    text-align: right;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info i {
+    vertical-align: top;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info i.type-icon {
+    margin-top: -5px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info div a.read-status {
+    width: 12px;
+    height: 12px;
+    display: block;
+    position: absolute;
+    right: 10px;
+    z-index: 999;
+    margin-top: 5px;
+    border: solid 1px #c8c8c8;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.fb-chat .fb-chat-list div.conversation ul li div.conversation-info div a.read-status.is-unreaded {
+    background-color: #3b5998;
+}
+
+/*End chat list detail*/
+
+/*End chat list*/
+
+
+/*chat box*/
+
+.fb-chat .fb-conversation-message {
+    width: calc(100% - 370px);
+    height: 100%;
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.fb-chat .fb-conversation-message div.inline_block {
+    display: inline-block;
+    height: 100%;
+}
+
+.fb-chat .fb-conversation-message .chat-box {
+    width: calc(100% - 300px);
+}
+
+/*top chat box*/
+.fb-chat .fb-conversation-message .conversation-message-info {
+    padding: 10px;
+}
+.fb-chat .fb-chat-conversation .conversation-message-info {
+    height: 45px;
+}
+
+.backlistchat, .viewinfochat {
+    display: none;
+}
+.fb-chat .fb-conversation-message .conversation-message-info .name {
+    font-size: 20px;
+    line-height: 25px;
+    margin-left: 10px;
+}
+
+.fb-chat .fb-conversation-message .conversation-message-info a {
+    font-size: 20px;
+    float: right;
+    color: #a9b7c3;
+}
+
+.fb-chat .fb-chat-conversation .conversation-tags {
+    height: 35px;
+    padding: 5px;
+}
+
+.fb-chat .fb-chat-conversation .conversation-tags div.tags {
+    display: inline-block;
+    width: calc(100% - 115px);
+    overflow: hidden;
+    height: 100%;
+}
+
+/*end top chat box*/
+
+/*message chat box*/
+
+.fb-chat .fb-chat-conversation .list-message {
+    height: calc(100% - 205px);
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container {
+    /*height: 100%;*/
+    height: 345px;
+    position: relative;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul {
+    padding: 10px 15px 20px 10px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li.conversation-message-picture {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none!important;
+    visibility: hidden!important;
+}
+li {
+    list-style-type: none;
+    line-height: 20px;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li.conversation-message-picture p {
+    display: block;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li div.message-icon {
+    margin-bottom: 5px;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li div.message-icon img {
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+}
+
+img {
+    overflow: hidden;
+}
+img {
+    vertical-align: middle;
+}
+img {
+    border: 0;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li div.message-icon a {
+    vertical-align: bottom;
+    font-weight: bold;
+    cursor: pointer;
+    color: #44494e;
+    text-decoration: none;
+}
+
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.message {
+    background-color: #ececec;
+    color: #444;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    max-width: 70%;
+    white-space: normal;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.message span {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.time {
+    font-size: 11px;
+    vertical-align: bottom;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.message.has-share img {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.message a {
+    display: block;
+    margin: 10px 0;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li p.message a:first-child {
+    margin-top: 5px;
+}
+
+.list-message-container ul li p.message a:last-child {
+    margin-bottom: 5px;
+}
+
+.list-message-container ul li p.message.has-attachment a img {
+    border-radius: 8px;
+    width: 250px;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li.is-from-page {
+    text-align: right;
+}
+
+.fb-chat .fb-chat-conversation .list-message .list-message-container ul li.is-from-page p.message {
+    background-color: #4183d7;
+    color: #fff;
+    text-align: left;
+}
+
+/*end message chat box*/
+
+/*Reply box*/
+
+.fb-chat .fb-chat-conversation .message-reply {
+    height: 125px;
+    padding: 18px;
+    position: relative;
+}
+
+.fb-chat .fb-chat-conversation .message-reply .textarea-reply {
+    width: 100%;
+    /*height: calc(100% - 32px);*/
+}
+
+.fb-chat .fb-chat-conversation .message-reply .reply-attachment-form {
+    /*width: calc(100% - 100px);*/
+    float: left;
+}
+
+.fb-chat .fb-chat-conversation .message-reply .action-group-reply {
+    width: 65px;
+    margin-top: 7px;
+    float: right;
+}
+
+.fb-chat .fb-chat-conversation .message-reply .action-group-reply a {
+    display: inline-block;
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    margin-top: 3px;
+}
+
+.fb-chat .fb-chat-conversation .message-reply .textarea-reply textarea {
+    border: solid 1px #d8d8d8!important;
+    width: 100%;
+    height: 100%;
+    color: #444;
+    resize: none;
+    border: 0;
+    outline: none;
+    padding: 5px 10px 5px 10px;
+}
+
+/*Endd reply box*/
+
+/*End chat box*/
+

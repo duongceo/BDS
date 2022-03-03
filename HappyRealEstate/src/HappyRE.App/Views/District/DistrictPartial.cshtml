@@ -1,0 +1,15 @@
+﻿@model HappyRE.App.Models.DistrictModel
+
+@{
+    foreach (var city in Model.City)
+    {        
+        <optgroup label="@city.Name">
+            @foreach (var district in Model.District.Where(x => x.CityId == city.Id))
+            {
+                <option value="@district.Id">@district.Name</option>
+            }
+        </optgroup>
+    }
+}
+
+@*   <option value="" ng-disabled="!!userCheckoutModel.district">---Chọn quận/huyện---</option>*@

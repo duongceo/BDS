@@ -1,0 +1,65 @@
+﻿@model HappyRE.Core.Entities.Model.Notification
+@{
+    ViewBag.Title = @Model.Title;
+}
+<div>
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.SentTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SentTo)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <hr />
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Details)*@
+        </dt>
+
+        <dd>
+            <div style="">
+                @Html.Raw(HttpUtility.HtmlDecode(Model.Details))
+            </div>
+        </dd>
+
+        @if (@Model.DetailsURL != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.DetailsURL)
+            </dt>
+
+            <dd>
+                <a target="_blank" href="@Model.DetailsURL">@Model.DetailsURL</a>
+            </dd>
+        }
+    </dl>
+</div>
+<p class="foot-link">
+    @Html.ActionLink("< Trở lại danh sách", "Index")
+</p>

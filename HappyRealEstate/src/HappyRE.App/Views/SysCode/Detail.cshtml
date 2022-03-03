@@ -1,0 +1,34 @@
+﻿@model HappyRE.Core.Entities.Model.SysCode
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Name) ? "Thuộc tính mới" : @Model.Name;
+}
+
+<form name="ajaxform" id="ajaxform" method="POST">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id, new { })
+        @Html.HiddenFor(model => model.TableId, new { })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Name).HtmlAttributes(new { required = "required" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().TextBoxFor(m => m.Body)
+                @Html.ValidationMessageFor(model => model.Body)
+            </div>
+        </div>
+
+        <div class="form-group action">
+            <div class="col-md-offset-2">
+                <button onclick="baseDetailPopup.close()" id="btnClose" type="button" class="btn btn-default btn-close">Đóng</button>
+                <button onclick="baseDetailPopup.update('SysCode')" id="btnUpdate" type="button" class="btn btn-primary btn-update">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</form>
+
