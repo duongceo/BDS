@@ -72,6 +72,16 @@ namespace HappyRE.Core.Entities.ViewModel
         public string OwnerTargetHtml { get; set; } = "";
         [ExportIgnore]
         public string CustomerTargetHtml { get; set; } = "";
+        [ExportIgnore]
+        public string OwnerImageHtml { get; set; }
+        [ExportIgnore]
+        public string CustomerImageHtml { get; set; }
+
+        [ExportIgnore]
+        public string PostedByHtml { get; set; }
+        [ExportIgnore]
+        public string SellByHtml { get; set; }
+
         [DisplayName("Ghi chú")]
         [ExportIgnore]
         public string Comment { get; set; }
@@ -88,5 +98,10 @@ namespace HappyRE.Core.Entities.ViewModel
         public string OwnerTarget => (this.OwnerTargetHtml ?? "").Replace("</br>", "; ");
         [DisplayName("Tiềm năng khách hàng")]
         public string CustomerTarget => (this.CustomerTargetHtml ?? "").Replace("</br>", "; ");
+
+        [ExportIgnore]
+        public string PostedByDisplay =>(this.PostedByHtml??"").Replace("</br>", " - ");
+        [ExportIgnore]
+        public string SellByDisplay => (this.SellByHtml ?? "").Replace("</br>", " - ");
     }
 }

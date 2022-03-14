@@ -41,8 +41,27 @@ namespace HappyRE.Core.Entities
         public int? CityId { get; set; }
         [DisplayName("Quận huyện")]
         public int? DistrictId { get; set; }
+        [DisplayName("Phường xã")]
+        public int? WardId { get; set; }
+        [DisplayName("Đường")]
+        public int? StreetId { get; set; }
 
         [DisplayName("Tài chính")]
         public string Price_bw { get; set; }
+
+        public int? PriceFrom { get; set; }
+        public int? PriceTo { get; set; }
+
+        public int PriceUnit { get; set; } = 1000000000;
+
+        public int? AreaFrom { get; set; }
+        public int? AreaTo { get; set; }
+
+        public int? NumOfBedroom { get; set; }
+        public int? NumOfToilet { get; set; }
+        public int? NumOfFloor { get; set; }
+        public int? Width { get; set; }
+        public int? StreetWidth { get; set; }
+        public string PostedBy { get; set; }
     }
 }

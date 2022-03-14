@@ -46,9 +46,9 @@ namespace HappyRE.Core.Entities
                 case "customerinfo":
                     return "thông tin chăm sóc khách hàng";
                 case "property":
-                    return "bất động sản";
+                    return "BĐS";
                 case "saleorder":
-                    return "giao dịch bđs";
+                    return "giao dịch BĐS";
                 case "department":
                     return "phòng ban";
                 case "userprofile":
@@ -77,14 +77,20 @@ namespace HappyRE.Core.Entities
                 case "export":
                     return "Xuất dữ liệu";
                 case "showmobile":
-                    return "Xem sđt";
+                    return "Xem SĐT";
                 case "showmobileproperty":
-                    return "Xem sđt khách hàng của BĐS";
+                    return "Xem SĐT khách hàng của";
                 case "report":
                     return "Báo cáo";
                 default:
                     return "";
             }
+        }
+
+        public static string DisplayNumber(this double number)
+        {
+            if (number % 1 == 0) return number.ToString("N0");
+            else return number.ToString("N1");
         }
 
         #endregion

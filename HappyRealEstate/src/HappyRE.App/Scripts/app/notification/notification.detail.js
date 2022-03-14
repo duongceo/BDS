@@ -32,7 +32,7 @@
                 var cls = v.IsRead == 0 ? "not-read" : "";
                 li += '<li class="' + cls +'"><a href="/notification/detail/' + v.Id + '"><span><span>' + v.Title + '</span><span class="time">' + v.TimeDisplay +'</span></span></a></li>';
             });
-            $('#noti_list').html(li);
+            $('#noti_list ul').html(li);
         });
     }
 }

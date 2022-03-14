@@ -30,6 +30,7 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Ngày sinh")]
         public DateTime? Birthday { get; set; }
         [DisplayName("Hình")]
+        [NonTrack]
         public string Avatar { get; set; }
         [DisplayName("Phân loại")]
         [Required(ErrorMessage = "{0} không được để trống")]
@@ -75,5 +76,15 @@ namespace HappyRE.Core.Entities.Model
         public string Note { get; set; }
         [NonTrack]
         public bool IsForceHiddenPhone { get; set; }
+
+        [NotMapped]
+        public string RegionTargets { get; set; }
+        [NotMapped]
+        [NonTrack]
+        public List<CustomerRegionTarget> RegionTarget { get; set; }
+
+        [NotMapped]
+        [NonTrack]
+        public List<string> Images { get; set; } = new List<string>();
     }
 }

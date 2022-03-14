@@ -42,7 +42,7 @@ namespace HappyRE.Core.BLL.Repositories
         }
 
         #region Upload File
-        public FileResponseModel UploadImg(System.IO.Stream file, string fileName, int type,string collection)
+        public async Task<FileResponseModel> UploadImg(System.IO.Stream file, string fileName, int type,string collection, int? refId=0, string groupCode="")
         {
             if (string.IsNullOrEmpty(fileName) == false) fileName = fileName.ToLower();
             if ((file.Length / (1024 * 1024)) > FILE_MAXSIZE)
@@ -68,20 +68,17 @@ namespace HappyRE.Core.BLL.Repositories
                 {
                     if (type == (int)FileType.Property)
                     {
-                        //var id = Guid.NewGuid();
-                        //this.AddFile(new File()
-                        //{
-                        //    Id = id,
-                        //    CollectionId = collection,
-                        //    UserId = userId,
-                        //    NameRaw = fileName,
-                        //    Name = System.IO.Path.GetFileName(rp.Data.path),
-                        //    Size = file.Length,
-                        //    Type = type,
-                        //    Path = rp.Data.path.Replace(FILE_API_DOMAIN, "")
-                        //});
-                        //rp.Data.id = id;
-                        //rp.Data.file_s3_size = file.Length;
+                        if (refId.HasValue && refId > 0)
+                        {
+                            await uow.ImageFile.IU(new ImageFile()
+                            {
+                                TableName= "Property",
+                                TableKeyId= refId.Value,
+                                Src= rp.Data.Thumb, 
+                                IsMore=true,
+                                GroupCode=groupCode
+                            });
+                        }
                     }
                     else if (type == (int)FileType.Avatar)
                     {
@@ -184,6 +181,10 @@ namespace HappyRE.Core.BLL.Repositories
             {
                 case (int)FileType.Property:
                     typeName = "product";
+                    path += string.Join("/", typeName, collection, fileName);
+                    break;
+                case (int)FileType.Customer:
+                    typeName = "customer";
                     path += string.Join("/", typeName, collection, fileName);
                     break;
                 case (int)FileType.Avatar:

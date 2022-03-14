@@ -12,10 +12,11 @@ namespace HappyRE.Core.BLL.Repositories
         Task<int?> IU(Customer obj);
         Task<Tuple<IEnumerable<CustomerListViewModel>, int>> Search(CustomerQuery query);
         Task<CustomerListViewModel> GetDetail(int id);
+        Task<string> GetPhoneNumber(int id);
         Task<int> Merge_CustomerSearch(int id);
         Task<IEnumerable<CustomerListViewModel>> Export(CustomerQuery query);
         Task<int> MobileViewedToday();
-        Task<int> ShowMobile(int customerId);
+        Task<string> ShowMobile(int customerId, bool isAdmin=false);
         Task<int> ForceHideMobile(int id, bool isForced);
         Task<bool> IsExistByPhone(string phone);
     }

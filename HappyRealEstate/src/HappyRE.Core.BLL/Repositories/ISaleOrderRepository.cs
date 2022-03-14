@@ -15,5 +15,7 @@ namespace HappyRE.Core.BLL.Repositories
         Task<int?> UpdateCustomer(SaleOrder obj);
         Task<int> Merge_SaleOrderSearch(int id);
         Task<Tuple<IEnumerable<SaleOrderListViewModel>, int>> Search(SaleOrderQuery query);
+        Task NotifyToSeller(SaleOrder obj);
+        Task NotifyToAdmin(SaleOrder obj);
     }
 }

@@ -44,23 +44,16 @@ namespace HappyRE.Core.BLL.Repositories
                         where w.Deleted=0 and w.CustomerId =@customerId";
             return await this.Query<CustomerRegionTargetViewModel>(query, new { customerId }, System.Data.CommandType.Text);
         }
+
         public async Task<int?> IU(CustomerRegionTarget obj)
         {
-            var m = await this.GetById(obj.Id);
+            var l = await this.Query<CustomerRegionTarget>("select top 1 * from CustomerRegionTarget (nolock) where CustomerId=@CustomerId and CityId=@CityId and isnull(DistrictId,0) =isnull(@DistrictId,0) and isnull(WardId,0)=isnull(@WardId,0) and isnull(StreetId,0)=isnull(@StreetId,0)", new {obj.CustomerId, obj.CityId, obj.DistrictId, obj.WardId, obj.StreetId }, CommandType.Text);
+            var m = l.FirstOrDefault();
             if (m == null)
             {
                 return await this.Insert(obj);
             }
-            else
-            {
-                m.CustomerId = obj.CustomerId;
-                m.CityId = obj.CityId;
-                m.DistrictId = obj.DistrictId;
-                m.WardId = obj.WardId;
-                m.StreetId = obj.StreetId;
-                await this.Update(m);
-                return m.Id;
-            }
+            return m.Id;
         }
     }
 }

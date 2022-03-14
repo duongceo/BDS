@@ -67,22 +67,25 @@ namespace HappyRE.App.Controllers
             get { return User.IsInRole("SYS_ADMIN"); }
         }
 
+        internal string IpAddress
+        {
+            get
+            {
+                return (Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? Request.ServerVariables["REMOTE_ADDR"]).Split(',')[0].Trim();
+            }
+        }
+
         internal void Log(string tableName,int? tableKeyId, string action, string contents)
         {
-            try
+            Hangfire.BackgroundJob.Enqueue<IHistoryLogRepository>(x => x.AddTrackingLog(new Core.Entities.Model.HistoryLog()
             {
-                Hangfire.BackgroundJob.Enqueue<IHistoryLogRepository>(x => x.AddTrackingLog(new Core.Entities.Model.HistoryLog()
-                {
-                    TableKeyId = tableKeyId,
-                    TableName = tableName,
-                    Action = action,
-                    Contents = contents,
-                    CreatedBy = this.UserName
-                }));
-            }catch(Exception ex)
-            {
-
-            }
+                TableKeyId = tableKeyId,
+                TableName = tableName,
+                Action = action,
+                Contents = contents,
+                CreatedBy = this.UserName,
+                IpAddress = IpAddress
+            }));
         }
     }
 }

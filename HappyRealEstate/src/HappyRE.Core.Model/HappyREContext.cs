@@ -39,6 +39,7 @@ namespace HappyRE.Core.Model
         public DbSet<Property> Property { get; set; }
         public DbSet<SaleOrder> SaleOrder { get; set; }
         public DbSet<PropertyImage> PropertyImage { get; set; }
+        public DbSet<ImageFile> ImageFile { get; set; }
         public DbSet<Notification> Notification { get; set; }
         public DbSet<NotificationRead> NotificationRead { get; set; }
     }

@@ -65,6 +65,9 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Người nhập")]
         [ExportIgnore]
         public string CreatedByHtml { get; set; } = "";
+        [ExportIgnore]
+        public string ImageHtml { get; set; } = "";
+
         [DisplayName("Tài chính")]
         public decimal BudgetFrom { get; set; }
         [DisplayName("đến")]
@@ -106,7 +109,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Nội dung")]
         public string Detail => this.DetailHtml.Replace("</br>", ". ").Replace("<b>","").Replace("</b>","");
         [DisplayName("Người nhập")]
-        public string PostedBy => this.CreatedByHtml.Replace("</br>", ". ");
+        public string PostedBy => this.CreatedByHtml.Replace("</br>", " - ");
         [DisplayName("Khu vực")]
         [ExportIgnore]
         public string RegionTargetDisplay => Utils.StringUtils.RemoveComma(this.RegionTargetHtml);

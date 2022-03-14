@@ -41,7 +41,7 @@
           .Ajax()
           .PageSize(20)
           .Model(model => model.Id(p => p.Id))
-          .Events(events => events.Error("handleError"))
+          .Events(events => events.Error("common.errorHandler"))
                   .Read(read => read.Action("Search", "Department").Data("additionalData"))
                   .Destroy("Delete", "Department")
       )

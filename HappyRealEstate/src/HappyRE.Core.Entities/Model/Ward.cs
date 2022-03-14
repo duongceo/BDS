@@ -17,10 +17,10 @@ namespace HappyRE.Core.Entities.Model
         public int Id { get; set; }
         [DisplayName("Thành phố")]
         [Required]
-        public int CityId { get; set; } = 1;
+        public int? CityId { get; set; } = 1;
         [DisplayName("Quận huyện")]
         [Required]
-        public int DistrictId { get; set; }
+        public int? DistrictId { get; set; }
 
         [DisplayName("Tên Phường/Xã")]
         [Required]

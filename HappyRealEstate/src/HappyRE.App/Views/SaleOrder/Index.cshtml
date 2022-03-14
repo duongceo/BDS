@@ -18,29 +18,42 @@
         margin-right: 5px;
         margin-bottom: 5px;
     }
+    .k-grid table {
+        border-collapse: collapse !important;
+    }
+
+        .k-grid table tr {
+            border-top: solid 1px #fbd67d;
+        }
 </style>
-<div>
+<div class="filter-block">
     @using (Html.BeginForm("Export", "SaleOrder", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:300px", PlaceHolder = "Mã bđs, tên chủ nhà, khách hàng, địa chỉ.." })
         @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Ngày giao dịch từ" })
         @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "đến ngày" })
-        @(Html.Kendo().AutoComplete().HtmlAttributes(new { style = "width:160px;" })
-          .Name("SellBy")
-          .Placeholder("Nhân viên bán..")
-          .DataTextField("NameDisplay")
-          .Filter("contains")
-          .MinLength(3)
-          .DataSource(source =>
-                  {
-              source.Read(read =>
-              {
-                  read.Action("_Gets", "User")
-                      .Data("additionalDataUser");
-              })
-              .ServerFiltering(true);
-          })
-    )
+        @*@(Html.Kendo().AutoComplete().HtmlAttributes(new { style = "width:160px;" })
+                  .Name("SellBy")
+                  .Placeholder("Nhân viên bán..")
+                  .DataTextField("NameDisplay")
+                  .Filter("contains")
+                  .MinLength(3)
+                  .DataSource(source =>
+                          {
+                      source.Read(read =>
+                      {
+                          read.Action("_Gets", "User")
+                              .Data("additionalDataUser");
+                      })
+                      .ServerFiltering(true);
+                  })
+            )*@
+        <select id="cmbPostedBy" name="cmbPostedBy" style="width:200px;">
+            @{ Html.RenderAction("UserListPartial", "User"); }
+        </select>
+        <select id="cmbSellBy" name="cmbSellBy" style="width:200px;">
+            @{ Html.RenderAction("UserListPartial", "Department"); }
+        </select>
         <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
         if (User.IsInRole(Permission.SALEORDER_EXPORT))
         {
@@ -66,12 +79,12 @@
       })
       .Columns(columns =>
       {
-          columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#");
+          columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
           columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian");
           columns.Bound(e => e.PropertyId).ClientTemplate("<a href='/property/detail/#=PropertyId#'>#=PropertyNumber#</a>").Title("Mã BĐS");
-          columns.Bound(e => e.PostedBy).ClientTemplate("<strong>#=PostedBy#</strong>").Title("Nhân viên nhập");
-          columns.Bound(e => e.OwnerIDNumber).ClientTemplate(@"#=OwnerName#</br><b>SĐT</b>: <a href='/customerinfo?id=#=OwnerPhone#'>#=OwnerPhone#</a></br><b>Sinh nhật</b>: #=kendo.toString(OwnerBirthday,'dd/MM/yyyy')#</br><b>CMND</b>: #=common.raw(OwnerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(OwnerAddress)#<b></br>Tiềm năng</b>: #=common.raw(OwnerTargetHtml)#").Title("Thông tin chủ nhà");
-          columns.Bound(e => e.SellBy).ClientTemplate("<strong>#=SellBy#</strong></br><button style='margin-top:5px;' onclick='saleOrderDetail.showCustomerUpdateModal(#=Id#)' class='#= renderCustomerReport(SellBy)# btn btn-sm btn-primary'>BÁO CÁO</button>").Title("Nhân viên bán");
+          columns.Bound(e => e.PostedBy).ClientTemplate("<strong>#=PostedByHtml#</strong><br><span class='link'>#=PostedBy#</span>").Title("Nhân viên nhập");
+          columns.Bound(e => e.OwnerIDNumber).ClientTemplate(@"#=OwnerName#</br><b>SĐT</b>: <a href='/customerinfo?id=#=OwnerPhone#'>#=OwnerPhone#</a></br><b>Sinh nhật</b>: #=kendo.toString(common.raw(OwnerBirthday),'dd/MM/yyyy')#</br><b>CMND</b>: #=common.raw(OwnerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(OwnerAddress)#<b></br>Tiềm năng</b>: #=common.raw(OwnerTargetHtml)#").Title("Thông tin chủ nhà");
+          columns.Bound(e => e.SellBy).ClientTemplate("<strong>#=SellByHtml#</strong><br><span class='link'>#=SellBy#</span></br><button style='margin-top:5px;' onclick='saleOrderDetail.showCustomerUpdateModal(#=Id#)' class='#= renderCustomerReport(SellBy)# btn btn-sm btn-primary'>BÁO CÁO</button>").Title("Nhân viên bán");
           columns.Bound(e => e.CustomerIDNumber).ClientTemplate(@"#=common.raw(CustomerName)#</br><b>SĐT</b>: <a class='#= renderCustomerInfo(SellBy)#' href='/customerinfo?id=#=common.raw(CustomerPhone)#'>#=common.raw(CustomerPhone)#</a></br><b>Sinh nhật</b>: #=common.raw(kendo.toString(CustomerBirthday,'dd/MM/yyyy'))#</br><b>CMND</b>: #=common.raw(CustomerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(CustomerAddress)#</br><b>Tiềm năng</b>: #=common.raw(CustomerTargetHtml)#</br><b>Ngày giao dịch</b>: #=common.raw(kendo.toString(OrderDate,'dd/MM/yyyy'))#").Title("Thông tin khách hàng");
           columns.Bound(e => e.Comment).Title("Ghi chú");
           columns.Bound(e => e.Id).Width(120).Title("").ClientTemplate(@"<a title='Xem chi tiết' href='/SaleOrder/detail/#=Id#' class='btn btn-default'>Chi tiết</a>
@@ -79,7 +92,7 @@
         <button type='button' onclick='saleOrderListing.delete(#=Id#)' class='#= bizHelper.renderCanDo('canDelete')# btn btn-default'><span class='k-icon k-delete'></span> Xóa</button>");
       })
         .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
-        .Events(events => events.DataBound("common.onDataBoundHandler"))
+        .Events(events => events.DataBound("baseListing.onDataBoundHandler"))
         .DataSource(dataSource => dataSource
         .Ajax()
         .PageSize(20)
@@ -112,7 +125,8 @@
                 function additionalData() {
                     return {
                         'Keyword': $("#Keyword").val(),
-                        'SellBy': $("#SellBy").val(),
+                        'PostedBy': $("#cmbPostedBy").val(),
+                        'SellBy': $("#cmbSellBy").val(),
                         'FromDate': $("#FromDate").val(),
                         'ToDate': $("#ToDate").val()
                     }
@@ -130,15 +144,17 @@
             </script>
 
             <script>
-                var counter = 1;
+                $("#cmbPostedBy").val(null).trigger("change");
+        $("#cmbPostedBy").select2({
+            allowClear: true,
+            placeholder: 'Nhân viên nhập..',
+        });
 
-                function onDataBound(e) {
-                    counter = 1;
-                }
-
-                function renderNumber(data) {
-                    return counter++;
-                }
+                $("#cmbSellBy").val(null).trigger("change");
+                $("#cmbSellBy").select2({
+                    allowClear: true,
+                    placeholder: 'Nhân viên bán..',
+                });
 
                 function renderCustomerReport(sellBy) {
                     var usn = $('#userName').val();

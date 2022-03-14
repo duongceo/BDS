@@ -1,5 +1,13 @@
 ﻿var customerDetail = {
-    customerId:0,
+    customerId: 0,
+    regionTarget:[],
+    init: function () {
+        var dataSource = new kendo.data.DataSource({
+            data: customerDetail.regionTarget
+        });
+        var grid = $("#_list").data("kendoGrid");
+        grid.setDataSource(dataSource);
+    },
     update: function () {
         var data = $('form#ajaxform').serializeArray();
         let statusId = 0, demandId = 0, targetId = 0, directionId=0;
@@ -21,10 +29,19 @@
         data.find(x => x.name === 'TargetId').value = targetId;
         data.find(x => x.name === 'DirectionId').value = directionId;
 
+        var id = data.find(x => x.name === 'Id').value;
+
+        if (id == 0 && customerDetail.regionTarget.length == 0) {
+            alert("Vui lòng chọn khu vực mong muốn!");
+            return;
+        }
+        if (id == 0) data.find(x => x.name === 'RegionTargets').value = JSON.stringify(customerDetail.regionTarget);
+
+
         restfulSvc.post('/Customer/_IU', data, function (res) {         
             //location.href = "/customer/edit/" + res;
             //toastr.success("Đã lưu!");
-            location.href = "/customer/detail/" + res;
+                location.href = "/customer/detail/" + res;
         });
     },
     showUserRegionModal: function (_refId) {
@@ -51,7 +68,7 @@
     regionSearch : function () {
         $("#_listModal").data("kendoGrid").dataSource.page(1);
     },
-    chooseRegion: function (cityId, districtId, wardId, streetId) {
+    chooseRegion: function (cityId, districtId, wardId, streetId, cityName, districtName, wardName, streetName) {
         var data = {
             customerId: customerDetail.customerId,
             cityId: cityId,
@@ -59,11 +76,37 @@
             wardId: wardId,
             streetId: streetId
         }
+        if (customerDetail.customerId > 0) {
+            restfulSvc.post('/CustomerRegionTarget/_IU', data, function () {
+                $("#_regionModal").data("kendoWindow").close();
+                $("#_list").data("kendoGrid").dataSource.read();
+            });
+        } else {
+            var m = {
+                "Id": 0,
+                "CustomerId": 0,
+                "CityId": cityId,
+                "DistrictId": districtId,
+                "WardId": wardId,
+                "StreetId": streetId,
+                "StreetName": streetName,
+                "DistrictName": districtName,
+                "CityName": cityName,
+                "WardName": wardName
+            }
+            var h = $.grep(customerDetail.regionTarget, function (v, i) {
+                return v.CityId == m.CityId && v.DistrictId == m.DistrictId && v.WardId== m.WardId && v.streetId == m.StreetId;
+            });
+            if (h.length == 0) {
+                customerDetail.regionTarget.push(m);
 
-        restfulSvc.post('/CustomerRegionTarget/_IU', data, function () {
-            $("#_regionModal").data("kendoWindow").close();
-            $("#_list").data("kendoGrid").dataSource.read();
-        });
+                var dataSource = new kendo.data.DataSource({
+                    data: customerDetail.regionTarget
+                });
+                var grid = $("#_list").data("kendoGrid");
+                grid.setDataSource(dataSource);
+            }
+        }
     },
     checkPhoneExists: function () {
         var val = $('#Phone').val() || '';

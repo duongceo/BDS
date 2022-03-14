@@ -94,6 +94,7 @@
     <Compile Include="QueryModel\PropertyQuery.cs" />
     <Compile Include="QueryModel\CustomerRegionTargetQuery.cs" />
     <Compile Include="QueryModel\CustomerQuery.cs" />
+    <Compile Include="QueryModel\ImageQuery.cs" />
     <Compile Include="QueryModel\UserProfileQuery.cs" />
     <Compile Include="QueryModel\SysCodeQuery.cs" />
     <Compile Include="QueryModel\CityQuery.cs" />
@@ -108,6 +109,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CustomerInfoSummary.cs" />
+    <Compile Include="ViewModel\ImageFileViewModel.cs" />
     <Compile Include="ViewModel\SaleOrderListViewModel.cs" />
     <Compile Include="ViewModel\PropertyListViewModel.cs" />
     <Compile Include="ViewModel\KeyValueModel.cs" />

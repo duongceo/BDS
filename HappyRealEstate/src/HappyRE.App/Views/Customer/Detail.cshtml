@@ -4,18 +4,44 @@
 @{
     ViewBag.Title = "Thông tin khách hàng: " + Model.FullName;
 }
+
+<style>
+    .img-list img {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    table thead, table thead th.k-header {
+        background-color: #ffc10e !important;
+        font-weight: 600 !important;
+        color: #333;
+    }
+</style>
+
+<input type="hidden" id="canHideMobile" value="@(User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)?1:0)" />
+
 <div class="row">
     <div class="col-md-6">
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </dt>
+
+            <dd>
+                <div class="img-list">
+                    @Html.Raw(Model.ImageHtml)
+                </div>
+            </dd>
+
+            <dt>
                 @*@Html.DisplayNameFor(model => model.Avatar)*@
             </dt>
-            @if (Model.Avatar != null)
-            {
-                <dd>
-                    <img data-magnify="gallery" style="width:100px;" data-src='@Model.Avatar.Replace("s200x200", "")' src="@Model.Avatar" />
-                </dd>
-            }
+            @*@if (Model.Avatar != null)
+                {
+                    <dd>
+                        <img data-magnify="gallery" style="width:100px;" data-src='@Model.Avatar.Replace("s200x200", "")' src="@Model.Avatar" />
+                    </dd>
+                }*@
             @if ((bool)ViewBag.CanViewMobile == true)
             {
                 <dt>
@@ -30,14 +56,14 @@
                     @Html.DisplayNameFor(model => model.Phone)
                 </dt>
                 <dd>
-                    @if (Model.IsViewedMobileToday == true || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE))
+                    @if (Model.IsViewedMobileToday == true)
                     {
                         @Html.DisplayFor(model => model.Phone)
                     }
                     else
                     {
-                        <span id="txt_phone" style="display:none;">@Model.Phone</span>
-                        <a id="btn_phone" class='btn btn-default' onclick='customerListing.showMobile("@Model.Id")'>XEM SĐT</a>
+                        <span id="txt_phone" style="display:none;"></span>
+                        <a id="btn_phone" class='btn btn-default' onclick='customerListing.showMobile("@Model.Id","@User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)")'>XEM SĐT</a>
                     }
                 </dd>
                 <dt>
@@ -92,7 +118,7 @@
             </dt>
 
             <dd>
-                @Html.Raw(Model.CreatedByHtml)
+                @Html.Raw(Model.PostedBy) (<span class="link">@Model.CreatedBy</span>)
             </dd>
 
             <dt>
@@ -222,7 +248,7 @@
   .Name("_listTrack")
   .Columns(columns =>
   {
-      columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#").Width(20);
+      columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
       columns.Bound(e => e.UpdatedDate).ClientTemplate("<span>#=kendo.toString(UpdatedDate,'dd/MM/yyyy HH:mm:ss')#</span>").Width(150);
       columns.Bound(e => e.UpdatedBy).Width(160);
       columns.Bound(e => e.ColumnName).Width(180);
@@ -241,23 +267,23 @@
 )
     </div>
 }
-    <div class="foot-link">
-        @Html.ActionLink("< Trở lại danh sách", "Index")
+<div class="foot-link">
+    @Html.ActionLink("< Trở lại danh sách", "Index")
 
-        @if (User.IsInRole(Permission.CUSTOMER_DELETE))
-        {
-            <button type='button' class='btn btn-danger' onclick="customerListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
-        }
+    @if (User.IsInRole(Permission.CUSTOMER_DELETE))
+    {
+        <button type='button' class='btn btn-danger' onclick="customerListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
+    }
 
-        @if (User.IsInRole(Permission.CUSTOMER_MODIFY))
-        {
-            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
-        }
+    @if (User.IsInRole(Permission.CUSTOMER_MODIFY))
+    {
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
 
-    </div>
+</div>
 
-    @section Scripts{
-        <script>
+@section Scripts{
+    <script>
         var counter = 1;
 
         function onDataBound(e) {
@@ -274,5 +300,5 @@
                 'TableId':'Customer'
             }
         }
-        </script>
-    }
+    </script>
+}

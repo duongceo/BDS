@@ -16,12 +16,17 @@
         margin-right: 5px;
         margin-bottom: 5px;
     }
+    .k-combobox .k-dropdown-wrap > span.k-icon.k-clear-value.k-i-close {
+        color: #787878;
+    }
 </style>
-<div>
+<div class="filter-block">
     @using (Html.BeginForm("Export", "UserLog", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:200px", PlaceHolder = "Tìm.." })
-        @(Html.Kendo().ComboBoxFor(x => x.TableName).HtmlAttributes(new { style = "width:110px;" })
+        @Html.Kendo().DatePickerFor(x => x.FromDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;" })
+        @(Html.Kendo().ComboBoxFor(x => x.TableName).HtmlAttributes(new { style = "width:150px;" })
                                     .Placeholder("Loại")
                                     .DataTextField("Text")
                                     .DataValueField("Value")
@@ -63,22 +68,25 @@
                   }
                   })
         )
-        @(Html.Kendo().AutoComplete().HtmlAttributes(new { style = "width:350px;" })
-          .Name("CreatedBy")
-          .Placeholder("Nhân viên..")
-          .DataTextField("NameDisplay")
-          .Filter("contains")
-          .MinLength(3)
-          .DataSource(source =>
-                  {
-              source.Read(read =>
-              {
-                  read.Action("_Gets", "User")
-                      .Data("additionalDataUser");
-              })
-              .ServerFiltering(true);
-          })
-    )
+        @*@(Html.Kendo().AutoComplete().HtmlAttributes(new { style = "width:350px;" })
+                  .Name("CreatedBy")
+                  .Placeholder("Nhân viên..")
+                  .DataTextField("NameDisplay")
+                  .Filter("contains")
+                  .MinLength(3)
+                  .DataSource(source =>
+                          {
+                      source.Read(read =>
+                      {
+                          read.Action("_Gets", "User")
+                              .Data("additionalDataUser");
+                      })
+                      .ServerFiltering(true);
+                  })
+            )*@
+        <select id="cmbCreatedBy" name="cmbCreatedBy" style="width:200px;">
+            @{ Html.RenderAction("UserListPartial", "User"); }
+        </select>
         <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
     }
 </div>
@@ -88,10 +96,10 @@
       .Columns(columns =>
       {
           columns.Bound(p => p.CreatedDate).Width(160).Format("{0: dd/MM/yyyy HH:mm:ss}").Title("Ngày");
-          columns.Bound(e => e.CreatedBy).ClientTemplate("#=FullName# (<a href='/userlog/detail/#=CreatedBy#'>#=CreatedBy#</a>)").Title("Nhân viên").Width(250);
+          columns.Bound(e => e.CreatedBy).ClientTemplate("#=FullName# (<a href='/userlog/detail/#=CreatedBy#'>#=CreatedBy#</a>)").Title("Nhân viên").Width(200);
           //columns.Bound(p => p.ContentDisplay).Title("Nội dung");
           columns.Bound(p => p.ContentDisplayDetail).ClientTemplate("#=bizHelper.renderUserLogDetailUrl(TableKeyId, TableName,ContentDisplayDetail, ReferName)#").Title("Nội dung");
-          //columns.Bound(p => p.Quantity).Width(50).Title("Số lần xem");
+          columns.Bound(p => p.IpAddress).Width(60).Title("Ip truy cập");
       })
       .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
       .Events(events => events.DataBound("common.onDataBoundHandler"))
@@ -112,15 +120,16 @@
                 'TableKeyId': $("#TableKeyId").val(),
                 'Action': $("#Action").val(),
                 'Keyword': $("#Keyword").val(),
-                'CreatedBy': $("#CreatedBy").val() 
+                'CreatedBy': $("#cmbCreatedBy").val(),
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val()
             }
         }
-
-        function additionalDataUser() {
-            return {
-                'Keyword': $("#CreatedBy").val()
-            }
-        }
+        $("#cmbCreatedBy").val(null).trigger("change");
+        $("#cmbCreatedBy").select2({
+                allowClear: true,
+                placeholder: 'Nhân viên',
+            });
 
         $(document).ready(function () {
             baseListing.init();

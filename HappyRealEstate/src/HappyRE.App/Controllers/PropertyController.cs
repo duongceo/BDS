@@ -21,10 +21,10 @@ namespace HappyRE.App.Controllers
         public PropertyController(IUow uow) : base(uow) { }
 
         [Authorize(Roles = Permission.PROPERTY_VIEW)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var totalViewedMobileToday = await _uow.Customer.MobileViewedToday();
-            ViewBag.CanViewMobile = (totalViewedMobileToday <= 10 && User.IsInRole(Permission.CUSTOMER_INFO_VIEW)) || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE);
+            //var totalViewedMobileToday = await _uow.Customer.MobileViewedToday();
+            ViewBag.CanViewMobile = User.IsInRole(Permission.CUSTOMER_INFO_VIEW);// (totalViewedMobileToday <= 10 && User.IsInRole(Permission.CUSTOMER_INFO_VIEW)) || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE);
             return View(new PropertyQuery());
         }
 
@@ -60,7 +60,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -77,22 +77,23 @@ namespace HappyRE.App.Controllers
         {
             var res = await _uow.Property.GetDetail(id);
             if(res!=null) this.Log("Property", id, "Detail", null);
-            var totalViewedMobileToday = await _uow.Customer.MobileViewedToday();
-            ViewBag.CanViewMobile = (totalViewedMobileToday <= 10 && User.IsInRole(Permission.CUSTOMER_INFO_VIEW)) || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE) || res.IsViewedMobileToday == true;
+            //var totalViewedMobileToday = await _uow.Customer.MobileViewedToday();
+            //ViewBag.CanViewMobile = (totalViewedMobileToday <= 10 && User.IsInRole(Permission.CUSTOMER_INFO_VIEW)) || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE) || res.IsViewedMobileToday == true;
+            ViewBag.CanViewMobile = User.IsInRole(Permission.CUSTOMER_INFO_VIEW);
             return View(res);
         }
 
         [Authorize(Roles = Permission.PROPERTY_CREATE)]
         public ActionResult Create()
         {
-            return View(new Property());
+            return View(new Property() { PostedBy= this.UserName});
         }
 
         [Authorize(Roles = "PROPERTY_CREATE,PROPERTY_MODIFY")]
         public async Task<ActionResult> Edit(int id)
         {
             var res = await _uow.Property.GetById(id);
-            if (string.IsNullOrEmpty(res.PostedBy)) res.PostedBy = this.UserName;
+            if (string.IsNullOrEmpty(res.PostedBy)) res.PostedBy = User.Identity.Name;
             ViewBag.selectedStatus = await _uow.SysCode.GetBitMaskByBit(res.StatusId, "PropertyStatusType");
             ViewBag.selectedTypes = await _uow.SysCode.GetBitMaskByBit(res.TypeId, "PropertyType");
             ViewBag.selectedStrongs = await _uow.SysCode.GetBitMaskByBit(res.StrongId, "PropertyStrongType");
@@ -101,18 +102,13 @@ namespace HappyRE.App.Controllers
             ViewBag.selectedStructures = await _uow.SysCode.GetBitMaskByBit(res.StructureId, "PropertyStructureType");
             ViewBag.selectedPotentials = await _uow.SysCode.GetBitMaskByBit(res.PotentialId, "PropertyPotentialType");
             ViewBag.selectedUtilities = await _uow.SysCode.GetBitMaskByBit(res.UtilityId, "PropertyUtilityType");
-            var resImg = await _uow.PropertyImage.GetImages(id);
-            res.PropertyImages = resImg.ToList();
+            if (res != null)
+            {
+                var resImg = await _uow.ImageFile.GetImages(new ImageFileQuery() { TableName="Property", TableKeyId=id});
+                res.PropertyImages = resImg.ToList();
+            }
             return View("Create", res);
         }
-
-        //public async Task<ActionResult> Delete(int id)
-        //{
-        //    await _uow.Property.Delete(new Property() {Id=id });
-        //    var res = await _uow.Property.Search(new Core.Entities.PropertyQuery());
-        //    return View("Index",res);
-        //}
-
 
         #region Json
         [CompressFilter]
@@ -125,12 +121,11 @@ namespace HappyRE.App.Controllers
             {
                 var res = await _uow.Property.IU(data);
                 this.Log("Property", data.Id, "IU", null);
-
                 return Json(res, JsonRequestBehavior.AllowGet);
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -156,19 +151,18 @@ namespace HappyRE.App.Controllers
         {
             try
             {
-                if (this.IsAdmin)
-                {
-                    var res = await _uow.Property.ForceHideMobile(id, !isForced);
-                    return Json(res, JsonRequestBehavior.AllowGet);
-                }
+                var res = await _uow.Property.ForceHideMobile(id, !isForced);
+                return Json(res, JsonRequestBehavior.AllowGet);
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
             }
             return Json(null, JsonRequestBehavior.AllowGet);
@@ -181,19 +175,23 @@ namespace HappyRE.App.Controllers
             try
             {
                 var Property = await _uow.Property.GetById(id);
-                if (Property.IsForceHiddenPhone == true && IsAdmin==false)
+                if (User.IsInRole(Permission.CUSTOMER_INFO_VIEW)==false)
+                {
+                    Response.StatusCode = 400;
+                    return Json("Bạn không có quyền xem SĐT", JsonRequestBehavior.AllowGet);
+                }
+                if (Property.IsForceHiddenPhone == true && User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)==false)
                 {
                     Response.StatusCode = 400;
                     return Json("Vui lòng liên hệ Admin", JsonRequestBehavior.AllowGet);
                 }
-                var userId = this.GetUserId();
-                var res = await _uow.Property.ShowMobile(id);
+                var res = await _uow.Property.ShowMobile(id, User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE));
                 this.Log("Property", id, "ShowMobileProperty", null);
-                return Json(new {data=Property,total = res}, JsonRequestBehavior.AllowGet);
+                return Json(new {data= res}, JsonRequestBehavior.AllowGet);
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -206,11 +204,47 @@ namespace HappyRE.App.Controllers
         }
 
         [CompressFilter]
+        [HttpPost]
+        [Authorize(Roles = Permission.PROPERTY_HOT)]
+        public async Task<JsonResult> _ChangeHot(int id, bool isHot)
+        {
+            try
+            {
+                if (this.IsAdmin)
+                {
+                    var res = await _uow.Property.ChangeHot(id, isHot);
+                    return Json(res, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                Response.StatusCode = 400;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                Response.StatusCode = 400;
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [CompressFilter]
         [HttpGet]
         public async Task<JsonResult> _Gets()
         {
             var res = await _uow.Property.Search(new Core.Entities.PropertyQuery() { Page = 1, Limit = 100 });
             return Json(res.Item1, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = Permission.CUSTOMER_INFO_VIEW)]
+        [CompressFilter]
+        [HttpGet]
+        public async Task<JsonResult> _PhoneNumber(int id)
+        {
+            var res = await _uow.Property.GetPhoneNumber(id);
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         [CompressFilter]
@@ -240,7 +274,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using HappyRE.Core.Entities;
 using System.Data;
 using Dapper;
+using System.Net.Http;
 
 namespace HappyRE.Core.BLL.Repositories
 {
@@ -21,9 +22,9 @@ namespace HappyRE.Core.BLL.Repositories
         {
         }
 
-        public IEnumerable<KeyValueModel> GetAll()
+        public IEnumerable<KeyValuePropertyModel> GetAll()
         {
-            return this.QueryNonAsync<KeyValueModel>("select Id,concat(propertyNumber, ' - ',Code) Name from PropertySearch (nolock) where Deleted=0", new { }, CommandType.Text);
+            return this.QueryNonAsync<KeyValuePropertyModel>("select Id,Code Name, PostedBy from PropertySearch (nolock) where Deleted=0 and IsTemp=0", new { }, CommandType.Text);
         }
 
         public async Task<Tuple<IEnumerable<PropertyListViewModel>, int>> Search(PropertyQuery query)
@@ -34,19 +35,22 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("total", dbType: DbType.Int32, direction: ParameterDirection.Output);
             p.Add("limit", query.Limit);
             p.Add("page", query.Page);
+            p.Add("fromDate", query.FromDate);
+            p.Add("toDate", query.ToDate);
             p.Add("userName", userName);
             p.Add("keyword", query.Keyword);
+            p.Add("typeId", query.TypeId_Filter);
             p.Add("contractId", query.ContractId_Filter);
             p.Add("statusId", query.StatusId_Filter);
             p.Add("legalId", query.LegalId_Filter);
             p.Add("sourceId", query.SourceId_Filter);
             p.Add("utilityId", query.UtilityId_Filter);
             p.Add("directionId", query.DirectionId_Filter);
+            p.Add("isChecked", query.IsChecked_Filter);
             p.Add("cityId", query.CityId);
             p.Add("districtId", query.DistrictId);
             p.Add("wardId", query.WardId);            
             p.Add("streetId", query.StreetId);
-
             p.Add("price_bw", query.Price_bw);
             p.Add("area_bw", query.Area_bw);
             p.Add("width_bw", query.Width_bw);
@@ -54,8 +58,10 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("numOfFloor_bw", query.NumOfFloor_bw);
             p.Add("numOfBedroom_bw", query.NumOfBedroom_bw);
             p.Add("numOfToilet_bw", query.NumOfToilet_bw);
+            p.Add("priceUnit", query.PriceUnit);
+            p.Add("postedBy", query.PostedBy);
 
-            var res = await this.Query<PropertyListViewModel>("msp_Property_Search1", p, System.Data.CommandType.StoredProcedure);
+            var res = await this.Query<PropertyListViewModel>("msp_Property_Search", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");           
             return new Tuple<IEnumerable<PropertyListViewModel>, int>(res, total);
         }
@@ -75,7 +81,7 @@ namespace HappyRE.Core.BLL.Repositories
             keyword = "%" + encodeForLike + "%";
             return await this.Query<KeyValueDisplayModel>(@"select Id, (Code + ' ('+ AddressHtml+')') Name
                     from PropertySearch (nolock)
-                    where Deleted=0 and (AddressHtml like @keyword or Code like @keyword)", new { keyword }, CommandType.Text);
+                    where Deleted=0 and IsTemp=0 and (AddressHtml like @keyword or Code like @keyword)", new { keyword }, CommandType.Text);
         }
         public async Task<int?> IU(Property obj)
         {
@@ -94,19 +100,23 @@ namespace HappyRE.Core.BLL.Repositories
             if (m == null)
             {
                 obj.PostedDate = DateTime.Now;
-                //var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
-                //obj.PostedBy = userName;
+                var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
+                if(obj.PostedBy==null) obj.PostedBy = userName;
                 var id = await this.Insert(obj);
                 if (id.HasValue)
                 {
-                    await uow.PropertyImage.UpdateProductImages(id.Value, obj.PropertyImages);
+                    await uow.ImageFile.UpdateImages(new ImageFileQuery() {TableName="Property", TableKeyId= id.Value } , obj.PropertyImages);
                     await Merge_PropertySearch(id.Value);
                 }
                 return id;
             }
             else
             {
+                var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
+                if (obj.PostedBy == null) obj.PostedBy = userName;
+                
                 await TrackChange(obj, m);
+                bool isChangeTpm = obj.IsTemp != m.IsTemp && m.IsTemp == true;
 
                 m.Code = obj.Code;
                 m.ContractId = obj.ContractId;
@@ -145,7 +155,7 @@ namespace HappyRE.Core.BLL.Repositories
                 m.UtilityId = obj.UtilityId;
                 m.SourceId = obj.SourceId;
                 m.Note = obj.Note;
-                m.IsHot = obj.IsHot;
+                m.IsGood = obj.IsGood;
                 m.StrongId = obj.StrongId;
                 m.WeakId = obj.WeakId;
                 m.ContructId = obj.ContructId;
@@ -156,11 +166,30 @@ namespace HappyRE.Core.BLL.Repositories
                 m.IsTemp = obj.IsTemp;
                 m.PostedBy = obj.PostedBy;
                 m.IsVerified = obj.IsVerified;
-                
+                m.IsHot= obj.IsHot;
+
+                if (isChangeTpm) m.PostedDate = DateTime.Now;
                 await this.Update(m);
-                await uow.PropertyImage.UpdateProductImages(m.Id, obj.PropertyImages);
+                //await uow.PropertyImage.UpdateProductImages(m.Id, obj.PropertyImages);
+                await uow.ImageFile.UpdateImages(new ImageFileQuery() { TableName = "Property", TableKeyId = m.Id }, obj.PropertyImages);
                 await Merge_PropertySearch(m.Id);
+
+                if (m.IsGood && obj.IsTemp == false)
+                {
+                    Hangfire.BackgroundJob.Enqueue<IPropertyRepository>(x => x.NotifyGood(m));
+                }
                 return m.Id;
+            }
+        }
+
+        public async Task NotifyGood(Property obj)
+        {
+            var q = "select count(*) from Notification (nolock) where Deleted=0 and Type=5 and Code = @code";
+            var sl = await this.ExecuteScalar<int>(q, new { code = obj.Id.ToString() }, CommandType.Text);
+            if (sl == 0 && obj.Id>0 && obj.IsGood && obj.IsTemp==false)
+            {
+                var client = new HttpClient();
+                await client.GetAsync($"https://tqt.batdongsanhanhphuc.vn/job/AlertGoodProperty?propertyId={obj.Id}&code={obj.Code}");
             }
         }
 
@@ -240,30 +269,58 @@ namespace HappyRE.Core.BLL.Repositories
             return res.FirstOrDefault();
         }
 
+        public async Task<string> GetPhoneNumber(int id)
+        {
+            var res= await this.Query<string>("select OwnerPhone from PropertySearch (nolock) where Deleted=0 and Id=@id", new {id }, CommandType.Text);
+            return res.FirstOrDefault();
+        }
+
         #region ShowMobileLog
         public async Task<int> MobileViewedToday()
         {
+            var q = @"with temp(sl)as(
+                    select count(distinct PropertyId) sl 
+                    from PropertyShowMobileLog (nolock) 
+                    where createdBy=@userName and ViewDate=@viewDate
+                    union all
+                    select count(distinct CustomerId) sl
+                    from CustomerShowMobileLog (nolock) 
+                    where createdBy=@userName and ViewDate=@viewDate)
+                    select sum(sl) from temp";
             var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
-            var res = await this.ExecuteScalar<int>("select count(distinct PropertyId) from PropertyShowMobileLog (nolock) where createdBy=@userName and ViewDate=@viewDate", new { userName, viewDate = DateTime.Today }, CommandType.Text);
+            var res = await this.ExecuteScalar<int>(q, new { userName, viewDate = DateTime.Today }, CommandType.Text);
             return res;
         }
 
-        public async Task<int> ShowMobile(int PropertyId)
+        public async Task<string> ShowMobile(int PropertyId, bool isAdmin=false)
         {
-            var viewed = await MobileViewedToday();
-            if (viewed < MaxViewMobileInDay)
+            if (isAdmin)
             {
                 var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
                 var sl = await this.ExecuteScalar<int>("select count(*) from PropertyShowMobileLog (nolock) where createdBy=@userName and PropertyId=@PropertyId and ViewDate=@viewDate", new { userName, PropertyId, viewDate = DateTime.Today }, CommandType.Text);
                 if (sl == 0)
                 {
-                    return await this.ExecuteScalar<int>("insert into PropertyShowMobileLog(PropertyId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@PropertyId,@viewDate,@createdBy,@createdDate,0)", new { PropertyId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text);
+                    await this.ExecuteScalar<int>("insert into PropertyShowMobileLog(PropertyId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@PropertyId,@viewDate,@createdBy,@createdDate,0)", new { PropertyId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text);
                 }
-                return 0;
+                return await GetPhoneNumber(PropertyId);
             }
             else
             {
-                throw new BusinessException("Chỉ được xem 10 số điện thoại mỗi ngày");
+                var viewed = await MobileViewedToday();
+                if (viewed < MaxViewMobileInDay)
+                {
+                    var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
+                    var sl = await this.ExecuteScalar<int>("select count(*) from PropertyShowMobileLog (nolock) where createdBy=@userName and PropertyId=@PropertyId and ViewDate=@viewDate", new { userName, PropertyId, viewDate = DateTime.Today }, CommandType.Text);
+                    if (sl == 0)
+                    {
+                        await this.ExecuteScalar<int>("insert into PropertyShowMobileLog(PropertyId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@PropertyId,@viewDate,@createdBy,@createdDate,0)", new { PropertyId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text);
+                    }
+                    return await GetPhoneNumber(PropertyId);
+                }
+                else
+                {
+                    throw new BusinessException($"Chỉ được xem {MaxViewMobileInDay} số điện thoại mỗi ngày");
+                }
             }
         }
 
@@ -279,19 +336,32 @@ namespace HappyRE.Core.BLL.Repositories
             }
             return 0;
         }
+
+        public async Task<int> ChangeHot(int id, bool isHot)
+        {
+            var Property = await this.GetById(id);
+            if (Property != null)
+            {
+                Property.IsHot = isHot;
+                var res = await this.Update(Property);
+                await Merge_PropertySearch(id);
+                return res;
+            }
+            return 0;
+        }
         #endregion
 
         #region Condition
         public async Task<bool> IsExistsCode(Property obj)
         {
-            var query = "select count(*) from Property (nolock) where Id <> @id and Code = @code";
+            var query = "select count(*) from PropertySearch (nolock) where Id <> @id and Code = @code and Deleted=0 and IsTemp=0";
             var res= await this.ExecuteScalar<int>(query, new { id = obj.Id, code = obj.Code });
             return res > 0;
         }
 
         public async Task<bool> IsExistsAddress(Property obj)
         {
-            var query = "select count(*) from Property (nolock) where Id <> @id and CityId = @cityId and DistrictId =@districtId and Address=@address";
+            var query = "select count(*) from PropertySearch (nolock) where Id <> @id and CityId = @cityId and DistrictId =@districtId and Address=@address and Deleted=0 and IsTemp=0";
             var res = await this.ExecuteScalar<int>(query, new { id = obj.Id, cityId = obj.CityId, districtId = obj.DistrictId, address= obj.Address });
             return res > 0;
         }
@@ -300,6 +370,11 @@ namespace HappyRE.Core.BLL.Repositories
         {
             var c = await this.ExecuteScalar<int>("select count(*) from SaleOrderSearch (nolock) where Deleted=0 and PropertyId=@propertyId", new { propertyId=obj.Id }, CommandType.Text);
             if (c > 0) throw new BusinessException($"Không thể xóa BĐS này vì có giao dịch liên quan!");
+        }
+
+        public override async Task DeleteAfter(Property obj)
+        {
+           if(obj.Id>0) await Merge_PropertySearch(obj.Id);
         }
         #endregion
     }

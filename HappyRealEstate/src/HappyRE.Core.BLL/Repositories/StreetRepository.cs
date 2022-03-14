@@ -36,7 +36,8 @@ namespace HappyRE.Core.BLL.Repositories
 
         public async Task<int?> IU(Street obj)
         {
-            var m = await this.GetById(obj.Id);
+            var l = await this.Query<Street>("select top 1 * from Street (nolock) where CityId=@CityId and DistrictId=@DistrictId and [Name] =@Name", new { obj.CityId, obj.DistrictId, obj.Name}, CommandType.Text);
+            var m = l.FirstOrDefault();
             if (m == null)
             {
                 return await this.Insert(obj);
@@ -45,11 +46,17 @@ namespace HappyRE.Core.BLL.Repositories
             {
                 m.CityId = obj.CityId;
                 m.DistrictId = obj.DistrictId;
-                m.Prefix = obj.Prefix;
+                //m.Prefix = obj.Prefix;
                 m.Name = obj.Name;
                 await this.Update(m);
                 return m.Id;
             }
+        }
+
+        public override async Task DeleteCheck(Street obj)
+        {
+            var c = await this.ExecuteScalar<int>("select count(*) from Property (nolock) where Deleted=0 and StreetId=@streetId", new { streetId = obj.Id }, CommandType.Text);
+            if (c > 0) throw new BusinessException($"Không thể xóa đường này vì có {c} BĐS!");
         }
     }
 }

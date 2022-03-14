@@ -33,10 +33,8 @@ namespace HappyRE.App.Controllers
             try { 
             model.Page = request.Page;
             model.Limit = request.PageSize;
-            if (string.IsNullOrEmpty(model.SellBy) == false)
-            {
-                model.SellBy = model.SellBy.Substring(model.SellBy.IndexOf('(') + 1, model.SellBy.IndexOf(')') - model.SellBy.IndexOf('(') - 1);
-            }
+            model.UserName = User.Identity.Name;
+            if (User.IsInRole(Permission.ADMIN)) model.UserName = "ADMIN";
             var res = await _uow.SaleOrder.Search(model);
             this.Log("SaleOrder", null, "Search", null);
             return Json(new DataSourceResult()
@@ -75,8 +73,16 @@ namespace HappyRE.App.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var res = await _uow.SaleOrder.GetById(id);
-            ViewBag.selectedOwnerTarget = await _uow.SysCode.GetBitMaskByBit(res.OwnerTargetId, "CustomerTargetType");
-            ViewBag.selectedCustomerTarget = await _uow.SysCode.GetBitMaskByBit(res.CustomerTargetId??0, "CustomerTargetType");
+            ViewBag.selectedOwnerTarget = await _uow.SysCode.GetBitMaskByBit(res.OwnerTargetId, "CustomerPotentialType");
+            ViewBag.selectedCustomerTarget = await _uow.SysCode.GetBitMaskByBit(res.CustomerTargetId??0, "CustomerPotentialType");
+
+            if (res != null)
+            {
+                var x= await _uow.ImageFile.GetImages(new ImageFileQuery() { TableName = "SaleOrder_Owner", TableKeyId = id });
+                res.OwnerImages = x.ToList();
+                var y=await _uow.ImageFile.GetImages(new ImageFileQuery() { TableName = "SaleOrder_Customer", TableKeyId = id });
+                res.CustomerImages = y.ToList();
+            }
             return View("Create", res);
         }
 
@@ -104,7 +110,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -129,7 +135,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }

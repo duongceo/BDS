@@ -182,21 +182,34 @@ var bizHelper = (function() {
             else if (days >= 3) return "<span style='color:red'>" + fd + "</span>";
             else return fd;
         },
+        renderAvatar = function (img) {
+            var img_data = '/content/images/src/blank_avatar.jpg';
+            if (img == null || img.length == 0) {
+                img = img_data;
+            }
+            else img_data = img.replace('s200x200', '');
+            return "<img data-magnify='gallery' data-src='" + img_data + "' src='" + img + "' style='width:50px;height:50px;' />"
+        },
         renderCustomerShowPhone = function (isViewedMobileToday, customerId, FullName, Phone) {
-            var canViewMobile = parseInt($('#canViewMobile').val() || '1');
-            var canHideMobile = parseInt($('#canHideMobile').val() || '1');
-            if (canViewMobile == 1 || isViewedMobileToday == true) {
-                if (isViewedMobileToday == false && canHideMobile == 0) return "<a class='btn btn-default btn-show-mobile-" + customerId + "' onclick='customerListing.showMobile(" + customerId + ")'>XEM SĐT</a><div style='display:none' class='info-" + customerId + "'><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
-                else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
-            } else return "";
+            //var canViewMobile = parseInt($('#canViewMobile').val() || '1');
+            //var canHideMobile = parseInt($('#canHideMobile').val() || '1');
+            //if (canViewMobile == 1 || isViewedMobileToday == true) {
+            //    if (isViewedMobileToday == false && canHideMobile == 0) return "<a class='btn btn-default btn-show-mobile-" + customerId + "' onclick='customerListing.showMobile(" + customerId + ")'>XEM SĐT</a><div style='display:none' class='info-" + customerId + "'><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
+            //    else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
+            //} else return "";
+            if (isViewedMobileToday == false) return "<a class='btn btn-default btn-show-mobile-" + customerId + "' onclick='customerListing.showMobile(" + customerId + ")'>XEM SĐT</a><div style='display:none' class='info-" + customerId + "'><span>" + FullName + "</span></br><span class='txt_phone'></span></div>";
+            else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
         },
         renderPropertyShowPhone = function (isViewedMobileToday, id, FullName, Phone) {
-            var canViewMobile = parseInt($('#canViewMobile').val() || '1');
-            var canHideMobile = parseInt($('#canHideMobile').val() || '1');
-            if (canViewMobile==1 || isViewedMobileToday == true) {
-            if (isViewedMobileToday == false && canHideMobile==0) return "<a class='btn btn-default btn-show-mobile-" + id + "' onclick='propertyListing.showMobile(" + id + ")'>XEM SĐT</a><div style='display:none' class='info-" + id + "'><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
-                else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
-            } else return "";
+            //var canViewMobile = parseInt($('#canViewMobile').val() || '1');
+            //var canHideMobile = parseInt($('#canHideMobile').val() || '1');
+            //if (canViewMobile==1 || isViewedMobileToday == true) {
+            //if (isViewedMobileToday == false && canHideMobile==0) return "<a class='btn btn-default btn-show-mobile-" + id + "' onclick='propertyListing.showMobile(" + id + ")'>XEM SĐT</a><div style='display:none' class='info-" + id + "'><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
+            //    else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
+            //} else return "";
+
+            if (isViewedMobileToday == false) return "<a class='btn btn-default btn-show-mobile-" + id + "' onclick='propertyListing.showMobile(" + id + ")'>XEM SĐT</a><div style='display:none' class='info-" + id + "'><span>" + FullName + "</span></br><span class='txt_phone'></span></div>";
+            else return "<div><span>" + FullName + "</span></br><span>" + Phone + "</span></div>";
         },
         renderUserLogDetailUrl = function (id, type, text, textlink) {
             if (textlink != null && textlink.length > 0) textlink = textlink.replace(/(<br>|<\/br>|<br \/>)/mgi, ", ");
@@ -219,6 +232,9 @@ var bizHelper = (function() {
     renderPropertyCode = function (address, street) {
         address = (address || '').replace(' ','_').trim();
         street = (street || '').trim();
+        if (street.match(/^\d/)) {
+            return (address +'Đ' + street).toUpperCase();
+        } 
         if (street.indexOf(' ') < 0) return (address + street).toUpperCase();
         var letters = street.split(" ");
         var s = '';
@@ -241,6 +257,7 @@ var bizHelper = (function() {
         renderShowButton: renderShowButton,
         renderCanDo: renderCanDo,
         renderCanEdit: renderCanEdit,
-        renderPropertyCode: renderPropertyCode
+        renderPropertyCode: renderPropertyCode,
+        renderAvatar: renderAvatar
     };
 }())

@@ -1,13 +1,25 @@
 ﻿var userListing = (function () {
     var grid, refId,
         init = function () {
-            grid = $("#_listModal").data("kendoGrid");
+            grid = $("#_list").data("kendoGrid");
             $('#btnSearch').click(function (e) {
                 onSearch();
+            });
+            $('#btnSearchModal').click(function (e) {
+                onSearchModal();
             });
             $('#btnExport').click(function (e) {
                 onExport();
             });
+        },
+        additionalDataModal = function (){
+            return {
+                'LevelId_Filter': $("#_cmbLevel").val(),
+                'RoleGroupId_Filter': $("#_cmbRoleGroup").val(),
+                'DepartmentId_Filter': $("#_cmbDepartment").val(),
+                'UserStatus_Filter': $("#cmbUserStatus").val(),
+                'Keyword': $("#_Keyword").val()
+            };
         },
         additionalData = function () {
             return {
@@ -22,6 +34,9 @@
             window.location.href = '/City/DownloadCSV';
         },
         onSearch = function () {
+            $("#_list").data("kendoGrid").dataSource.page(1);
+        },
+        onSearchModal = function () {
             $("#_listModal").data("kendoGrid").dataSource.page(1);
         },
         showUserListModal = function (_refId) {
@@ -85,7 +100,9 @@
     return {
         init: init,
         onSearch: onSearch,
+        onSearchModal: onSearchModal,
         additionalData: additionalData,
+        additionalDataModal: additionalDataModal,
         showUserListModal: showUserListModal,
         choose: choose,
         show: show,

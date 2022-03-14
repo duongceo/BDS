@@ -8,12 +8,14 @@ using HappyRE.App.Infrastructures;
 using HappyRE.Core.BLL.Repositories;
 using HappyRE.Core.Entities.Model;
 using Kendo.Mvc.UI;
+using log4net;
 
 namespace HappyRE.App.Controllers
 {
     [Authorize]
     public class UserLogController : BaseController
     {
+        private static readonly ILog _log = LogManager.GetLogger("UserLogController");
         public UserLogController(IUow uow) : base(uow) { }
 
         public ActionResult Index()
@@ -24,19 +26,29 @@ namespace HappyRE.App.Controllers
         [CompressFilter]
         public async Task<ActionResult> Search([DataSourceRequest] DataSourceRequest request, Core.Entities.HistoryLogQuery data)
         {
-            if (string.IsNullOrEmpty(data.CreatedBy) == false)
-            {
-                data.CreatedBy = data.CreatedBy.Substring(data.CreatedBy.IndexOf('(')+1, data.CreatedBy.IndexOf(')')- data.CreatedBy.IndexOf('(')-1);
-            }
-            data.Page = request.Page;
-            data.Limit = request.PageSize;
-            var res = await _uow.HistoryLog.SearchTrackingLog(data);
+            try { 
+                data.Page = request.Page;
+                data.Limit = request.PageSize;
+                var res = await _uow.HistoryLog.SearchTrackingLog(data);
 
-            return Json(new DataSourceResult()
+                return Json(new DataSourceResult()
+                {
+                    Data = res.Item1,
+                    Total = res.Item2
+                });
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                Data = res.Item1,
-                Total = res.Item2
-            });
+                _log.Warn(ex);
+                Response.StatusCode = 400;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                Response.StatusCode = 400;
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [CompressFilter]
@@ -74,11 +86,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }

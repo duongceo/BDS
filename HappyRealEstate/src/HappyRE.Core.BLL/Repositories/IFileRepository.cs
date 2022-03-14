@@ -8,7 +8,7 @@ namespace HappyRE.Core.BLL.Repositories
 {
     public interface IFileRepository: IBaseRepository<File>
     {
-        FileResponseModel UploadImg(System.IO.Stream file, string fileName, int type, string collection);
+        Task<FileResponseModel> UploadImg(System.IO.Stream file, string fileName, int type, string collection, int? refId=0,string groupCode = "");
         FileResponseModel UploadImgFromUrl(string url, Guid? coid, string userId);
         string UploadThumFromBase64(string base64String, string userId);
         void Delete(List<Guid> id, string userId);

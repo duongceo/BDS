@@ -14,7 +14,7 @@ namespace HappyRE.App
     public class WebApiApplication : System.Web.HttpApplication
     {
         private static readonly ILog _log = LogManager.GetLogger("WebApiApplication");
-        private static readonly string lang = "en-US";//WebUtils.AppSettings("LANG", "en-US");
+        private static readonly string lang = "vi-VN";//WebUtils.AppSettings("LANG", "en-US");
         private static readonly System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(lang);
         protected void Application_Start()
          {

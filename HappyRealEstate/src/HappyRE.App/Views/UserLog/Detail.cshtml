@@ -22,7 +22,9 @@
     @using (Html.BeginForm("Export", "Property", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:200px", PlaceHolder = "Tìm.." })
-        @(Html.Kendo().ComboBoxFor(x => x.TableName).HtmlAttributes(new { style = "width:110px;" })
+        @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;" })
+        @(Html.Kendo().ComboBoxFor(x => x.TableName).HtmlAttributes(new { style = "width:150px;" })
                                     .Placeholder("Loại")
                                     .DataTextField("Text")
                                     .DataValueField("Value")
@@ -69,8 +71,9 @@
       .Columns(columns =>
       {
           columns.Bound(p => p.CreatedDate).Width(160).Format("{0: dd/MM/yyyy HH:mm:ss}").Title("Ngày");
-          columns.Bound(e => e.CreatedBy).ClientTemplate("#=FullName# (<a>#=CreatedBy#</a>)").Title("Nhân viên").Width(250);
+          columns.Bound(e => e.CreatedBy).ClientTemplate("#=FullName# (<a>#=CreatedBy#</a>)").Title("Nhân viên").Width(200);
           columns.Bound(p => p.ContentDisplayDetail).ClientTemplate("#=Action=='Detail'? bizHelper.renderUserLogDetailUrl(TableKeyId, TableName,ContentDisplayDetail, ReferName) : ContentDisplayDetail#").Title("Nội dung");
+          columns.Bound(p => p.IpAddress).Width(60).Title("Ip truy cập");
       })
       .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
       .Events(events => events.DataBound("common.onDataBoundHandler"))
@@ -94,7 +97,9 @@
                 'TableKeyId': $("#TableKeyId").val(),
                 'Action': $("#Action").val(),
                 'Keyword': $("#Keyword").val(),
-                'CreatedBy': $("#CreatedBy").val()
+                'CreatedBy': $("#CreatedBy").val(),
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val()
             }
         }
 

@@ -151,10 +151,11 @@ namespace HappyRE.Core.BLL.Repositories
         {
             get { return _Property ?? (_Property = this.GetRepository<IPropertyRepository>()); }
         }
-        private IPropertyImageRepository _PropertyImage = null;
-        public IPropertyImageRepository PropertyImage
+
+        private IImageFileRepository _ImageFile = null;
+        public IImageFileRepository ImageFile
         {
-            get { return _PropertyImage ?? (_PropertyImage = this.GetRepository<IPropertyImageRepository>()); }
+            get { return _ImageFile ?? (_ImageFile = this.GetRepository<IImageFileRepository>()); }
         }
 
         private ISaleOrderRepository _SaleOrder = null;

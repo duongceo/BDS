@@ -41,10 +41,14 @@ namespace HappyRE.Core.BLL.Repositories
         public async Task AddList(Notification data)
         {
             string createdBy = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
-            var query = "Insert into NotificationRead(NotificationId,UserName,CreatedBy,CreatedDate) select @NotificationId, UserName, @CreatedBy,@CreatedDate from UserProfile (nolock) where Deleted=0 and UserStatus=0";
+            var query = "";
             if (data.SendTos!=null && data.SendTos.Count > 0)
             {
                 query = "Insert into NotificationRead(NotificationId,UserName,CreatedBy,CreatedDate) select @NotificationId,UserName, @CreatedBy,@CreatedDate from UserProfile (nolock) where UserName in @list";
+            }
+            else if(data.SendTos.Count==0 && string.IsNullOrEmpty(data.SentTo))
+            {
+                query = "Insert into NotificationRead(NotificationId, UserName, CreatedBy, CreatedDate) select @NotificationId, UserName, @CreatedBy, @CreatedDate from UserProfile (nolock) where Deleted = 0 and UserStatus = 0";
             }
             await this.ExecuteScalar<int>(query, new { @NotificationId=data.Id, list = data.SendTos, CreatedBy = createdBy, CreatedDate = DateTime.Now }, System.Data.CommandType.Text);
         }

@@ -58,5 +58,11 @@ namespace HappyRE.Core.BLL.Repositories
                 return m.Id;
             }
         }
+
+        public override async Task DeleteCheck(District obj)
+        {
+            var c = await this.ExecuteScalar<int>("select count(*) from Property (nolock) where Deleted=0 and DistrictId=@districtId", new { districtId = obj.Id }, CommandType.Text);
+            if (c > 0) throw new BusinessException($"Không thể xóa quận/huyện này vì có {c} BĐS!");
+        }
     }
 }

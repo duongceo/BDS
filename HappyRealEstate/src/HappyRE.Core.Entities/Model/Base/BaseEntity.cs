@@ -14,9 +14,11 @@ namespace HappyRE.Core.Entities.Model
     {
         [DisplayName("Người tạo")]
         [NonTrack]
+        [ExportIgnore]
         public string CreatedBy { get; set; }
         [DisplayName("Người cập nhật")]
         [NonTrack]
+        [ExportIgnore]
         public string UpdatedBy { get; set; }
 
         [DisplayName("Ngày tạo")]
@@ -37,6 +39,7 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Ngày cập nhật")]
         [NotMapped]
         [NonTrack]
+        [ExportIgnore]
         public string Modified_Date => this.UpdatedDate.HasValue? this.UpdatedDate.Value.ToString("dd/MM/yyyy HH:mm:ss"):"";
     }
 }

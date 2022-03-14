@@ -32,12 +32,6 @@ namespace HappyRE.Core.BLL.Repositories
             var res = await this.Query<Ward>("msp_Ward_Search", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");
             return new Tuple<IEnumerable<Ward>, int>(res, total);
-
-            //string conditions = "where Deleted=0 ";
-            //if (string.IsNullOrEmpty(query.Keyword) == false) conditions += " and name like @keyword";
-            //if (query.CityId.HasValue && query.CityId.Value > 0) conditions += " and cityId = @cityId";
-            //if (query.DistrictId.HasValue && query.DistrictId.Value > 0) conditions += " and DistrictId = @districtId";
-            //return await this.GetListPaged<Ward>(query.Page, query.Limit, conditions, "id", new { keyword = query.KeywordLike, districtId = query.DistrictId, cityId = query.CityId });
         }
         public async Task<int?> IU(Ward obj)
         {
@@ -55,6 +49,12 @@ namespace HappyRE.Core.BLL.Repositories
                 await this.Update(m);
                 return m.Id;
             }
+        }
+
+        public override async Task DeleteCheck(Ward obj)
+        {
+            var c = await this.ExecuteScalar<int>("select count(*) from Property (nolock) where Deleted=0 and WardId=@wardId", new { wardId = obj.Id }, CommandType.Text);
+            if (c > 0) throw new BusinessException($"Không thể xóa phường/xã này vì có {c} BĐS!");
         }
     }
 }

@@ -126,16 +126,18 @@ namespace HappyRE.App.Controllers
         {
             try
             {
-                var res = await _uow.Notification.Search(new Core.Entities.NotificationQuery() { Page = 1, Limit = 10, SentTo=User.Identity.Name });
+                var res = await _uow.Notification.Search(new Core.Entities.NotificationQuery() { Page = 1, Limit = 15, SentTo=User.Identity.Name });
                 return Json(new {data= res.Item1, total = res.Item2 }, JsonRequestBehavior.AllowGet);
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
@@ -152,11 +154,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
@@ -177,11 +181,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
@@ -218,11 +224,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
@@ -240,11 +248,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }

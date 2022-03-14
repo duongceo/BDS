@@ -1,4 +1,5 @@
-﻿var common = (function() {
+﻿
+var common = (function() {
     var serverMapPath = "",
 
         initPath = function (path) {
@@ -33,21 +34,35 @@
 
         errorHandler = function (e) {
             if (e.errors) {
-                var message = "Errors:\n";
-                $.each(e.errors, function (key, value) {
-                    if ('errors' in value) {
-                        $.each(value.errors, function () {
-                            message += this + "\n";
-                        });
-                    }
-                });
-
-                toastr.error(message);
+                toastr.error(e.errors);
+                $("#_list").data("kendoGrid").dataSource.read();
             }
+            //if (e.errors) {
+            //    var message = "Errors:\n";
+            //    $.each(e.errors, function (key, value) {
+            //        if ('errors' in value) {
+            //            $.each(value.errors, function () {
+            //                message += this + "\n";
+            //            });
+            //        }
+            //    });
+
+            //    toastr.error(message);
+            //}
         },
         raw = function (val) {
             if (val == null) return '';
             else return val;
+        },
+        highlight = function (val) {
+            if (val == null) return '';
+            else return '<span class=highlight">' + val+'</span>';
+        },
+        readMore = function (text,maxlen,link,key) {
+            if (text == null) return '';
+            if (text.length > maxlen) text = text.substr(0, maxlen);
+            else return text;
+            return text.substr(0, 68) + ".. <a target='_blank' href='" + link + key +"'>xem thêm</a>";
         },
         onDataBoundHandler = function (e) {
             if ($('.pagerTop').length == 0) {
@@ -69,6 +84,8 @@
         renderNumber: renderNumber,
         errorHandler: errorHandler,
         onDataBoundHandler: onDataBoundHandler,
-        raw: raw
+        raw: raw,
+        highlight: highlight,
+        readMore: readMore
     };
 }())

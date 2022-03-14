@@ -36,6 +36,11 @@
         data.find(x => x.name === 'PotentialId').value = potentialId;
         data.find(x => x.name === 'UtilityId').value = utilityId;
         data.find(x => x.name === 'IsTemp').value = isTemp || false;
+
+        if (data.find(x => x.name === 'PostedBy') == undefined) {
+            data.push({ 'name': 'PostedBy', 'value': $("#PostedBy").val() });
+        }
+
         //data.find(x => x.name === 'Width').value = '6,5';
         restfulSvc.post('/Property/_IU', data, function (res) {
             location.href = "/property/detail/" + res;
@@ -54,7 +59,5 @@
     },
     removeImg: function (item, e) {
         $(item).closest('li').remove();
-        console.log(item);
-        console.log(e);
     }
 }

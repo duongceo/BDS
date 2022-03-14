@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using HappyRE.Core.BLL.Repositories;
+using log4net;
 using Microsoft.AspNet.SignalR;
 
 namespace HappyRE.App
 {
     public class NotificationHub : Hub
     {
+        private static readonly ILog _log = LogManager.GetLogger("NotificationHub");
         private static readonly ConcurrentDictionary<string, UserHubModels> Users =
         new ConcurrentDictionary<string, UserHubModels>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -71,14 +73,17 @@ namespace HappyRE.App
          {
             try
             {
+                if (string.IsNullOrEmpty(SentTo) == true) return;
                 //Get TotalNotification  
                 //string totalNotif = await LoadNotifData(SentTo);
 
                 //Send To  
+                _log.Info(SentTo);
                 UserHubModels receiver;
                 if (Users.TryGetValue(SentTo, out receiver))
                 {
                     var cid = receiver.ConnectionIds.FirstOrDefault();
+                    _log.Info("Cid:" + cid);
                     var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
                     context.Clients.Client(cid).subcribleNotify(new NotificationResult()
                     {

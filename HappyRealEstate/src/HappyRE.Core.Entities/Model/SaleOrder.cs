@@ -14,6 +14,7 @@ namespace HappyRE.Core.Entities.Model
     public class SaleOrder:BaseEntity
     {
         [Key]
+        [NonTrack]
         public int Id { get; set; }
         [DisplayName("Bất động sản")]
         public int? PropertyId { get; set; }
@@ -31,6 +32,7 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Tiềm năng")]
         public int OwnerTargetId { get; set; }
         [DisplayName("Hình")]
+        [NonTrack]
         public string OwnerAvatar { get; set; }
 
         [DisplayName("Họ tên")]
@@ -44,11 +46,13 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Địa chỉ")]
         public string CustomerAddress { get; set; }
         [DisplayName("Hình")]
+        [NonTrack]
         public string CustomerAvatar { get; set; }
         public int? CustomerTargetId { get; set; }
         [DisplayName("Giá trị HĐ/DV")]
         public decimal? TotalAmount { get; set; }
         [DisplayName("Địểm thưởng")]
+        [NonTrack]
         public int RewardPoint { get; set; }
         [DisplayName("Người bán")]
         public string SellBy { get; set; }
@@ -60,5 +64,12 @@ namespace HappyRE.Core.Entities.Model
         public bool AlertCustomerBirthDay { get; set; }
         [DisplayName("Ngày GD")]
         public DateTime? OrderDate { get; set; }
+
+        [NotMapped]
+        [NonTrack]
+        public List<string> OwnerImages { get; set; } = new List<string>();
+        [NotMapped]
+        [NonTrack]
+        public List<string> CustomerImages { get; set; } = new List<string>();
     }
 }

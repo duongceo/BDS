@@ -22,7 +22,7 @@ namespace HappyRE.App.Controllers
         {
             return View();
         }
-        public ActionResult Avatar(IEnumerable<HttpPostedFileBase> files)
+        public async Task<ActionResult> Avatar(IEnumerable<HttpPostedFileBase> files)
         {
             // The Name of the Upload component is "files"
             if (files != null)
@@ -31,7 +31,7 @@ namespace HappyRE.App.Controllers
                 {
                     if (file != null && file.ContentLength > 1000)
                     {
-                        var res = _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Avatar, DateTime.Today.ToString("MMYYYY"));
+                        var res = await _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Avatar, DateTime.Today.ToString("MMYYYY"));
                         return Json(new { data = res.Thumb }, "text/plain"); 
                     };
                 }
@@ -39,7 +39,7 @@ namespace HappyRE.App.Controllers
             return Content("");
         }
 
-        public ActionResult Avatar1(IEnumerable<HttpPostedFileBase> files1)
+        public async Task<ActionResult> Avatar1(IEnumerable<HttpPostedFileBase> files1)
         {
             // The Name of the Upload component is "files"
             if (files1 != null)
@@ -48,7 +48,7 @@ namespace HappyRE.App.Controllers
                 {
                     if (file != null && file.ContentLength > 1000)
                     {
-                        var res = _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Avatar, DateTime.Today.ToString("MMYYYY"));
+                        var res = await _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Avatar, DateTime.Today.ToString("MMYYYY"));
                         return Json(new { data = res.Thumb }, "text/plain");
                     };
                 }
@@ -56,7 +56,7 @@ namespace HappyRE.App.Controllers
             return Content("");
         }
 
-        public ActionResult Property(IEnumerable<HttpPostedFileBase> files)
+        public async Task<ActionResult> Property(IEnumerable<HttpPostedFileBase> files,int? id)
         {
             if (files != null)
             {
@@ -64,7 +64,41 @@ namespace HappyRE.App.Controllers
                 {
                     if (file != null && file.ContentLength > 1000)
                     {
-                        var res = _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Property, DateTime.Today.ToString("MMyyyy"));
+                        var groupCode = DateTime.Now.GetHashCode().ToString("x");
+                        var res = await _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Property, DateTime.Today.ToString("MMyyyy"),id, groupCode);
+                        return Json(new { data = res.Thumb }, "text/plain");
+                    };
+                }
+            }
+            return Content("");
+        }
+
+        public async Task<ActionResult> Property1(IEnumerable<HttpPostedFileBase> files1, int? id)
+        {
+            if (files1 != null)
+            {
+                foreach (var file in files1.Take(30))
+                {
+                    if (file != null && file.ContentLength > 1000)
+                    {
+                        var groupCode = DateTime.Now.GetHashCode().ToString("x");
+                        var res = await _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Property, DateTime.Today.ToString("MMyyyy"), id, groupCode);
+                        return Json(new { data = res.Thumb }, "text/plain");
+                    };
+                }
+            }
+            return Content("");
+        }
+
+        public async Task<ActionResult> Customer(IEnumerable<HttpPostedFileBase> files)
+        {
+            if (files != null)
+            {
+                foreach (var file in files.Take(30))
+                {
+                    if (file != null && file.ContentLength > 1000)
+                    {
+                        var res = await _uow.File.UploadImg(file.InputStream, file.FileName, (int)FileType.Customer, DateTime.Today.ToString("MMyyyy"));
                         return Json(new { data = res.Thumb }, "text/plain");
                     };
                 }

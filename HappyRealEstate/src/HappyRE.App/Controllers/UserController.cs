@@ -104,7 +104,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json("Hãy chuyển dữ liệu trước khi xóa nhân viên này vì có dữ liệu liên quan!", JsonRequestBehavior.AllowGet);
             }
@@ -128,7 +128,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -151,7 +151,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
@@ -187,7 +187,7 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
-                _log.Error(ex);
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }

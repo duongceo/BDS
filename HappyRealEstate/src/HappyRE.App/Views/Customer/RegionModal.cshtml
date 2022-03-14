@@ -5,8 +5,8 @@
     ViewBag.Title = "Khu vực mong muốn";
 }
 
-<div>
-    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:600px", PlaceHolder = "Tên quận, phường, đường.." })
+<div class="filter-block">
+    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:400px;max-width:400px;", PlaceHolder = "Tên quận, phường, đường (chọn quận trước).." })
     @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
                           .Name("cmbCity")
                           .Filter("contains")
@@ -36,7 +36,6 @@
               .Enable(false)
               .AutoBind(false)
               .CascadeFrom("cmbCity"))
-
     @Html.Kendo().Button().Name("Search").Content("Tìm kiếm").Events(e => e.Click("customerDetail.regionSearch"))
 </div>
 
@@ -48,7 +47,7 @@
           columns.Bound(e => e.DistrictName);
           columns.Bound(e => e.WardName);
           columns.Bound(e => e.StreetName);
-          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='customerDetail.chooseRegion(#=CityId#,#=DistrictId#,#=WardId#,#=StreetId#)' class='btn btn-default'><span class='glyphicon glyphicon-import' aria-hidden='true'></span></button>");
+          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='customerDetail.chooseRegion(#=CityId#,#=DistrictId#,#=WardId#,#=StreetId#,\"#=common.raw(CityName)#\",\"#=common.raw(DistrictName)#\",\"#=common.raw(WardName)#\",\"#=common.raw(StreetName)#\")' class='btn btn-default'>Chọn</button>");
       })
       .Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
       .DataSource(dataSource => dataSource
@@ -60,3 +59,14 @@
       )
 )
 
+<script>
+    $(document).ready(function () {
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                customerDetail.regionSearch();
+                return false;
+            }
+        });
+    });
+</script>

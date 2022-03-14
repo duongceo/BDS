@@ -28,6 +28,7 @@ namespace HappyRE.Core.Entities.Model
         public string NotificationType { get; set; }
         [DisplayName("Mã")]
         public string Code { get; set; }
+        public int Type { get; set; }
 
         [NotMapped]
         public bool IsAll => this.SentTo == null;

@@ -93,13 +93,20 @@ namespace HappyRE.App.Controllers
                 }
             }
 
+            var isLockedOut = await _uow.UserProfile.IsLockedOut(model.UserName);
+            if (isLockedOut)
+            {
+                ModelState.AddModelError("", "Tài khoản này đã ngưng hoạt động");
+                return View(model);
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    var user = await _uow.UserProfile.GetByUserName(model.UserName);                   
+                    //var user = await _uow.UserProfile.GetByUserName(model.UserName);
                     //var k = User.IsInRole("ADMIN");
                     //var u = UserManager.IsInRole("7a5d2d39-0d39-452c-9e6b-d7bc6010341e", "ADMIN");
                     //if (k == false)

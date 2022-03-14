@@ -50,8 +50,7 @@ namespace HappyRE.App.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             await _uow.IpAlloweds.Delete(new IpAlloweds() {Id=id });
-            var res = await _uow.IpAlloweds.Search(new Core.Entities.BaseQuery());
-            return View("Index",res);
+            return Json(new DataSourceResult());
         }
 
         #region Json

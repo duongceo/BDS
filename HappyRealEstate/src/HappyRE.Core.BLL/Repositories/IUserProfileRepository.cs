@@ -22,5 +22,6 @@ namespace HappyRE.Core.BLL.Repositories
         Task<IEnumerable<UserProfileListViewModel>> Export(UserProfileQuery query);
         Task<int> Delete(int id);
         Task ChangeUserDepartment(int id, int departmentId);
+        Task<bool> IsLockedOut(string userName);
     }
 }

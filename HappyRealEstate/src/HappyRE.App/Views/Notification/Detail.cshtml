@@ -2,63 +2,34 @@
 @{
     ViewBag.Title = @Model.Title;
 }
-<div>
-    <dl class="dl-horizontal">
-        @*<dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
 
 
+<div class="row">
+    <div class="col-md-12">
+        <fieldset>
+            <legend><strong>@Model.Title</strong></legend>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
+            @if (@Model.Details != null)
+            {
+                <div>
+                    @Html.Raw(HttpUtility.HtmlDecode(Model.Details))
+                    <hr />
+                </div>
+            }
+            @if (@Model.DetailsURL != null)
+            {
+                <div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>*@
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.SentTo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SentTo)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <hr />
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Details)*@
-        </dt>
-
-        <dd>
-            <div style="">
-                @Html.Raw(HttpUtility.HtmlDecode(Model.Details))
-            </div>
-        </dd>
-
-        @if (@Model.DetailsURL != null)
+                    <span class="fa fa-angle-right"></span> <a target="_blank" href="@Model.DetailsURL">Xem nội dung chi tiết</a>
+                </div>
+            }
+        </fieldset>
+        @if (@Model.CreatedBy != "System")
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.DetailsURL)
-            </dt>
-
-            <dd>
-                <a target="_blank" href="@Model.DetailsURL">@Model.DetailsURL</a>
-            </dd>
+        <hr />
+        <span>Tạo bởi: <span class="link">@Model.CreatedBy</span></span>
         }
-    </dl>
+    </div>
 </div>
 <p class="foot-link">
     @Html.ActionLink("< Trở lại danh sách", "Index")

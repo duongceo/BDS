@@ -19,6 +19,7 @@ namespace HappyRE.Core.Entities.Model
         public string Action { get; set; }
 
         public string Contents { get; set; }
+        public string IpAddress { get; set; }
 
         public bool Deleted { get; set; }
 
@@ -34,7 +35,7 @@ namespace HappyRE.Core.Entities.Model
         {
             get
             {
-                return CreatedDate.ToString("dd-MM-yyyy HH:ss:mm");
+                return CreatedDate.ToString("dd-MM-yyyy HH:mm:ss");
             }
         }
 

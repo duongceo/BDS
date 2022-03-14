@@ -24,9 +24,12 @@ namespace HappyRE.App
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                         "~/Scripts/jquery.cookie.js",
                         "~/Scripts/jquery.highlight.js",
+                        "~/Scripts/imgviewer/jquery.magnify.min.js",
                         "~/Scripts/jquery.textcomplete.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tqtjs").Include(
@@ -99,6 +102,7 @@ namespace HappyRE.App
                       "~/Content/bootstrap.min.css",
                       "~/Content/select2.min.css",
                       "~/Content/site.css",
+                      "~/Content/jquery.magnify.min.css",
                       "~/Content/alertify.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(

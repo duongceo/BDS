@@ -10,12 +10,14 @@ using HappyRE.Core.BLL.Repositories;
 using HappyRE.Core.Entities;
 using HappyRE.Core.Entities.Model;
 using Kendo.Mvc.UI;
+using log4net;
 
 namespace HappyRE.App.Controllers
 {
     [Authorize(Roles = Permission.ACCOUNT)]
     public class RoleGroupController : BaseController
     {
+        private static readonly ILog _log = LogManager.GetLogger("RoleGroupController");
         public RoleGroupController(IUow uow) : base(uow) { }
 
         public ActionResult Index()
@@ -53,9 +55,28 @@ namespace HappyRE.App.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
-            await _uow.RoleGroup.Delete(new RoleGroup() {Id=id },false);
-            var res = await _uow.RoleGroup.Search(new Core.Entities.BaseQuery());
-            return View("Index",res);
+            try { 
+                await _uow.RoleGroup.Delete(new RoleGroup() {Id=id },false);
+                return Json(new DataSourceResult());
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = ex.Message
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = "Không thể xóa thông tin này vì đang sử dụng!"
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #region Json
@@ -77,11 +98,13 @@ namespace HappyRE.App.Controllers
                 return Json(res, JsonRequestBehavior.AllowGet);
             }catch(BusinessException ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }

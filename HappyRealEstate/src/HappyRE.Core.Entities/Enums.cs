@@ -57,7 +57,8 @@ namespace HappyRE.Core.Entities
     {
         Property = 1,
         Blog=2,
-        Avatar=3
+        Avatar=3,
+        Customer = 4
     }
 
     public enum TemplateCateType

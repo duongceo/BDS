@@ -53,7 +53,7 @@ namespace HappyRE.Core.BLL.DI
             For<ICustomerInfoRepository>().LifecycleIs<HybridLifecycle>().Use<CustomerInfoRepository>();
             For<ICustomerRegionTargetRepository>().LifecycleIs<HybridLifecycle>().Use<CustomerRegionTargetRepository>();
             For<IPropertyRepository>().LifecycleIs<HybridLifecycle>().Use<PropertyRepository>();
-            For<IPropertyImageRepository>().LifecycleIs<HybridLifecycle>().Use<PropertyImageRepository>();
+            For<IImageFileRepository>().LifecycleIs<HybridLifecycle>().Use<ImageFileRepository>();
             For<ISaleOrderRepository>().LifecycleIs<HybridLifecycle>().Use<SaleOrderRepository>();
 
             For<IFileService>().LifecycleIs<HybridLifecycle>().Use<FileService>();

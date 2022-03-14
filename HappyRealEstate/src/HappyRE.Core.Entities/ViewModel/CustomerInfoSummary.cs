@@ -30,8 +30,8 @@ namespace HappyRE.Core.Entities.ViewModel
         public string Type { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime? TransactionDate { get; set; }
-        public decimal RewardPoint => this.TotalAmount / 50000000;
-        public string TotalAmountB => (this.TotalAmount / 1000000000).ToString("N0") + " tỷ";
+        public decimal RewardPoint => Math.Round(this.TotalAmount / 50000000);
+        public string TotalAmountB => (Math.Round(this.TotalAmount / 1000000000,2)).ToString() + " tỷ";
     }
 
     public class CustomerInfoDetail

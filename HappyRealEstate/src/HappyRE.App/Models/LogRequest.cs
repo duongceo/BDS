@@ -47,6 +47,6 @@ namespace HappyRE.App.Models
 
     public class PropertyListModel
     {
-        public List<Core.Entities.ViewModel.KeyValueModel> Property { get; set; }
+        public List<Core.Entities.ViewModel.KeyValuePropertyModel> Property { get; set; }
     }
 }

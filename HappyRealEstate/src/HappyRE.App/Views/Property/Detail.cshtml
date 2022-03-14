@@ -9,11 +9,63 @@
         margin-right: 5px;
         margin-bottom: 5px;
     }
+    table thead, table thead th.k-header {
+        background-color: #ffc10e !important;
+        font-weight: 600 !important;
+        color: #333;
+    }
+
+    ul.img_list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+        ul.img_list li {
+            float: left;
+            margin-right: 10px;
+        }
+
+        ul.img_list img {
+            height: 24px !important;
+        }
+    #_listImage .k-grid-content {
+        height:auto !important;
+        max-height:200px;
+        min-height:
+    }
+    #_listImage .k-grid-header{
+        display:none;
+    }
+    #_listImage.k-widget.k-grid{
+        border:none;
+    }
 </style>
 
+<input type="hidden" id="canHideMobile" value="@(User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE) ? 1 : 0)" />
+<input type="hidden" id="canDeleteImage" value="@(User.IsInRole(Permission.PROPERTY_DELETE) ? 1 : 0)" />
+
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <dl class="dl-horizontal">
+            @if (Model.IsTemp)
+            {
+                <dt>
+                </dt>
+
+                <dd>
+                    <span class="label label-primary">Lưu tạm</span>
+                </dd>
+            }
+            @if (Model.IsHot)
+            {
+                <dt>
+                </dt>
+
+                <dd>
+                    <span class="label label-danger">HOT</span>
+                </dd>
+            }
             <dt>
                 @Html.DisplayNameFor(model => model.PropertyNumber)
             </dt>
@@ -130,24 +182,24 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PricePerArea)
+                @Html.DisplayFor(model => model.PricePerArea) <span>VNĐ</span>
             </dd>
 
             @*<dt>
-                    @Html.DisplayNameFor(model => model.CurrencyType)
-                </dt>
+            @Html.DisplayNameFor(model => model.CurrencyType)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CurrencyType)
-                </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyType)
+        </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.CalcMethod)
-                </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CalcMethod)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CalcMethod)
-                </dd>*@
+        <dd>
+            @Html.DisplayFor(model => model.CalcMethod)
+        </dd>*@
             <dt>
                 @Html.DisplayNameFor(model => model.DirectionId)
             </dt>
@@ -230,7 +282,7 @@
 
         </dl>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <dl class="dl-horizontal">
             @if ((bool)ViewBag.CanViewMobile == true)
             {
@@ -246,7 +298,7 @@
                 </dt>
 
                 <dd>
-                    @if (Model.IsViewedMobileToday == true || User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE))
+                    @if (Model.IsViewedMobileToday == true)
                     {
                         @Html.DisplayFor(model => model.OwnerPhone)
                     }
@@ -290,7 +342,8 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VideoUrl)
+                <a target="_blank" href="@Model.VideoUrl">@Model.VideoUrl</a>
+                @*@Html.DisplayFor(model => model.VideoUrl)*@
             </dd>
 
             <dt>
@@ -308,22 +361,28 @@
             <dd>
                 @Html.DisplayFor(model => model.UpdatedDate)
             </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedHtml)
+            </dt>
 
+            <dd>
+                @Html.DisplayFor(model => model.Posted) (<span class="link">@Model.PostedBy</span>)
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.PostedBy)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PostedBy)
+                <span class="link">@Model.CreatedBy</span>
             </dd>
 
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.PostedDate)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.PostedDate)
-            </dd>
+            </dd>*@
 
 
             <dt>
@@ -397,21 +456,15 @@
                 @Html.Raw(Model.DetailHtml)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PostedHtml)
-            </dt>
 
-            <dd>
-                @Html.Raw(Model.PostedHtml)
-            </dd>
 
 
             <dt>
-                @Html.DisplayNameFor(model => model.IsHot)
+                @Html.DisplayNameFor(model => model.IsGood)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.IsHot)
+                @Html.DisplayFor(model => model.IsGood)
             </dd>
 
             <dt>
@@ -427,6 +480,56 @@
             <dd>
                 @Html.DisplayFor(model => model.IsVerified)
             </dd>
+            <dt>
+                <label>Ảnh thêm</label>
+            </dt>
+
+            <dd>
+                @*@(Html.Kendo().Grid<HappyRE.Core.Entities.Model.ImageFile>()
+            .Name("_listImage")
+            .Columns(columns => columns.Bound(product => product.Src).Title("Ảnh thêm").ClientTemplate(@"
+                      <div id='rowComment'>
+                          <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) </span><strong style='color:red'>#=CreatedBy#</strong>: <img style='height:24px;' data-magnify='gallery' data-src='#=SrcOrigin#' src='#=Src#' />
+                          <div id='deleteIcon'><a href='javascript:void();'><span class='#= bizHelper.renderCanDo('canDelete')# glyphicon glyphicon-remove' onclick='propertyDetail.onRemoveImg(#=Id#)'></span></a></div>
+                      </div>"))
+            .Scrollable(h => h.Height("200px"))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("Search", "ImageFile", new { tableName = "Property", tableKeyId = @Model.Id }))
+            )
+            )*@
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ImageFileViewModel>()
+    .Name("_listImage")
+    .Columns(columns => {
+    columns.Bound(product => product.CreatedBy).Title("Ảnh thêm").ClientTemplate(@"
+                    <div id='rowComment'>
+                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) </span><strong style='color:red'>#=CreatedBy#</strong>
+                    </div>");
+                columns.Bound(e => e.SrcHtmlDisplay).Encoded(false).Title("");
+            })
+          .Scrollable(h => h.Height("200px"))
+          .Events(events => events.DataBound("onDataBoundImgList"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Search", "ImageFile", new { tableName = "Property", tableKeyId = @Model.Id }))
+          )
+          )
+                @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+        .Name("files")
+        .Multiple(true)
+        .ShowFileList(false)
+        .Async(a => a
+            .Save("Property", "Upload", new { Id = Model.Id})
+                .Remove("Remove", "Upload")
+                .AutoUpload(true)
+
+            ).Events(events => events
+                .Complete("baseUpload.onComplete")
+                .Success("baseUpload.onSuccessMutilsMore")
+                .Upload("onUpload")
+                .Remove("baseUpload.onRemove")
+            ))
+            </dd>
         </dl>
     </div>
 </div>
@@ -437,7 +540,7 @@
           .Name("_list")
           .Columns(columns => columns.Bound(product => product.Contents).Title("Bình luận").ClientTemplate(@"
                     <div id='rowComment'>
-                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) #=CreatedBy#</span>: #=Contents#
+                        <span id='timeInfo'>#=DateChangedFriendly#(#=DateChangedDisplay#) </span><strong style='color:red'>#=CreatedBy#</strong>: #=Contents#
                         <div id='deleteIcon'><a href='javascript:void();'><span class='#= bizHelper.renderCanDo('canDelete')# glyphicon glyphicon-remove' onclick='historyLog.onRemove(#=Id#)'></span></a></div>
                     </div>"))
           .Scrollable(h => h.Height("200px"))
@@ -447,9 +550,9 @@
           )
           )
     <br />
-    <div style="padding: 3px">
-        @Html.TextArea("commentText", new { onkeypress = "historyLog.sendCommentEnter('Property'," + @Model.Id + ")", placeholder = "Nhập nội dung để ghi chú, enter hoặc nhấn gởi để lưu.", rows = 3 })
-        <button class="k-button k-primary" style="width: 80px; height: 50px" onclick="historyLog.sendComment('Property', @Model.Id)">Gởi</button>
+    <div class="comment-btn-block">
+        @Html.TextArea("commentText", new {@class="comment-txt", onkeypress = "historyLog.sendCommentEnter('Property'," + @Model.Id + ")", placeholder = "Nhập nội dung để bình luận, enter hoặc nhấn gởi để lưu.", rows = 3 })
+        <button class="k-button k-primary btn-send-comment" onclick="historyLog.sendComment('Property', @Model.Id)">GỬI</button>
     </div>
 </div>
 
@@ -461,7 +564,7 @@
       .Name("_listTrack")
       .Columns(columns =>
       {
-          columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#").Width(20);
+          columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
           columns.Bound(e => e.UpdatedDate).ClientTemplate("<span>#=kendo.toString(UpdatedDate,'dd/MM/yyyy HH:mm:ss')#</span>").Width(150);
           columns.Bound(e => e.UpdatedBy).Width(160);
           columns.Bound(e => e.ColumnName).Width(180);
@@ -485,12 +588,12 @@
 <div class="foot-link">
     @Html.ActionLink("< Trở lại danh sách", "Index")
 
-    @if (User.IsInRole(Permission.PROPERTY_DELETE))
+    @if (User.IsInRole(Permission.PROPERTY_DELETE) || (Model.IsTemp && Model.PostedBy == User.Identity.Name))
     {
         <button type='button' class='btn btn-danger' onclick="propertyListing.delete(@Model.Id)"><span class='k-icon k-delete'></span> Xóa</button>
     }
 
-    @if (User.IsInRole(Permission.PROPERTY_MODIFY))
+    @if (User.IsInRole(Permission.PROPERTY_MODIFY) || Model.PostedBy==User.Identity.Name)
     {
         @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
     }
@@ -524,8 +627,18 @@
         function additionalData() {
             return {
                 'TableKeyId': @Model.Id,
-                'TableId':'Property'
+                'TableId': 'Property'
             }
         }
+
+        function onDataBoundImgList() {
+            var canDeleteImg = $('#canDeleteImage').val();
+            if (canDeleteImg == "1") {
+                console.log(canDeleteImg);
+                $(".img_list li a").show();
+            }
+            else $(".img_list li a").hide();
+        }
     </script>
+    
 }

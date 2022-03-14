@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Roles, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @(Html.Kendo().MultiSelect()
+                @(Html.Kendo().MultiSelect().AutoClose(false)
                                     .DataTextField("Name")
                                     .Name("lckRoles")
                                     .DataValueField("Id")

@@ -156,9 +156,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Base\BaseDPRepository.cs" />
     <Compile Include="Repositories\CustomerInfoRepository.cs" />
-    <Compile Include="Repositories\ICustomerInfoRepository.cs" />
-    <Compile Include="Repositories\IPropertyImageRepository.cs">
-      <DependentUpon>PropertyImageRepository.cs</DependentUpon>
+    <Compile Include="Repositories\ICustomerInfoRepository.cs">
+      <DependentUpon>CustomerInfoRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IImageFileRepository.cs">
+      <DependentUpon>ImageFileRepository.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ISaleOrderRepository.cs">
       <DependentUpon>SaleOrderRepository.cs</DependentUpon>
@@ -175,7 +177,7 @@
     <Compile Include="Repositories\IHistoryLogRepository.cs">
       <DependentUpon>HistoryLogRepository.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\PropertyImageRepository.cs" />
+    <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\CustomerRegionTargetRepository.cs" />
     <Compile Include="Repositories\IPropertyRepository.cs">
       <DependentUpon>PropertyRepository.cs</DependentUpon>

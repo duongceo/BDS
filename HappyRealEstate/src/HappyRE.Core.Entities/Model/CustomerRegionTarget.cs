@@ -11,22 +11,21 @@ using System.ComponentModel;
 namespace HappyRE.Core.Entities.Model
 {
     [Serializable]
-    public class CustomerRegionTarget : BaseEntity
+    public class CustomerRegionTarget 
     {
-        [Key]
+        //[Key]
         public int Id { get; set; }
         [DisplayName("Khách hàng")]
         public int CustomerId { get; set; }
 
         [DisplayName("Thành phố")]
-        [Required]
         public int CityId { get; set; }
         [DisplayName("Quận huyện")]
-        public int? DistrictId { get; set; }
+        public int? DistrictId { get; set; } = 0;
         [DisplayName("Phường xã")]
-        public int? WardId { get; set; }
+        public int? WardId { get; set; } = 0;
 
         [DisplayName("Đường")]
-        public int? StreetId { get; set; }
+        public int? StreetId { get; set; } = 0;
     }
 }

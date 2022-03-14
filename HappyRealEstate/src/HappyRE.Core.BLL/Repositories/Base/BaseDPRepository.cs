@@ -145,6 +145,10 @@ namespace HappyRE.Core.BLL.Repositories
         {
 
         }
+        public virtual async Task DeleteAfter(TEntity entity)
+        {
+
+        }
         public async Task<int> Delete(TEntity entity, bool isPer=false)
         {
            await DeleteCheck(entity);
@@ -158,7 +162,9 @@ namespace HappyRE.Core.BLL.Repositories
                 var id_prop = pros.FirstOrDefault(x => x.Name == idField.Name);
                 var id = id_prop.GetValue(entity);
 
-               return await DbConnection.ExecuteScalarAsync<int>($"update {entityType.Name} set Deleted = 1 where Id=@id", new { id }, commandType: CommandType.Text);
+               var res= await DbConnection.ExecuteScalarAsync<int>($"update {entityType.Name} set Deleted = 1 where Id=@id", new { id }, commandType: CommandType.Text);
+               await DeleteAfter(entity);
+               return res;
             }
         }
 

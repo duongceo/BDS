@@ -28,6 +28,8 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("tableKeyId", query.TableKeyId);
             p.Add("action", query.Action);
             p.Add("createdBy", query.CreatedBy);
+            p.Add("fromDate", query.FromDate);
+            p.Add("toDate", query.ToDate);
             var res = await this.Query<HistoryLog>("msp_Tracking_HistoryLogSearch", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");
             return new Tuple<IEnumerable<HistoryLog>, int>(res, total);
@@ -45,6 +47,8 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("tableKeyId", query.TableKeyId);
             p.Add("action", query.Action);
             p.Add("createdBy", query.CreatedBy);
+            p.Add("fromDate", query.FromDate);
+            p.Add("toDate", query.ToDate);
             var res = await this.Query<HistoryLog>("msp_Tracking_HistoryLogSearchUserDetail", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");
             return new Tuple<IEnumerable<HistoryLog>, int>(res, total);
@@ -79,7 +83,7 @@ namespace HappyRE.Core.BLL.Repositories
 
         public async Task<int?> AddTrackingLog(HistoryLog obj)
         {
-           return await this.ExecuteScalar<int>("msp_Tracking_AddLog", new { obj.TableName, obj.TableKeyId, obj.Action, obj.Contents, obj.Type, obj.CreatedBy }, System.Data.CommandType.StoredProcedure);
+           return await this.ExecuteScalar<int>("msp_Tracking_AddLog", new { obj.TableName, obj.TableKeyId, obj.Action, obj.Contents, obj.Type, obj.CreatedBy, obj.IpAddress }, System.Data.CommandType.StoredProcedure);
         }
 
 

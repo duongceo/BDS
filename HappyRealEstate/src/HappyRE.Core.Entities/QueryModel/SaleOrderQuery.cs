@@ -10,5 +10,8 @@ namespace HappyRE.Core.Entities
     {
         public int? PropertyId { get; set; }
         public string SellBy { get; set; }
+        public string PostedBy { get; set; }
+
+        public string UserName { get; set; }
     }
 }

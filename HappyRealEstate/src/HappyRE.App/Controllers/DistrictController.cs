@@ -9,12 +9,14 @@ using HappyRE.Core.BLL.Repositories;
 using HappyRE.Core.Entities;
 using HappyRE.Core.Entities.Model;
 using Kendo.Mvc.UI;
+using log4net;
 
 namespace HappyRE.App.Controllers
 {
     [Authorize(Roles = Permission.SYS_ADMIN)]
     public class DistrictController : BaseController
     {
+        private static readonly ILog _log = LogManager.GetLogger("DistrictController");
         public DistrictController(IUow uow) : base(uow) { }
 
         public ActionResult Index(int cityId)
@@ -51,14 +53,28 @@ namespace HappyRE.App.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
-            var dist = await _uow.District.GetById(id);
-            if (dist != null)
-            {
-                await _uow.District.Delete(dist);
-                var res = await _uow.District.Search(new Core.Entities.CityQuery() { CityId=dist.CityId});
-                return View("Index", res);
+            try { 
+                await _uow.District.Delete(new District() { Id = id });
+                return Json(new DataSourceResult());
             }
-            return null;
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = ex.Message
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = "Không thể xóa thông tin này vì đang sử dụng!"
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #region Json
@@ -66,8 +82,22 @@ namespace HappyRE.App.Controllers
         [HttpPost]
         public async Task<JsonResult> _IU(District data)
         {
-            var res= await _uow.District.IU(data);
-            return Json(res,JsonRequestBehavior.AllowGet);
+            try { 
+                var res= await _uow.District.IU(data);
+                return Json(res,JsonRequestBehavior.AllowGet);
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                Response.StatusCode = 400;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                Response.StatusCode = 400;
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [CompressFilter]

@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Kendo().DatePickerFor(x => x.StartDate).HtmlAttributes(new { @type = "" })
+                @Html.Kendo().DatePickerFor(x => x.StartDate).Max(DateTime.Today).HtmlAttributes(new { @type = "" })
                 @Html.ValidationMessageFor(model => model.StartDate)
             </div>
         </div>

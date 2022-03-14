@@ -39,7 +39,7 @@ namespace HappyRE.Core.BLL.Repositories
         ICustomerInfoRepository CustomerInfo { get; }
         ICustomerRegionTargetRepository CustomerRegionTarget { get; }
         IPropertyRepository Property { get; }
-        IPropertyImageRepository PropertyImage { get; }
+        IImageFileRepository ImageFile { get; }
         ISaleOrderRepository SaleOrder { get; }
         IFileService FileService { get; }
         IFileRepository File { get; }

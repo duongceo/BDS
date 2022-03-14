@@ -66,10 +66,17 @@ namespace HappyRE.Core.BLL.Repositories
             var m = await this.GetById(obj.Id);
             if (m != null)
             {
+                var query = @"update Department
+                            set ManagerId=null
+                            where ManagerId=@ManagerId";
+                await this.ExecuteScalar<int>(query, new { ManagerId = obj.ManagerId }, CommandType.Text);
+
                 m.ManagerId = obj.ManagerId;
                 var r= await this.Update(m);
-
-                if(m.ManagerId.HasValue) await uow.UserProfile.ChangeUserDepartment(m.ManagerId.Value, m.Id);
+                if (m.ManagerId.HasValue)
+                {
+                    await uow.UserProfile.ChangeUserDepartment(m.ManagerId.Value, m.Id);
+                }
                 return r;
             }
             else return 0;

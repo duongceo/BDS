@@ -3,7 +3,7 @@
 @{
     foreach (var p in Model.Property)
     {        
-        <option value="@p.Id">@p.Name</option>
+        <option title="@p.PostedBy" value="@p.Id">@p.Name</option>
     }
 }
 

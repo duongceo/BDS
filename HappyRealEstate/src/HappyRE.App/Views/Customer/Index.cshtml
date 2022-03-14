@@ -14,11 +14,20 @@
         margin-bottom: 5px;
     }
 
+    .k-grid table {
+        border-collapse: collapse !important;
+    }
+
+        .k-grid table tr {
+            border-top: solid 1px #fbd67d;
+        }
 </style>
 <div class="filter-block">
     @using (Html.BeginForm("Export", "Customer", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:300px", PlaceHolder = "Tên, email, số điện thoại.." })
+        @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:200px", PlaceHolder = "Tên, email, số điện thoại.." })
+        @Html.Kendo().DatePickerFor(x => x.FromDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;" })
         @(Html.Kendo().ComboBoxFor(x => x.ContractId_Filter).HtmlAttributes(new { style = "width:120px;" })
                               .Filter("contains")
                             .Placeholder("Phân loại..")
@@ -47,13 +56,14 @@
                             .DataValueField("Id")
                             .Filter(FilterType.Contains)
                             .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerTargetType" }))))
-        @(Html.Kendo().ComboBoxFor(x => x.SourceId_Filter).HtmlAttributes(new { style = "width:120px;" })
-                              .Filter("contains")
-                            .Placeholder("Nguồn..")
-                            .DataTextField("Name")
-                            .DataValueField("Id")
-                            .Filter(FilterType.Contains)
-                            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerSourceType" }))))
+        @*@(Html.Kendo().ComboBoxFor(x => x.SourceId_Filter).HtmlAttributes(new { style = "width:120px;" })
+              .Filter("contains")
+            .Placeholder("Nguồn..")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .Filter(FilterType.Contains)
+            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerSourceType" }))))*@
+
         @(Html.Kendo().ComboBoxFor(x => x.DirectionId_Filter).HtmlAttributes(new { style = "width:120px;" })
                               .Filter("contains")
                             .Placeholder("Hướng nhà..")
@@ -62,284 +72,317 @@
                             .Filter(FilterType.Contains)
                             .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyDirectionType" }))))
 
-        @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
-                          .Name("cmbCity")
-                          .Filter("contains")
-                        .Placeholder("Tỉnh thành..")
-                        .DataTextField("Name")
-                        .DataValueField("Id")
-                        .Value(Model.CityId.HasValue? Model.CityId.Value.ToString():"")
-                        .Filter(FilterType.Contains)
-                        .DataSource(source => source.Read(read => read.Action("_Gets", "City"))))
-        @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
-                          .Name("cmbDistrict")
-                          .Filter("contains")
-                        .Placeholder("Quận huyện..")
-                        .DataTextField("Name")
-                        .DataValueField("Id")
-                        .Value(Model.DistrictId.HasValue ? Model.DistrictId.Value.ToString() : "")
-                        .Filter(FilterType.Contains)
-                        .DataSource(source =>
-                        {
-                            source.Read(read =>
+        @*@(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                              .Name("cmbCity")
+                              .Filter("contains")
+                            .Placeholder("Tỉnh thành..")
+                            .DataTextField("Name")
+                            .DataValueField("Id")
+                            .Value(Model.CityId.HasValue? Model.CityId.Value.ToString():"")
+                            .Filter(FilterType.Contains)
+                            .DataSource(source => source.Read(read => read.Action("_Gets", "City"))))
+            @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
+                              .Name("cmbDistrict")
+                              .Filter("contains")
+                            .Placeholder("Quận huyện..")
+                            .DataTextField("Name")
+                            .DataValueField("Id")
+                            .Value(Model.DistrictId.HasValue ? Model.DistrictId.Value.ToString() : "")
+                            .Filter(FilterType.Contains)
+                            .DataSource(source =>
                             {
-                                read.Action("_Gets", "District")
-                                    .Data("filterDistricts");
+                                source.Read(read =>
+                                {
+                                    read.Action("_Gets", "District")
+                                        .Data("filterDistricts");
+                                })
+                                .ServerFiltering(true);
                             })
-                            .ServerFiltering(true);
-                        })
-              .Enable(false)
-              .AutoBind(false)
-              .CascadeFrom("cmbCity"))
+                  .Enable(false)
+                  .AutoBind(false)
+                  .CascadeFrom("cmbCity"))*@
 
-        @(Html.Kendo().ComboBoxFor(x=>x.Price_bw).HtmlAttributes(new { style = "width:110px;" })
-                                .Placeholder("Giá")
+        @Html.Kendo().NumericTextBoxFor(x => x.PriceFrom).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:110px", PlaceHolder = "Tài chính từ.." })
+        @Html.Kendo().NumericTextBoxFor(x => x.PriceTo).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:80px", PlaceHolder = "đến.." })
+        @(Html.Kendo().ComboBoxFor(x=>x.PriceUnit).HtmlAttributes(new { style = "width:80px;" })
+                                .Placeholder("Đơn vị")
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                   .BindTo(new List<SelectListItem>() {
                   new SelectListItem() {
-                      Text = "< 1 tỷ", Value = "0-1"
+                      Text = "tỷ", Value = "1000000000"
                   },
                   new SelectListItem() {
-                      Text = "1 - 2 tỷ", Value = "1-2"
-                  },
-                  new SelectListItem() {
-                      Text = "2 - 3 tỷ", Value = "2-3"
-                  },
-                  new SelectListItem() {
-                     Text = "3 - 5 tỷ", Value = "3-5"
-                  },
-                  new SelectListItem() {
-                     Text = "5 - 7 tỷ", Value = "5-7"
-                  },
-                  new SelectListItem() {
-                     Text = "7 - 10 tỷ", Value = "7-10"
-                  },
-                  new SelectListItem() {
-                     Text = "10 - 15 tỷ", Value = "10-15"
-                  },
-                  new SelectListItem() {
-                     Text = "15 - 20 tỷ", Value = "15-20"
-                  },
-                  new SelectListItem() {
-                     Text = "20 - 30 tỷ", Value = "20-30"
-                  },
-                  new SelectListItem() {
-                     Text = "30 - 50 tỷ", Value = "30-50"
-                  },
-                  new SelectListItem() {
-                     Text = "50 - 70 tỷ", Value = "50-70"
-                  },
-                  new SelectListItem() {
-                     Text = "70 - 100 tỷ", Value = "70-100"
-                  },
-                  new SelectListItem() {
-                     Text = "100 - 150 tỷ", Value = "100-150"
-                  },
-                  new SelectListItem() {
-                     Text = "150 - 250 tỷ", Value = "150-250"
-                  },
-                  new SelectListItem() {
-                     Text = "> 250 tỷ", Value = "250-10000"
-                  }
-              })
-        )
-        @(Html.Kendo().ComboBoxFor(x=>x.Area_bw).HtmlAttributes(new { style = "width:120px;" })
-                                .Placeholder("Diện tích")
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "< 30 m2", Value = "0-30"
-                  },
-                  new SelectListItem() {
-                      Text = "30 - 50 m2", Value = "30-50"
-                  },
-                  new SelectListItem() {
-                      Text = "50 - 70 m2", Value = "30-70"
-                  },
-                  new SelectListItem() {
-                      Text = "70 - 100 m2", Value = "70-100"
-                  },
-                  new SelectListItem() {
-                      Text = "100 - 150 m2", Value = "100-150"
-                  },
-                  new SelectListItem() {
-                      Text = "150 - 250 m2", Value = "150-250"
-                  },
-                  new SelectListItem() {
-                      Text = "250 - 500 m2", Value = "250-500"
-                  },
-                  new SelectListItem() {
-                      Text = "500 - 1000 m2", Value = "500-1000"
-                  },
-                  new SelectListItem() {
-                      Text = "1000 - 2000 m2", Value = "1000-2000"
-                  },
-                  new SelectListItem() {
-                      Text = "2000 - 5000 m2", Value = "2000-5000"
-                  },
-                  new SelectListItem() {
-                      Text = "> 5000 m2", Value = "5000 - 1000000000"
+                      Text = "triệu", Value = "1000000"
                   }
               })
         )
 
-        @(Html.Kendo().ComboBoxFor(x=>x.Width_bw).HtmlAttributes(new { style = "width:110px;" })
-                                .Placeholder("Chiều rộng")
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "< 3m", Value = "0-3"
-                  },
-                  new SelectListItem() {
-                      Text = "3 - 4m", Value = "3-4"
-                  },
-                  new SelectListItem() {
-                      Text = "4 - 5m", Value = "4-5"
-                  },
-                  new SelectListItem() {
-                      Text = "5 - 6m", Value = "5-6"
-                  },
-                  new SelectListItem() {
-                      Text = "6 - 8m", Value = "6-8"
-                  },
-                  new SelectListItem() {
-                      Text = "8 - 10m", Value = "8-10"
-                  },
-                  new SelectListItem() {
-                      Text = "10 - 15m", Value = "10-15"
-                  },
-                  new SelectListItem() {
-                      Text = "15 - 20m", Value = "15-20"
-                  },
-                  new SelectListItem() {
-                      Text = "20 - 30m", Value = "20-30"
-                  },
-                  new SelectListItem() {
-                      Text = "30 - 50m", Value = "30-50"
-                  },
-                  new SelectListItem() {
-                      Text = "50 - 100m", Value = "50-100"
-                  },
-                  new SelectListItem() {
-                      Text = "100 - 200m", Value = "100-200"
-                  },
-                  new SelectListItem() {
-                      Text = "200 - 500m", Value = "200-500"
-                  },
-                  new SelectListItem() {
-                      Text = "500 - 1000m", Value = "500-1000"
-                  },
-                  new SelectListItem() {
-                      Text = "> 1000m", Value = "1000-1000000000"
-                  }
-              })
-        )
+        @Html.Kendo().NumericTextBoxFor(x => x.AreaFrom).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:90px", PlaceHolder = "Từ (m2).." })
+        @Html.Kendo().NumericTextBoxFor(x => x.AreaTo).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:90px", PlaceHolder = "đến (m2).." })
 
-        @(Html.Kendo().ComboBoxFor(x=>x.StreetWidth_bw).HtmlAttributes(new { style = "width:110px;" })
-                                .Placeholder("Đường rộng")
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "< 3m", Value = "0-3"
-                  },
-                  new SelectListItem() {
-                      Text = "3 - 4m", Value = "3-4"
-                  },
-                  new SelectListItem() {
-                      Text = "4 - 6m", Value = "4-6"
-                  },
-                  new SelectListItem() {
-                      Text = "6 - 8m", Value = "6-8"
-                  },
-                  new SelectListItem() {
-                      Text = "8 - 12m", Value = "8-12"
-                  },
-                  new SelectListItem() {
-                      Text = "12 - 16m", Value = "12-16"
-                  },
-                  new SelectListItem() {
-                      Text = "16 - 24m", Value = "16-24"
-                  },
-                  new SelectListItem() {
-                      Text = "24 - 36m", Value = "24-36"
-                  },
-                   new SelectListItem() {
-                      Text = "> 36m", Value = "36-1000"
-                  }
-              })
-        )
+        @Html.Kendo().NumericTextBoxFor(x => x.NumOfFloor).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:90px", PlaceHolder = "Số tầng.." })
+        @Html.Kendo().NumericTextBoxFor(x => x.NumOfBedroom).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { style = "width:90px", PlaceHolder = "Số phòng.." })
 
-        @(Html.Kendo().ComboBoxFor(x=>x.NumOfFloor_bw).HtmlAttributes(new { style = "width:110px;" })
-                                .Placeholder("Số tầng")
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "Cấp 4", Value = "0-1"
-                  },
-                  new SelectListItem() {
-                      Text = "2 tầng", Value = "2-2"
-                  },
-                  new SelectListItem() {
-                      Text = "3 tầng", Value = "3-3"
-                  },
-                  new SelectListItem() {
-                      Text = "4 tầng", Value = "4-4"
-                  },
-                  new SelectListItem() {
-                      Text = "5 tầng", Value = "5-5"
-                  },
-                  new SelectListItem() {
-                      Text = "5 - 7 tầng", Value = "5-7"
-                  },
-                  new SelectListItem() {
-                      Text = "7 - 10 tầng", Value = "7-10"
-                  },
-                  new SelectListItem() {
-                      Text = "10 - 15 tầng", Value = "10-15"
-                  },
-                  new SelectListItem() {
-                      Text = "> 15 tầng", Value = "15-1000"
-                  }
-              })
-        )
+        @Html.Kendo().NumericTextBoxFor(x => x.Width).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { style = "width:120px", PlaceHolder = "Ngang từ(m).." })
+        @Html.Kendo().NumericTextBoxFor(x => x.StreetWidth).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { style = "width:140px;", PlaceHolder = "Đường rộng từ(m).." })
 
-        @(Html.Kendo().ComboBoxFor(x=>x.NumOfRoom_bw).HtmlAttributes(new { style = "width:110px;" })
-                                .Placeholder("Số phòng")
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "1 phòng", Value = "1-1"
-                  },
-                  new SelectListItem() {
-                      Text = "2 phòng", Value = "2-2"
-                  },
-                  new SelectListItem() {
-                      Text = "3 phòng", Value = "3-3"
-                  },
-                  new SelectListItem() {
-                      Text = "4 phòng", Value = "4-4"
-                  },
-                  new SelectListItem() {
-                      Text = "5 phòng", Value = "5-5"
-                  },
-                  new SelectListItem() {
-                      Text = "5 - 7 phòng", Value = "5-7"
-                  },
-                  new SelectListItem() {
-                      Text = "7 - 10 phòng", Value = "7-10"
-                  },
-                  new SelectListItem() {
-                      Text = "> 10 phòng", Value = "10-1000"
-                  }
-              })
-        )
 
+        @*@(Html.Kendo().ComboBoxFor(x=>x.Price_bw).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Giá")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "< 1 tỷ", Value = "0-1"
+                      },
+                      new SelectListItem() {
+                          Text = "1 - 2 tỷ", Value = "1-2"
+                      },
+                      new SelectListItem() {
+                          Text = "2 - 3 tỷ", Value = "2-3"
+                      },
+                      new SelectListItem() {
+                         Text = "3 - 5 tỷ", Value = "3-5"
+                      },
+                      new SelectListItem() {
+                         Text = "5 - 7 tỷ", Value = "5-7"
+                      },
+                      new SelectListItem() {
+                         Text = "7 - 10 tỷ", Value = "7-10"
+                      },
+                      new SelectListItem() {
+                         Text = "10 - 15 tỷ", Value = "10-15"
+                      },
+                      new SelectListItem() {
+                         Text = "15 - 20 tỷ", Value = "15-20"
+                      },
+                      new SelectListItem() {
+                         Text = "20 - 30 tỷ", Value = "20-30"
+                      },
+                      new SelectListItem() {
+                         Text = "30 - 50 tỷ", Value = "30-50"
+                      },
+                      new SelectListItem() {
+                         Text = "50 - 70 tỷ", Value = "50-70"
+                      },
+                      new SelectListItem() {
+                         Text = "70 - 100 tỷ", Value = "70-100"
+                      },
+                      new SelectListItem() {
+                         Text = "100 - 150 tỷ", Value = "100-150"
+                      },
+                      new SelectListItem() {
+                         Text = "150 - 250 tỷ", Value = "150-250"
+                      },
+                      new SelectListItem() {
+                         Text = "> 250 tỷ", Value = "250-10000"
+                      }
+                  })
+            )
+            @(Html.Kendo().ComboBoxFor(x=>x.Area_bw).HtmlAttributes(new { style = "width:120px;" })
+                                    .Placeholder("Diện tích")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "< 30 m2", Value = "0-30"
+                      },
+                      new SelectListItem() {
+                          Text = "30 - 50 m2", Value = "30-50"
+                      },
+                      new SelectListItem() {
+                          Text = "50 - 70 m2", Value = "30-70"
+                      },
+                      new SelectListItem() {
+                          Text = "70 - 100 m2", Value = "70-100"
+                      },
+                      new SelectListItem() {
+                          Text = "100 - 150 m2", Value = "100-150"
+                      },
+                      new SelectListItem() {
+                          Text = "150 - 250 m2", Value = "150-250"
+                      },
+                      new SelectListItem() {
+                          Text = "250 - 500 m2", Value = "250-500"
+                      },
+                      new SelectListItem() {
+                          Text = "500 - 1000 m2", Value = "500-1000"
+                      },
+                      new SelectListItem() {
+                          Text = "1000 - 2000 m2", Value = "1000-2000"
+                      },
+                      new SelectListItem() {
+                          Text = "2000 - 5000 m2", Value = "2000-5000"
+                      },
+                      new SelectListItem() {
+                          Text = "> 5000 m2", Value = "5000 - 1000000000"
+                      }
+                  })
+            )
+
+            @(Html.Kendo().ComboBoxFor(x=>x.Width_bw).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Chiều rộng")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "< 3m", Value = "0-3"
+                      },
+                      new SelectListItem() {
+                          Text = "3 - 4m", Value = "3-4"
+                      },
+                      new SelectListItem() {
+                          Text = "4 - 5m", Value = "4-5"
+                      },
+                      new SelectListItem() {
+                          Text = "5 - 6m", Value = "5-6"
+                      },
+                      new SelectListItem() {
+                          Text = "6 - 8m", Value = "6-8"
+                      },
+                      new SelectListItem() {
+                          Text = "8 - 10m", Value = "8-10"
+                      },
+                      new SelectListItem() {
+                          Text = "10 - 15m", Value = "10-15"
+                      },
+                      new SelectListItem() {
+                          Text = "15 - 20m", Value = "15-20"
+                      },
+                      new SelectListItem() {
+                          Text = "20 - 30m", Value = "20-30"
+                      },
+                      new SelectListItem() {
+                          Text = "30 - 50m", Value = "30-50"
+                      },
+                      new SelectListItem() {
+                          Text = "50 - 100m", Value = "50-100"
+                      },
+                      new SelectListItem() {
+                          Text = "100 - 200m", Value = "100-200"
+                      },
+                      new SelectListItem() {
+                          Text = "200 - 500m", Value = "200-500"
+                      },
+                      new SelectListItem() {
+                          Text = "500 - 1000m", Value = "500-1000"
+                      },
+                      new SelectListItem() {
+                          Text = "> 1000m", Value = "1000-1000000000"
+                      }
+                  })
+            )
+
+            @(Html.Kendo().ComboBoxFor(x=>x.StreetWidth_bw).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Đường rộng")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "< 3m", Value = "0-3"
+                      },
+                      new SelectListItem() {
+                          Text = "3 - 4m", Value = "3-4"
+                      },
+                      new SelectListItem() {
+                          Text = "4 - 6m", Value = "4-6"
+                      },
+                      new SelectListItem() {
+                          Text = "6 - 8m", Value = "6-8"
+                      },
+                      new SelectListItem() {
+                          Text = "8 - 12m", Value = "8-12"
+                      },
+                      new SelectListItem() {
+                          Text = "12 - 16m", Value = "12-16"
+                      },
+                      new SelectListItem() {
+                          Text = "16 - 24m", Value = "16-24"
+                      },
+                      new SelectListItem() {
+                          Text = "24 - 36m", Value = "24-36"
+                      },
+                       new SelectListItem() {
+                          Text = "> 36m", Value = "36-1000"
+                      }
+                  })
+            )
+
+            @(Html.Kendo().ComboBoxFor(x=>x.NumOfFloor_bw).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Số tầng")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "Cấp 4", Value = "0-1"
+                      },
+                      new SelectListItem() {
+                          Text = "2 tầng", Value = "2-2"
+                      },
+                      new SelectListItem() {
+                          Text = "3 tầng", Value = "3-3"
+                      },
+                      new SelectListItem() {
+                          Text = "4 tầng", Value = "4-4"
+                      },
+                      new SelectListItem() {
+                          Text = "5 tầng", Value = "5-5"
+                      },
+                      new SelectListItem() {
+                          Text = "5 - 7 tầng", Value = "5-7"
+                      },
+                      new SelectListItem() {
+                          Text = "7 - 10 tầng", Value = "7-10"
+                      },
+                      new SelectListItem() {
+                          Text = "10 - 15 tầng", Value = "10-15"
+                      },
+                      new SelectListItem() {
+                          Text = "> 15 tầng", Value = "15-1000"
+                      }
+                  })
+            )
+
+            @(Html.Kendo().ComboBoxFor(x=>x.NumOfRoom_bw).HtmlAttributes(new { style = "width:110px;" })
+                                    .Placeholder("Số phòng")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "1 phòng", Value = "1-1"
+                      },
+                      new SelectListItem() {
+                          Text = "2 phòng", Value = "2-2"
+                      },
+                      new SelectListItem() {
+                          Text = "3 phòng", Value = "3-3"
+                      },
+                      new SelectListItem() {
+                          Text = "4 phòng", Value = "4-4"
+                      },
+                      new SelectListItem() {
+                          Text = "5 phòng", Value = "5-5"
+                      },
+                      new SelectListItem() {
+                          Text = "5 - 7 phòng", Value = "5-7"
+                      },
+                      new SelectListItem() {
+                          Text = "7 - 10 phòng", Value = "7-10"
+                      },
+                      new SelectListItem() {
+                          Text = "> 10 phòng", Value = "10-1000"
+                      }
+                  })
+            )*@
+        <select id="cmbDistrict" name="cmbDistrict" style="width:200px;">
+            @{ Html.RenderAction("DistrictPartial", "District"); }
+        </select>
+        <select id="cmbWard" name="cmbWard" style="width:150px"></select>
+        <select id="cmbStreet" name="cmbStreet" style="width: 180px"></select>
+        <select id="cmbPostedBy" name="cmbPostedBy" style="width:200px;">
+            @{ Html.RenderAction("UserListPartial", "User"); }
+        </select>
         <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
         if (User.IsInRole(Permission.CUSTOMER_EXPORT))
         {
@@ -366,15 +409,15 @@
       })
       .Columns(columns =>
       {
-          columns.Template(t => { }).ClientTemplate("#= renderNumber(data) #").Title("#");
-          columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian");
+          columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+          columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian").Width(120);
           columns.Bound(e => e.Id).ClientTemplate("#=bizHelper.renderCustomerShowPhone(IsViewedMobileToday, Id, FullName, Phone)#").Title("Khách hàng").Width(120);
-          columns.Bound(e => e.DemandHtml).Encoded(false);
-          columns.Bound(e => e.RegionTargetDisplay).Encoded(false);
-          columns.Bound(e => e.DetailHtml).Encoded(false);
-          columns.Bound(e => e.BudgetFrom).ClientTemplate(@"<b>Giá từ</b>: #=BudgetFrom# #=CurrencyType# </br><b>Đến</b>: #=BudgetTo# #=CurrencyType#");
-          columns.Bound(e => e.CreatedByHtml).Encoded(false);
-          columns.Bound(e => e.StatusHtml).Encoded(false);
+          columns.Bound(e => e.DemandHtml).Encoded(false).Width(130);
+          columns.Bound(e => e.RegionTargetDisplay).Encoded(false).Width(220);
+          columns.Bound(e => e.DetailHtml).Encoded(false).ClientTemplate("<div><b>Mục đích</b>: <span>#=Target#</span></br><b>DT đất</b>: <span>#=MinArea# m2</span></br><b>Ngang</b>: <span>#=MinWidth# m</span></br><b>Dài</b>: <span>#=MinLength# m</span></br><b>Số phòng</b>: <span>#=NumOfRoom#</span></br><b>Số tầng</b>: <span>#=NumOfFloor#</span></br><b>Đường rộng</b>: <span>#=StreetWidth# m</span></br><b>Hướng</b>: <span>#=Direction#</span></br><b>Ghi chú</b>: <span>#=common.readMore(common.raw(Note),100,\"/customer/detail/\",Id)#</span></div>");
+          columns.Bound(e => e.BudgetFrom).ClientTemplate(@"<b>Giá từ</b>: #=BudgetFrom# #=CurrencyType# </br><b>Đến</b>: #=BudgetTo# #=CurrencyType#").Width(100);
+          columns.Bound(e => e.CreatedByHtml).ClientTemplate("#=CreatedByHtml#<br><span class='link'>#=CreatedBy#</span>").Encoded(false).Width(120);
+          columns.Bound(e => e.StatusHtml).Encoded(false).Width(110);
           //columns.Bound(e => e.Id).Width(120).Title("").ClientTemplate(@"<a title='Xem chi tiết' href='/customer/detail/#=Id#' class='btn btn-default'>Chi tiết</a>
           //<a title='Chỉnh sửa thông tin' href='/customer/edit/#=Id#' class='btn btn-default'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
           //<button type='button' onclick='customerListing.hideMobile(#=Id#,#=IsForceHiddenPhone#)' class='btn btn-default'>#=IsForceHiddenPhone?'BỎ ẨN SĐT':'ẨN SĐT'#</button>
@@ -382,11 +425,11 @@
           //columns.Command(command => command.Destroy().Text("Xóa")).Width(80);
           columns.Template(t => { }).ClientTemplate(@"<a title='Xem chi tiết' href='/customer/detail/#=Id#' class='btn btn-default'>Chi tiết</a>
         <a title='Chỉnh sửa thông tin' href='/customer/edit/#=Id#' class='#= bizHelper.renderCanEdit('canEdit',CreatedBy)# btn btn-default'><span class='k-icon k-edit' aria-hidden='true'></span> Sửa</a>
-        <button type='button' onclick='customerListing.hideMobile(#=Id#,#=IsForceHiddenPhone#)' class='#= bizHelper.renderCanDo('canHideMobile')# btn btn-default'>#=IsForceHiddenPhone?'Bỏ ẩn SĐT':'Ẩn SĐT'#</button>
+        <button type='button' onclick='customerListing.hideMobile(#=Id#,#=IsForceHiddenPhone#)' class='#= bizHelper.renderCanDo('canHideMobile')# btn btn-default'>#=IsForceHiddenPhone?'Hiện SĐT':'Ẩn SĐT'#</button>
         <button type='button' onclick='customerListing.delete(#=Id#)' class='#= bizHelper.renderCanDo('canDelete')# btn btn-default'><span class='k-icon k-delete'></span> Xóa</button>").Width(120);
       })
         .Pageable(x => x.PageSizes(new[] {20, 50, 100 }))
-        .Events(events => events.DataBound("common.onDataBoundHandler"))
+        .Events(events => events.DataBound("baseListing.onDataBoundHandler"))
         .DataSource(dataSource => dataSource
         .Ajax()
         .PageSize(20)
@@ -416,22 +459,34 @@
 
         function additionalData() {
             return {
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val(),
                 'ContractId_Filter': $("#ContractId_Filter").val(),
                 'StatusId_Filter': $("#StatusId_Filter").val(),
                 'DemandId_Filter': $("#DemandId_Filter").val(),
                 'TargetId_Filter': $("#TargetId_Filter").val(),
-                'SourceId_Filter': $("#SourceId_Filter").val(),
+                //'SourceId_Filter': $("#SourceId_Filter").val(),
                 'DirectionId_Filter': $("#DirectionId_Filter").val(),
-                'CityId': $("#cmbCity").val(),
+                //'CityId': $("#cmbCity").val(),
                 'DistrictId': $("#cmbDistrict").val(),
+                'WardId': $("#cmbWard").val(),
+                'StreetId': $("#cmbStreet").val(),
                 'Keyword': $("#Keyword").val(),
-                'Area_bw': $("#Area_bw").val(),
-                'Price_bw': $("#Price_bw").val(),
-                'Width_bw': $("#Width_bw").val(),
-                'StreetWidth_bw': $("#StreetWidth_bw").val(),
-                'NumOfFloor_bw': $("#NumOfFloor_bw").val(),
-                'NumOfBedroom_bw': $("#NumOfBedroom_bw").val(),
-                'NumOfToilet_bw': $("#NumOfToilet_bw").val()
+                'PostedBy': $("#cmbPostedBy").val(),
+                //'Area_bw': $("#Area_bw").val(),
+                //'Price_bw': $("#Price_bw").val(),
+                //'Width_bw': $("#Width_bw").val(),
+                //'StreetWidth_bw': $("#StreetWidth_bw").val(),
+                //'NumOfFloor_bw': $("#NumOfFloor_bw").val(),
+                //'NumOfBedroom_bw': $("#NumOfBedroom_bw").val(),
+                //'NumOfToilet_bw': $("#NumOfToilet_bw").val()
+                'Width_bw': $("#Width").val() == '' ? null : $("#Width").val() + "-999999999999",
+                'StreetWidth_bw': $("#StreetWidth").val() == '' ? null : $("#StreetWidth").val() + "-999999999999",
+                'Area_bw': ($("#AreaFrom").val() || "0") + "-" + (parseInt($("#AreaTo").val() || "9999999999999") + 0),
+                'Price_bw': ($("#PriceFrom").val() || "0") + "-" + (parseInt($("#PriceTo").val() || "9999999999999") + 0),
+                'NumOfFloor_bw': $("#NumOfFloor").val() == '' ? null : $("#NumOfFloor").val() + "-" + $("#NumOfFloor").val(),
+                'NumOfBedroom_bw': $("#NumOfBedroom").val() == '' ? null : $("#NumOfBedroom").val() + "-" + $("#NumOfBedroom").val(),
+                'PriceUnit': $("#PriceUnit").val()
             }
         }
 
@@ -441,20 +496,88 @@
     </script>
 
     <script>
-        var counter = 1;
+        //var counter = 1;
 
-        function onDataBound(e) {
-            counter = 1;
-        }
+        //function onDataBound(e) {
+        //    counter = 1;
+        //}
 
-        function renderNumber(data) {
-            return counter++;
-        }
+        //function renderNumber(data) {
+        //    return counter++;
+        //}
 
         function renderShowBtn() {
             var r = parseInt($('#canEdit').val());
             return r == 0 ? 'hidden' : '';
         }
+    </script>
 
+    <script>
+        $("#cmbDistrict").val(null).trigger("change");
+        $("#cmbDistrict").select2({
+            templateSelection: format,
+            escapeMarkup: function (m) { return m; },
+            allowClear: true,
+            placeholder: 'Quận huyện..',
+        });
+        $("#cmbWard").select2({
+            allowClear: true,
+            placeholder: 'Phường xã..',
+        });
+        $("#cmbStreet").select2({
+            allowClear: true,
+            placeholder: 'Đường..',
+        });
+
+        $("#cmbPostedBy").val(null).trigger("change");
+        $("#cmbPostedBy").select2({
+            allowClear: true,
+            placeholder: 'Nhân viên nhập..',
+        });
+
+        function format(item) {
+            var opt = $('#cmbDistrict').find(':selected') || '';
+            var og = opt.closest('optgroup').attr('label') || '';
+            return item.text + ' - ' + og;
+        };
+
+        $("#cmbDistrict").on("change", function () {
+            $.ajax({
+                type: "GET",
+                url: common.mapPath('/ward/_gets?districtId=' + $("#cmbDistrict").val()),
+                dataType: "json",
+                success: function (data) {
+                    var rangeOptions = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var option = new Option(data[i].Name, data[i].Id);
+                        rangeOptions.push(option);
+                    }
+
+                    $("#cmbWard option[value]").remove();
+                    $("#cmbWard").append(rangeOptions).val(null).trigger("change");
+                    $("#cmbWard").select2({
+                        placeholder: 'Phường xã..',
+                        allowClear: true
+                    }).trigger("change");
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: common.mapPath('/street/_gets?districtId=' + $("#cmbDistrict").val()),
+                dataType: "json",
+                success: function (data) {
+                    var rangeOptions = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var option = new Option(data[i].Name, data[i].Id);
+                        rangeOptions.push(option);
+                    }
+
+                    $("#cmbStreet option[value]").remove();
+                    $("#cmbStreet").append(rangeOptions).val(null).trigger("change");
+                    $("#cmbStreet").select2({ placeholder: 'Đường..', allowClear: true }).trigger("change");
+                }
+            });
+        });
     </script>
 }

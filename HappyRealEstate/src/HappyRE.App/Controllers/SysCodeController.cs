@@ -9,12 +9,14 @@ using HappyRE.Core.BLL.Repositories;
 using HappyRE.Core.Entities;
 using HappyRE.Core.Entities.Model;
 using Kendo.Mvc.UI;
+using log4net;
 
 namespace HappyRE.App.Controllers
 {
     [Authorize(Roles = Permission.SYS_ADMIN)]
     public class SysCodeController : BaseController
     {
+        private static readonly ILog _log = LogManager.GetLogger("SysCodeController");
         public SysCodeController(IUow uow) : base(uow) { }
 
         public ActionResult ContractType()
@@ -114,16 +116,28 @@ namespace HappyRE.App.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
-            var sysCode = await _uow.SysCode.GetById(id);
-            var q = new Core.Entities.SysCodeQuery();
-            if (sysCode != null)
-            {
+            try { 
                 await _uow.SysCode.Delete(new SysCode() { Id = id });
-                q.TableId = sysCode.TableId;
-                var res = await _uow.SysCode.Search(new Core.Entities.SysCodeQuery());
-                return View("Index", res);
+                return Json(new DataSourceResult());
             }
-            return null;
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = ex.Message
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                var r = new DataSourceResult()
+                {
+                    Errors = "Không thể xóa thông tin này vì đang sử dụng!"
+                };
+                return Json(r, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #region Json
@@ -131,8 +145,22 @@ namespace HappyRE.App.Controllers
         [HttpPost]
         public async Task<JsonResult> _IU(SysCode data)
         {
-            var res= await _uow.SysCode.IU(data);
-            return Json(res,JsonRequestBehavior.AllowGet);
+            try { 
+                var res= await _uow.SysCode.IU(data);
+                return Json(res,JsonRequestBehavior.AllowGet);
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                Response.StatusCode = 400;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                Response.StatusCode = 400;
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [CompressFilter]

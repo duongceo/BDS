@@ -31,6 +31,33 @@
         }
     }
 
+    onSuccessMutilsMore = function (e) {
+        console.log(e.operation);
+        if (e.operation == 'upload') {
+            console.log('ok');
+            $("#_listImage").data("kendoGrid").dataSource.read();
+            //$("#img_list_more").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='PropertyImages' value='" + e.response.data + "' /><a onclick='propertyDetail.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
+        }
+    }
+
+    onSuccessList = function (e) {
+        if (e.operation == 'upload') {
+            $("#img_list").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='Images' value='" + e.response.data + "' /><a onclick='baseUpload.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
+        }
+    }
+
+    onSuccessListOwner = function (e) {
+        if (e.operation == 'upload') {
+            $("#img_list_owner").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='OwnerImages' value='" + e.response.data + "' /><a onclick='baseUpload.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
+        }
+    }
+
+    onSuccessListCustomer = function (e) {
+        if (e.operation == 'upload') {
+            $("#img_list_customer").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='CustomerImages' value='" + e.response.data + "' /><a onclick='baseUpload.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
+        }
+    }
+
     onError = function(e) {
         console.log("Error (" + e.operation + ") :: " + getFileInfo(e));
     }
@@ -51,6 +78,10 @@
         console.log("Upload progress :: " + e.percentComplete + "% :: " + getFileInfo(e));
     }
 
+    removeImg= function (item, e) {
+        $(item).closest('li').remove();
+    }
+
     function getFileInfo(e) {
         return $.map(e.files, function (file) {
             var info = file.name;
@@ -66,6 +97,11 @@
     return {
         onSuccess: onSuccess,
         onSuccessMutils: onSuccessMutils,
-        onComplete: onComplete
+        onSuccessMutilsMore: onSuccessMutilsMore,
+        onSuccessList: onSuccessList,
+        onSuccessListOwner: onSuccessListOwner,
+        onSuccessListCustomer: onSuccessListCustomer,
+        onComplete: onComplete,
+        removeImg: removeImg
     };
 }())

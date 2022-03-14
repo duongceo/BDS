@@ -266,6 +266,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerInfoController.cs" />
+    <Compile Include="Controllers\ImageFileController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\UserLogController.cs" />
@@ -3546,6 +3547,7 @@
     <Content Include="Scripts\app\global\helper.phone.js" />
     <Content Include="Scripts\app\base.listing.js" />
     <Content Include="Scripts\app\notification\notification.detail.js" />
+    <Content Include="Scripts\app\property\imagefile.js" />
     <Content Include="Scripts\app\property\historylog.js" />
     <Content Include="Scripts\app\property\property.detail.js" />
     <Content Include="Scripts\app\property\property.listing.js" />

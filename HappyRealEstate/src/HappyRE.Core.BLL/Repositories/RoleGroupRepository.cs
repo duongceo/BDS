@@ -61,5 +61,11 @@ namespace HappyRE.Core.BLL.Repositories
         {
             await this.Execute("msp_RoleGroup_UpdateUserRoles", new { roleGroupId,roles }, CommandType.StoredProcedure);
         }
+
+        public override async Task DeleteCheck(RoleGroup obj)
+        {
+            var c = await this.ExecuteScalar<int>("select count(*) from UserProfile (nolock) where Deleted=0 and RoleGroupId=@roleGroupId", new { roleGroupId = obj.Id }, CommandType.Text);
+            if (c > 0) throw new BusinessException($"Không thể xóa nhóm quyền này vì có {c} nhân viên trong nhóm này!");
+        }
     }
 }

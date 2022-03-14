@@ -28,6 +28,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [ExportIgnore]
         public int ContractId { get; set; }
         [DisplayName("Mã hóa đơn")]
+        [ExportIgnore]
         [Required(ErrorMessage = "{0} không được để trống")]
         public string ContractCode { get; set; }
         [DisplayName("Phí môi giới")]
@@ -63,6 +64,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [ExportIgnore]
         public string Address { get; set; }
         [DisplayName("Tòa nhà")]
+        [ExportIgnore]
         public string Office { get; set; }
         [DisplayName("Số thửa")]
         public string RegionCode { get; set; }
@@ -70,7 +72,7 @@ namespace HappyRE.Core.Entities.ViewModel
         public string MapCode { get; set; }
         [DisplayName("Tên chủ nhà")]
         public string OwnerName { get; set; }
-        [DisplayName("Sđt chủ nhà")]
+        [DisplayName("SĐT chủ nhà")]
         public string OwnerPhone { get; set; }
         [DisplayName("Liên hệ khác")]
         public string OwnerPhoneExt { get; set; }
@@ -80,25 +82,28 @@ namespace HappyRE.Core.Entities.ViewModel
         [Required(ErrorMessage = "{0} không được để trống")]
         [ExportIgnore]
         public int LegalId { get; set; }
-        [DisplayName("Giá bán/thuê")]
+        [DisplayName("Giá")]
         [Required(ErrorMessage = "{0} không được để trống")]
         [ExportIgnore]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         [ExportIgnore]
         public decimal PriceVND { get; set; }
 
         [DisplayName("Đơn giá")]
+        [ExportIgnore]
         [Required(ErrorMessage = "{0} không được để trống")]
         public string PricePerArea => this.Area>0? (this.PriceVND / (decimal)this.Area).ToString("N0"):"";
 
         [DisplayName("Giá chốt")]
         [Required(ErrorMessage = "{0} không được để trống")]
         [ExportIgnore]
-        public decimal PriceMatched { get; set; }
+        public double PriceMatched { get; set; }
         [DisplayName("Đơn vị tiền")]
+        [ExportIgnore]
         [Required(ErrorMessage = "{0} không được để trống")]
         public string CurrencyType { get; set; }
         [DisplayName("Phương thức tính")]
+        [ExportIgnore]
         [Required(ErrorMessage = "{0} không được để trống")]
         public string CalcMethod { get; set; }
         [DisplayName("Chiều rộng")]
@@ -131,11 +136,14 @@ namespace HappyRE.Core.Entities.ViewModel
         public int SourceId { get; set; }
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
-        [DisplayName("BĐS tốt")]
+        [DisplayName("HOT")]
         public bool IsHot { get; set; }
+        [DisplayName("BĐS tốt")]
+        public bool IsGood { get; set; }
         [DisplayName("Xác thực")]
         public bool IsVerified { get; set; }
         [DisplayName("Đặc điểm tốt")]
+        [ExportIgnore]
         public int StrongId { get; set; }
         [DisplayName("Đặc điểm xấu")]
         [ExportIgnore]
@@ -161,6 +169,9 @@ namespace HappyRE.Core.Entities.ViewModel
         [ExportIgnore]
         public DateTime PostedDate { get; set; }
         [ExportIgnore]
+        public bool IsTemp { get; set; }
+
+        [ExportIgnore]
         public bool IsForceHiddenPhone { get; set; }
         [ExportIgnore]
         public int ViewedMobileToday { get; set; }
@@ -170,7 +181,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Trạng thái")]
         [ExportIgnore]
         public string StatusHtml { get; set; } = "";
-        [DisplayName("Loại Bđs")]
+        [DisplayName("Loại BĐS")]
         [ExportIgnore]
         public string TypeHtml { get; set; } = "";
         [DisplayName("Tiềm năng")]
@@ -182,10 +193,12 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Loại hợp đồng")]
         public string ContractName { get; set; }
         [DisplayName("Nguồn")]
+        [ExportIgnore]
         public string SourceName { get; set; }
         [DisplayName("Hướng nhà")]
         public string DirectionName { get; set; }
         [DisplayName("Pháp lý")]
+        [ExportIgnore]
         public string LegalName { get; set; }
         [DisplayName("Thông tin chi tiết")]
         [ExportIgnore]
@@ -217,9 +230,9 @@ namespace HappyRE.Core.Entities.ViewModel
         public string Comment { get; set; }
 
         [DisplayName("Giá")]
-        public string PriceDisplay => this.Price==0?"": $"{this.Price.ToString("N0")} {this.CurrencyType}/{this.CalcMethod}";
+        public string PriceDisplay => $"{this.Price.DisplayNumber()} {this.CurrencyType}/{this.CalcMethod}";
         [DisplayName("Giá chốt")]
-        public string PriceMatchedDisplay => this.PriceMatched==0?"": $"{this.PriceMatched.ToString("N0")} {this.CurrencyType}/{this.CalcMethod}";
+        public string PriceMatchedDisplay => $"{this.PriceMatched.DisplayNumber()} {this.CurrencyType}/{this.CalcMethod}";
         [DisplayName("Trạng thái")]
         public string Status => (this.StatusHtml ?? "").Replace("</br>", "; ");
         [DisplayName("Loại BĐS")]
@@ -227,7 +240,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Tiềm năng")]
         public string Potential => (this.PotentialHtml ?? "").Replace("</br>", "; ");
         [DisplayName("Vị trí")]
-        public string Location => (this.AddressHtml ?? "").Replace("</br>", ". ").Replace("<b>", "").Replace("</b>", "");
+        public string Location => (this.AddressHtml ?? "").Replace("</br>", ". ").Replace("<b class=\"highlight\">", "").Replace("</b>", "");
         [DisplayName("Hướng")]
         public string Direction => (this.DirectionName??"").Replace("</br>", "; ");
         [DisplayName("Nội dung")]
@@ -246,5 +259,29 @@ namespace HappyRE.Core.Entities.ViewModel
         public string Structure => (this.StructureHtml ?? "").Replace("</br>", "; ");
         [DisplayName("Nguồn")]
         public string Source => (this.SourceName ?? "").Replace("</br>", "; ");
+
+        [ExportIgnore]
+        public string ImageHtmlDisplay
+        {
+            get
+            {
+                var imgs = (this.ImageHtml ?? "").Split(new string[] { "<img" }, StringSplitOptions.None);
+                int i = 0;
+                string res = "";
+                foreach(var img in imgs.Where(x=>x.Length>0))
+                {
+                    if (i > 0)
+                    {
+                        res += "<img data-group=\""+ this.Id +"\" style=\"display:none\" " + img;
+                    }
+                    else res += "<img data-group=\"" + this.Id + "\" " + img;
+                    i++;
+                }
+
+                if (imgs.Length > 2) res += $"</br><span style='font-size:11px;'>(+{imgs.Length-2})</span>";
+
+                return res;
+            }
+        }
     }
 }

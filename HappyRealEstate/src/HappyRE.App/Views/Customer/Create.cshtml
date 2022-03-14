@@ -5,320 +5,58 @@
     ViewBag.Title = string.IsNullOrEmpty(@Model.FullName) ? "Tạo khách hàng mới" : "Cập nhật thông tin khách hàng";
 }
 <style>
-    
+    .k-widget.k-window {
+        top: 20% !important;
+    }
+
+    .page-form .k-widget.k-multiselect.k-header, .page-form .k-widget.k-combobox.k-header, .page-form .k-widget.k-combobox.k-header .k-input, .page-form .k-textbox, .page-form .k-widget.k-numerictextbox, .page-form .k-numeric-wrap .k-input, .page-form .select2-container {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .page-form .form-group label {
+        width: 185px;
+    }
+
+    .page-form .col-md-9 {
+        width: calc(100% - 185px);
+    }
+
+    ul.img_list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+        ul.img_list li {
+            float: left;
+            margin-right: 10px;
+        }
+
+            ul.img_list li img {
+                max-width:250px;
+                height: 68px;
+                border: solid 1px #d7d3d3;
+            }
+    .k-grid-content {
+        height: auto !important;
+        max-height: 200px;
+    }
 </style>
-
-<form name="ajaxform" id="ajaxform" method="POST">
-
-    <div class="form-horizontal inline-page">
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
-                <img id="avatar_img" src="@Model.Avatar" style="width:100px;height:100px;border:solid 1px #d7d3d3" />
-                @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
-.Name("files")
-.Multiple(false)
-.ShowFileList(false)
-.Async(a => a
-    .Save("Avatar", "Upload")
-    .Remove("Remove", "Upload")
-    .AutoUpload(true)
-
-).Events(events => events
-    .Complete("baseUpload.onComplete")
-    .Success("baseUpload.onSuccess")
-    .Upload("onUpload")
-))
-            </div>
-        </div>
-        @Html.HiddenFor(x => x.Id)
-        <div class="form-group">
-            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.Kendo().TextBoxFor(m => m.FullName).HtmlAttributes(new { @class = "form-control", required = "required" })
-                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @Html.Kendo().TextBoxFor(m => m.Phone).HtmlAttributes(new { @class = "form-control", required = "required", onfocusout = "customerDetail.checkPhoneExists()" })
-                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ExtPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().TextBoxFor(m => m.ExtPhone).HtmlAttributes(new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ExtPhone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().DatePickerFor(x => x.Birthday).HtmlAttributes(new { @type = "" })
-                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @(Html.Kendo().ComboBoxFor(x => x.Sex).HtmlAttributes(new { style = "width:120px;" })
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .HtmlAttributes(new { required = "required" })
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "Nam", Value = "nam"
-                  },
-                  new SelectListItem() {
-                      Text = "Nữ", Value = "nữ"
-                  }
-              }))
-                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ContractId, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @(Html.Kendo().ComboBoxFor(x => x.ContractId).HtmlAttributes(new { })
-                          .Filter("contains")
-                        .DataTextField("Name")
-                        .DataValueField("Id")
-                        .Filter(FilterType.Contains)
-                        .HtmlAttributes(new { required = "required" })
-                        .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "ContractType" }))))
-                    @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.StatusId, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @(Html.Kendo().MultiSelect()
-                                .DataTextField("Name")
-                                .Name("StatusIds")
-                                .DataValueField("BitMask")
-                                .Value((List<int>)ViewBag.selectedStatus)
-                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
-                                .HtmlAttributes(new { required = "required", style="width:350px;" })
-                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerStatusType" }))))
-                    @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.StatusId, new { })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.DemandId, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @(Html.Kendo().MultiSelect()
-                                .DataTextField("Name")
-                                .Name("DemandIds")
-                                .DataValueField("BitMask")
-                                .Value((List<int>)ViewBag.selectedDemands)
-                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
-                                .HtmlAttributes(new { required = "required" })
-                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerDemandType" }))))
-                @Html.ValidationMessageFor(model => model.DemandId, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.DemandId, new { })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TargetId, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @(Html.Kendo().MultiSelect()
-                                .DataTextField("Name")
-                                .Name("TargetIds")
-                                .DataValueField("BitMask")
-                                .Value((List<int>)ViewBag.selectedTargets)
-                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
-                                .HtmlAttributes(new { required = "required" })
-                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerTargetType" }))))
-                @Html.ValidationMessageFor(model => model.TargetId, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.TargetId, new { })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DirectionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @(Html.Kendo().MultiSelect()
-                                .DataTextField("Name")
-                                .Name("DirectionIds")
-                                .DataValueField("BitMask")
-                                .Value((List<int>)ViewBag.selectedDirections)
-                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
-                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyDirectionType" }))))
-                @Html.ValidationMessageFor(model => model.DirectionId, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.DirectionId, new { })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SourceId, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @(Html.Kendo().ComboBoxFor(x => x.SourceId).HtmlAttributes(new { })
-                          .Filter("contains")
-                        .DataTextField("Name")
-                        .DataValueField("Id")
-                        .Filter(FilterType.Contains)
-                        .HtmlAttributes(new { required = "required" })
-                        .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerSourceType" }))))
-                @Html.ValidationMessageFor(model => model.SourceId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.BudgetFrom, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.BudgetFrom).Min(0).Decimals(0).Format("0").HtmlAttributes(new { required = "required", validationMessage = "Cần nhập dữ liệu hợp lệ" })
-                    @Html.ValidationMessageFor(model => model.BudgetFrom, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BudgetTo, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.BudgetTo).Min(0).Decimals(0).Format("0").HtmlAttributes(new { required = "required", validationMessage = "Cần nhập dữ liệu hợp lệ" })
-                    @Html.ValidationMessageFor(model => model.BudgetTo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.CurrencyType, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @(Html.Kendo().ComboBoxFor(x => x.CurrencyType).HtmlAttributes(new { style = "width:120px;" })
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .HtmlAttributes(new { required = "required" })
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "Triệu", Value = "triệu"
-                  },
-                  new SelectListItem() {
-                      Text = "Tỷ", Value = "tỷ"
-                  },
-                  new SelectListItem() {
-                      Text = "VND", Value = "VND"
-                  },
-                  new SelectListItem() {
-                      Text = "USD", Value = "USD"
-                  },
-                  new SelectListItem() {
-                      Text = "Lượng vàng", Value = "lượng vàng"
-                  }
-              }))
-                    @Html.ValidationMessageFor(model => model.CurrencyType, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CalcMethod, htmlAttributes: new { @class = "control-label col-md-2 required" })
-                <div class="col-md-10">
-                    @(Html.Kendo().ComboBoxFor(x => x.CalcMethod).HtmlAttributes(new { style = "width:120px;" })
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .HtmlAttributes(new { required = "required" })
-                                  .BindTo(new List<SelectListItem>() {
-                  new SelectListItem() {
-                      Text = "m2", Value = "m2"
-                  },
-                  new SelectListItem() {
-                      Text = "m2/tháng", Value = "m2/tháng"
-                  },
-                  new SelectListItem() {
-                      Text = "tổng diện tích", Value = "tổng diện tích"
-                  },
-                  new SelectListItem() {
-                      Text = "tháng", Value = "tháng"
-                  },
-                  new SelectListItem() {
-                      Text = "phòng", Value = "phòng"
-                  }
-              }))
-                    @Html.ValidationMessageFor(model => model.CalcMethod, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumOfFloor, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.NumOfFloor).Min(0).Decimals(0).Format("0").HtmlAttributes(new { })
-                    @Html.ValidationMessageFor(model => model.NumOfFloor, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumOfRoom, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.NumOfRoom).Min(0).Decimals(0).Format("N0").HtmlAttributes(new { })
-                    @Html.ValidationMessageFor(model => model.NumOfRoom, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MinArea, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.MinArea).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { })
-                    @Html.ValidationMessageFor(model => model.MinArea, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MinWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.MinWidth).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { })
-                    @Html.ValidationMessageFor(model => model.MinWidth, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MinLength, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Kendo().NumericTextBoxFor(m => m.MinLength).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { })
-                    @Html.ValidationMessageFor(model => model.MinLength, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.StreetWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Kendo().NumericTextBoxFor(m => m.StreetWidth).Min(0).Format("###.#").Decimals(1).HtmlAttributes(new { })
-                @Html.ValidationMessageFor(model => model.StreetWidth, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Kendo().TextBoxFor(m => m.Note).HtmlAttributes(new { style = "width:100%;max-width:100%;" })
-                @*@(Html.Kendo().EditorFor(m => m.Note).Encode(false).HtmlAttributes(new { style = "height: 50px;" }))*@
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @if (Model.Id > 0)
-        {
-            <div class="form-group">
-                <label class="control-label col-md-2 required">Khu vực mong muốn</label>
-                <div class="col-md-10">
-                    <input onclick="customerDetail.showUserRegionModal('@Model.Id')" type="button" value="Thêm" class="btn btn-default" />
-                    <div style="margin-top:5px;">
-                        @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.CustomerRegionTargetViewModel>()
+<div class="content-edit-block">
+    
+    <form name="ajaxform" id="ajaxform" class="page-form" method="POST">
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col-md-12">
+                @if (Model.Id > 0)
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-3 required">Khu vực mong muốn</label>
+                        <div class="col-md-9">
+                            <input onclick="customerDetail.showUserRegionModal('@Model.Id')" type="button" value="Thêm" class="btn btn-default" />
+                            <div style="margin-top:5px;">
+                                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.CustomerRegionTargetViewModel>()
   .Name("_list")
   .Columns(columns =>
   {
@@ -339,23 +77,395 @@
                   .Destroy("DeleteRegion", "Customer")
       )
 )
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Id == 0)
+                {
+                    @Html.HiddenFor(x => x.RegionTargets)
+                    <div class="form-group">
+                        <label class="control-label col-md-3 required">Khu vực mong muốn</label>
+                        <div class="col-md-9">
+                            <input onclick="customerDetail.showUserRegionModal('@Model.Id')" type="button" value="Thêm" class="btn btn-default" />
+                            <div style="margin-top:5px;">
+                                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.CustomerRegionTargetViewModel>()
+  .Name("_list")
+  .Columns(columns =>
+  {
+      columns.Bound(e => e.CityName);
+      columns.Bound(e => e.DistrictName);
+      columns.Bound(e => e.WardName);
+      columns.Bound(e => e.StreetName);
+      columns.Command(command => command.Destroy().Text("Xóa")).Width(100);
+  })
+  .Scrollable()
+      //.Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          //.PageSize(10)
+          .Model(model => model.Id(p => p.Id))
+          .Events(events => events.Error("common.errorHandler"))
+                  //.Read(read => read.Action("Search", "CustomerRegionTarget",new {customerId=Model.Id}))
+                  .Destroy("DeleteRegion", "Customer")
+      )
+)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <fieldset>
+            <legend><strong>Thông tin khách hàng</strong></legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(x => x.Id)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StatusId, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().MultiSelect().AutoClose(false)
+                                .DataTextField("Name")
+                                .Name("StatusIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedStatus)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                .HtmlAttributes(new { required = "required", style="width:350px;" })
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerStatusType" }))))
+                                @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.StatusId, new { })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContractId, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().ComboBoxFor(x => x.ContractId).HtmlAttributes(new { })
+                          .Filter("contains")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .HtmlAttributes(new { required = "required" })
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "ContractType" }))))
+                                @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DemandId, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().MultiSelect().AutoClose(false)
+                                .DataTextField("Name")
+                                .Name("DemandIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedDemands)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                .HtmlAttributes(new { required = "required" })
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerDemandType" }))))
+                                @Html.ValidationMessageFor(model => model.DemandId, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.DemandId, new { })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TargetId, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().MultiSelect().AutoClose(false)
+                                .DataTextField("Name")
+                                .Name("TargetIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedTargets)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                .HtmlAttributes(new { required = "required" })
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerTargetType" }))))
+                                @Html.ValidationMessageFor(model => model.TargetId, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.TargetId, new { })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DirectionId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().MultiSelect().AutoClose(false)
+                                .DataTextField("Name")
+                                .Name("DirectionIds")
+                                .DataValueField("BitMask")
+                                .Value((List<int>)ViewBag.selectedDirections)
+                                .ItemTemplate("<input type='checkbox'/> #:data.Name#")
+                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyDirectionType" }))))
+                                @Html.ValidationMessageFor(model => model.DirectionId, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.DirectionId, new { })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SourceId, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().ComboBoxFor(x => x.SourceId).HtmlAttributes(new { })
+                          .Filter("contains")
+                        .DataTextField("Name")
+                        .DataValueField("Id")
+                        .Filter(FilterType.Contains)
+                        .HtmlAttributes(new { required = "required" })
+                        .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerSourceType" }))))
+                                @Html.ValidationMessageFor(model => model.SourceId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BudgetFrom, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.BudgetFrom).Min(0).Max(999999999).Decimals(0).Format("0").HtmlAttributes(new { required = "required", validationMessage = "Cần nhập dữ liệu hợp lệ" })
+                                @Html.ValidationMessageFor(model => model.BudgetFrom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BudgetTo, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.BudgetTo).Min(0).Max(999999999).Decimals(0).Format("0").HtmlAttributes(new { required = "required", validationMessage = "Cần nhập dữ liệu hợp lệ" })
+                                @Html.ValidationMessageFor(model => model.BudgetTo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurrencyType, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().ComboBoxFor(x => x.CurrencyType).HtmlAttributes(new { style = "width:120px;" })
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .HtmlAttributes(new { required = "required" })
+                                  .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Triệu", Value = "triệu"
+                  },
+                  new SelectListItem() {
+                      Text = "Tỷ", Value = "tỷ"
+                  },
+                  new SelectListItem() {
+                      Text = "VND", Value = "VND"
+                  },
+                  new SelectListItem() {
+                      Text = "USD", Value = "USD"
+                  },
+                  new SelectListItem() {
+                      Text = "Lượng vàng", Value = "lượng vàng"
+                  }
+              }))
+                                @Html.ValidationMessageFor(model => model.CurrencyType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CalcMethod, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().ComboBoxFor(x => x.CalcMethod).HtmlAttributes(new { style = "width:120px;" })
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .HtmlAttributes(new { required = "required" })
+                                  .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "m2", Value = "m2"
+                  },
+                  new SelectListItem() {
+                      Text = "m2/tháng", Value = "m2/tháng"
+                  },
+                  new SelectListItem() {
+                      Text = "tổng diện tích", Value = "tổng diện tích"
+                  },
+                  new SelectListItem() {
+                      Text = "tháng", Value = "tháng"
+                  },
+                  new SelectListItem() {
+                      Text = "phòng", Value = "phòng"
+                  }
+              }))
+                                @Html.ValidationMessageFor(model => model.CalcMethod, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextArea("Note", Model.Note, new { rows = 1, style = "width:100%;border-color:#ccc;border-radius:5px;resize:vertical;" })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @Html.Kendo().TextBoxFor(m => m.FullName).HtmlAttributes(new { @class = "form-control", required = "required", maxlength = "40" })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @Html.Kendo().TextBoxFor(m => m.Phone).HtmlAttributes(new { @class = "form-control", maxlength = "10", required = "required", onfocusout = "customerDetail.checkPhoneExists()", validationMessage = "Nhập số điện thoại hợp lệ" })
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExtPhone, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().TextBoxFor(m => m.ExtPhone).HtmlAttributes(new { @class = "form-control", maxlength = "200" })
+                                @Html.ValidationMessageFor(model => model.ExtPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().DatePickerFor(x => x.Birthday).Max(DateTime.Today.AddDays(-1)).HtmlAttributes(new { @type = "" })
+                                @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-3 required" })
+                            <div class="col-md-9">
+                                @(Html.Kendo().ComboBoxFor(x => x.Sex).HtmlAttributes(new { style = "width:120px;" })
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .HtmlAttributes(new { required = "required" })
+                                  .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Nam", Value = "nam"
+                  },
+                  new SelectListItem() {
+                      Text = "Nữ", Value = "nữ"
+                  }
+              }))
+                                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumOfFloor, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.NumOfFloor).Min(0).Max(999).Decimals(0).Format("0").HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.NumOfFloor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumOfRoom, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.NumOfRoom).Min(0).Max(999).Decimals(0).Format("N0").HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.NumOfRoom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MinArea, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.MinArea).Min(0).Max(99999999).Format("###.#").Decimals(1).HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.MinArea, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MinWidth, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.MinWidth).Min(0).Max(99999).Format("###.#").Decimals(1).HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.MinWidth, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MinLength, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.MinLength).Min(0).Max(99999).Format("###.#").Decimals(1).HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.MinLength, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StreetWidth, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.Kendo().NumericTextBoxFor(m => m.StreetWidth).Min(0).Max(999).Format("###.#").Decimals(1).HtmlAttributes(new { })
+                                @Html.ValidationMessageFor(model => model.StreetWidth, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                                    @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                    <div class="col-md-9">
+                                                        @Html.HiddenFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        <img id="avatar_img" src="@Model.Avatar" style="width:100px;height:100px;border:solid 1px #d7d3d3" />
+                                                        @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+                            .Name("files")
+                            .Multiple(false)
+                            .ShowFileList(false)
+                            .Async(a => a
+                                .Save("Avatar", "Upload")
+                                .Remove("Remove", "Upload")
+                                .AutoUpload(true)
+
+                            ).Events(events => events
+                                .Complete("baseUpload.onComplete")
+                                .Success("baseUpload.onSuccess")
+                                .Upload("onUpload")
+                            ))
+                                                    </div>
+                                                </div>*@
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <ul id="img_list" class="img_list">
+                                    @foreach (var img in Model.Images)
+                                    {
+                                        <li><img src='@img' /><input type='hidden' name='Images' value='@img' /><a onclick='baseUpload.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>
+                                    }
+                                </ul>
+                                @(Html.Kendo().Upload().HtmlAttributes(new { accept = "image/*" })
+            .Name("files")
+            .Multiple(true)
+            .ShowFileList(false)
+            .Async(a => a
+                .Save("Property", "Upload")
+                .Remove("Remove", "Upload")
+                .AutoUpload(true)
+
+            ).Events(events => events
+                .Complete("baseUpload.onComplete")
+                .Success("baseUpload.onSuccessList")
+                //.Upload("onUpload")
+                .Remove("baseUpload.onRemove")
+            ))
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        }
-        <div class="form-group" style="margin-top:30px;">
-            <div class="col-md-offset-2 col-md-10">
-                <input onclick="customerDetail.update()" type="button" value="Lưu dữ liệu" class="btn btn-primary" />
+        </fieldset>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-top:30px;">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input onclick="customerDetail.update()" type="button" value="Lưu dữ liệu" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </form>
+
+    <div class="foot-link">
+        @Html.ActionLink("Quay lại danh sách", "Index")
     </div>
-</form>
-
-<div class="foot-link">
-    @Html.ActionLink("Quay lại danh sách", "Index")
 </div>
-
-@(Html.Kendo().Window()
+    @(Html.Kendo().Window()
       .Name("_regionModal")
       .Title("Chọn khu vực mong muốn")
       .Modal(true)
@@ -363,4 +473,14 @@
       .Visible(false)
       .Scrollable(true))
 
+    @section Scripts {
+        @if (Model.Id == 0)
+        {
+            <script>
 
+                $(document).ready(function () {
+                    customerDetail.init();
+                });
+            </script>
+        }
+    }

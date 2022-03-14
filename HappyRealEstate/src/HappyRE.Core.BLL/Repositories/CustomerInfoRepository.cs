@@ -83,7 +83,7 @@ namespace HappyRE.Core.BLL.Repositories
                         inner join SaleOrder (nolock) b on a.Phone=b.OwnerPhone 
                         where AlertBirthday=1)
                         select * from temp 
-                        where MONTH(Birthday) = MONTH(GETDATE()) and day(Birthday) = day(GETDATE())";
+                        where MONTH(Birthday) = MONTH(GETDATE()) and day(Birthday) = day(DATEADD(day,-3,GETDATE()))";
             var customers= await this.Query<CustomerInfo>(q, new { }, CommandType.Text);
             return customers.ToList();
         }

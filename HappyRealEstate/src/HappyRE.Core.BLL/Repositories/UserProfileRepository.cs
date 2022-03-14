@@ -26,7 +26,7 @@ namespace HappyRE.Core.BLL.Repositories
 
         public IEnumerable<KeyValueUserModel> GetAll()
         {
-            return this.QueryNonAsync<KeyValueUserModel>("select UserName Id,FullName Name, isnull(a.DepartmentId,0) ParentId from UserProfile (nolock) a left join Department (nolock) b on a.DepartmentId = b.Id where a.Deleted=0 and a.UserStatus=0 and b.Deleted=0", new { }, CommandType.Text);
+            return this.QueryNonAsync<KeyValueUserModel>("select UserName Id, FullName, isnull(a.DepartmentId,0) ParentId from UserProfile (nolock) a left join Department (nolock) b on a.DepartmentId = b.Id where a.Deleted=0 and a.UserStatus=0 and b.Deleted=0", new { }, CommandType.Text);
         }
         public async Task<UserProfile> GetByUserName(string userName)
         {
@@ -88,6 +88,13 @@ namespace HappyRE.Core.BLL.Repositories
             var query = @"select count(*) from AspNetUsers (nolock) a
                         inner join AspNetUserRoles (nolock) b on a.Id= b.UserId                      
                         where a.UserName=@userName and b.RoleId in ('ADMIN','SYS_ADMIN','ACCOUNT')";
+            var l = await this.ExecuteScalar<int>(query, new { userName }, CommandType.Text);
+            return l > 0;
+        }
+
+        public async Task<bool> IsLockedOut(string userName)
+        {
+            var query = @"select count(*) from UserProfile (nolock) where UserName =@userName and (Deleted=1 or UserStatus=1)";
             var l = await this.ExecuteScalar<int>(query, new { userName }, CommandType.Text);
             return l > 0;
         }

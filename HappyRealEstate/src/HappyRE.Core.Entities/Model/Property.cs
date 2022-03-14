@@ -51,7 +51,7 @@ namespace HappyRE.Core.Entities.Model
         public string Office { get; set; }
         [DisplayName("Số thửa")]
         public string RegionCode { get; set; }
-        [DisplayName("Số bản đồ")]
+        [DisplayName("Số tờ bản đồ")]
         public string MapCode { get; set; }
         [DisplayName("Tên chủ nhà")]
         public string OwnerName { get; set; }
@@ -64,7 +64,7 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Pháp lý")]
         [Required(ErrorMessage = "{0} không được để trống")]
         public int? LegalId { get; set; }
-        [DisplayName("Giá chào bán")]
+        [DisplayName("Giá")]
         [Required(ErrorMessage = "{0} không được để trống")]
         public decimal? Price { get; set; }
         [DisplayName("Giá chốt")]
@@ -104,6 +104,8 @@ namespace HappyRE.Core.Entities.Model
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
         [DisplayName("BĐS tốt")]
+        public bool IsGood { get; set; }
+        [DisplayName("HOT")]
         public bool IsHot { get; set; }
         [DisplayName("Xác thực")]
         public bool IsVerified { get; set; }

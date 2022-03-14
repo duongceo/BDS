@@ -10,12 +10,14 @@ using HappyRE.Core.Entities;
 using HappyRE.Core.Entities.Model;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using log4net;
 
 namespace HappyRE.App.Controllers
 {
     [Authorize]
     public class CustomerRegionTargetController : BaseController
     {
+        private static readonly ILog _log = LogManager.GetLogger("CustomerRegionTargetController");
         public CustomerRegionTargetController(IUow uow) : base(uow) { }
 
         [CompressFilter]
@@ -55,11 +57,13 @@ namespace HappyRE.App.Controllers
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {
+                _log.Warn(ex);
                 Response.StatusCode = 400;
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 Response.StatusCode = 400;
                 return Json(null, JsonRequestBehavior.AllowGet);
             }

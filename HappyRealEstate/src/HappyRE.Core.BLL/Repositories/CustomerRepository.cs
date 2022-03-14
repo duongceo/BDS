@@ -29,6 +29,8 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("total", dbType: DbType.Int32, direction: ParameterDirection.Output);
             p.Add("limit", query.Limit);
             p.Add("page", query.Page);
+            p.Add("fromDate", query.FromDate);
+            p.Add("toDate", query.ToDate);
             p.Add("userName", userName);
             p.Add("keyword", query.Keyword);
             p.Add("contractId", query.ContractId_Filter);
@@ -39,13 +41,17 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("directionId", query.DirectionId_Filter);
             p.Add("cityId", query.CityId);
             p.Add("districtId", query.DistrictId);
+            p.Add("wardId", query.WardId);
+            p.Add("streetId", query.StreetId);
             p.Add("price_bw", query.Price_bw);
             p.Add("area_bw", query.Area_bw);
             p.Add("width_bw", query.Width_bw);
             p.Add("streetWidth_bw", query.StreetWidth_bw);
             p.Add("numOfFloor_bw", query.NumOfFloor_bw);
             p.Add("numOfRoom_bw", query.NumOfRoom_bw);
-            var res = await this.Query<CustomerListViewModel>("msp_Customer_Search", p, System.Data.CommandType.StoredProcedure);
+            p.Add("priceUnit", query.PriceUnit);
+            p.Add("postedBy", query.PostedBy);
+            var res = await this.Query<CustomerListViewModel>("msp_Customer_Search1", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");
             return new Tuple<IEnumerable<CustomerListViewModel>, int>(res, total);
         }
@@ -64,12 +70,32 @@ namespace HappyRE.Core.BLL.Repositories
             var res = await this.Query<CustomerListViewModel>(query, new { id, userName }, CommandType.Text);
             return res.FirstOrDefault();
         }
+        public async Task<string> GetPhoneNumber(int id)
+        {
+            var res = await this.Query<string>("select Phone from CustomerSearch (nolock) where Deleted=0 and Id=@id", new { id }, CommandType.Text);
+            return res.FirstOrDefault();
+        }
         public async Task<int?> IU(Customer obj)
         {
             var m = await this.GetById(obj.Id);
             if (m == null)
             {
                 var id= await this.Insert(obj);
+                if(id.HasValue && id.Value > 0)
+                {
+                    foreach(var item in obj.RegionTarget)
+                    {
+                        item.CustomerId = id.Value;
+                        await uow.CustomerRegionTarget.IU(item);
+                    }
+
+                    await uow.ImageFile.UpdateImages(new ImageFileQuery()
+                    {
+                        TableName="Customer",
+                        TableKeyId= id.Value,
+                    }, obj.Images);
+                }
+
                 if(id.HasValue) await Merge_CustomerSearch(id.Value);
                 return id;
             }
@@ -101,6 +127,12 @@ namespace HappyRE.Core.BLL.Repositories
                 m.Note = obj.Note;
                 m.Avatar = obj.Avatar;
                 await this.Update(m);
+                await uow.ImageFile.UpdateImages(new ImageFileQuery()
+                {
+                    TableName = "Customer",
+                    TableKeyId = m.Id,
+                }, obj.Images);
+
                 await Merge_CustomerSearch(m.Id);
                 return m.Id;
             }
@@ -170,27 +202,50 @@ namespace HappyRE.Core.BLL.Repositories
         #region ShowMobileLog
         public async Task<int> MobileViewedToday()
         {
+            var q = @"with temp(sl)as(
+                    select count(distinct PropertyId) sl 
+                    from PropertyShowMobileLog (nolock) 
+                    where createdBy=@userName and ViewDate=@viewDate
+                    union all 
+                    select count(distinct CustomerId) sl
+                    from CustomerShowMobileLog (nolock) 
+                    where createdBy=@userName and ViewDate=@viewDate)
+                    select sum(sl) from temp";
+
             var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
-            var res = await this.ExecuteScalar<int>("select count(distinct CustomerId) from CustomerShowMobileLog (nolock) where createdBy=@userName and ViewDate=@viewDate", new { userName,viewDate=DateTime.Today }, CommandType.Text);
+            var res = await this.ExecuteScalar<int>(q, new { userName,viewDate=DateTime.Today }, CommandType.Text);
             return res;
         }
 
-        public async Task<int> ShowMobile(int customerId)
+        public async Task<string> ShowMobile(int customerId, bool isAdmin=false)
         {
-            var viewed = await MobileViewedToday();
-            if (viewed < MaxViewMobileInDay)
+            if (isAdmin)
             {
                 var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
                 var sl = await this.ExecuteScalar<int>("select count(*) from CustomerShowMobileLog (nolock) where createdBy=@userName and CustomerId=@customerId and ViewDate=@viewDate", new { userName, customerId, viewDate = DateTime.Today }, CommandType.Text);
                 if (sl == 0)
                 {
-                    return await this.ExecuteScalar<int>("insert into CustomerShowMobileLog(CustomerId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@customerId,@viewDate,@createdBy,@createdDate,0)", new { customerId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text);
+                    await this.ExecuteScalar<int>("insert into CustomerShowMobileLog(CustomerId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@customerId,@viewDate,@createdBy,@createdDate,0)", new { customerId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text);                   
                 }
-                return 0;
+                return await GetPhoneNumber(customerId);
             }
             else
             {
-                throw new BusinessException("Chỉ được xem 10 số điện thoại mỗi ngày");
+                var viewed = await MobileViewedToday();
+                if (viewed < MaxViewMobileInDay)
+                {
+                    var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
+                    var sl = await this.ExecuteScalar<int>("select count(*) from CustomerShowMobileLog (nolock) where createdBy=@userName and CustomerId=@customerId and ViewDate=@viewDate", new { userName, customerId, viewDate = DateTime.Today }, CommandType.Text);
+                    if (sl == 0)
+                    {
+                        await this.ExecuteScalar<int>("insert into CustomerShowMobileLog(CustomerId,ViewDate,CreatedBy,CreatedDate,Deleted) values(@customerId,@viewDate,@createdBy,@createdDate,0)", new { customerId, viewDate = DateTime.Now, createdBy = userName, createdDate = DateTime.Now }, CommandType.Text); 
+                    }
+                    return await GetPhoneNumber(customerId);
+                }
+                else
+                {
+                    throw new BusinessException($"Chỉ được xem {MaxViewMobileInDay} số điện thoại mỗi ngày");
+                }
             }
         }
 
@@ -209,8 +264,13 @@ namespace HappyRE.Core.BLL.Repositories
 
         public async Task<bool> IsExistByPhone(string phone)
         {
-            var c = await this.ExecuteScalar<int>("select count(*) from Customer (nolock) where Phone = @phone and Deleted=0", new { phone }, CommandType.Text);
+            var c = await this.ExecuteScalar<int>("select count(*) from CustomerSearch (nolock) where Phone = @phone and Deleted=0", new { phone }, CommandType.Text);
             return c > 0;
+        }
+
+        public override async Task DeleteAfter(Customer obj)
+        {
+            if (obj.Id > 0) await Merge_CustomerSearch(obj.Id);
         }
         #endregion
     }

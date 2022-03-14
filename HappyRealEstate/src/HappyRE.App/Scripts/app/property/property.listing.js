@@ -23,20 +23,30 @@
         },
 
         onSearch = function () {
-            //grid = $("#_list").data("kendoGrid");
             $("#_list").data("kendoGrid").dataSource.page(1);
         },
         showMobile = function (id) {
+            var isAdmin = $('#canHideMobile').val() || "0";
             restfulSvc.get('/Property/_TotalViewedMobileToday', {}, function (res) {
-                if (confirm("Bạn đã xem " + res + " /10 SĐT được xem mỗi ngày. Bạn muốn xem thêm SĐT khách này?") == false) {
-                    return;
+                if (isAdmin == "0") {
+                    if (confirm("Bạn đã xem " + res + " /10 SĐT được xem mỗi ngày. Bạn muốn xem thêm SĐT khách này?") == false) {
+                        return;
+                    }
+                } else {
+                    if (confirm("Bạn đã xem " + res + " SĐT trong hôm nay. Bạn muốn xem thêm SĐT khách này?") == false) {
+                        return;
+                    }
                 }
-                restfulSvc.post('/Property/_ShowMobile', { id: id }, function () {
-                    //$("#_list").data("kendoGrid").dataSource.read();
-                    $(".info-" + id).show();
-                    $(".btn-show-mobile-" + id).hide();
-                    $("#txt_phone").show();
-                    $("#btn_phone").hide();
+                restfulSvc.post('/Property/_ShowMobile', { id: id }, function (res) {
+                    if (res.data && res.data.length > 0) {
+                        console.log(res.data);
+                        $(".info-" + id + " .txt_phone").text(res.data);
+                        $(".info-" + id).show();
+                        $(".btn-show-mobile-" + id).hide();
+                        //detail
+                        $("#txt_phone").text(res.data).show();
+                        $("#btn_phone").hide();
+                    }
                 });
             });
         },
@@ -51,6 +61,11 @@
                 }
             }
             restfulSvc.post('/Property/_HideMobile', { id: id, isForced: isForced }, function () {
+                $("#_list").data("kendoGrid").dataSource.read();
+            });
+        },
+        changeHot = function (id, isHot) {
+            restfulSvc.post('/Property/_ChangeHot', { id: id, isHot: isHot }, function () {
                 $("#_list").data("kendoGrid").dataSource.read();
             });
         },
@@ -77,6 +92,7 @@
         onSearch: onSearch,
         hideMobile: hideMobile,
         showMobile: showMobile,
+        changeHot: changeHot,
         delete: onDelete,
         showListModal: showListModal
     };

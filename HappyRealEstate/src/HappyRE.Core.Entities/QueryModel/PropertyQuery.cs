@@ -11,6 +11,8 @@ namespace HappyRE.Core.Entities
     {
         [DisplayName("Mã BĐS")]
         public string Code { get; set; }
+        [DisplayName("Loại BĐS")]
+        public int? TypeId_Filter { get; set; }
         [DisplayName("Loại hợp đồng")]
         public int? ContractId_Filter { get; set; }
         [DisplayName("Mã hóa đơn")]
@@ -18,7 +20,7 @@ namespace HappyRE.Core.Entities
         [DisplayName("Phí môi giới")]
         public string Commission { get; set; }
         [DisplayName("Đã check")]
-        public bool? IsChecked { get; set; }
+        public bool? IsChecked_Filter { get; set; }
         [DisplayName("Trạng thái")]
         public int? StatusId_Filter { get; set; }
         [DisplayName("Loại BĐS")]
@@ -41,7 +43,7 @@ namespace HappyRE.Core.Entities
         public string MapCode { get; set; }
         [DisplayName("Tên chủ nhà")]
         public string OwnerName { get; set; }
-        [DisplayName("Sđt chủ nhà")]
+        [DisplayName("SĐT chủ nhà")]
         public string OwnerPhone { get; set; }
         [DisplayName("Liên hệ khác")]
         public string OwnerPhoneExt { get; set; }
@@ -97,5 +99,20 @@ namespace HappyRE.Core.Entities
         public string PostedBy { get; set; }
         [DisplayName("Ngày đăng")]
         public DateTime PostedDate { get; set; }
+
+
+        public int? PriceFrom { get; set; }
+        public int? PriceTo { get; set; }
+
+        public int PriceUnit { get; set; } = 1000000000;
+
+        public int? AreaFrom { get; set; }
+        public int? AreaTo { get; set; }
+
+        public int? NumOfBedroom { get; set; }
+        public int? NumOfToilet { get; set; }
+        public int? NumOfFloor { get; set; }
+        public int? Width { get; set; }
+        public int? StreetWidth { get; set; }
     }
 }

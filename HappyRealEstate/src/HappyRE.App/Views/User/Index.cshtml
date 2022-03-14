@@ -70,7 +70,7 @@
           columns.Bound(e => e.LevelName);
           columns.Bound(e => e.RoleGroupName);
           columns.Bound(e => e.UserStatus).ClientTemplate("<i style='color:green'>#= UserStatus==0?'<span class=\"glyphicon glyphicon-check\"></span>' :'<span class=\"glyphicon glyphicon-unchecked\"></span>' #</b>").HtmlAttributes(new { style = "text-align:center" });
-          columns.Bound(e => e.Avatar).ClientTemplate("#=renderAvatar(Avatar)#").Title("Hình");
+          columns.Bound(e => e.Avatar).ClientTemplate("#=bizHelper.renderAvatar(Avatar)#").Title("Hình");
           columns.Bound(e => e.Id).Width(120).Title("").ClientTemplate(@"<a title='Cập nhật thông tin' href='javascript:void(0);' onclick='userListing.show(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
                                                                         <button title='Xóa' type='button' onclick='userListing.delete(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-remove-circle' aria-hidden='true'></span></button>
                                                                         <button title='Reset mật khẩu' type='button' onclick='userListing.resetPass(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-refresh' aria-hidden='true'></span></button>
@@ -122,8 +122,12 @@
             baseListing.init();
         });
 
-        function renderAvatar(img) {
-            if (img == null || img.length == 0) img = '/content/images/src/blank_avatar.jpg';
+        function renderAvatar(img) {  
+            var img_data = '/content/images/src/blank_avatar.jpg';
+            if (img == null || img.length == 0) {
+                img = img_data;
+            }
+            else img_data = img.replace('s200x200','');
             return "<img src='"+img+"' style='width:50px;height:50px;' />"
         }
     </script>

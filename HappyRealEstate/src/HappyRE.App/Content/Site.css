@@ -49,6 +49,9 @@ input[type="checkbox"].input-validation-error {
     background-color: #FFFF88;
 }
 
+.link {
+    color: #428bca;
+}
 /*History log style*/
 #rowComment {
     font: normal 13px Consolas, Monaco;
@@ -183,24 +186,43 @@ div.frame {
     display:none;
 }
 #noti_list {
-    width: 300px;
-    max-height: 550px;
+    width: 360px;
+    max-height: 350px;
+    overflow-y:auto;
+    padding-top:5px;
 }
-    #noti_list > li > a {
-        white-space:normal;
+    #noti_list .foot {
+        text-align: center;
+        padding: 8px;
+        background-color: #eee;
     }
-    #noti_list > li > a span.time {
+    #noti_list ul > li > a {
+        white-space: normal;
+        padding: 6px 10px;
+        display: block;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.428571429;
+        color: #333;
+        text-decoration: none;
+    }
+        #noti_list ul > li > a:hover {
+            color: #fff;
+            background-color: #e29f00;
+        }
+
+    #noti_list ul > li > a span.time {
         text-align: right;
         float: right;
         font-size: 11px;
         line-height: 18px;
         color: #999;
     }
-    #noti_list > li.not-read {
+    #noti_list ul > li.not-read {
         background-color: #f4f1f1;
     }
 
-.filter-block .k-widget.k-header,.filter-block .k-textbox, .filter-block .btn {
+.filter-block .k-widget.k-header, .filter-block .k-textbox, .filter-block .btn, .filter-block .k-numerictextbox {
     margin-right: 5px;
     margin-bottom: 5px;
 }
@@ -262,8 +284,130 @@ table thead.k-grid-header, table thead.k-grid-header th.k-header {
     .foot-link .btn:first-child {
         margin-left:10px;
     }
-    @media only screen and (max-width: 600px) {
-        .navbar-nav-custom.pull-right {
+.highlight{
+    color:red;
+    font-weight:bold;
+    background-color:transparent !important;
+}
+
+.content-edit-block {
+    padding-right: 25px !important;
+}
+
+.filter-block .select2-container {
+    margin-bottom: 5px;
+}
+
+    .filter-block .select2-container .select2-choice {
+        height: 30px;
+    }
+
+    .filter-block .select2-container .select2-choice {
+        line-height: 30px;
+    }
+
+.filter-block .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 26px;
+    color: #666;
+}
+
+
+.btn-send-comment {
+    width: 80px;
+    height: 60px;
+    margin-right: 15px;
+}
+#commentText {
+    width: calc(100% - 95px) !important;
+    padding:5px;
+}
+
+#_listTrack .k-grid-content {
+    height: auto !important;
+    max-height:200px;
+}
+.right-block{padding-left:20px;}
+@media only screen and (max-width: 1024px) {
+    .k-widget.k-grid table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .navbar-nav-custom.pull-right {
         display: none;
+    }
+    .k-widget.k-grid table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .k-widget.k-window{
+        max-width:96%;
+    }
+    .k-window-content .form-horizontal .col-md-10 {
+        width: calc(100% - 25px);
+    }
+    .page-form .col-md-9, .content-edit-block .col-md-9 {
+        width: 100% !important;
+        padding-right: 5px;
+    }
+    .form-inline.checkbox-list .form-group{
+        width:100%;
+    }
+    .form-inline.checkbox-list{
+        margin-left: 5px !important;
+    }
+        .form-inline.checkbox-list .form-group label {
+            width: 90px;
+            float: left;
+            margin-right: 5px;
+        }
+    .right-block {
+        padding-left: 0px;
+    }
+    .select2-container, #Keyword {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .filter-block .k-widget.k-header, .filter-block .k-textbox, .filter-block .btn, .filter-block .k-numerictextbox {
+        min-width: calc(50% - 7px) !important;
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    body, .btn {
+        font-size: 11px !important;
+    }
+
+    .block, .block.full {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1280px) and (-webkit-min-device-pixel-ratio: 1) {
+    body, .btn {
+        font-size: 11px !important;
+    }
+    .block, .block.full {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    body, .btn {
+        font-size: 10px !important;
+    }
+
+    .block, .block.full {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }

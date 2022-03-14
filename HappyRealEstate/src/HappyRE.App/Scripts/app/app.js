@@ -1,83 +1,78 @@
 ﻿
-//var commonModule = angular.module('common', ['ngRoute','ui.bootstrap']);
+//var appMainModule = angular.module('appMain', ['ngSanitize', 'ngStorage'])
+//     .directive('ngCtrlEnter', function () {
+//         return function (scope, element, attrs) {
+//             element.bind("keydown keypress", function (event) {
+//                 if (event.which === 13 && event.ctrlKey) {
+//                     scope.$apply(function () {
+//                         scope.$eval(attrs.ngCtrlEnter);
+//                     });
 
-// non-SPA views will use Angular controllers created on the appMainModule
+//                     event.preventDefault();
+//                 }
+//             });
+//         }
+//     })
+//    .directive('ngEnter', function() {
+//        return function(scope, element, attrs) {
+//            element.bind("keydown keypress", function(event) {
+//                if (event.which === 13) {
+//                    scope.$apply(function() {
+//                        scope.$eval(attrs.ngEnter);
+//                    });
 
-//var appMainModule = angular.module('appMain', []);
-var appMainModule = angular.module('appMain', ['ngSanitize', 'ngStorage'])
-     .directive('ngCtrlEnter', function () {
-         return function (scope, element, attrs) {
-             element.bind("keydown keypress", function (event) {
-                 if (event.which === 13 && event.ctrlKey) {
-                     scope.$apply(function () {
-                         scope.$eval(attrs.ngCtrlEnter);
-                     });
+//                    event.preventDefault();
+//                }
+//            });
+//        }
+//    })   
+//    .directive('repeatDone', function() {
+//        return function(scope, element, attrs) {
+//            if (scope.$last) { // all are rendered            
+//                scope.$emit('LastElem');
+//                scope.$eval(attrs.repeatDone);
+//            }
+//        }
+//    })
+//    .directive('renderDone', function() {
+//        return function(scope, element, attrs) {
+//            scope.$on('LastElem', function(event) {
+//                scope.$eval(attrs.renderDone);
+//            });
+//        };
+//    });
 
-                     event.preventDefault();
-                 }
-             });
-         }
-     })
-    .directive('ngEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
-                if (event.which === 13) {
-                    scope.$apply(function() {
-                        scope.$eval(attrs.ngEnter);
-                    });
+////
+//appMainModule.factory('viewModelHelper', viewController);
+//viewController.$inject = ["$http"];
 
-                    event.preventDefault();
-                }
-            });
-        }
-    })   
-    .directive('repeatDone', function() {
-        return function(scope, element, attrs) {
-            if (scope.$last) { // all are rendered            
-                scope.$emit('LastElem');
-                scope.$eval(attrs.repeatDone);
-            }
-        }
-    })
-    .directive('renderDone', function() {
-        return function(scope, element, attrs) {
-            scope.$on('LastElem', function(event) {
-                scope.$eval(attrs.renderDone);
-            });
-        };
-    });
+//function viewController($http) {    
+//    return ChildFashion.viewModelHelper($http);
+//};
 
-//
-appMainModule.factory('viewModelHelper', viewController);
-viewController.$inject = ["$http"];
+//appMainModule.factory('cookieFactory', cookieFactoryController);
 
-function viewController($http) {    
-    return ChildFashion.viewModelHelper($http);
-};
+//function cookieFactoryController() {
+//    $.cookie.json = true;
 
-appMainModule.factory('cookieFactory', cookieFactoryController);
+//    return {        
+//        getCookie: function (name) {
+//            return $.cookie(name);
+//        },
 
-function cookieFactoryController() {
-    $.cookie.json = true;
+//        getAllCookies: function() {
+//            return $.cookie();
+//        },
 
-    return {        
-        getCookie: function (name) {
-            return $.cookie(name);
-        },
+//        setCookie: function(name, value) {
+//            return $.cookie(name, value, { expires: 365, path: '/' });
+//        },
 
-        getAllCookies: function() {
-            return $.cookie();
-        },
-
-        setCookie: function(name, value) {
-            return $.cookie(name, value, { expires: 365, path: '/' });
-        },
-
-        deleteCookie: function(name) {
-            return $.removeCookie(name);
-        }
-    };
-};
+//        deleteCookie: function(name) {
+//            return $.removeCookie(name);
+//        }
+//    };
+//};
 
 
 //angular.module('yourModuleName').directive('ngEnter', function () {
@@ -137,6 +132,8 @@ function cookieFactoryController() {
 //    cr.mustEqual = mustEqual;
 //}(window.ChildFashion));
 //
+
+
 (function (cf) {   
     var viewModelHelper = function($http) {
 

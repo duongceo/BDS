@@ -6,9 +6,9 @@
 }
 
 <div class="filter-block">
-    @Html.Kendo().TextBoxFor(x => x.Keyword).HtmlAttributes(new { style = "width:400px", PlaceHolder = "Tên, email, số điện thoại.." })
+    @Html.Kendo().TextBox().Name("_Keyword").HtmlAttributes(new { style = "width:400px", PlaceHolder = "Tên, email, số điện thoại.." })
     @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
-                          .Name("cmbDepartment")
+                          .Name("_cmbDepartment")
                           .Filter("contains")
                         .Placeholder("Phòng ban..")
                         .DataTextField("Name")
@@ -16,7 +16,7 @@
                         .Filter(FilterType.Contains)
                         .DataSource(source => source.Read(read => read.Action("_Gets", "Department"))))
     @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
-                          .Name("cmbRoleGroup")
+                          .Name("_cmbRoleGroup")
                           .Filter("contains")
                         .Placeholder("Nhóm quyền..")
                         .DataTextField("Name")
@@ -24,7 +24,7 @@
                         .Filter(FilterType.Contains)
                         .DataSource(source => source.Read(read => read.Action("_Gets", "RoleGroup"))))
     @(Html.Kendo().ComboBox().HtmlAttributes(new { style = "width:150px;" })
-                          .Name("cmbLevel")
+                          .Name("_cmbLevel")
                           .Filter("contains")
                         .Placeholder("Chức vụ..")
                         .DataTextField("Name")
@@ -33,7 +33,7 @@
                         .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new {tableId ="UserLevel"}))))
     @Html.Hidden("cmbUserStatus", 0)
 
-    @Html.Kendo().Button().Name("Search").Content("Tìm kiếm").Events(e => e.Click("userListing.onSearch"))
+    @Html.Kendo().Button().Name("btnSearchModal").Content("Tìm kiếm").Events(e => e.Click("userListing.onSearchModal"))
 </div>
 
 @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.UserProfileListViewModel>()
@@ -46,10 +46,8 @@
           columns.Bound(e => e.Mobile);
           columns.Bound(e => e.DepartmentName);
           columns.Bound(e => e.LevelName);
-          //columns.Bound(e => e.RoleGroupName);
-          //columns.Bound(e => e.UserStatus).ClientTemplate("<i style='color:green'>#= UserStatus==0?'<span class=\"glyphicon glyphicon-check\"></span>' :'<span class=\"glyphicon glyphicon-unchecked\"></span>' #</b>").HtmlAttributes(new { style = "text-align:center" });
-          columns.Bound(e => e.Avatar).ClientTemplate("<img style='width:48px;' src='#=Avatar#'/>");
-          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='userListing.choose(#=Id#)' class='btn btn-default'><span class='glyphicon glyphicon-import' aria-hidden='true'></span></button>");
+          columns.Bound(e => e.Avatar).ClientTemplate("#=bizHelper.renderAvatar(Avatar)#").Title("Hình");
+          columns.Bound(e => e.Id).Width(50).Title("").ClientTemplate("<button type='button' onclick='userListing.choose(#=Id#)' class='btn btn-default'>Chọn</button>");
       })
       .Pageable(x => x.PageSizes(new[] {10, 20, 50 }))
       .DataSource(dataSource => dataSource
@@ -57,7 +55,18 @@
           .PageSize(10)
           .Model(model => model.Id(p => p.Id))
           .Events(events => events.Error("common.errorHandler"))
-                  .Read(read => read.Action("Search", "User").Data("userListing.additionalData"))
+                  .Read(read => read.Action("Search", "User").Data("userListing.additionalDataModal"))
       )
 )
 
+<script>
+    $(document).ready(function () {
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                $("#_listModal").data("kendoGrid").dataSource.read();
+                return false;
+            }
+        });
+    });
+</script>

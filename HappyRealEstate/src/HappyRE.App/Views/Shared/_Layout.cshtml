@@ -17,14 +17,21 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/proui/css/styles")
     @Styles.Render("~/Content/kendo/css")
-    <link href="~/Content/jquery.magnify.min.css" rel="stylesheet" />
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
+    @*@Styles.Render("~/Content/toastr")*@
+
+    <link rel="stylesheet" href="@Styles.Url("~/Content/toastr")" media="print" onload="this.media='all'">
+
+    @*<link href="~/Content/jquery.magnify.min.css" rel="stylesheet" />*@
+    @*@Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")*@
+
+    <script  src='@Scripts.Url("~/bundles/jquery")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/modernizr")' type="text/javascript"></script>
     @RenderSection("css", required: false)
-    @Styles.Render("~/Content/toastr")
+
 
 </head>
-<body ng-app="appMain">
+<body>
     <!-- Preloader -->
     <div class="preloader themed-background">
         <h1 class="push-top-bottom text-light text-center"><strong>batdongsanhanhphuc.vn</strong></h1>
@@ -96,7 +103,7 @@
                                 </li>
                             }
                             <li>
-                                <a href="~/Customer"><i class="gi gi-parents sidebar-nav-icon"></i>Danh sách khách hàng</a>
+                                <a href="~/customer"><i class="gi gi-parents sidebar-nav-icon"></i>Danh sách khách hàng</a>
                             </li>
                         </ul>
                     }
@@ -127,25 +134,25 @@
                             @if (User.IsInRole(Permission.ACCOUNT))
                             {
                                 <li>
-                                    <a href="~/User"><i class="gi gi-user sidebar-nav-icon"></i>Người dùng</a>
+                                    <a href="~/user"><i class="gi gi-user sidebar-nav-icon"></i>Người dùng</a>
                                 </li>
                             }
                             @if (User.IsInRole(Permission.ACCOUNT))
                             {
                                 <li>
-                                    <a href="~/Department"><i class="gi gi-inbox sidebar-nav-icon"></i>Phòng ban</a>
+                                    <a href="~/department"><i class="gi gi-inbox sidebar-nav-icon"></i>Phòng ban</a>
                                 </li>
                             }
                             @if (User.IsInRole(Permission.ACCOUNT))
                             {
                                 <li>
-                                    <a href="~/RoleGroup"><i class="gi gi-lock sidebar-nav-icon"></i>Nhóm quyền</a>
+                                    <a href="~/rolegroup"><i class="gi gi-lock sidebar-nav-icon"></i>Nhóm quyền</a>
                                 </li>
                             }
                             @if (User.IsInRole(Permission.ACCOUNT))
                             {
                                 <li>
-                                    <a href="~/UserLog"><i class="gi gi-hdd sidebar-nav-icon"></i>Hoạt động nhân viên</a>
+                                    <a href="~/userlog"><i class="gi gi-hdd sidebar-nav-icon"></i>Hoạt động nhân viên</a>
                                 </li>
                             }
                             @if (User.IsInRole(Permission.ACCOUNT))
@@ -168,53 +175,59 @@
                             <li>
                                 <a href="~/street"><i class="gi gi-list sidebar-nav-icon"></i>Đường phố</a>
                             </li>
+
                             <li>
-                                <a href="~/syscode/contractType"><i class="gi gi-list sidebar-nav-icon"></i>Loại hợp đồng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/propertyType"><i class="gi gi-list sidebar-nav-icon"></i>Loại BĐS</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyStatusType"><i class="gi gi-list sidebar-nav-icon"></i>Trạng thái BĐS</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyLegalType"><i class="gi gi-list sidebar-nav-icon"></i>Pháp lý</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyUtilityType"><i class="gi gi-list sidebar-nav-icon"></i>Tiện ích</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertySourceType"><i class="gi gi-list sidebar-nav-icon"></i>Nguồn BĐS</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyStrongType"><i class="gi gi-list sidebar-nav-icon"></i>Đặc điểm tốt</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyWeakType"><i class="gi gi-list sidebar-nav-icon"></i>Đặc điểm xấu</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyContructType"><i class="gi gi-list sidebar-nav-icon"></i>Mức độ xây dựng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyStructureType"><i class="gi gi-list sidebar-nav-icon"></i>Kết cấu xây dựng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/PropertyPotentialType"><i class="gi gi-list sidebar-nav-icon"></i>Tiềm năng BĐS</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/CustomerStatusType"><i class="gi gi-list sidebar-nav-icon"></i>Trạng thái khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/CustomerDemandType"><i class="gi gi-list sidebar-nav-icon"></i>Nhu cầu khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/CustomerTargetType"><i class="gi gi-list sidebar-nav-icon"></i>Mục đích khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/CustomerSourceType"><i class="gi gi-list sidebar-nav-icon"></i>Nguồn khách hàng</a>
-                            </li>
-                            <li>
-                                <a href="~/syscode/UserLevel"><i class="gi gi-list sidebar-nav-icon"></i>Chức vụ</a>
+                                <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-list sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Thuộc tính</span></a>
+                                <ul style="display: none;">
+                                    <li>
+                                        <a href="~/syscode/contracttype">Loại hợp đồng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertytype">Loại BĐS</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertystatustype">Trạng thái BĐS</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertylegaltype">Pháp lý</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertyutilitytype">Tiện ích</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertysourcetype">Nguồn BĐS</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertystrongtype">Đặc điểm tốt</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertyweaktype">Đặc điểm xấu</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertycontructtype">Mức độ xây dựng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertystructuretype">Kết cấu xây dựng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/propertypotentialtype">Tiềm năng BĐS</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/customerstatustype">Trạng thái khách hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/customerdemandtype">Nhu cầu khách hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/customertargettype">Mục đích khách hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/customersourcetype">Nguồn khách hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/syscode/userlevel">Chức vụ</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     }
@@ -262,8 +275,13 @@
                                     <i class="fa fa-bell-o"></i>
                                     <span id="noti_count" class="badge bg-red">0</span>
                                 </a>
-                                <ul id="noti_list" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                </ul>
+                                <div id="noti_list" class="dropdown-menu" role="menu">
+                                    <ul class="list-unstyled msg_list">
+                                    </ul>
+                                    <div class="foot">
+                                        <a href="/notification"> Xem tất cả</a>
+                                    </div>
+                                </div>
                             </li>
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Chào @User.Identity.GetUserName()</a>
@@ -293,7 +311,7 @@
             <!-- Footer -->
             <footer class="clearfix">
                 <div class="pull-right">
-                    2021 - Hệ thống quản lý <i class="fa fa-heart text-danger"></i> <a href="https://batdongsanhanhphuc.vn" target="_blank">batdongsanhanhphuc.vn</a>
+                    2022 - Hệ thống quản lý <i class="fa fa-heart text-danger"></i> <a href="https://batdongsanhanhphuc.vn" target="_blank">batdongsanhanhphuc.vn</a>
                 </div>
             </footer>
             <!-- END Footer -->
@@ -378,27 +396,41 @@
         ChildFashion.rootPath = '@Url.Content("~")';
     </script>
 
-    @Scripts.Render("~/bundles/angularjs")
-    @Scripts.Render("~/bundles/kendo")
-    @*@Scripts.Render("~/bundles/printthis")*@
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/toastr")
-    @Scripts.Render("~/bundles/select2")
-    @Scripts.Render("~/bundles/proui")
+    @*@Scripts.Render("~/bundles/angularjs")*@
 
-    @Scripts.Render("~/bundles/app")
+    @*@Scripts.Render("~/bundles/vendor")
+        @Scripts.Render("~/bundles/kendo")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/toastr")
+        @Scripts.Render("~/bundles/select2")
+        @Scripts.Render("~/bundles/proui")
+        @Scripts.Render("~/bundles/app")*@
+
+    <script src='@Scripts.Url("~/bundles/select2")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/vendor")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/kendo")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/bootstrap")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/toastr")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/proui")' type="text/javascript"></script>
+    <script defer src='@Scripts.Url("~/bundles/app")' type="text/javascript"></script>
+
     @*<script async src='@Scripts.Url("~/bundles/app")' type="text/javascript"></script>*@
     @RenderSection("scripts", required: false)
     @*<script type="text/javascript" src="~/Scripts/app/global/common.js"></script>*@
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         common.initPath('@Url.Content("~")');
-    </script>
+    </script>*@
 
 
     <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //active menu
+            var path = window.location.pathname.toLowerCase();
+            $('a[href="' + path + '"]').addClass('active');
+            //---------------
+
             var hub = $.connection.notificationHub;
             hub.client.subcribleNotify = function (v) {
                 toastr.success("Bạn có thông báo mới!");
@@ -407,9 +439,9 @@
                 $('#noti_count').text(c);
                 if (c == 0) $('#noti_count').hide();
                 else $('#noti_count').show();
-                var h = $('#noti_list').html();
+                var h = $('#noti_list ul').html();
                 var li = '<li class="not-read"><a href="/notification/detail/' + v.Id + '"><span><span>' + v.Title + '</span><span class="time">' + v.TimeDisplay + '</span></span></a></li>';
-                $('#noti_list').html(li + h);
+                $('#noti_list ul').html(li + h);
             };
 
             $.connection.hub.start()
@@ -425,7 +457,18 @@
             notificationDetail.search();
         });
     </script>
-    <script src="~/Scripts/imgviewer/jquery.magnify.min.js"></script>
+
+    <script>
+        //Open on focus logic
+        $(function () {
+            $("[data-role=combobox]").each(function () {
+                var widget = $(this).getKendoComboBox();
+                widget.input.on("focus", function () {
+                    widget.open();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

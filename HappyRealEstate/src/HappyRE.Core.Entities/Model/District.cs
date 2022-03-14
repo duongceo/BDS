@@ -16,7 +16,7 @@ namespace HappyRE.Core.Entities.Model
         [Key]
         public int Id { get; set; }
         [DisplayName("Tỉnh thành")]
-        public int CityId { get; set; }
+        public int CityId { get; set; } = 1;
 
         [DisplayName("Tên Quận/Huyện")]
         [Required]
