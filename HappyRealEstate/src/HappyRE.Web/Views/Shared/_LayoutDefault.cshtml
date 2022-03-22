@@ -1,0 +1,56 @@
+﻿@using HappyRE.Web.Resources;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="robots" content="noodp,index,follow">
+    <meta property="og:site_name" content="Mogi - Chuyên trang môi giới mua bán cho thuê nhà đất">
+    <meta property="og:image" content="http://batdongsanhanhphuc.vn/logo.png">
+    @*<meta property="fb:admins" content="">*@
+    <meta itemprop="image" content="http://batdongsanhanhphuc.vn/fb-share.jpg">
+    @*<meta property="fb:app_id" content="">*@
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Môi giới bất động sản">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#fdce09">
+    @RenderSection("MetaData", required: false)
+    <link rel="apple-touch-icon" href="/img/ios-logo.png" type="image/x-icon">
+    <title>@ViewBag.Title - batdongsanhanhphuc.vn</title>
+    @Styles.Render("~/content/css")
+    @RenderSection("styles", required: false)
+    <script type="text/javascript">var MOGI = {};</script>
+   </head>
+<body ng-app="mogiApp">
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WC9T99"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WC9T99');</script>
+    <!-- End Google Tag Manager -->
+    <div id="mogi-navbar" class="navbar navbar-inverse navbar-fixed-top mogi-navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button id="slide-nav" type="button" class="fa fa-bars visible-xs"></button>
+                <a class="logo" href="/"><img src="~/content/images/logo.svg" width="108" height="36" alt="batdongsanhanhphuc.vn" /></a>
+            </div>
+            @{
+                Html.RenderAction("TopMenu", "CachePartial", new { code = (string)ViewBag.Menu_ActiveCode, IsAuthenticated = User.Identity.IsAuthenticated });
+            }
+        </div>
+    </div>
+    <div class="body-content">
+        @RenderBody()
+    </div>
+    @{
+       Html.RenderAction("Footer", "CachePartial");
+    }
+    @*<script src='@Scripts.Url("~/bundles/common")' type="text/javascript"></script>*@
+    @Scripts.Render("~/bundles/common")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

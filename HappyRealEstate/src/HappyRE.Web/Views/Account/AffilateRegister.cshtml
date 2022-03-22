@@ -1,0 +1,203 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.RegisterModel
+@using HappyRE.Core.Resources;
+@using res = HappyRE.Core.Resources;
+@{
+	ViewBag.Title = @res.Message.Msg_Register;
+	var googleCaptchaSiteKey = HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SITEKEY;
+	var google_hl = HappyRE.Core.Const.LANG_CULTURE.Split('-')[0];
+}
+<link rel="stylesheet" href="~/scripts/libs/angular.chosen/bootstrap-chosen.css" />
+<div id="register" class="login row" style="min-height:600px" ng-controller="accountController">
+	@{ if (ViewBag.IsErr == true)
+		{
+			<div>
+				<div class="block_notify">
+					<span>@Html.Raw(ViewBag.Message)</span>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div ng-cloak>
+				<div class="form-group form-inline">
+					<section id="socialLoginForm">
+						@Html.Partial("_ExternalLoginsListPartial", new HappyRE.Core.MapModels.FrontEnd.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+					</section>
+				</div>
+				<div class="line-sepa">
+					<p class="textline"><span>@res.Message.Msg_Or</span></p>
+				</div>
+				<div class="panel">
+					<div class="block_notify" ng-show="alert.msg!=''">
+						<span ng-class="alert.type" ng-bind-html="alert.msg"></span>
+					</div>
+					<div class="f-header">
+						<div id="tab-login" class="title"><a href="@Url.Action("Login","Account")">@Message.Msg_Login</a></div>
+						<div id="tab-register" class="title active">@Message.Msg_Register</div>
+					</div>
+					<div class="panel-body" ng-init="Register.initModel(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+						<form ng-show="isRegister()" name="myForm" ng-submit="Register.submit()" novalidate>
+							<div>
+								<div class="form-group last-name">
+									@Html.TextBox("LastName", null, @Html.AngularAttibute("LastName", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", res.Model.UserProfile_LastName }, { "readonly", "readonly" } }))
+									@Html.AngularMessage("LastName")
+								</div>
+								<div class="form-group first-name">
+									@Html.TextBox("FirstName", null, @Html.AngularAttibute("FirstName", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", res.Model.UserProfile_FirstName }, { "readonly", "readonly" } }))
+									@Html.AngularMessage("FirstName")
+								</div>
+							</div>
+							<div class="form-group">
+								@Html.TextBox("Mobile", null, @Html.AngularAttibute("Mobile", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Mobile }, { "readonly", "readonly" } }))
+								@Html.AngularMessage("Mobile")
+								<input type="hidden" id="validmobile" name="validmobile" value="1" />
+							</div>
+							<div class="form-group">
+								@Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Email }, { "readonly", "readonly" } }))
+								@Html.AngularMessage("Email")
+							</div>
+							<div class="form-group">
+								@Html.TextBox("IDCard", null, @Html.AngularAttibute("IDCard", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_IDCard }, { "readonly", "readonly" } }))
+								@Html.AngularMessage("IDCard")
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="Birthday" name="Birthday" ng-model="Profile.Birthday | date:'dd/MM/yyyy'" placeholder="Ngày sinh" readonly="readonly" type="text">
+								@*@Html.TextBox("Birthday", null, @Html.AngularAttibute("Birthday", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Birthday }, { "readonly", "readonly" } }))*@
+								@Html.AngularMessage("Birthday")
+							</div>
+							<div class="form-group">
+								@Html.TextBox("Password", null, @Html.AngularAttibute("Password", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "type", "password" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Password }, { "autocomplete", "off" }, { "autofocus ", "" } }))
+								@Html.AngularMessage("Password")
+							</div>
+							<div class="form-group">
+								@Html.TextBox("ConfirmPassword", null, @Html.AngularAttibute("ConfirmPassword", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "type", "password" }, { "placeholder", HappyRE.Core.Resources.Model.Register_ConfirmPassword }, { "autocomplete", "off" } }))
+								@Html.AngularMessage("ConfirmPassword")
+							</div>
+							<div class="form-group">
+								<button id="sign-up" class="btn btn-primary"
+										gtm-event="all" gtm-cat="signup" gtm-act="step1"
+										type="submit">
+									@Message.Msg_Continue<i class="fa fa-angle-right"></i>
+								</button>
+								<button id="show-otp-form" ng-click="Register.facebookFailed()" style="display:none"></button>
+							</div>
+							<div ng-show="Profile.UserType ==0" class="form-group">
+								<span><a target="_blank" href="/quy-che/quy-dinh-chung">@Message.Register_Confirm_Pre @Message.Register_Confirm</a></span>
+							</div>
+							<div class="form-group">
+								<span>@Message.Login_Request <a class="btn-sm btn-clear" href="@Url.Action("Login","Account")">@Message.Msg_Login</a></span>
+							</div>
+						</form>
+
+						<form ng-show="step=='choose'" name="myForm2" ng-submit="Register.choose()" novalidate>
+							<div id="mogipro-info">
+								<div class="form-group">
+									<span>@Html.Raw(Message.Msg_Register_Choose)</span>
+								</div>
+								<div class="clearfix">
+									<div class="radio">
+										<input type="radio" id="guess" name="usertype" ng-model="Profile.UserType" value="1" />
+										<label for="guess"> @Message.Msg_Guess_Register</label>
+									</div>
+									<div class="radio">
+										<input type="radio" id="mogipro" name="usertype" ng-model="Profile.UserType" value="2" />
+										<label for="mogipro"> @Message.Msg_MogiPro_Register</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<button ng-show="Profile.UserType>0" gtm-event="all" gtm-cat="signup" gtm-act="step-{{Profile.UserType==1?'guess':'mogipro'}}" type="submit" class="btn btn-primary">@Message.Msg_Continue<i class="fa fa-angle-right"></i></button>
+							</div>
+						</form>
+
+						<form ng-show="isOTP()" name="myForm" ng-submit="Register.verifyMobile()" novalidate>
+							<div>
+								<div class="form-group">
+									<div ng-bind-html="OtpMsg"></div>
+								</div>
+								<div class="form-group">
+									@Html.TextBox("Code", null, @Html.AngularAttibute("Code", "Profile", new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.ConfirmMobile_VerifiedCode }, { "autocomplete", "off" }, { "autofocus", "" } }))
+									@Html.AngularMessage("Code", "myForm", new Dictionary<string, string>() { })
+								</div>
+								<div class="form-group">
+									<button id="verified-otp"
+											gtm-event="all" gtm-cat="signup" gtm-act="step2" type="submit"
+											class="btn btn-primary">
+										@Message.Msg_Continue<i class="fa fa-angle-right"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+
+						<div id="recaptcha"
+							 class="g-recaptcha"
+							 data-sitekey="@googleCaptchaSiteKey"
+							 data-callback="captchaCallback"
+							 data-size="invisible">
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	}
+
+</div>
+@section styles {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+
+@section scripts{
+	@Scripts.Render("~/bundles/account")
+	<script src="https://sdk.accountkit.com/@(Model.ACK.Locale)/sdk.js"></script>
+
+	<script type="text/javascript">
+    var captcha_id = 0;
+    var captcha_resp = "";
+    var onloadCallback = function () {
+        captcha_id = grecaptcha.render("recaptcha");
+    };
+    var captchaCallback = function () {
+        captcha_resp = grecaptcha.getResponse(captcha_id);
+        if (captcha_resp != "") {
+            document.getElementById("verified-otp").click();
+        }
+    };
+
+    AccountKit_OnInteractive = function () {
+        AccountKit.init(
+          {
+              appId: '@Model.ACK.AppId',
+              state: '@Model.ACK.CSRF',
+              version: '@Model.ACK.API_Version',
+              debug: true
+          }
+        );
+    };
+
+    $(document).ready(function () {
+        // Chosen touch support.
+        if ($('.chosen-container').length > 0) {
+                $('.chosen-container').on('touchstart', function (e) {
+                e.stopPropagation(); e.preventDefault();
+                    // Trigger the mousedown event.
+                    $(this).trigger('mousedown');
+            });
+        }
+
+        $('#Mobile').blur(function () {
+            var mobile = $('#Mobile').val();
+            $('#validmobile').val(1);
+            if (mobile.length >= 9) {
+                $.post(mogiRoutes.Profile.validateMobile, { 'mobile': mobile }, function (data) {
+                    if (data.Status == false) {
+                        mogiUtils.showAlert(data.Message, 'error');
+                        $('#validmobile').val(0);
+                    }
+                });
+            }
+        });
+});
+
+	</script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=@google_hl" async defer></script>
+}

@@ -1,0 +1,615 @@
+﻿body {
+    background-color: #fff;
+}
+
+.mogi-footer {
+    margin-top: 0;
+}
+
+#breadcrumb {
+    background-color: #F1F4F6;
+}
+
+#prj-header {
+    background: #262637;
+}
+
+.prj-title h1 {
+    color: #00DEB6;
+}
+
+.prj-title div {
+    color: #fff;
+}
+
+.relative-prop a {
+    background: #00DEB6;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 4px;
+    display: block;
+}
+/* Media*/
+.owl-carousel .owl-next,
+.owl-carousel .owl-prev,
+.thumb-nav .thumb-next,
+.thumb-nav .thumb-prev {
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    top: calc(50% - 30px);
+    background-color: #222;
+    z-index: 9;
+    opacity: 0.5;
+    font-size: 36px;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .owl-carousel .owl-next:hover,
+    .owl-carousel .owl-prev:hover {
+        opacity: 0.7;
+    }
+
+.owl-carousel .owl-next,
+.thumb-nav .thumb-next {
+    border-radius: 90px 0 0 90px;
+    -moz-border-radius: 90px 0 0 90px;
+    -webkit-border-radius: 90px 0 0 90px;
+    right: 0px;
+    text-align: right;
+    padding-right: 6px;
+}
+
+.owl-carousel .owl-prev,
+.thumb-nav .thumb-prev {
+    border-radius: 0 90px 90px 0;
+    -moz-border-radius: 0 90px 90px 0;
+    -webkit-border-radius: 0 90px 90px 0;
+    left: 0px;
+    padding-left: 6px;
+}
+
+.thumb-nav .thumb-next {
+    right: 2px;
+}
+
+.thumb-nav .thumb-prev {
+    left: 2px;
+}
+
+#gallery {
+    width: 100%;
+    height: 400px;
+    background-color: #F1F4F6;
+}
+
+#galery-summary {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+}
+
+#gallery .top-media {
+    width: 100%;
+    /*min-height: 200px;*/
+    max-height: 400px;
+    margin: 0 auto;
+}
+
+    #gallery .top-media .media-item {
+        display: inline-block;
+        width: 100%;
+        float: left;
+        position: relative;
+        padding-top: 400px;
+        font-size: 0px;
+        line-height: initial;
+        background-color: rgba(240,240,240,0.5);
+    }
+
+        #gallery .top-media .media-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+#gallery .data-dot {
+    width: 100px;
+    float: left;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+
+    #gallery .data-dot img {
+        width: 100%;
+    }
+
+        #gallery .data-dot img:hover {
+            border: solid 1px #45bfb7;
+        }
+
+    #gallery .data-dot.active img {
+        border: solid 5px #45bfb7;
+    }
+
+#top-media-thumb {
+    display: block;
+    width: 100%;
+    max-height: 111px;
+    min-height: 80px;
+    /*max-width: 750px;*/
+    padding: 0;
+    margin: 5px auto;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+
+#gallery .top-media-thumb {
+    height: 100%;
+    width: 20000px;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+    #gallery .top-media-thumb .owl-video-play-icon {
+        display: none;
+    }
+
+    #gallery .top-media-thumb .selected-media {
+        padding: 5px;
+        background: #45bfb7;
+    }
+
+#gallery .galery-summary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    padding: 0px 10px;
+    z-index: 5;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+    #gallery .galery-summary span {
+        float: left;
+        line-height: 30px;
+        height: 30px;
+        margin: 0px 5px;
+    }
+
+    #gallery .galery-summary .icon {
+        float: left;
+        line-height: 30px;
+        height: 30px;
+        color: #a9a9a9;
+        margin: 0px 5px;
+        font-size: 18px;
+    }
+/*end media*/
+#mg-page-content {
+    margin-top: 20px;
+}
+
+.project-content:not(:first-child) {
+    border-top: 1px solid #D7DCE0;
+}
+
+.project-content-title {
+    color: #262637;
+    font-weight: normal;
+}
+
+.prj-price {
+    color: #262637;
+    font-weight: bold;
+}
+
+.prj-due-date {
+    color: #5A646E;
+}
+
+.prj-investor {
+    color: #5A646E;
+}
+
+    .prj-investor a {
+        color: #036B75;
+    }
+.prj-desciption-content {
+    font-size: 16px;
+    line-height: 18px;
+    color: #5A646E;
+}
+.view-more {
+    color: #036B75;
+    margin-top: 15px;
+    font-size: 16px;
+    line-height: 18px;
+}
+/* MAP*/
+
+.map-content {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.near-items {
+    display: none;
+}
+
+#map-cavas {
+    float: left;
+    height: 340px;
+}
+
+/* END MAP*/
+.prj-feature {
+    list-style: none;
+    padding: 0;
+}
+
+    .prj-feature li {
+        float: left;
+        padding: 5px;
+        padding-left: 0;
+        vertical-align: baseline;
+        color: #5A646E;
+        font-size: 16px;
+        line-height: 17px;
+    }
+
+        .prj-feature li .icon:before {
+            padding-right: 10px;
+            color: #009177;
+        }
+
+        .prj-feature li i {
+            font: normal normal normal 14px/1 FontAwesome !important;
+        }
+
+#sample-house {
+    margin-top: 20px;
+}
+
+.sample-house {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .sample-house li {
+        padding-top: 20px;
+        cursor: pointer;
+    }
+
+        .sample-house li img {
+            display: inline;
+            width: 80px;
+            height: 56px;
+        }
+
+        .sample-house li .title {
+            float: right;
+            width: calc(100% - 95px);
+            font-size: 16px;
+            line-height: 56px;
+            padding-right: 5px;
+            color: #036B75;
+        }
+
+
+
+@media (min-width: 1170px) {
+    .mg-detail .mg-1170-container {
+        padding: 0 50px;
+    }
+}
+/*Desktop*/
+@media (min-width: 992px) {
+    .prj-header {
+        height: 115px;
+    }
+
+    .prj-title {
+        float: left;
+        width: calc(100% - 170px);
+    }
+
+        .prj-title h1 {
+            margin-top: 24px;
+            font-size: 26px;
+            line-height: 30px;
+        }
+
+        .prj-title div {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+    .relative-prop {
+        padding: 37px 0;
+        float: left;
+        width: 170px;
+        text-align: right;
+    }
+
+        .relative-prop a {
+            float: left;
+            width: 160px;
+            background: #00DEB6;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 4px;
+        }
+
+    .project-content {
+        margin-bottom: 30px;
+    }
+
+        .project-content:not(:first-child) {
+            padding-top: 30px;
+        }
+
+    .project-content-title {
+        font-size: 24px;
+        line-height: 27px;
+    }
+
+    .prj-price {
+        margin-top: 10px;
+        font-size: 24px;
+        line-height: 27px;
+        color: #262637;
+        font-weight: bold;
+    }
+
+    .prj-due-date {
+        margin-top: 15px;
+        font-size: 16px;
+        line-height: 18px;
+        color: #5A646E;
+    }
+
+    .prj-investor {
+        margin-top: 10px;
+        font-size: 16px;
+        line-height: 18px;
+        color: #5A646E;
+    }
+
+
+    .prj-desciption-content {
+        margin-top: 15px;
+    }
+
+
+    #map-cavas {
+        height: 340px;
+    }
+
+    .prj-feature {
+        margin-top: 16px;
+    }
+
+        .prj-feature li {
+            width: 33%;
+        }
+
+    .sample-house li {
+        width: 50%;
+        float: left;
+    }
+}
+
+/*Tablet*/
+@media (min-width: 767px) and (max-width: 991px) {
+    .mg-detail .mg-1170-container {
+        padding: 0 15px;
+    }
+
+    .prj-header {
+        height: 115px;
+    }
+
+    .prj-title {
+        float: left;
+        width: calc(100% - 170px);
+    }
+
+        .prj-title h1 {
+            margin-top: 24px;
+            font-size: 26px;
+            line-height: 30px;
+        }
+
+        .prj-title div {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+    .relative-prop {
+        padding: 37px 0;
+        float: left;
+        width: 170px;
+        text-align: right;
+    }
+
+        .relative-prop a {
+            float: left;
+            width: 160px;
+            background: #00DEB6;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 4px;
+        }
+
+    #mg-page-content {
+        margin-top: 20px;
+    }
+
+    .project-content {
+        margin-bottom: 30px;
+    }
+
+        .project-content:not(:first-child) {
+            padding-top: 30px;
+        }
+
+    .project-content-title {
+        font-size: 24px;
+        line-height: 27px;
+    }
+
+    .prj-desciption-content {
+        margin-top: 15px;
+    }
+
+    .prj-price {
+        margin-top: 10px;
+        font-size: 24px;
+        line-height: 27px;
+    }
+
+    .prj-due-date {
+        margin-top: 15px;
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .prj-investor {
+        margin-top: 10px;
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .prj-desciption-content {
+        margin-top: 10px;
+    }
+
+    #map-cavas {
+        height: 340px;
+    }
+
+    .prj-feature {
+        margin-top: 16px;
+    }
+
+        .prj-feature li {
+            width: 33%;
+        }
+
+    .sample-house li {
+        width: 50%;
+        float: left;
+    }
+}
+
+/*Mobile*/
+@media (max-width: 767px) {
+    .mg-detail .mg-1170-container {
+        padding: 0 15px;
+    }
+
+    .prj-title {
+        width: 100%;
+        padding: 15px 0;
+    }
+
+        .prj-title h1 {
+            font-size: 24px;
+            line-height: 26px;
+        }
+
+        .prj-title div {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+    .relative-prop {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #262637;
+        padding: 10px 15px;
+        z-index: 100;
+    }
+
+    #gallery {
+        height: 250px;
+    }
+
+        #gallery .top-media {
+            height: 250px;
+        }
+
+            #gallery .top-media .media-item {
+                padding-top: 250px;
+            }
+
+    .project-content {
+        margin-bottom: 20px;
+    }
+
+        .project-content:not(:first-child) {
+            padding-top: 20px;
+        }
+
+    .project-content-title {
+        font-size: 22px;
+        line-height: 25px;
+    }
+
+    .prj-price {
+        font-size: 22px;
+        line-height: 25px;
+    }
+
+    .prj-due-date {
+        margin-top: 10px;
+        font-size: 16px;
+        line-height: 17px;
+    }
+
+    .prj-investor {
+        margin-top: 10px;
+        font-size: 16px;
+        line-height: 17px;
+    }
+
+    .prj-desciption-content {
+        margin-top: 10px;
+    }
+
+    .view-more {
+        margin-top: 10px;
+    }
+
+    #map-cavas {
+        height: 220px;
+    }
+
+    .prj-feature {
+        margin-top: 16px;
+    }
+
+        .prj-feature li {
+            width: 50%;
+        }
+
+    .sample-house li {
+        width: 100%;
+    }
+}

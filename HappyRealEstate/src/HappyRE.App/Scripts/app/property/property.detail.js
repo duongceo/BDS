@@ -57,6 +57,14 @@
             if (res == true) toastr.error('Mã BĐS đã có trong hệ thống, hãy chọn mã khác!');
         });
     },
+    saveImage: function () {
+        var data = $('form#ajaxform').serializeArray();
+        restfulSvc.post('/Property/_AddImages', data, function (res) {
+            $("#_listImage").data("kendoGrid").dataSource.read();
+            $("#btn_upload_img").hide();
+            $("#img_list_more").html('');
+        });
+    },
     removeImg: function (item, e) {
         $(item).closest('li').remove();
     }

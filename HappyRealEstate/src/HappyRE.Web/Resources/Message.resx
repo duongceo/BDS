@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AgentDetail_TotalPostedProperty" xml:space="preserve">
+    <value>tin BĐS đang đăng</value>
+  </data>
+  <data name="Home_Agent" xml:space="preserve">
+    <value>Môi giới</value>
+  </data>
+  <data name="Home_Buy" xml:space="preserve">
+    <value>Mua</value>
+  </data>
+  <data name="Home_LogIn" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Home_MarketPrice" xml:space="preserve">
+    <value>Giá nhà đất</value>
+  </data>
+  <data name="Home_Project" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="Home_Rent" xml:space="preserve">
+    <value>Thuê</value>
+  </data>
+  <data name="Home_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Home_Search_Buy" xml:space="preserve">
+    <value>Tìm mua</value>
+  </data>
+  <data name="Home_Search_Rent" xml:space="preserve">
+    <value>Tìm thuê</value>
+  </data>
+  <data name="Home_Slogan" xml:space="preserve">
+    <value>Đúng nhà, đúng giá, đúng thời điểm</value>
+  </data>
+  <data name="Home_TopRent_Title" xml:space="preserve">
+    <value>Bất động sản cho thuê {0}</value>
+  </data>
+  <data name="Home_TopSale_Title" xml:space="preserve">
+    <value>Bất động sản rao bán {0}</value>
+  </data>
+  <data name="Home_WardReview" xml:space="preserve">
+    <value>Review khu vực</value>
+  </data>
+  <data name="Home_WardReview_Btn" xml:space="preserve">
+    <value>Xem review</value>
+  </data>
+  <data name="Home_WardReview_Desc01" xml:space="preserve">
+    <value>Đánh giá khu vực nơi bạn ở nhanh chóng và tiện lợi</value>
+  </data>
+  <data name="Home_WardReview_Desc02" xml:space="preserve">
+    <value>Đánh giá khu vực nơi bạn ở nhanh chóng và tiện lợi tìm kiếm hàng xóm và những người bạn</value>
+  </data>
+  <data name="Listing_Filter_All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="Listing_Filter_Country" xml:space="preserve">
+    <value>Toàn quốc</value>
+  </data>
+  <data name="Listing_Filter_Location" xml:space="preserve">
+    <value>Khu vực</value>
+  </data>
+  <data name="Listing_Filter_More" xml:space="preserve">
+    <value>Lọc thêm</value>
+  </data>
+  <data name="Listing_Filter_Title" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="MarketList_City" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="MarketList_District" xml:space="preserve">
+    <value>Quận</value>
+  </data>
+  <data name="MarketList_DistrictOrStreet" xml:space="preserve">
+    <value>Tên quận, đường</value>
+  </data>
+  <data name="MarketList_Placeholder" xml:space="preserve">
+    <value>Tên đường</value>
+  </data>
+  <data name="MarketList_PropertyNumber" xml:space="preserve">
+    <value>Số lượng BĐS</value>
+  </data>
+  <data name="MarketList_SearchDistrict" xml:space="preserve">
+    <value>Hoặc tìm theo quận</value>
+  </data>
+  <data name="MarketList_StreetName" xml:space="preserve">
+    <value>Tên đường</value>
+  </data>
+  <data name="MarketList_StreetNumber" xml:space="preserve">
+    <value>Số lượng đường</value>
+  </data>
+  <data name="MarketList_Title" xml:space="preserve">
+    <value>Tham khảo &lt;span&gt;giá nhà đất&lt;/span&gt; tại Hà Nội &amp; Hồ Chí Minh</value>
+  </data>
+  <data name="MarketPrice_AvgPrice" xml:space="preserve">
+    <value>Giá trung bình</value>
+  </data>
+  <data name="MarketPrice_Detail_Title" xml:space="preserve">
+    <value>Giá {0} {1} theo tháng</value>
+  </data>
+  <data name="MarketPrice_History" xml:space="preserve">
+    <value>Lịch sử giá</value>
+  </data>
+  <data name="MarketPrice_HistoryPrice" xml:space="preserve">
+    <value>Lịch sử giá</value>
+  </data>
+  <data name="MarketPrice_History_Address" xml:space="preserve">
+    <value>Số nhà</value>
+  </data>
+  <data name="MarketPrice_History_Area" xml:space="preserve">
+    <value>Diện tích</value>
+  </data>
+  <data name="MarketPrice_History_Date" xml:space="preserve">
+    <value>Ngày đăng</value>
+  </data>
+  <data name="MarketPrice_History_Desc" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="MarketPrice_History_EndDate" xml:space="preserve">
+    <value>Ngày rao cuối</value>
+  </data>
+  <data name="MarketPrice_History_Price" xml:space="preserve">
+    <value>Giá rao</value>
+  </data>
+  <data name="MarketPrice_History_PropertyType" xml:space="preserve">
+    <value>Loại/Kiểu</value>
+  </data>
+  <data name="MarketPrice_History_Source" xml:space="preserve">
+    <value>Nguồn</value>
+  </data>
+  <data name="MarketPrice_History_Time" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="MarketPrice_History_TimeLine" xml:space="preserve">
+    <value>Xem thêm lịch sử giá BĐS này qua các năm</value>
+  </data>
+  <data name="MarketPrice_LastOneMonth" xml:space="preserve">
+    <value>1 tháng gần đây</value>
+  </data>
+  <data name="MarketPrice_LastThreeMonth" xml:space="preserve">
+    <value>3 Tháng gần đây</value>
+  </data>
+  <data name="MarketPrice_MaxPtrice" xml:space="preserve">
+    <value>Giá cao nhất</value>
+  </data>
+  <data name="MarketPrice_MinPrice" xml:space="preserve">
+    <value>Giá thấp nhất</value>
+  </data>
+  <data name="MarketPrice_Property_AvgPrice" xml:space="preserve">
+    <value>Giá trung bình</value>
+  </data>
+  <data name="MarketPrice_Property_Title" xml:space="preserve">
+    <value>Xem lịch sử giá các BĐS trên đường {0}</value>
+  </data>
+  <data name="MarketPrice_Street_Title" xml:space="preserve">
+    <value>Giá nhà đất đường trong {0}</value>
+  </data>
+  <data name="MarketPrice_Title" xml:space="preserve">
+    <value>Giá nhà đất</value>
+  </data>
+  <data name="MarketPrice_TotalProp" xml:space="preserve">
+    <value>Số lượng BĐS</value>
+  </data>
+  <data name="Market_Price_Avg_OnDistrict" xml:space="preserve">
+    <value>Giá trung bình của từng loại BĐS trong quận</value>
+  </data>
+  <data name="Market_Price_Avg_OnStreet" xml:space="preserve">
+    <value>Giá trung bình của từng loại BĐS trên con đường</value>
+  </data>
+  <data name="Market_Price_Total_OnStreet" xml:space="preserve">
+    <value>Tổng số lượng bất động trên con đường</value>
+  </data>
+  <data name="Msg_ThankYou_Feedback" xml:space="preserve">
+    <value>Cảm ơn Bạn đã gửi phản hồi</value>
+  </data>
+  <data name="Msg_ViewMore" xml:space="preserve">
+    <value>Xem thêm</value>
+  </data>
+  <data name="ProjectDetail_RelativeProps" xml:space="preserve">
+    <value>Tìm mua</value>
+  </data>
+  <data name="ProjectDetail_SampleHouse" xml:space="preserve">
+    <value>Nhà Mẫu</value>
+  </data>
+  <data name="ProjectDetail_Summary" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="ProjectDetail_Utils" xml:space="preserve">
+    <value>Tiện ích</value>
+  </data>
+  <data name="ProjectDetail_ViewMore" xml:space="preserve">
+    <value>Xem thêm</value>
+  </data>
+  <data name="Project_Desc" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Project_EndDate" xml:space="preserve">
+    <value>Bàn giao: {0}</value>
+  </data>
+  <data name="Project_EndDate02" xml:space="preserve">
+    <value>Bàn giao</value>
+  </data>
+  <data name="Project_Info" xml:space="preserve">
+    <value>Thông tin</value>
+  </data>
+  <data name="Project_Investor" xml:space="preserve">
+    <value>Chủ đầu tư</value>
+  </data>
+  <data name="Project_Map" xml:space="preserve">
+    <value>Bản đồ</value>
+  </data>
+  <data name="Project_Price" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="Project_RelativeProps" xml:space="preserve">
+    <value>Bất động sản đang bán</value>
+  </data>
+  <data name="Project_SampleHouse" xml:space="preserve">
+    <value>Nhà mẫu</value>
+  </data>
+  <data name="Project_SearchResult" xml:space="preserve">
+    <value>Mua bán bất động sản - dự án mới tại {0}</value>
+  </data>
+  <data name="Project_SearchResult2" xml:space="preserve">
+    <value>Dự án nỗi bật</value>
+  </data>
+  <data name="Project_ViewMore" xml:space="preserve">
+    <value>Xem thêm</value>
+  </data>
+  <data name="ReviewWard_SEO_DCTitle" xml:space="preserve">
+    <value>Review {0}</value>
+  </data>
+  <data name="ReviewWard_SEO_Desc" xml:space="preserve">
+    <value>Review {0} chân thật, chi tiết, cụ thể giá nhà đất, trường học, nhiều tiện ích hấp dẫn, những thông giá trị cần biết</value>
+  </data>
+  <data name="ReviewWard_SEO_georegion" xml:space="preserve">
+    <value>VN-{0}</value>
+  </data>
+  <data name="ReviewWard_SEO_Title" xml:space="preserve">
+    <value>Review {0}</value>
+  </data>
+  <data name="Social_Share_Title" xml:space="preserve">
+    <value>Chia sẻ thông tin này cho bạn bè:</value>
+  </data>
+  <data name="Home_HousePrice_Title" xml:space="preserve">
+    <value>Giá nhà mặt tiền</value>
+  </data>
+  <data name="Home_Msg_Location_All" xml:space="preserve">
+    <value>Toàn quốc</value>
+  </data>
+  <data name="Home_Msg_Price" xml:space="preserve">
+    <value>Khoảng giá</value>
+  </data>
+</root>

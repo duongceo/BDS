@@ -166,7 +166,7 @@ namespace HappyRE.App.Controllers
         [CompressFilter]
         [HttpGet]       
         [AllowAnonymous]
-        [OutputCache(Duration = 10 * 60, VaryByParam = "tableId")]
+        //[OutputCache(Duration = 10 * 60, VaryByParam = "tableId")]
         public async Task<JsonResult> _Gets(string tableId)
         {
             var res = await _uow.SysCode.Search(new Core.Entities.SysCodeQuery() { Page = 1, Limit = 100, TableId=tableId });

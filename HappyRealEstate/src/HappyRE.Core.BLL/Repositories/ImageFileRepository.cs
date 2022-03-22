@@ -40,6 +40,13 @@ namespace HappyRE.Core.BLL.Repositories
             return await this.Query<string>(q, new { query.TableName, query.TableKeyId }, System.Data.CommandType.Text);
         }
 
+        public async Task<bool> IsExists(ImageFileQuery query)
+        {
+            var q = @"select count(*) from [ImageFile] (nolock) where TableName = @TableName and TableKeyId=@TableKeyId and src=@Src";
+            var r= await this.ExecuteScalar<int>(q, new { query.TableName, query.TableKeyId, query.Src }, System.Data.CommandType.Text);
+            return r > 0;
+        }
+
         public async Task<int?> IU(ImageFile obj)
         {
             var m = await this.GetById(obj.Id);
@@ -69,16 +76,21 @@ namespace HappyRE.Core.BLL.Repositories
             }
         }
 
-        public async Task AddImages(ImageFileQuery query, List<string> images)
+        public void AddImages(ImageFileQuery query, List<string> images)
         {
-            foreach(var img in images)
+            var groupCode = DateTime.Now.GetHashCode().ToString("x");
+            foreach (var img in images)
             {
-                await IU(new ImageFile()
+                var f = new ImageFile()
                 {
-                    Src= img,
-                    TableName="Property",
-                    TableKeyId=query.TableKeyId
-                });
+                    Src = img,
+                    TableName = "Property",
+                    TableKeyId = query.TableKeyId,
+                    IsMore = false,
+                    GroupCode = groupCode,
+                    Deleted = false
+                };
+                Hangfire.BackgroundJob.Enqueue<IImageFileRepository>(x => x.IU(f));
             }
         }
     }

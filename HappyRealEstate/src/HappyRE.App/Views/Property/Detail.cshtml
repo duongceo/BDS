@@ -2,7 +2,7 @@
 @using HappyRE.Core.Entities
 @model HappyRE.Core.Entities.ViewModel.PropertyListViewModel
 @{
-    ViewBag.Title = string.IsNullOrEmpty(@Model.Code) ? "Tạo bất động sản mới" : "Thông tin chi tiết BĐS: " + Model.Code;
+    ViewBag.Title = string.IsNullOrEmpty(@Model.Code) ? "Tạo bất động sản mới" : "BĐS: " + Model.Code;
 }
 <style>
     .img-list img {
@@ -32,13 +32,16 @@
     #_listImage .k-grid-content {
         height:auto !important;
         max-height:200px;
-        min-height:
     }
     #_listImage .k-grid-header{
         display:none;
     }
     #_listImage.k-widget.k-grid{
         border:none;
+    }
+
+    .img_list.temp img{
+        height:84px !important;
     }
 </style>
 
@@ -327,24 +330,7 @@
                 <hr />
             }
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
 
-            <dd>
-                <div class="img-list">
-                    @Html.Raw(Model.ImageHtml)
-                </div>
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VideoUrl)
-            </dt>
-
-            <dd>
-                <a target="_blank" href="@Model.VideoUrl">@Model.VideoUrl</a>
-                @*@Html.DisplayFor(model => model.VideoUrl)*@
-            </dd>
 
             <dt>
                 @Html.DisplayNameFor(model => model.CreatedDate)
@@ -377,12 +363,12 @@
             </dd>
 
             @*<dt>
-                @Html.DisplayNameFor(model => model.PostedDate)
-            </dt>
+            @Html.DisplayNameFor(model => model.PostedDate)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PostedDate)
-            </dd>*@
+        <dd>
+            @Html.DisplayFor(model => model.PostedDate)
+        </dd>*@
 
 
             <dt>
@@ -407,14 +393,6 @@
 
             <dd>
                 @Html.DisplayFor(model => model.UtilityHtml)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SourceId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SourceName)
             </dd>
 
             <dt>
@@ -457,8 +435,6 @@
             </dd>
 
 
-
-
             <dt>
                 @Html.DisplayNameFor(model => model.IsGood)
             </dt>
@@ -480,8 +456,25 @@
             <dd>
                 @Html.DisplayFor(model => model.IsVerified)
             </dd>
+
             <dt>
-                <label>Ảnh thêm</label>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </dt>
+
+            <dd>
+                <a target="_blank" href="@Model.VideoUrl">@Model.VideoUrl</a>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+
+            <dd>
+                <div class="img-list">
+                    @Html.Raw(Model.ImageHtml)
+                </div>
+            </dd>
+            <dt>
+                <label></label>
             </dt>
 
             <dd>
@@ -529,6 +522,12 @@
                 .Upload("onUpload")
                 .Remove("baseUpload.onRemove")
             ))
+                <form name="ajaxform" id="ajaxform" method="POST">
+                    <input id="Id" name="Id" type="hidden" value="@Model.Id" />
+                    <ul id="img_list_more" class="img_list temp">
+                    </ul>
+                    <input id="btn_upload_img" style="display:none;" onclick="propertyDetail.saveImage()" type="button" value="Lưu ảnh" class="btn btn-primary" />
+                </form>
             </dd>
         </dl>
     </div>
@@ -634,7 +633,6 @@
         function onDataBoundImgList() {
             var canDeleteImg = $('#canDeleteImage').val();
             if (canDeleteImg == "1") {
-                console.log(canDeleteImg);
                 $(".img_list li a").show();
             }
             else $(".img_list li a").hide();

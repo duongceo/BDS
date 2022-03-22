@@ -1,0 +1,29 @@
+﻿@model List<HappyRE.Core.Entities.CMS_News>
+@using HappyRE.Core.Resources;
+@using HappyRE.Core.Entities;
+@{
+    if (Model == null || Model.Count == 0)
+    {
+        return;
+    }
+}
+<div class="widget news-widget" ng-non-bindable>
+    <h3>@Message.Box_News_Title
+		<a class="view-more" href="@ViewBag.LinkMore" target="_blank" rel="nofollow" gtm-event="link" gtm-cat="blog" gtm-act="view-more">@Message.Msg_LinkMore<i class="fa fa-angle-right"></i></a>
+    </h3>
+    <ul>
+        @foreach (var item in Model)
+        {
+            var imgUrl = "";
+            var cover = item.GetCoverImage();
+            if (cover != null) { imgUrl = cover.WrapMediaUrl("xs"); }
+            <li>
+                <div class="news-media"><img class="lozad" data-src="@imgUrl" alt="" /></div>
+                <div class="news-content">
+                    <div class="news-title"><a href="@item.CodeUrl" class="link-overlay" rel="nofollow" gtm-event="link" gtm-cat="blog" gtm-act="open">@item.Subject</a></div>
+                    <div class="news-date">@item.PublishDate.ToShortDateString()</div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

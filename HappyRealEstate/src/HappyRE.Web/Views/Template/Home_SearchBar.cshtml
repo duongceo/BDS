@@ -1,0 +1,155 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	this.Layout = null;
+	var msg = new
+	{
+		Filter = HappyRE.Core.Resources.Message.Msg_Filter_More,
+		FilterClear = HappyRE.Core.Resources.Message.Msg_Filter_Clear,
+		Close = HappyRE.Core.Resources.Message.Msg_Close,
+		Finish = HappyRE.Core.Resources.Message.Msg_Finish,
+		Search = HappyRE.Core.Resources.Message.Msg_Search,
+		Keyword_PlaceHolder = HappyRE.Core.Resources.Message.Search_Keyword_PlaceHolder,
+		View_List = HappyRE.Core.Resources.Message.Listing_View_List,
+		View_Map = HappyRE.Core.Resources.Message.Listing_View_Map,
+		Sort = HappyRE.Core.Resources.Message.Listing_Sort_Default,
+		MinPrice = HappyRE.Core.Resources.Message.Listing_Price_MinPrice,
+		MaxPrice = HappyRE.Core.Resources.Message.Listing_Price_MaxPrice,
+		Location = HappyRE.Web.Resources.Message.Listing_Filter_Location,
+		FilterTitle = HappyRE.Web.Resources.Message.Listing_Filter_Title,
+		FilterMore = HappyRE.Web.Resources.Message.Listing_Filter_More,
+		Apply = HappyRE.Core.Resources.Message.Msg_Apply,
+		SelectAll = Message.Msg_Select_All,
+		Slogan = HappyRE.Web.Resources.Message.Home_Slogan,
+		MarketPrice = HappyRE.Web.Resources.Message.Home_MarketPrice,
+		Project = HappyRE.Web.Resources.Message.Home_Project,
+		Agent = HappyRE.Web.Resources.Message.Home_Agent,
+		Buy = HappyRE.Web.Resources.Message.Home_Buy,
+		Rent = HappyRE.Web.Resources.Message.Home_Rent,
+	};
+	var routes = new
+	{
+		MarketPrice = HappyRE.Core.Resources.Message.Routing_Market_Price,
+		Listing_Buy = HappyRE.Core.Resources.Message.Routing_Buy,
+		Listing_Rent = HappyRE.Core.Resources.Message.Routing_Rent,
+		Project = HappyRE.Core.Resources.Message.Routing_Finding_Project,
+		Agent = HappyRE.Core.Resources.Message.Routing_Finding_Agent,
+		LogIn = HappyRE.Core.Resources.Message.Routing_LogIn
+	};
+}
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+	<ul class="dropdown-menu suggest"
+		ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top-3+'px', left: position().left+'px',width: position().width +2 + 'px'}"
+		role="listbox" aria-hidden="{{!isOpen()}}">
+		<li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+			<a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+		</li>
+	</ul>
+</script>
+<div class="mg-1170-container">
+	<h1 class="title">@msg.Slogan</h1>
+    <div id="top-search" class="clearfix">
+        <div class="search-bar">
+            <ul class="services noselect clearfix">
+                <li class="active" ng-click="Transaction.SetValue(false)" ng-class="{'active' :Transaction.IsRent() == false}">@msg.Buy</li>
+                <li ng-click="Transaction.SetValue(true)" ng-class="{'active' : Transaction.IsRent() == true}">@msg.Rent</li>
+                <li><a href="@routes.MarketPrice">@msg.MarketPrice</a></li>
+            </ul>
+            <div class="search clearfix">
+                <div class="search-keyword clearfix">
+                    <i class="fa fa-search"> </i>
+                    <input type="text" id="q" name="q"
+                           ng-model="Keyword"
+                           ng-required="true"
+                           ng-keyup="OnKeyUp($event)"
+                           typeahead-loading="LoadingLocations"
+                           typeahead-no-results=""
+                           uib-typeahead="item as item.FullName(item.Name) for item in GetMap($viewValue)" value=""
+                           typeahead-popup-template-url="suggestPopupTemplate.html"
+                           typeahead-show-hint="false"
+                           typeahead-on-select="KeywordOnSelected($item,$model,$label)"
+                           autocomplete="off"
+                           placeholder="@msg.Keyword_PlaceHolder"
+                           autofocus />
+                    <a class="fa fa-times-circle" ng-show="Keyword!=null" ng-click="ResetKeyword()"> </a>
+                </div>
+                <a href="#" ng-click="DoSearch()" class="btn-search" role="button">@msg.Search</a>
+            </div>
+
+            <ul class="search-filter clearfix">
+                <li>
+                    <div uib-dropdown class="search-location" is-open="Cities.IsOpen" auto-close="outsideClick">
+                        <a href="#" uib-dropdown-toggle role="button" title="{{Cities.DisplayText}}">
+                            <span ng-bind="Cities.DisplayText"></span>
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="mg-dropdown dropdown-menu scrollbar-style-1 noselect"
+                            uib-dropdown-menu role="menu" aria-labelledby="single-button"
+                            ng-class="{'sub-list': Cities.IsShowBackButton()}">
+                            <li class="move-back fa-angle-left"
+                                ng-show="Cities.IsShowBackButton()"
+                                ng-click="Cities.OnClickBack(Cities.ParrentItem)" ng-bind="Cities.ParrentItem.n">
+                            </li>
+                            <li ng-class="{'fa-arrow-right':Cities.IsShowViewMore(item,$index),'item-selected': Cities.IsSelected(item.i)}"
+                                ng-repeat="item in Cities.Data"
+                                ng-click="Cities.OnClick(item,$index)">
+                                <span ng-bind="!($index==0 && Cities.IsShowBackButton())?item.n:'@msg.SelectAll'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div uib-dropdown class="search-property-type" is-open="PropertyType.IsOpen" auto-close="outsideClick">
+                        <a href="#" uib-dropdown-toggle role="button" title="{{PropertyType.DisplayText}}">
+                            <span ng-bind="PropertyType.DisplayText"></span>
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="mg-dropdown dropdown-menu noselect"
+                            uib-dropdown-menu role="menu" aria-labelledby="single-button"
+                            ng-class="{'sub-list': PropertyType.IsShowBackButton()}">
+                            <li class="move-back fa-angle-left"
+                                ng-show="PropertyType.IsShowBackButton()"
+                                ng-click="PropertyType.OnClickBack(PropertyType.ParrentItem)"
+                                ng-bind="PropertyType.ParrentItem.Name">
+                            </li>
+                            <li ng-class="{'fa-arrow-right':PropertyType.IsShowViewMore(item,$index),'item-selected': PropertyType.IsSelected(item.Id)}"
+                                ng-repeat="item in PropertyType.Data"
+                                ng-click="PropertyType.OnClick(item,$index)">
+                                <span ng-bind="!($index==0 && PropertyType.IsShowBackButton())?item.Name:'@msg.SelectAll'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="search-property-price" uib-dropdown is-open="Price.IsOpen" auto-close="outsideClick">
+                        <a href="#" uib-dropdown-toggle role="button" title="{{Price.DisplayName}}">
+                            <span class="value" ng-bind="Price.DisplayName"></span>
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </a>
+                        <div class="mg-dropdown dropdown-menu noselect price-dropdown" uib-dropdown-menu>
+                            <ul class="price-list">
+                                <li class="price-list-title">@msg.MinPrice</li>
+                                <li ng-repeat="item in Price.Items" ng-click="Price.ChangedFrom(item)" ng-class="{'selected-price':Price.IsSelectedFrom(item) }">
+                                    <i class="fa" ng-class="(Price.IsSelectedFrom(item)?'fa-check-circle':'fa-circle')"></i>
+                                    <span ng-bind="item.Name"></span>
+                                </li>
+                            </ul>
+                            <ul class="price-list">
+                                <li class="price-list-title">@msg.MaxPrice</li>
+                                <li ng-repeat="item in Price.Items" ng-click="Price.ChangedTo(item)" ng-class="{'selected-price':Price.IsSelectedTo(item) }">
+                                    <i class="fa" ng-class="(Price.IsSelectedTo(item)?'fa-check-circle':'fa-circle')"></i>
+                                    <span ng-bind="item.Name"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="wardreview">
+            <div class="wardreview-title">@HappyRE.Web.Resources.Message.Home_WardReview</div>
+            <div class="wardreview-desc">@HappyRE.Web.Resources.Message.Home_WardReview_Desc01</div>
+            <a href="@HappyRE.Core.Resources.Message.Routing_WardReview">@HappyRE.Web.Resources.Message.Home_WardReview_Btn</a>
+        </div>
+    </div>
+	
+</div>

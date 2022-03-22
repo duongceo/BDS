@@ -1,0 +1,33 @@
+﻿@model HappyRE.Web.Models.WardReviewPropertyViewModel
+@using HappyRE.Core.Resources;
+
+@{
+    if (Model.Sale.Count == 0 && Model.Rent.Count == 0)
+    {
+        return;
+    }
+    var noSaleCss = Model.Sale.Count > 0 ? "" : "display:none;";
+    var noRentCss = Model.Rent.Count > 0 ? "" : "display:none;";
+}
+
+<h2 class="title">Bất động sản @Model.WardName</h2>
+<div class="summary clearfix">
+    @if (Model.Sale.Count > 0)
+    {
+        <a ng-class="{active: !IsRent}" data-toggle="pill" data-target="#buy-list" ng-click="ToggleTab(false)">@Message.Msg_ForSale</a>
+    }
+
+    @if (Model.Rent.Count > 0)
+    {
+        <a ng-class="{active: IsRent}" data-toggle="pill" data-target="#rent-list" ng-click="ToggleTab(true)">@Message.Msg_ToRent</a>
+    }
+
+</div>
+<div id="property-items" class="tab-content">
+    <div id="buy-list" class="tab-pane fade in" ng-class="{active: !IsRent}" style="@noSaleCss">
+        @Html.Partial("~/Views/WardReview/Partials/_PropertyList.cshtml", Model.Sale)
+    </div>
+    <div id="rent-list" class="tab-pane fade in" ng-class="{active: IsRent}" style="@noRentCss">
+        @Html.Partial("~/Views/WardReview/Partials/_PropertyList.cshtml", Model.Rent)
+    </div>
+</div>

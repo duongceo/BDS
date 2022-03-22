@@ -1,0 +1,252 @@
+﻿@model Mogi.Web.Models.ListViewModel
+@using MBN.Utils.Extension;
+
+@{
+    this.Layout = "~/Views/Shared/_LayoutMap.cshtml";
+    var msg = new
+    {
+        Filter = Mogi.Core.Resources.Message.Msg_Filter_More,
+        FilterClear = Mogi.Core.Resources.Message.Msg_Filter_Clear,
+        Close = Mogi.Core.Resources.Message.Msg_Close,
+        Finish = Mogi.Core.Resources.Message.Msg_Finish,
+        Search = Mogi.Core.Resources.Message.Msg_Search,
+        Keyword_PlaceHolder = Mogi.Core.Resources.Message.Search_Keyword_PlaceHolder,
+        View_List = Mogi.Core.Resources.Message.Listing_View_List,
+        View_Map = Mogi.Core.Resources.Message.Listing_View_Map,
+        MinPrice = Mogi.Core.Resources.Message.Listing_Price_MinPrice,
+        MaxPrice = Mogi.Core.Resources.Message.Listing_Price_MaxPrice
+    };
+    string filterMoreLabel = Mogi.Core.Resources.Message.Msg_Filter_More;
+}
+@Styles.Render("~/content/listcss")
+
+<link href="/content/maps/bds-map.css" rel="stylesheet" />
+
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+    <ul class="dropdown-menu suggest"
+        ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left-1+'px',width: position().width +2 + 'px'}"
+        role="listbox" aria-hidden="{{!isOpen()}}">
+        <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+            <a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+        </li>
+    </ul>
+</script>
+<div ng-controller="ListViewController">
+    <form id="fsearch" autocomplete="off" ng-submit="CallSearch()">
+        <div class="top-search">
+            <div class="command">
+                <div id="keyword" class="keyword">
+                    <input type="text" id="q" name="q"
+                           ng-model="Keyword"
+                           typeahead-loading="LoadingLocations"
+                           typeahead-no-results=""
+                           uib-typeahead="item as item.FullName(item.Name) for item in GetMap($viewValue)" value=""
+                           typeahead-popup-template-url="suggestPopupTemplate.html"
+                           typeahead-show-hint="false"
+                           autocomplete="off" placeholder="@msg.Keyword_PlaceHolder"
+                           autofocus />
+                    <a href="#"><i class="fa fa-search" ng-click="CallSearch()"></i></a>
+                </div>
+                <div class="filter-more-mobile" ng-click="Mobile.Open($event)">
+                    <span class="arrow"><i class="icon icon-arrow-solid-down" ng-class="Mobile.IsOpen?'icon-arrow-solid-up':'icon-arrow-solid-down'"></i></span>
+                    <span class="title">@msg.Filter<span class="count" ng-bind="FilterMore.Label"></span></span>
+                </div>
+                <div class="transtype" ng-click="FilterMore.Close()">
+                    <div class="dropdown" uib-dropdown>
+                        <button class="btn btn-default btn-search dropdown-toggle" type="button" id="transtype-dropdown" uib-dropdown-toggle>
+                            <span class="title" ng-bind="TransType.Label"></span>
+                            <span class="value" ng-bind="TransType.Selected.Name"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li ng-repeat="item in TransType.Items">
+                                <a href="#" ng-click="TransType.Changed(item)" ng-class="{selected: TransType.IsSelected(item)}">
+                                    <span><i ng-show="TransType.IsSelected(item)" class="icon-left icon icon-check"></i>{{item.Name}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="property-type" ng-click="FilterMore.Close()">
+                    <div class="dropdown" uib-dropdown auto-close="outsideClick" is-open="PropType.IsOpen">
+                        <button class="btn btn-default btn-search dropdown-toggle" type="button" id="property-type-dropdown" uib-dropdown-toggle>
+                            <span class="title" ng-bind="PropType.Label"></span>
+                            <span class="value" ng-bind="PropType.DisplayName"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li ng-repeat="item in PropType.Items">
+                                <a href="#" ng-click="PropType.Changed(item)" ng-class="{selected: PropType.IsSelected(item)}">
+                                    <span><i ng-show="PropType.IsSelected(item)" class="icon icon-check"></i>{{item.Name}}</span>
+                                </a>
+                                <ul ng-show="PropType.HasChild(item)" class="sub-items">
+                                    <li ng-repeat="itemSub in PropStyle.Items" ng-click="PropStyle.Changed(itemSub)">
+                                        <span ng-class="{selected: PropStyle.IsSelected(itemSub)}"><i class="icon" ng-class="PropStyle.IsSelected(itemSub)?'icon-checkbox-checked':'icon-checkbox-empty'"></i>{{itemSub.Name}}</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header"><div><a class="btn-xs btn-clear" ng-click="PropType.Close()">@msg.Close.ToUpper()</a></div></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="range-price" ng-click="FilterMore.Close()">
+                    <div class="dropdown" uib-dropdown auto-close="outsideClick" is-open="Price.IsOpen">
+                        <button class="btn btn-default btn-search dropdown-toggle" type="button" id="range-price-dropdown" uib-dropdown-toggle>
+                            <span class="title" ng-bind="Price.Label"></span>
+                            <span class="value" ng-bind="Price.DisplayName"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-range" uib-dropdown-menu>
+                            <li>
+                                <ul class="price-from">
+                                    <li><span class="price-title">@msg.MinPrice</span></li>
+                                    <li ng-repeat="item in Price.Items" ng-class="{selected: Price.IsSelectedFrom(item)}" ng-click="Price.ChangedFrom(item)">
+                                        <span><i class="icon icon-check" ng-show="Price.IsSelectedFrom(item)"></i>{{item.Name}}</span>
+                                    </li>
+                                </ul>
+                                <ul class="price-to">
+                                    <li><span class="price-title">@msg.MaxPrice</span></li>
+                                    <li ng-repeat="item in Price.Items" ng-class="{selected: Price.IsSelectedTo(item)}" ng-click="Price.ChangedTo(item)">
+                                        <span><i class="icon icon-check" ng-show="Price.IsSelectedTo(item)"></i>{{item.Name}}</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="filter-more">
+                    <div class="dropdown dropdown-search">
+                        <button class="btn btn-default btn-search" type="button" id="filter-more" ng-click="FilterMore.Collapse($event)">
+                            <span>@msg.Filter<span class="count" ng-bind="FilterMore.Label"></span></span>
+                            <span class="caret"></span>
+                        </button>
+                        <div class="collapse more-filter-popup" id="filter-more-collapse" uib-collapse="FilterMore.IsCollapse">
+                            <div class="property-type">
+                                <div class="dropdown dropdown-more-filter" uib-dropdown auto-close="outsideClick" is-open="PropType.IsOpen2">
+                                    <button class="btn btn-default btn-search dropdown-toggle" type="button" id="property-type-dropdown2" uib-dropdown-toggle>
+                                        <span><span class="more-filter-label" ng-bind="PropType.Label"></span><span class="more-filter-value" ng-bind="PropType.DisplayName"></span></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu>
+                                        <li ng-repeat="item in PropType.Items">
+                                            <a href="#" ng-click="PropType.Changed(item)" ng-class="{selected: PropType.IsSelected(item)}">
+                                                <span><i ng-show="PropType.IsSelected(item)" class="icon icon-check"></i>{{item.Name}}</span>
+                                            </a>
+                                            <ul ng-show="PropType.HasChild(item)" class="sub-items">
+                                                <li ng-repeat="itemSub in PropStyle.Items" ng-click="PropStyle.Changed(itemSub)">
+                                                    <span ng-class="{selected: PropStyle.IsSelected(itemSub)}"><i class="icon" ng-class="PropStyle.IsSelected(itemSub)?'icon-checkbox-checked':'icon-checkbox-empty'"></i>{{itemSub.Name}}</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header"><button class="btn-xs btn-clear" ng-click="PropType.Close()">@msg.Close.ToUpper()</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="range-price">
+                                <div class="dropdown dropdown-more-filter" uib-dropdown auto-close="outsideClick" is-open="Price.IsOpen2">
+                                    <button class="btn btn-default btn-search dropdown-toggle" type="button" id="range-price-dropdown-2" uib-dropdown-toggle>
+                                        <span><span class="more-filter-label" ng-bind="Price.Label"></span><span class="more-filter-value" ng-bind="Price.DisplayName"></span></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-range" uib-dropdown-menu>
+                                        <li>
+                                            <ul class="price-from">
+                                                <li><span class="price-title">Giá thấp nhất</span></li>
+                                                <li ng-repeat="item in Price.Items" ng-class="{selected: Price.IsSelectedFrom(item)}" ng-click="Price.ChangedFrom(item)">
+                                                    <span><i class="icon icon-check" ng-show="Price.IsSelectedFrom(item)"></i>{{item.Name}}</span>
+                                                </li>
+                                            </ul>
+                                            <ul class="price-to">
+                                                <li><span class="price-title">Giá cao nhất</span></li>
+                                                <li ng-repeat="item in Price.Items" ng-class="{selected: Price.IsSelectedTo(item)}" ng-click="Price.ChangedTo(item,true)">
+                                                    <span><i class="icon icon-check" ng-show="Price.IsSelectedTo(item)"></i>{{item.Name}}</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div><dropdown-search binding-model="Area" binding-items="Area.Items" binding-item-selected="Area.Selected" changed="Area.Changed(item)"></dropdown-search></div>
+                            <div><dropdown-search binding-model="Room" binding-items="Room.Items" binding-item-selected="Room.Selected"></dropdown-search></div>
+                            <div><dropdown-search binding-model="Direction" binding-items="Direction.Items" binding-item-selected="Direction.Selected"></dropdown-search></div>
+                            <div><dropdown-search binding-model="Legal" binding-items="Legal.Items" binding-item-selected="Legal.Selected"></dropdown-search></div>
+                            <div><dropdown-search binding-model="Time" binding-items="Time.Items" binding-item-selected="Time.Selected"></dropdown-search></div>
+                            <div class="filter-more-cmd">
+                                <a class="btn-sm btn-clear" ng-click="FilterMore.Reset()">@msg.FilterClear.ToUpper()</a>
+                                <a class="btn-sm btn-primary" ng-click="FilterMore.Apply()"><span class="filter-more-finish">@msg.Finish.ToUpper()</span><span class="filter-more-search">@msg.Search.ToUpper()</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" class="search" ng-click="CallSearch()">@msg.Search.ToUpper()</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="list-main-content">
+        <div class="container">
+            <div id="content-left" class="content-left scroll">
+                <div class="list-view-sort clearfix">
+                    <div class="col-md-4 col-sm-4 col-xs-6 total-result"><span id="total-result"></span></div>
+                    <div class="col-md-8 col-sm-8 col-xs-6 command-sort">
+                        <div class="navbar-right">
+                            <ul class="listview-sort-menu">
+                                <li>
+                                    <div uib-dropdown>
+                                        <a id = "dropdown-sort" uib-dropdown-toggle ng-class="{'sort-active': PropertySort.Value==1 }">
+                                            <i class="icon icon-sort"></i><span class="sort-label" ng-bind-html="SortView.Selected.Name"></span>@*<span class="caret"></span>*@
+                                        </a>
+                                        <ul class="dropdown-menu pull-right" uib-dropdown-menu aria-labelledby="dropdown-sort">
+                                            <li ng-repeat="item in SortView.Items">
+                                                <a ng-click="SortView.Changed(item)">{{item.Name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="visible-lg visible-md">
+                                    <a ng-click="SortView.ChangedView('list')"><i class="icon icon-list-view"></i>@msg.View_List</a>
+                                </li>
+                                <li class="visible-lg visible-md">
+                                    <a class="sort-active"><i class="icon icon-map-view"></i>@msg.View_Map</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="list-view" class="clearfix">
+                    @*@Html.Partial("Partials/_List")
+                    <div class="text-center">
+                        @Html.Raw(Model.Paging.RenderAngular())
+                    </div>*@
+                </div>
+            </div>
+            <div id="maps" class="content-map visible-lg visible-md visible-sm">
+                <div id="map" class="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    @*<script async src="@Mogi.Core.Utils.Common.CDNUrl@Scripts.Url("~/bundles/map")" type="text/javascript"></script>*@
+    @Scripts.Render("~/bundles/map");
+    <script type="text/javascript">
+        var pageData = {IsMapView:true, Paging: {PageIndex: @Model.Paging.CurrentPage, PageSize: 10, Total: @Model.Paging.Total, Url: '@Model.Paging.Url'}};
+        var filterData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Filter));
+        var favorites =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Favorites));
+        var favoritesTop =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FavoritesTop));
+        var isAlert = false, view = 'map', pageSize=25;
+        var mostRecentPinCount = 0;
+        var map,gmap,isUserPolygon = false,ignorePolygonChanges = true;
+
+        function initMap() {
+            if (bdsMap.inited == false) {
+                bdsMap.initialize(null);
+                bdsMap.notifyChange = function (polyenc, isUserPolygon) { bds.notifyChange(polyenc, isUserPolygon); };
+            }
+            ignorePolygonChanges = false;
+        }
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@Mogi.Core.Utils.Common.GOOGLE_MAP_API_KEY&callback=initMap&libraries=places,visualization,geometry,overlay" async defer></script>
+}

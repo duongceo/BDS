@@ -1,0 +1,176 @@
+﻿@using HappyRE.Web.Resources;
+@using System.Text;
+@using MBN.Utils.Extension;
+@model HappyRE.Web.Models.ProjectsViewModel
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	int index = 0;
+}
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+	<ul class="dropdown-menu suggest"
+		ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left-1+'px',width: position().width +2 + 'px'}"
+		role="listbox" aria-hidden="{{!isOpen()}}">
+		<li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+			<a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+		</li>
+	</ul>
+</script>
+<div ng-controller="projectsController" class="mg-listing clearfix">
+	<div id="top-search">
+		<div class="mg-1170-container">
+			<form id="search-bar" class="clearfix" novalidate ng-submit="searchProject()">
+				<div class="search-box">
+					<input type="text" id="q" name="keyword" ng-model="Keyword"
+						   ng-required="true"
+						   typeahead-loading="LoadingLocations"
+						   typeahead-no-results=""
+						   uib-typeahead="item as item.FullName(item.Name) for item in getProjectSuggest($viewValue)"
+						   value=""
+						   typeahead-on-select="KeywordOnSelected()"
+						   typeahead-popup-template-url="suggestPopupTemplate.html"
+						   typeahead-show-hint="false"
+						   autocomplete="off"
+						   placeholder="@HappyRE.Core.Resources.Message.ProjectListing_SearchPlaceholder" autofocus />
+				</div>
+				<div class="location">
+					<div uib-dropdown is-open="Cities.IsOpen" auto-close="outsideClick">
+						<button type="button" class="btn" uib-dropdown-toggle>
+							<span ng-bind="Cities.DisplayText"></span><i class="caret"></i>
+						</button>
+						<ul class="dropdown-menu noselect scrollbar-style-1" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+							<li role="menuitem" ng-show="Cities.IsShowBackButton()">
+								<a href="#" ng-click="Cities.OnClickBack(Cities.ParrentItem)">
+									<div class="item-content">
+										<span class="back-icon">
+											<i class="fa fa-angle-left" aria-hidden="true"></i>
+										</span>
+										<span class="back-text" ng-bind="Cities.ParrentItem.n">x</span>
+									</div>
+								</a>
+							</li>
+							<li ng-repeat="item in Cities.Data">
+								<a href="#" ng-click="Cities.OnClick(item,$index)" ng-class="{'selected': Cities.IsSelected(item.i)}">
+									<div class="item-content">
+										<span ng-bind="!($index==0 && Cities.IsShowBackButton())?item.n:'@HappyRE.Core.Resources.Message.Msg_Select_All'"></span>
+									</div>
+									<div class="mg-dropdown-icon" ng-show="Cities.IsShowViewMore(item,$index) == true" style="">
+										<i class="fa fa-angle-right"></i>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<input type="submit" ng-click="searchProject()" class="search-btn" value="@HappyRE.Core.Resources.Message.Msg_Search">
+			</form>
+
+		</div>
+	</div>
+	<section id="breadcrumbs" class="clearfix">
+		<div class="mg-1170-container">
+			@{
+				Html.RenderAction("Breadcrumb_ProjectList", "CachePartial", new { keyWord = Model.Query.Keyword, cityId = Model.Query.CityId, wardId = Model.Query.WardId, streetId = Model.Query.StreetId, orgId = Model.Query.OrgId, projectId = Model.Query.ProjectId });
+			}
+		</div>
+	</section>
+	<div id="prj-detail">
+		<div class="mg-1170-container">
+			<div id="main" class="clearfix">
+				<div class="page-title">
+					<div class="mg-container">
+						<h1>@Html.Raw(ViewBag.TitlePage)</h1>
+					</div>
+				</div>
+				<div class="prj-items clearfix">
+					@foreach (var item in Model.Projects)
+					{
+						var images = new StringBuilder();
+						if (item.HasCoverImage())
+						{
+							int no = 0;
+							foreach (var img in item.GetCoverImages().Take(3))
+							{
+								if (index < 3)
+								{
+									images.AppendFormat("<img {1} src=\"{0}\" />", img, (no == 2 ? "class=\"last\"" : ""));
+								}
+								else
+								{
+									images.AppendFormat("<img class=\"lozad{1}\" data-src=\"{0}\" />", img, (no == 2 ? " last" : ""));
+								}
+								no++;
+							}
+						}
+						index++;
+						<div class="prj-item clearfix">
+							<div class="prj-cover">
+								@Html.Raw(images)
+							</div>
+							<div class="prj-summarize">
+								<div class="prj-head-title">
+									<div class="prj-title">
+										<a href="@string.Format(HappyRE.Core.Resources.Message.Routing_Project_Detail,item.CodeUrl)">@item.Title</a>
+									</div>
+									<div class="prj-address">@item.DistrictFullName</div>
+								</div>
+								<div class="prj-prop-type">
+									@if (item.EndDate.HasValue)
+									{
+										@Html.Raw(string.Format(HappyRE.Web.Resources.Message.Project_EndDate, @item.EndDate.Value.Year))
+									}
+								</div>
+
+								<div class="prj-avg-price">
+									@if (item.HasPriceTag())
+									{
+									<span>@item.GetDisplayPrice()</span>
+										@*<span ng-bind-html="PriceFormat(@item.GetMinPrice(),@item.GetMaxPrice(),@item.GetMinArea())"></span>*@
+									}
+								</div>
+								@if (item.TotalSale > 0)
+								{
+									<div class="prj-search-link">
+									<a class="sale" href="@item.SaleUrl">
+										<span>@HappyRE.Web.Resources.Message.Project_RelativeProps ❯</span>
+									</a>
+									</div>
+								}
+							</div>
+						</div>
+					}
+				</div>
+				<div style="text-align: center">
+					@Html.Partial("Partials/_Paging", Model.Paging)
+				</div>
+				@if (Model.Paging.CurrentPage == 1)
+				{
+					<div class="page-desciption">
+						@Html.Raw(ViewBag.Footer)
+					</div>
+				}
+			</div>
+			<div id="side-bar" class="clearfix">
+				@{
+					Html.RenderAction("RightBanner", "Banner", new { code = "project-right-top" });
+					Html.RenderAction("SearchProjectSimilar", "CachePartial", new { cityId = ViewBag.CityId });
+					Html.RenderAction("RightBanner", "Banner", new { code = "project-right-center" });
+					Html.RenderAction("Blogv2", "CachePartial");
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@section styles {
+	@*@Styles.Render("~/content/projectlist.css")*@
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/projectlist.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+        var query = @Html.Raw(Model.Query.ToJson());
+        var cid = @Html.Raw(ViewBag.CityId);
+	</script>
+	@*@Scripts.Render("~/content/projectlist.js")*@
+	<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/projectlist.js")' type="text/javascript"></script>
+}

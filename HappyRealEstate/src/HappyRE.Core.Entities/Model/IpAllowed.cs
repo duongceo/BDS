@@ -16,5 +16,7 @@ namespace HappyRE.Core.Entities.Model
         [Key]
         public int Id { get; set; }
         public string Ip { get; set; }
+        [DisplayName("Mô tả")]
+        public string Description { get; set; }
     }
 }

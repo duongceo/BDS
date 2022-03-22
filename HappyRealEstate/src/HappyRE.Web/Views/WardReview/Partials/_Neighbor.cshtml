@@ -1,0 +1,40 @@
+﻿@model HappyRE.Web.Models.WardRelationViewModel
+@{
+    var wards = Model.Wards;
+
+}
+<div id="ward-neighbor" class="ward">
+    <h2 class="title">Khu vực lân cận</h2>
+    <div class="clearfix neighbors owl-carousel" id="neighbors" mg-carousel options="NeighborsCarouselOptions">
+        @foreach (var item in wards)
+        {
+            var covers = item.GetCoverImage();
+            <div class="neighbor clearfix">
+                <a href="@item.Url">
+                    @if (covers != null && covers.Count > 0)
+                    {
+                        <img src="@covers[0].AvatarMediumUrl()">
+                    }
+                    <div class="content">
+                        <div class="title">@item.Name</div>
+                        <div class="total-props">
+                            <svg class="icon-sale-qty">
+                                <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-qty"></use>
+                            </svg>@item.TotalSale tin rao bán
+                        </div>
+                        <div class="price-range">
+                            <svg class="icon-rent-price">
+                                <use xlink:href="/content/images/ward-review-icon.svg#icon-rent-price"></use>
+                            </svg>Bán: @HappyRE.Core.Utils.Common.PriceToText2(item.SaleMinPrice) triệu - @HappyRE.Core.Utils.Common.PriceToText2(item.SaleMinPrice)triệu
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        }
+
+
+    </div>
+    <a class="view-more" href="@Model.WardReviewUrl"> Review khu vực @Model.DistrictName </a>
+</div>
+

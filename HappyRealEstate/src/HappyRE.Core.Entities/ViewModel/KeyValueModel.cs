@@ -34,4 +34,22 @@ namespace HappyRE.Core.Entities.ViewModel
         public string Id { get; set; }
         public string Name { get; set; }
     }
+
+    public class Select2Result
+    {
+        public int id { get; set; }
+        public string text { get; set; }
+        public string postedby { get; set; }
+    }
+
+    public class Select2Pagination
+    {
+        public bool more { get; set; }
+    }
+
+    public class Select2Results
+    {
+        public List<Select2Result> results { get; set; }
+        public Select2Pagination pagination { get; set; }
+    }
 }

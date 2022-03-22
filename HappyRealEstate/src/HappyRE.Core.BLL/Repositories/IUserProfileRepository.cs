@@ -11,7 +11,7 @@ namespace HappyRE.Core.BLL.Repositories
     {
         IEnumerable<KeyValueUserModel> GetAll();
         Task<UserProfile> GetByUserName(string userName);
-        Task<bool> IsAdmin(string userName);
+        Task<bool> IsNotCheckIP(string userName);
         Task<int?> IU(UserProfile obj);
         Task<Tuple<IEnumerable<UserProfileListViewModel>, int>> Search(UserProfileQuery query);
         Task<IEnumerable<KeyValueDisplayModel>> GetListKeyValue(string keyword, string id);

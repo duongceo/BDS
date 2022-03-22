@@ -57,6 +57,7 @@ namespace HappyRE.Core.BLL.Repositories
             else
             {
                 m.Ip = obj.Ip;
+                m.Description = obj.Description;
                 await this.Update(m);
                 return m.Id;
             }

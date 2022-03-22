@@ -11,11 +11,13 @@ using HappyRE.Core.Entities;
 using System.Data;
 using Dapper;
 using System.Net.Http;
+using System.IO;
 
 namespace HappyRE.Core.BLL.Repositories
 {
     public class PropertyRepository : BaseDPRepository<Property>, IPropertyRepository
     {
+        private static readonly ILog _log = LogManager.GetLogger("PropertyRepository");
         private readonly static int MaxViewMobileInDay = 10;
         public PropertyRepository(IUow uow)
             : base(uow)
@@ -82,6 +84,35 @@ namespace HappyRE.Core.BLL.Repositories
             return await this.Query<KeyValueDisplayModel>(@"select Id, (Code + ' ('+ AddressHtml+')') Name
                     from PropertySearch (nolock)
                     where Deleted=0 and IsTemp=0 and (AddressHtml like @keyword or Code like @keyword)", new { keyword }, CommandType.Text);
+        }
+
+        public async Task<Select2Results> SearchForSelect(string keyword, string id)
+        {
+            var r = new Select2Results();
+            var list = new List<Select2Result>();
+            r.results = list;
+            if (string.IsNullOrEmpty(keyword) && string.IsNullOrEmpty(id))
+            {
+                return r;
+            }
+            else if (string.IsNullOrEmpty(id) == false)
+            {
+                var a = await this.Query<Select2Result>(@"select id, Code text, postedby
+                    from PropertySearch (nolock)
+                    where Id=@id", new { id }, CommandType.Text);
+                list = a.ToList();
+            }
+            else if (keyword.Length > 2)
+            {
+                var encodeForLike = keyword.Replace("[", "[[]").Replace("%", "[%]");
+                keyword = "%" + encodeForLike + "%";
+                var b = await this.Query<Select2Result>(@"select top 50 id, Code text, postedby
+                    from PropertySearch (nolock)
+                    where Deleted=0 and IsTemp=0 and (Code like @keyword)", new { keyword }, CommandType.Text);
+                list = b.ToList();
+                r.results = list;
+            }
+            return r;
         }
         public async Task<int?> IU(Property obj)
         {
@@ -282,10 +313,11 @@ namespace HappyRE.Core.BLL.Repositories
                     select count(distinct PropertyId) sl 
                     from PropertyShowMobileLog (nolock) 
                     where createdBy=@userName and ViewDate=@viewDate
-                    union all
-                    select count(distinct CustomerId) sl
-                    from CustomerShowMobileLog (nolock) 
-                    where createdBy=@userName and ViewDate=@viewDate)
+                    --union all
+                    --select count(distinct CustomerId) sl
+                    --from CustomerShowMobileLog (nolock) 
+                    --where createdBy=@userName and ViewDate=@viewDate
+                    )
                     select sum(sl) from temp";
             var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
             var res = await this.ExecuteScalar<int>(q, new { userName, viewDate = DateTime.Today }, CommandType.Text);
@@ -377,5 +409,88 @@ namespace HappyRE.Core.BLL.Repositories
            if(obj.Id>0) await Merge_PropertySearch(obj.Id);
         }
         #endregion
+
+        #region Tranfer Images
+        public async Task TranferImages(int? from=0, int? to=0)
+        {
+            //string root_folder = @"C:\DATA\BACKUP\HappyRE\Product\Product";
+            //string root_folder_target = @"C:\DATA\BACKUP\HappyRE\Images";
+
+            string root_folder = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\_temp\product";
+            string root_folder_target = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\product";
+            //Lấy tất cả bđs chưa đc cập nhật hình
+            var bds = await this.Query<PropertyRef>("select Id, RefId, CreatedDate from Property (nolock) where Deleted=0 and Id >=@from and Id<=@to", new {from=from,to=to }, CommandType.Text);
+            List<string> imgs = new List<string>();
+            _log.Warn($"BĐS from {from} to {to}: {bds.Count()}");
+            foreach (var item in bds)
+            {
+                var imgFolder = System.IO.Path.Combine(root_folder, item.CreatedDate.ToString("yyyyMM"), item.RefId.ToString());
+                if (Directory.Exists(imgFolder)==true) {
+                    //get file in folder
+                    try
+                    {
+                        DirectoryInfo dir = new DirectoryInfo(imgFolder);
+                        imgs = new List<string>();
+                        foreach (var file in dir.GetFiles())
+                        {
+                            //copy folder
+                            var f = item.CreatedDate.ToString("MMyyyy");
+                            try
+                            {
+                                if (!Directory.Exists(Path.Combine(root_folder_target, f)))
+                                {
+                                    System.IO.Directory.CreateDirectory(Path.Combine(root_folder_target, f));
+                                }
+                                string newFn = "img_" + file.Name.Replace(".jpeg",".jpg");
+                                if (System.IO.File.Exists(Path.Combine(root_folder_target, f, newFn)) == false)
+                                {
+                                    System.IO.File.Copy(file.FullName, Path.Combine(root_folder_target, f, newFn), true);
+
+                                    var fileName = $"https://static.batdongsanhanhphuc.vn/img/s200x200/product/{f}/{newFn}";
+                                    imgs.Add(fileName);
+                                }
+                                else
+                                {
+                                    var fileName = $"https://static.batdongsanhanhphuc.vn/img/s200x200/product/{f}/{newFn}";
+                                    if (await uow.ImageFile.IsExists(new ImageFileQuery()
+                                    {
+                                        TableName="Property",
+                                        TableKeyId= item.Id,
+                                        Src= fileName
+                                    })==false)
+                                    {
+                                        imgs.Add(fileName);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _log.Error(ex);
+                            }
+                        }
+
+                        _log.Warn($"BĐS {item.Id} add : {imgs.Count()} ảnh");
+                        uow.ImageFile.AddImages(new ImageFileQuery()
+                        {
+                            TableName = "Property",
+                            TableKeyId = item.Id,
+                        }, imgs);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error(ex);
+                    }
+                }
+            }
+
+        }
+        #endregion
+    }
+
+    public class PropertyRef
+    {
+        public int Id { get; set; }
+        public int RefId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

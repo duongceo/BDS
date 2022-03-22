@@ -1,0 +1,122 @@
+﻿/*Mobile first reesponsive*/
+/*Mogi FeedBack*/
+#feedback {
+    width: 100%;
+    margin: 0px auto 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+#feedback .page-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#feedback a{
+    color: #104b8c;
+}
+    #feedback ul {
+        padding-left: 40px;
+    }
+
+        #feedback ul li {
+            list-style-type: disc;
+        }
+
+    #feedback .title {
+        padding: 10px 0;
+    }
+
+    #feedback .control {
+        margin-bottom: 10px;
+    }
+
+    #feedback .label{
+        font-weight: normal;
+        text-align: left;
+        color: #222;
+        font-size: 14px;
+        padding: 0;
+        width: 30%;
+        float:left;
+         padding-top: 10px
+    }
+    #feedback .label label{
+        font-weight: normal;
+    }
+    #feedback .input{
+        width: 70%;
+        float:right;
+        
+    }
+    #feedback input[type="text"] {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 0 10px 15px;
+        border: solid 1px #e4e4e4;
+    }
+
+    #feedback textarea {
+        width: 100%;
+        height: 160px;
+        padding: 10px 0 10px 15px;
+        border: solid 1px #e4e4e4;
+    }
+
+    #feedback input[type="submit"] {
+        width: 140px;
+        height: 36px;
+        border-radius: 3px;
+        border: 0;
+        background-color: #104b8c;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        color: #ffffff;
+        padding: 0;
+    }
+
+    #feedback form{
+        max-width: 600px;
+    }
+/*dialog*/
+.agent-dialog-message .logo {
+    color: #45bfb7;
+    font-size: 60px;
+    text-align: center;
+    height: 60px;
+}
+
+    .agent-dialog-message .logo span {
+        display: block;
+    }
+
+.agent-dialog-message .content {
+    padding-left: 10.4%;
+    padding-right: 10.4%;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.agent-dialog-message .command {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .agent-dialog-message .command input {
+        width: 109px;
+        height: 36px;
+        border-radius: 4px;
+        background-color: #104b8c;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        color: #ffffff;
+        border: 0;
+        padding: 0;
+    }
+/*end dialog*/

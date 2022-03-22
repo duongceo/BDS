@@ -1,0 +1,599 @@
+﻿body {
+    padding-top: 30px;
+}
+
+.content {
+    background: #fff;
+    height: 500px;
+    width: 100%;
+}
+
+.line {
+    border-bottom: 1px solid #d2d2de;
+}
+
+/* header */
+
+.header {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+    .header .logo {
+        display: block;
+        width: 86px;
+    }
+
+        .header .logo img {
+            display: inline-block;
+            width: 100%;
+        }
+
+    .header .intro {
+        width: 100%;
+    }
+
+        .header .intro .copy {
+            padding-top: 130px;
+            float: left;
+            padding-right: 30px;
+            width: 330px;
+            text-align: left;
+        }
+
+            .header .intro .copy h1 {
+                width: 100%;
+                font-size: 32px;
+                color: #262637;
+                padding: 0;
+                margin: 0;
+                font-weight: 600;
+            }
+
+            .header .intro .copy div {
+                width: 100%;
+                font-size: 18px;
+                color: #53535f;
+            }
+
+            .header .intro .copy .link-button {
+                margin-top: 30px;
+                color: #fff;
+                background: #00deb6;
+                border-radius: 3px;
+                font-size: 16px;
+                display: inline-block;
+                padding: 8px 50px;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+        .header .intro .media {
+            float: right;
+            max-width: calc( 100% - 330px);
+            max-height: 550px;
+            margin-right: -100px;
+            margin-top: 0;
+        }
+
+            .header .intro .media img {
+                display: inline-block;
+                width: 100%;
+            }
+
+/* end header */
+
+/* description */
+
+.description {
+    padding: 60px 0;
+    background-image: url("/Content/Images/landing/landing4/fullscreen 1366.jpg");
+    background-repeat: round;
+}
+
+    .description .copy {
+        background: #fff;
+        padding: 30px 25px;
+        max-width: 800px;
+        margin: 0 auto;
+        border: 3px;
+        text-align: center;
+    }
+
+        .description .copy .title {
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+            font-size: 26px;
+        }
+
+        .description .copy .spliter {
+            width: 50px;
+            height: 4px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            background: #00deb6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .description .copy .copy-body {
+            color: #53535f;
+            font-size: 16px;
+        }
+
+/* end description */
+
+/* benefit */
+
+.benefit {
+    padding-top: 70px;
+    padding-left: 30px;
+    padding-right: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+    .benefit .title {
+        font-size: 26px;
+        text-align: center;
+        font-weight: 600;
+        margin: 0;
+        padding: 0;
+    }
+
+    .benefit .spliter {
+        width: 50px;
+        height: 4px;
+        margin-top: 6px;
+        margin-bottom: 60px;
+        background: #00deb6;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+.mg-benefit {
+    float: left;
+    width: calc((100% - 120px) / 3);
+    margin-right: 60px;
+    text-align: center;
+}
+
+    .mg-benefit:last-child {
+        margin-right: 0;
+    }
+
+    .mg-benefit .media {
+        width: 160px;
+        height: 104px;
+        margin: 0 auto;
+    }
+
+        .mg-benefit .media > img {
+            width: 100%;
+            height: 100%;
+            ;
+            display: inline-block;
+        }
+
+    .mg-benefit .copy {
+        margin-top: 20px;
+        font-size: 15px;
+        color: #262637;
+        font-weight: 600;
+    }
+
+.down-spliter {
+    width: 100%;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+    .down-spliter .fa {
+        width: 100%;
+        font-size: 50px;
+        font-weight: 400;
+        color: #00deb6;
+    }
+
+/* end benefit */
+
+/* guide */
+
+.guide {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+    .guide > .title {
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 0;
+        width: 460px;
+        font-size: 26px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .guide .spliter {
+        width: 50px;
+        height: 4px;
+        margin-top: 6px;
+        margin-bottom: 60px;
+        background: #00deb6;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+.steps {
+    width: 100%;
+}
+
+.step {
+    margin-bottom: 30px;
+}
+
+    .step:last-child {
+        margin-bottom: 60px;
+    }
+
+    .step .media {
+        width: 500px;
+        height: 300px;
+    }
+
+        .step .media > img {
+            display: inline-block;
+            width: 100%;
+            height: 300px;
+        }
+
+    .step .copy {
+        width: calc( 100% - 500px);
+        height: 300px;
+        padding-left: 15px;
+        display: table;
+    }
+
+        .step .copy .copy-content {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+            .step .copy .copy-content > h3 {
+                margin: 0;
+                margin-bottom: 8px;
+                padding: 0;
+                font-size: 22px;
+                font-weight: 600;
+                color: #262637;
+            }
+
+            .step .copy .copy-content > .desc {
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+                color: #53535f;
+            }
+
+.step-right .media, .step-right .copy {
+    float: left;
+}
+
+.step-left .media, .step-left .copy {
+    float: right;
+}
+
+/* end guide */
+
+/* feedbacks */
+
+.feedbacks {
+    max-width: 1040px;
+    padding: 60px 10px;
+    margin: 0 auto;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+    .feedbacks > .title {
+        margin: 0 auto;
+        padding: 0;
+        font-size: 26px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .feedbacks .spliter {
+        width: 50px;
+        height: 4px;
+        margin-top: 6px;
+        margin-bottom: 60px;
+        background: #00deb6;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+.feedback {
+    width: calc( (100% - 60px) / 3);
+    padding: 20px 15px;
+    border: 1px solid #d2d2de;
+    border-radius: 3px;
+    float: left;
+    margin-right: 30px;
+}
+
+    .feedback:last-child {
+        margin-right: 0;
+    }
+
+    .feedback .info {
+        width: 100%;
+    }
+
+        .feedback .info > img {
+            width: 60px;
+            height: 60px;
+            display: block;
+            float: left;
+            border-radius: 50%;
+        }
+
+        .feedback .info > .name {
+            width: calc( 100% - 60px);
+            padding-left: 10px;
+            display: block;
+            float: left;
+            color: #53535f;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .feedback .info > .school {
+            width: calc( 100% - 60px);
+            padding-left: 10px;
+            display: block;
+            float: left;
+            color: #7a7a88;
+            font-size: 14px;
+        }
+
+    .feedback .comment {
+        width: 100%;
+        margin-top: 16px;
+        padding-left: 10px;
+        display: block;
+        font-style: italic;
+        color: #262637;
+    }
+
+/* end feedbacks */
+
+/* ads */
+
+.mg-ads {
+    background: #00deb6;
+    height: auto;
+}
+
+    .mg-ads > .content {
+        max-width: 800px;
+        height: auto;
+        margin: 0 auto;
+        background-color: transparent;
+        padding: 60px 0;
+        position: relative;
+    }
+
+        .mg-ads > .content .title {
+            margin: 0;
+            padding: 0;
+            font-size: 26px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .mg-ads > .content .desc {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .mg-ads > .content .mg-link-button {
+            position: absolute;
+            right: 0;
+            top: 60px;
+            color: #005e4d;
+            background: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 26px;
+            padding: 9px;
+            width: 200px;
+            display: block;
+            text-align: center;
+            border-radius: 20px;
+            text-decoration: none;
+            box-shadow: 0px 5px 20px -2px #005e4d;
+        }
+
+.footer {
+    width: 800px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+    .footer .social {
+        margin-top: 10px;
+    }
+/* end ads */
+
+@media (max-width: 959px) {
+    .header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+
+        .header .logo {
+            margin: 0 auto;
+        }
+
+        .header .intro .copy {
+            width: 100%;
+            float: left;
+            text-align: center;
+            padding-top: 30px;
+            padding-right: 0;
+        }
+
+        .header .intro .media {
+            width: 100%;
+            max-width: 100%;
+            float: left;
+            margin: 0 auto;
+        }
+
+            .header .intro .media > img {
+                max-width: 100%;
+                width: initial;
+                max-height: 300px;
+            }
+
+        .header .intro .copy h1 {
+            font-size: 26px;
+        }
+
+        .header .intro .copy div {
+            font-size: 16px;
+        }
+
+    .description {
+        padding: 40px 15px;
+    }
+
+        .description .copy .title {
+            font-size: 22px;
+        }
+
+    .benefit {
+        padding-top: 60px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+        .benefit .title {
+            font-size: 22px;
+        }
+
+        .benefit .spliter {
+            margin-bottom: 50px;
+        }
+
+    .mg-benefit {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+        .mg-benefit:last-child {
+            margin-bottom: 0;
+        }
+
+        .mg-benefit .copy {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+    .down-spliter {
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+
+    .guide > .title {
+        margin-top: 40px;
+        width: 100%;
+        font-size: 22px;
+        padding: 0 15px;
+    }
+
+    .guide .spliter {
+        margin-bottom: 70px;
+    }
+
+    .step {
+        margin-bottom: 50px;
+    }
+
+        .step .media, .step .copy {
+            width: 100%;
+        }
+
+        .step .copy {
+            height: initial;
+            text-align: center;
+            padding: 0;
+        }
+
+        .step .media {
+            height: initial;
+            text-align: center;
+        }
+
+            .step .media > img {
+                width: initial;
+                max-width: 100%;
+                max-height: 300px;
+                height: initial;
+            }
+
+    .step-right .media, .step-right .copy {
+        float: left;
+    }
+
+    .feedbacks {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+        .feedbacks > .title {
+            font-size: 22px;
+        }
+
+        .feedbacks .spliter {
+            margin-bottom: 50px;
+        }
+
+    .feedback {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .mg-ads > .content {
+        max-width: 100%;
+        width: 100%;
+        padding: 50px 15px;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+        .mg-ads > .content .mg-link-button {
+            position: static;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+    .footer {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px 10px;
+    }
+
+        .footer .social {
+            margin-top: 10px;
+        }
+}

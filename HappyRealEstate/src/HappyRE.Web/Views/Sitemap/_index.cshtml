@@ -1,0 +1,20 @@
+﻿@model List<HappyRE.Core.Entities.SitemapItem>
+<?xml version="1.0" encoding="UTF-8" ?>
+@if (Model == null || Model.Count == 0)
+{
+    return;
+}
+@{ var rootUrl = HappyRE.Core.Utils.Common.RootUrl;}
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @foreach (var item in Model)
+    {
+        if (string.IsNullOrWhiteSpace(item.Loc) == false)
+        {
+    <sitemap>
+        <loc>@rootUrl@item.Loc</loc>
+        <lastmod>@String.Format("{0:yyyy-MM-ddTHH:mm:ss+07:00}", item.LastMod)</lastmod>
+    </sitemap>
+        }
+    }
+</sitemapindex>
+

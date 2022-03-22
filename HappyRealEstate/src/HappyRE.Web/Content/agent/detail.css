@@ -1,0 +1,493 @@
+﻿body {
+    background-color: #fff;
+}
+
+.favorite-icon-active {
+    color: #7cc143;
+}
+
+#breadcrumb {
+    background-color: #F1F4F6;
+    margin-bottom: 15px;
+}
+
+.breadcrumb {
+    padding: 0;
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+#agent {
+    width: 100%;
+    border-bottom: 1px solid #dfdfe1;
+    margin-bottom: 20px;
+    padding-bottom: 24px;
+}
+
+    #agent .info .fa {
+        color: #009177;
+        font-size: 16px;
+        width: 16px;
+        margin-right: 5px;
+    }
+
+    #agent .avatar {
+        background-color: #D7DCE0;
+        border-radius: 50%;
+    }
+
+        #agent .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+h1.title {
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.agent-info-detail {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+    .agent-info-detail > span {
+        color: #5A646E;
+        font-weight: bold
+    }
+
+.agent-phone {
+    display: inline-block;
+    border: 1px solid #d7dce0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-top: 25px;
+}
+
+#property {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    #property > .summary {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+        #property > .summary a {
+            display: inline-block;
+            color: #262637;
+            padding: 10px 15px;
+            font-size: 16px;
+            line-height: 17px;
+        }
+
+    #property .summary a.active {
+        border: 1px solid #D7DCE0;
+        border-radius: 4px;
+        color: #009177;
+    }
+
+/* Properties */
+.props {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .props > li {
+        width: 100%;
+        display: table;
+        clear: both;
+        position: relative;
+    }
+
+    .props > li {
+        border-top: 1px solid #dfdfe1;
+    }
+
+        .props > li:hover img {
+            opacity: 0.6;
+        }
+
+.prop-img {
+    float: left;
+    position: relative;
+}
+
+    .prop-img > img {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .prop-img .total {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 22px;
+        height: 20px;
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .prop-img .fa-camera:before {
+        font-size: 22px;
+        -webkit-text-stroke: 1px #fff;
+        color: #5e5e5e;
+    }
+
+    .prop-img .fa-camera {
+        position: absolute;
+        left: 0px;
+    }
+
+    .prop-img .total span {
+        position: relative;
+        line-height: 22px;
+    }
+
+.prop-info {
+    float: left;
+}
+
+.prop-title {
+    color: #262637;
+    font-weight: normal;
+    overflow: hidden;
+}
+
+.prop-addr {
+    height: 16px;
+    color: #5A646E;
+    overflow: hidden;
+}
+
+.prop-attr {
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .prop-attr > li {
+        display: inline-block;
+        color: #262637;
+    }
+
+        .prop-attr > li:before {
+            color: #5A646E;
+        }
+
+.price {
+    font-weight: bold;
+    color: #009177;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.prop-extra {
+    position: absolute;
+}
+
+.prop-created {
+    float: left;
+    color: #5A646E;
+    font-size: 12px;
+}
+
+.prop-mobile {
+    float: right;
+    position: relative;
+    z-index: 2;
+}
+
+    .prop-mobile .fa {
+        font-size: 14px;
+    }
+
+.favorite {
+    float: right;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.up-item {
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 22px;
+    width: 14px;
+    padding: 0px;
+    -webkit-transform: rotate(0deg) skew(0deg);
+    transform: rotate(0deg) skew(0deg);
+    border-left: 7px solid #FFC000;
+    border-right: 7px solid #FFC000;
+    border-bottom: 5px solid transparent;
+}
+
+.up-item-star {
+    position: absolute;
+    right: -5px;
+    top: 5px;
+    color: #fff;
+    font-size: 8px;
+    z-index: 2;
+}
+/* End Properties*/
+
+@media (max-width: 767px) {
+    .breadcrumb {
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    #agent {
+        margin-left: 5px;
+    }
+
+        #agent .avatar {
+            width: 80px;
+            height: 80px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #agent .info {
+            width: 100%;
+            text-align: center;
+        }
+
+    h1.title {
+        margin-top: 15px;
+    }
+
+    .agent-phone {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    #property {
+        padding-left: 5px;
+    }
+
+        .props > li {
+            padding-top: 10px;
+            padding-right: 5px;
+            padding-bottom: 40px;
+        }
+
+    .prop-img {
+        width: 120px;
+    }
+
+        .prop-img > img {
+            height: 90px;
+        }
+
+    .prop-info {
+        width: calc(100% - 120px);
+        padding-left: 5px;
+        padding-right: 10px;
+    }
+
+    .prop-title {
+        font-size: 14px;
+        line-height: 20px;
+        min-height: 20px;
+        max-height: 40px;
+    }
+
+    .prop-addr {
+        font-size: 12px;
+        line-height: 14px;
+        height: 14px;
+    }
+
+    .prop-attr > li {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+        .prop-attr > li:last-child {
+            margin-right: 0;
+        }
+
+        .prop-attr > li:before {
+            margin-right: 4px;
+        }
+
+    .price {
+        margin-top: 0;
+        font-size: 14px;
+        line-height: 30px;
+        width: 120px;
+        color: #009177;
+        background-color: #F1F4F6;
+        position: absolute;
+        left: 0;
+        bottom: 11px;
+        text-align: center;
+    }
+
+    .prop-extra {
+        width: calc(100% - 145px);
+        height: 26px;
+        right: 15px;
+        position: absolute;
+        bottom: 11px;
+    }
+
+    .prop-created {
+        line-height: 26px;
+    }
+
+        .prop-created > span {
+            display: none;
+        }
+
+    .prop-mobile {
+        border: 1px solid #dfdfe1;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+        text-align: center;
+        margin-right: 15px;
+    }
+
+        .prop-mobile .fa {
+            line-height: 26px;
+            margin: 0;
+        }
+
+    .favorite {
+        border: 1px solid #dfdfe1;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+        .favorite i {
+            line-height: 26px;
+        }
+
+    .up-item {
+        right: 3px;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #agent .avatar {
+        width: 160px;
+        height: 160px;
+        float: left;
+    }
+
+    #agent .info {
+        width: calc(100% - 180px);
+        float: left;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+    .props > li {
+        padding: 15px 0 15px 5px;
+    }
+
+
+
+    .prop-img {
+        width: 220px;
+    }
+
+        .prop-img > img {
+            height: 165px;
+        }
+
+    .prop-info {
+        width: calc(100% - 220px);
+        padding-left: 10px;
+        padding-right: 15px;
+    }
+
+    .prop-title {
+        font-size: 16px;
+        max-height: 40px;
+    }
+
+    .prop-addr {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .prop-attr > li {
+        margin-right: 25px;
+        font-size: 16px;
+    }
+
+        .prop-attr > li:before {
+            margin-right: 6px;
+        }
+
+    .price {
+        margin-top: 15px;
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+
+    .prop-extra {
+        width: calc(100% - 235px);
+        height: 22px;
+        float: right;
+        right: 0;
+        bottom: 15px;
+    }
+
+    .prop-created {
+        line-height: 22px;
+    }
+
+    .prop-mobile {
+        font-size: 16px;
+        line-height: 22px;
+        margin-right: 25px;
+    }
+
+        .prop-mobile .fa {
+            margin-right: 5px;
+            line-height: 22px;
+        }
+
+    .favorite {
+        font-size: 21px;
+        line-height: 22px;
+    }
+
+    .up-item {
+        right: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #main {
+        padding: 0 15px;
+    }
+}
+
+@media (min-width: 1170px) {
+    .mg-container .mg-1170-container {
+        padding: 0 50px;
+    }
+}

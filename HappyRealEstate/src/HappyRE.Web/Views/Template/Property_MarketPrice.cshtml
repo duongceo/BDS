@@ -1,0 +1,58 @@
+﻿@model HappyRE.Web.Models.PropertyMarketPriceModel
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = null;
+	Html.RenderAction("MarketPrice", "CachePartial", new
+	{
+		sid = Model.StreetId,
+		psid = Model.SubPropertyTypeId,
+		cityId = Model.CityId,
+		did = Model.DistrictId
+	});
+}
+<div id="mortgage" class="mortgage clearfix">
+	<h2 class="prop-content-header">@Message.PropertyDetail_MortgageCalc</h2>
+	<div class="mortgage-body clearfix">
+		<div class="mortgage-calc clearfix">
+			<div class="calc-row">
+				<div class="calc-label">@Message.Property_Price</div>
+				<div class="calc-value" ng-bind="BankLoanCalc.PriceText"></div>
+			</div>
+			<div class="calc-row">
+				<div class="calc-label">@Message.Property_Bank</div>
+				<div class="calc-value">
+					<select ng-model="BankLoanCalc.Bank" ng-options="x.Name for x in BankLoanCalc.Banks()" ng-change="BankLoanCalc.BankChange()"></select>
+				</div>
+			</div>
+			<div class="calc-row">
+				<div class="calc-label">@Message.Property_PrePaid</div>
+				<div class="calc-value">
+					<select ng-model="BankLoanCalc.PrePayPercent" ng-options="x.n for x in BankLoanCalc.Bank.PrePayPercents" ng-change="BankLoanCalc.PrePayPercentChange()"></select>
+				</div>
+			</div>
+			<div class="calc-row">
+				<div class="calc-label">@Message.Property_PayPeriod</div>
+				<div class="calc-value">
+					<select ng-model="BankLoanCalc.Year" ng-options="x.v for x in BankLoanCalc.Bank.Years" ng-change="BankLoanCalc.YearChange()"></select>
+				</div>
+			</div>
+			<div class="calc-row">
+				<div class="calc-label">@Message.Property_InsRate<span class="extra-label" ng-bind="BankLoanCalc.Bank.Rate"></span></div>
+				<div class="calc-value"><input ng-value="BankLoanCalc.Bank.InterestRate + '%'" readonly /></div>
+			</div>
+			<div class="calc-disclaimer">@Message.Property_Disclaimer</div>
+		</div>
+		<div class="mortgage-chart">
+			<div class="calc-doughnut-chart">
+				<canvas tc-chartjs
+						chart-type="doughnut"
+						chart-data="CalcChartData"
+						chart-options="CalcChartOptions"
+						chart-legend="CalcLegend"
+						chart-plugins="chartext"></canvas>
+			</div>
+			<div class="calc-chart-legends" ng-bind-html="TrustedHtml(CalcLegend)"></div>
+			@*<img class="partner-logo" src="~/content/images/uob-logo.png" />*@
+		</div>
+	</div>
+</div>

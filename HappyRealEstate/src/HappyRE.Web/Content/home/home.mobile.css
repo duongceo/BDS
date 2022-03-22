@@ -1,0 +1,239 @@
+﻿.desktop, .mobile, #login {
+    display: none;
+}
+
+@media (max-width: 425px) {
+    #quicklinks {
+        height: 400px;
+        color: #fff;
+        background: #28282E url('/content/images/home/home-bg-425.jpg') center no-repeat;
+        position: relative;
+        padding-top: 70px;
+        background-size: cover;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 991px) {
+    #quicklinks {
+        height: 400px;
+        color: #fff;
+        background: #28282E url('/content/images/home/home-bg-m.jpg') center no-repeat;
+        position: relative;
+        padding-top: 70px;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 991px) {
+    .mobile {
+        display: block !important;
+    }
+
+    body {
+        padding-top: 50px;
+        font-size: 14px;
+        color: #262637;
+        font-weight: normal;
+    }
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(40,40,46,0.2);
+        z-index: 2;
+    }
+
+    #quicklinks .title {
+        position: relative;
+        z-index: 3;
+        font-size: 28px;
+        color: #fff;
+        font-weight: normal;
+        text-align: center;
+        padding: 0 50px;
+    }
+
+    .quicklink {
+        padding: 0 15px;
+        margin: 0;
+        list-style: none;
+        position: relative;
+        z-index: 3;
+    }
+
+        .quicklink > li {
+            display: inline-block;
+            float: left;
+        }
+
+            .quicklink > li:not(:first-child) {
+                margin-left: 5px;
+            }
+
+            .quicklink > li > a {
+                text-align: center;
+                border-radius: 4px;
+                display: block;
+            }
+
+        .quicklink.primary {
+            margin-top: 34px;
+        }
+
+            .quicklink.primary > li {
+                width: calc((100% - 5px) / 2);
+            }
+
+                .quicklink.primary > li a {
+                    font-size: 18px;
+                    padding: 14px 0;
+                    color: #262637;
+                    background-color: #00DEB6;
+                }
+
+        .quicklink.secondary {
+            margin-top: 10px;
+        }
+
+            .quicklink.secondary > li {
+                width: calc((100% - 10px) / 3);
+            }
+
+                .quicklink.secondary > li a {
+                    font-size: 14px;
+                    padding: 16px 0;
+                    color: #FFFFFF;
+                    background-color: rgba(40,40,46,0.6);
+                    border: 1px solid rgba(255,255,255,0.6);
+                }
+
+    .home-banner {
+        margin-top: 0;
+        padding: 10px;
+        min-height: 138px;
+        background-color: #F1F4F6;
+    }
+
+    #login {
+        background: #fff;
+        padding: 30px;
+    }
+
+        #login > a {
+            text-align: center;
+            font-size: 16px;
+            color: #00deb6;
+            border: 2px solid #00deb6;
+            border-radius: 4px;
+            padding: 11px 0;
+            display: block;
+        }
+
+    .features {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        background: #fff;
+        margin-bottom: 30px;
+    }
+
+        .features > li, .features > li:first-child {
+            width: 100%;
+            border-bottom: 1px solid #d7dce0;
+        }
+
+            .features > li:first-child {
+                border-top: 1px solid #d7dce0;
+            }
+
+            .features > li > a {
+                display: block;
+                padding: 20px 30px;
+                font-size: 16px;
+                color: #262637;
+                line-height: 20px;
+            }
+
+                .features > li > a:after {
+                    float: right;
+                    font-size: 24px;
+                    line-height: 20px;
+                    content: "\f105";
+                }
+
+    .review {
+        padding: 32px 16px 16px 16px;
+        background: #D9DDE0;
+        position: relative;
+        background-image: url('/content/images/home/homepage-bg-wardreview.jpg');
+        background-size: cover;
+    }
+
+        .review .header {
+            background: #5A646E;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 150%;
+            padding: 6px 16px;
+            position: absolute;
+            width: 140px;
+            top: 16px;
+            left: calc( 50% - 70px);
+            
+        }
+
+        .review .content {
+            background: #FFFFFF;
+            box-shadow: 0px 4px 12px rgba(88, 102, 99, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            padding: 28px 20px 20px 20px;
+        }
+
+            .review .content .copy {
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 1.5;
+                text-align: center;
+                color: #262637;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .review .content .command {
+                max-width: 286px;
+                margin: 0 auto;
+                margin-top: 16px;
+            }
+
+            .review .content img {
+                float: left;
+                margin-top: 5px;
+                
+            }
+
+            .review .content a {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 150%;
+                text-align: center;
+                color: #0AAA8C;
+                padding: 6px 32px;
+                float: right;
+                border: 1px solid #0AAA8C;
+                border-radius: 4px;
+            }
+}
+/*Tablet*/
+@media (min-width: 768px) and (max-width: 991px) {
+    #quicklinks {
+        background: #28282E url('/content/images/home/home-bg-t.jpg') center no-repeat;
+        background-size: cover;
+    }
+}

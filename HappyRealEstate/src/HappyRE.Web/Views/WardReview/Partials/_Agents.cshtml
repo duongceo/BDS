@@ -1,0 +1,27 @@
+﻿@model List<HappyRE.Core.MapModels.WardReview.WardAgent>
+
+<div id="ward-agent" class="ward">
+    <h2 class="title">Môi giới khu vực</h2>
+    <div class="agents clearfix owl-carousel" id="agents" mg-carousel options="CarouselOptions">
+
+        @foreach (var item in Model)
+        {
+
+        <div class="agent">
+            @if (false == string.IsNullOrEmpty(item.LogoSquare))
+            {
+                <img class="lozad" data-src="@Html.Raw(item.LogoSquare)" alt="@item.FullName"/>
+            }
+            else
+            {
+                <img src="~/Content/images/no-avatar.jpg" />
+            }
+
+            <div class="name"><a href="@item.Url">@item.FullName</a></div>
+            <div class="total-post"><b>@item.TotalPost</b> tin đang đăng</div>
+            <a class="mobile" href="javascript:void(0)" onclick="this.innerText='@item.Mobile'">@item.MobileView(3)</a>
+        </div>
+        }
+
+    </div>
+</div>

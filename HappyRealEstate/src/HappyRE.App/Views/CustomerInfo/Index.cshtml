@@ -39,7 +39,10 @@ else
                                 @Html.DisplayNameFor(model => model.Personal.Birthday)
                             </dt>
                             <dd>
-                                @Html.DisplayFor(model => model.Personal.Birthday)
+                                @if(Model.Personal.Birthday.HasValue)
+                                {
+                                <span>@Model.Personal.Birthday.Value.ToString("dd/MM/yyyy")</span>
+                                }
                             </dd>
                             <dt>
                                 @Html.DisplayNameFor(model => model.Personal.IdCardNumber)

@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MAIL_DEFAULT_FOOTER" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MAIL_DEFAULT_HEADER" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TEMPLATE_EMAIL_FORGOTPASSWORD" xml:space="preserve">
+    <value>&lt;div style="padding: 15px;"&gt;
+	&lt;p style="margin: 15px 0px;"&gt;Thân mến chào &lt;b&gt;Bạn&lt;/b&gt;,&lt;/p&gt;
+	&lt;p&gt;
+	Chúng tôi xin chân thành cảm ơn Bạn đã tin tưởng đăng ký và sử dụng dịch vụ của &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;
+	&lt;/p&gt;
+	&lt;br /&gt;
+	&lt;div&gt;
+		Để lấy lại mật khẩu tại &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;, bạn hãy &lt;a href="{#URL_ACTIVATE}" target="_blank" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;click vào đây&lt;/span&gt;&lt;/a&gt;.
+		&lt;br /&gt;
+		Nếu trình duyệt không tự động mở ra, bạn hãy copy liên kết sau đây vào thanh địa chỉ của trình duyệt:
+		&lt;div style="margin: 5px 0px; padding: 5px; background-color: Whitesmoke; font-style: italic;"&gt;{#URL_ACTIVATE}&lt;/div&gt;
+		&lt;br /&gt;
+		Khi bạn thay đổi mật khẩu mới, mật khẩu mới này của bạn sẽ được sử dụng trên các website sau:
+		&lt;br /&gt;
+		&lt;img style="display:block; margin: 5px auto;" src="http://{#DOMAIN}/content/images/logo-msignin.png" alt="muaoto.net, muaban.net, vieclam.net" /&gt;
+		&lt;br /&gt;
+		&lt;br /&gt;
+		Bạn vui lòng đổi mật khẩu trước ngày {#EXPIRED}. Sau thời gian này email sẽ không còn hiệu lực.
+		&lt;br /&gt;
+		&lt;br /&gt;
+		Chúc bạn thành công cùng &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;!
+		&lt;br /&gt;
+		Nếu bạn có bất kỳ thắc mắc nào, vui lòng tham khảo mục &lt;a href="{#URL_HELP}" style="color: #02366f !important; font-weight: bold; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;Trợ giúp&lt;/span&gt;&lt;/a&gt; hoặc liên hệ với chúng tôi:
+		&lt;br /&gt;
+		&lt;br /&gt;		
+		Phòng Chăm sóc khách hàng Báo Mua&amp;Bán&lt;br /&gt;	
+		Tổng đài CSKH: 19006868;  &lt;br /&gt;	
+		Điện thoại : 04.73001234 (HN) hoặc 08.73001234 (HCM);&lt;br /&gt;	
+		Email: &lt;a style="color: #02366f !important; text-decoration: none !important;" href="mailto:{#MAIL_SUPPORT}"&gt;{#MAIL_SUPPORT}&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="TEMPLATE_EMAIL_VERIFY" xml:space="preserve">
+    <value>&lt;div style="width: 650px; margin: 0px auto; border: 5px solid #02366f; border-top:none;border-bottom:none; font-family: Arial; font-size: 10pt;"&gt;
+        &lt;div style="padding: 15px;"&gt;
+            &lt;p style="margin: 15px 0px;"&gt;Thân mến chào &lt;b&gt;{#NAME}&lt;/b&gt;,&lt;/p&gt;            
+			&lt;p&gt;Chúng tôi xin chân thành cảm ơn Bạn đã tin tưởng đăng ký và sử dụng dịch vụ của &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+            &lt;div&gt;
+                Bạn đã đăng ký thành công tài khoản tại &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;!
+				&lt;br /&gt;
+				Mời bạn &lt;a href="{#URL_ACTIVATE}" target="_blank" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;click vào đây&lt;/span&gt;&lt;/a&gt; để hoàn tất quá trình tạo tài khoản.
+                &lt;br /&gt;&lt;br /&gt;
+                Nếu trình duyệt không tự động mở ra, bạn hãy copy liên kết sau đây vào thanh địa chỉ của trình duyệt:
+                &lt;div style="margin: 5px 0px; padding: 5px; background-color: Whitesmoke; font-style: italic;"&gt;{#URL_ACTIVATE}&lt;/div&gt;
+				  &lt;br /&gt;                
+                Bạn vui lòng kích hoạt tài khoản trước ngày {#EXPIRED}. Sau thời gian này thông tin kích hoạt trên email sẽ không còn hiệu lực.
+                &lt;br /&gt;
+                &lt;br /&gt;
+				Chúc bạn thành công cùng &lt;a href="{#URL}" style="color: #02366f !important; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;{#DOMAIN}&lt;/span&gt;&lt;/a&gt;!
+				&lt;br /&gt;
+                Nếu bạn có bất kỳ thắc mắc nào, vui lòng tham khảo mục &lt;a href="{#URL_HELP}" style="color: #02366f !important; font-weight: bold; text-decoration: none !important;"&gt;&lt;span style="color: #02366f !important;"&gt;Trợ giúp&lt;/span&gt;&lt;/a&gt; hoặc liên hệ với chúng tôi:
+				&lt;br /&gt;
+				&lt;br /&gt;		
+				Phòng Chăm sóc khách hàng Báo Mua&amp;Bán&lt;br /&gt;	
+				Tổng đài CSKH: 19006868;  &lt;br /&gt;	
+				Điện thoại : 04.73001234 (HN) hoặc 08.73001234 (HCM);&lt;br /&gt;	
+				Email: &lt;a style="color: #02366f !important; text-decoration: none !important;" href="mailto:{#MAIL_SUPPORT}"&gt;{#MAIL_SUPPORT}&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+     &lt;/div&gt;</value>
+  </data>
+</root>

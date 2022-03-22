@@ -1,0 +1,58 @@
+﻿@using HappyRE.Core.Resources;
+@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+@foreach (var item in Model)
+{
+    var imageObj = @item.GetCoverImages();
+    var image = (imageObj != null && imageObj.Count > 0) ? imageObj[0] : "";
+    <div class="property-item clearfix" id="@item.PropertyId">
+        <div class="property-header clearfix">
+            <div class="property-image">
+                <img src="@image" />
+            </div>
+            <div class="property-price">@item.PriceView</div>
+        </div>
+        <div class="property-content clearfix">
+            <div class="property-info clearfix">
+                <div class="title clearfix">
+                    <a href="@item.Url" class="link-overlay">
+                        @item.Title
+                    </a>
+                </div>
+                <div class="property-address clearfix">
+
+                    @item.Address
+                </div>
+
+                <div class="property-utility clearfix">
+                    <div class="property-utility">
+                        <span><i class="fa fa-bed"></i>@item.BedRooms</span>
+                        <span class="bathroom"><i class="fa fa-bath"></i>@item.BathRooms</span>
+                        <span><i class="icon icon-acreage"></i>@item.Area m<sup>2</sup></span>
+                    </div>
+                </div>
+                <div class="property-summary">
+                    @item.Summary
+                </div>
+            </div>
+            <div class="posted-date clearfix ">@Message.Detail_PublishDate_Label: @item.PublishView</div>
+
+            <div class="property-agent clearfix">
+                <div class="agent-image">
+                    <img src="@item.User_LogoSquare" />
+                </div>
+                <div class="agent-info">
+                    <div class="agent-intro clearfix">
+                        <div class="agent-name mg-tr">
+                            @item.User_FullName
+                        </div>
+                        <div class="agent-mobile">@item.User_Mobile</div>
+                    </div>
+                    <div class="command-delete">
+                        <span class="icon icon-trash" ng-click="RemoveFavorite(@item.PropertyId,false)"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

@@ -166,7 +166,7 @@
                 <dt>
                     @Html.DisplayNameFor(model => model.CustomerPhone)
                 </dt>
-                @if (Model.SellBy == User.Identity.Name || User.IsInRole(Permission.ADMIN))
+                @if (Model.SellBy == User.Identity.Name || User.IsInRole(Permission.SALEORDER_VIEW_MOBILE))
                 {
                     <dd>
                         <a href='/customerinfo?id=@Model.CustomerPhone'>@Model.CustomerPhone</a>

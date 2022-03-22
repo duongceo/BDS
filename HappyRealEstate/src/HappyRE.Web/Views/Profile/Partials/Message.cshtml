@@ -1,0 +1,80 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.UserMessages
+@using Newtonsoft.Json;
+@{
+    string mesUrl = Url.Action("InboxMessage", "Profile");
+    if (User.Identity.IsAuthenticated == true)
+    {
+        mesUrl = Url.Action("Index", "Profile") + "#/Message";
+    }
+    var inbox = Model.UserInbox;
+    var messages = Model.UserMessage;
+    var inboxUrl = HappyRE.Core.Utils.Common.MogiProUrl + "/inbox";
+    var inboxItemUrl = HappyRE.Core.Utils.Common.MogiProUrl + "/profile/message/";
+}
+<ul class="inbox dropdown-menu">
+
+    @if ((inbox == null || inbox.Count == 0) && (messages == null || messages.Count == 0))
+    {
+        <li>
+            <a class="m-link m-no-message" href="javascript:void(0)">
+                <span class="m-content">@HappyRE.Core.Resources.Message.Msg_NoMessage</span>
+            </a>
+        </li>
+    }
+    else
+    {
+        if (messages != null && messages.Count > 0)
+        {
+            <li class="message header clearfix">
+                <div class="title">
+                    Thông báo
+                </div>
+                @if (messages.Count > 5)
+                    {
+                    <div class="view-inbox">
+                        <a class="text-center" href="@mesUrl"> @HappyRE.Core.Resources.Message.Msg_LinkMore <i class="fa fa-angle-double-right"></i> </a>
+                    </div>
+                }
+            </li>
+        }
+        foreach (var item in messages.Take(5).ToList())
+        {
+            <li class="message">
+                <a class="m-link" href="@item.TargetUrl" onclick="messageService.OnRead(@item.MessageId)" rel="nofollow" >
+                    <span class="m-content">@item.Subject</span><div class="m-send-date">@item.StartDate.ToString("dd/MM/yyyy")</div>
+                </a>
+            </li>
+        }
+
+
+        if (inbox != null && inbox.Count > 0)
+        {
+            <li class="message header clearfix">
+                <div class="title">Tin nhắn</div>
+                <div class="view-inbox">
+                    <a class="text-center" href="@inboxUrl"> @HappyRE.Core.Resources.Message.Msg_LinkMore <i class="fa fa-angle-double-right"></i> </a>
+                </div>
+            </li>
+
+        }
+        if (User.Identity.IsAuthenticated == true)
+        {
+            foreach (var item in inbox)
+            {
+                <li class="message user-inbox">
+                    <a class="m-link" href="@Html.Raw(inboxItemUrl + item.MessageId)" onclick="messageService.OnRead(@item.MessageId)" rel="nofollow">
+                        <span class="m-content">@item.Subject</span><div class="m-send-date">@item.StartDate.ToString("dd/MM/yyyy")</div>
+                    </a>
+                </li>
+            }
+        }
+
+
+    }
+
+
+</ul>
+<script type="text/javascript">
+    MOGI.Messages = @Html.Raw(JsonConvert.SerializeObject(Model.UserMessage));
+    MOGI.Auth = @User.Identity.IsAuthenticated.ToString().ToLower();
+</script>

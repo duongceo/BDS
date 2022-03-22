@@ -15,6 +15,7 @@ namespace HappyRE.Core.BLL.Repositories
         Task<int> Merge_PropertySearch(int id);
         Task<Tuple<IEnumerable<PropertyListViewModel>, int>> Search(PropertyQuery query);
         Task<IEnumerable<KeyValueDisplayModel>> GetListKeyValue(string keyword,string id);
+        Task<Select2Results> SearchForSelect(string keyword, string id);
         Task<PropertyListViewModel> GetDetail(int id);
         Task<string> GetPhoneNumber(int id);
         Task<int> MobileViewedToday();
@@ -24,5 +25,7 @@ namespace HappyRE.Core.BLL.Repositories
         Task<bool> IsExistsCode(Property obj);
         Task<bool> IsExistsAddress(Property obj);
         Task NotifyGood(Property obj);
+
+        Task TranferImages(int? from=0, int? to=0);
     }
 }

@@ -1,0 +1,27 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.Notification
+
+@{
+	ViewBag.Title = Model.Title;
+}
+
+
+<div class="login row">
+	<div class="verticalcenter">
+		<h1>@Model.Title</h1>
+		<div class="panel">
+			<div class="panel-body">
+				@Html.Raw(Model.Description)
+			</div>
+		</div>
+	</div>
+</div>
+@section styles {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts{
+	<script type="text/javascript">
+		$(document).ready(function () {
+			setTimeout(function () { window.location = "/"; }, 10000);
+		});
+	</script>
+}

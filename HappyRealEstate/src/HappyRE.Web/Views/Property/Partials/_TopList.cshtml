@@ -1,0 +1,68 @@
+﻿@using HappyRE.Core.Resources;
+@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+
+<div id="property-top">
+    <div class="property-top-header">Tin TOP</div>
+    <div class="property-top-list clearfix owl-carousel " mg-carousel options="CarouselOptions" id="owl-top-service">
+        @foreach (var item in Model)
+        {
+            string cover1 = item.GetCoverImageUrl();
+            <div class="property-top">
+                <div class="property-top-image">
+                    <img src="@cover1" />
+                </div>
+                <div class="property-top-price">
+                    @item.PriceView
+                </div>
+                <div class="property-top-title">
+                    <a class="link-overlay" href="@item.Url">@item.Title</a>
+                </div>
+            </div>
+        }
+
+        @if (Model.Count == 1)
+        {
+            <div class="property-top">
+                <div class="property-top-image">
+                    <img src="~/Content/images/listing/market-price.png" />
+                </div>
+
+                <div class="property-top-internal-title">
+                    <i class="fa fa-caret-right"></i>
+
+                    <a class="link-overlay" href="/gia-nha-dat">
+
+                        Xem lịch sử và tham khảo giá nhà đất để hỗ trợ bạn đưa ra sư lựa chọn chính xác hơn
+                    </a>
+                </div>
+            </div>
+            <div class="property-top">
+                <div class="property-top-image">
+                    <img src="~/Content/images/listing/buying-guid-step.png" />
+                </div>
+                <div class="property-top-internal-title">
+                    <i class="fa fa-caret-right"></i>
+                    <a class="link-overlay" href="/10-buoc-mua-nha">
+                        Hướng dẫn chi tiết 10 bước cho người mới mua nhà lần đầu khỏi bỡ ngỡ
+                    </a>
+
+                </div>
+            </div>
+        }
+        @if (Model.Count == 2)
+        {
+            <div class="property-top">
+                <div class="property-top-image">
+                    <img src="~/Content/images/listing/market-price.png" />
+                </div>
+                <div class="property-top-internal-title">
+                    <i class="fa fa-caret-right"></i>
+                    <a class="link-overlay" href="/gia-nha-dat">
+
+                        Xem lịch sử giá và tham khảo giá nhà đất để không bị hớ khi mua nhà
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

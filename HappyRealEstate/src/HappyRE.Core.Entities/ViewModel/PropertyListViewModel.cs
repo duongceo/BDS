@@ -52,6 +52,7 @@ namespace HappyRE.Core.Entities.ViewModel
         public int CityId { get; set; }
         [DisplayName("Quận huyện")]
         [Required(ErrorMessage = "{0} không được để trống")]
+        [ExportIgnore]
         public int DistrictId { get; set; }
         [DisplayName("Phường xã")]
         [Required(ErrorMessage = "{0} không được để trống")]
@@ -196,6 +197,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [ExportIgnore]
         public string SourceName { get; set; }
         [DisplayName("Hướng nhà")]
+        [ExportIgnore]
         public string DirectionName { get; set; }
         [DisplayName("Pháp lý")]
         [ExportIgnore]
@@ -244,6 +246,7 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Hướng")]
         public string Direction => (this.DirectionName??"").Replace("</br>", "; ");
         [DisplayName("Nội dung")]
+        [ExportIgnore]
         public string Detail => (this.DetailHtml ?? "").Replace("</br>", ". ").Replace("<b>", "").Replace("</b>", "");
         [ExportIgnore]
         public string Posted => (this.PostedHtml ?? "").Replace("</br>", " - ");

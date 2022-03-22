@@ -1,0 +1,67 @@
+﻿@model HappyRE.Web.Models.FavoriteViewModel
+@using HappyRE.Core.Resources;
+@{
+    ViewBag.Title = "FavoriteList";
+}
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="activeTab(@ViewBag.BuyItems,@ViewBag.RentItems)" ng-cloak>
+    @{
+        var leftCss = "";
+        var mainCss = "";
+        if ((bool)ViewBag.IsAuthenticated == false)
+        {
+            leftCss = "display:none";
+            mainCss = "margin-left:0";
+        }
+
+    }
+    <div id="sidebar" class="clearfix" style="@leftCss">
+        @Html.Partial("_LeftMenu")
+    </div>
+
+    <div id="main" class="clearfix" style="@mainCss">
+        <div id="property" class="clearfix">
+            <div class="summary clearfix line">
+                <div class="summary-tab" ng-class="{active: !IsRent}">
+                    <h4><a class="to-uppper" data-toggle="pill" href="#buy-list" ng-click="ToggleTab(false)">@Message.Msg_ForSale <span class="counter" ng-init="BuyItems='@ViewBag.BuyItems'">({{BuyItems}})</span></a></h4>
+                </div>
+                <div class="summary-tab" ng-class="{active: IsRent}">
+                    <h4><a class="to-uppper" data-toggle="pill" href="#rent-list" ng-click="ToggleTab(true)">@Message.Msg_Rent<span class="counter" ng-init="RentItems='@ViewBag.RentItems'"> ({{RentItems}})</span></a></h4>
+                </div>
+            </div>
+
+            <div id="property-items" class="tab-content">
+                <div id="rent-list" class="tab-pane fade in" ng-class="{active: IsRent}">
+                    @Html.Partial("Partials/_PropertyList", Model.RentProperties)
+                    <div style="text-align: center">
+                        @if (Model.RentPaging != null)
+                        {
+                            @Html.Partial("Partials/_Paging", Model.RentPaging)
+
+                        }
+                    </div>
+                </div>
+                <div id="buy-list" class="tab-pane fade in" ng-class="{active: !IsRent}">
+
+
+                    @Html.Partial("Partials/_PropertyList", Model.BuyProperties)
+                    <div style="text-align: center">
+                        @if (Model.BuyPaging != null)
+                        {
+                            @Html.Partial("Partials/_Paging", Model.BuyPaging)
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}

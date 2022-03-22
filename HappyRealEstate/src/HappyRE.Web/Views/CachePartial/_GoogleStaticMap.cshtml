@@ -1,0 +1,14 @@
+﻿@{ 
+    string imageUrl = ViewBag.ImageUrl;
+    if (string.IsNullOrEmpty(imageUrl))
+    {
+        return;
+    }
+    string mapTitle = ViewBag.MapTitle;
+}
+<div class="gsm-district visible-md visible-lg widget map-widget">
+    <a ng-click="SortView.ChangedView('map')" gtm-event="link" gtm-cat="listing" gtm-act="map-view-district">
+        <img src="@imageUrl" />
+        <span class="gsm-title">@mapTitle</span>
+    </a>
+</div>

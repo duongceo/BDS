@@ -1,0 +1,12 @@
+﻿@model HappyRE.Core.Entities.Banner
+@if (Model == null || Model.Publish == false)
+{
+    return;
+}
+<div class="widget banner-widget visible-lg visible-md banner-list-center" style="">
+    <div class="banner-content">
+        <a href="@Model.Url" target="@Model.Target" rel="@Model.Rel" gtm-cat="@Model.GA_Category" gtm-event="@Model.GA_Event" gtm-act="@Model.GA_Action">
+            <img src="@Model.MediaUrl" style="width:100%" />
+        </a>
+    </div>
+</div>

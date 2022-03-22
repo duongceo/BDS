@@ -1,0 +1,12 @@
+﻿@model HappyRE.Core.Entities.Banner
+<div class="banner-home-center home-banner">
+    <div class="banner-content">
+		<a href="@Model.Url" target="@Model.Target" rel="@Model.Rel" gtm-cat="@Model.GA_Category" gtm-event="@Model.GA_Event" gtm-act="@Model.GA_Action">
+			<picture class="lozad" >
+				<source media="(min-width: 992px)" srcset="@Model.MediaUrl">
+				<source media="(min-width: 767px)" srcset="@Model.MediaUrl_Tablet">
+				<source media="(min-width: 320px)" srcset="@Model.MediaUrl_Mobile">
+			</picture>
+		</a>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿
+<div class="captcha clearfix">
+    <div class="captcha-input">
+        <!--<input id="captchaConfirm" name="captchaConfirm" ng-model="Captcha" required data-val="true" data-val-required="Vui lòng nhập mã bên phải" type="text" value placeholder="Nhập mã bên phải" />-->
+        <input class="text-control ng-valid-maxlength ng-dirty ng-valid-parse ng-touched ng-not-empty ng-valid ng-valid-required valid" data-val="true" data-val-maxlength-max="6" data-val-required="Vui lòng nhập mã bảo mật" id="captchaConfirm" name="captchaConfirm" ng-maxlength="6" ng-model="Captcha" placeholder="Nhập mã bên phải" required="required" type="text" value="" style="">
+        <span ng-messages="captchaConfirm.$error" ng-if="captchaConfirm.$touched || myForm.$submitted" class="ng-scope ng-inactive" style=""></span>
+        <input id="captchaGuid" name="captchaGuid" type="hidden" ng-value="CaptchaGuid" ng-model="CaptchaGuid" />
+    </div>
+    <div class="captcha-image">
+        <img ng-src="{{CaptchaImage}}" />
+        <a title="Đổi mã khác" class="captcha-refresh" ng-click="Refresh()"><i class="glyphicon glyphicon-refresh"></i></a>
+    </div>
+    <p class="captcha-message" ng-model="CaptchaMessage" ng-show="IsCapchaError">Vui lòng nhập mã bên phải</p>
+</div>

@@ -1,0 +1,18 @@
+﻿@using HappyRE.Core.Resources;
+@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+@{
+	this.Layout = null;
+}
+<div class="similar-property">
+	<h2 class="prop-content-header">@Message.Detail_SimilarProperty</h2>
+	<div mg-carousel class="property-list owl-carousel" options="SimilarPropOptions">
+		@foreach (var item in Model)
+		{
+			<div class="property-item">
+				<div class="item-media"><img class="lozad" data-src="@item.GetCoverImageUrl()"></div>
+				<div class="item-price">@item.PriceView</div>
+				<div class="item-title"><a class="link-overlay" href="@item.Url" gtm-event="link" gtm-cat="detail" gtm-act="similar">@item.Title</a></div>
+			</div>
+		}
+	</div>
+</div>

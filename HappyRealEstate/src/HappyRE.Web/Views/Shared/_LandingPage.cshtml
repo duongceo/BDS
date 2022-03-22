@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="robots" content="noodp,index,follow">
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:site_name" content="Mogi - Chuyên trang môi giới mua bán cho thuê nhà đất">
+    <meta property="fb:admins" content="">
+    <meta itemprop="image" content="http://batdongsanhanhphuc.vn/fb-share.jpg">
+    <meta property="fb:app_id" content="">
+    <link rel="canonical" href="https://batdongsanhanhphuc.vn/khuyen-mai" />
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Môi giới bất động sản">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#fdce09">
+ 
+    @RenderSection("styles", required: false)
+</head>
+<body ng-app="mogiAppLanding">
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WC9T99"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WC9T99');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            }; if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+        }(window,
+        document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1367921979969083'); // Insert your pixel ID here.
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1367921979969083&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+    <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button"
+                        class="navbar-toggle pull-left">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar">
+
+                    </span>
+                </button>
+                <a class="navbar-brand" href="/" alt="Mogi bất động sản thật"><img src="~/Content/Images/landing/logo.png" width="100%" height="100%" /></a>
+            </div>
+            <div class="navbar-inverse menu-landing visible-xs">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@ViewBag.PostingUrl"><span class="mn-posting">Đăng tin</span></a></li>
+                </ul>
+            </div>
+            <div class="navbar-inverse side-collapse in">
+                <nav role="navigation" class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        @*@{ 
+                            bool isEn = ViewBag.IsEN || false;
+                        }
+                        @foreach (var item in ViewBag.Menu)
+                        {                            
+                            <li><a href="@item.CodeUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu">@item.Name</a></li>
+                        }*@
+                        <li><a href="@ViewBag.SalesUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu">Tìm mua</a></li>
+                        <li><a href="@ViewBag.ForRentUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu">Tim thuê</a></li>
+                        <li><a href="@ViewBag.AgentUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu">Tìm môi giới</a></li>
+                        <li><a href="@ViewBag.SigUpUrl">Đăng ký</a></li>
+                        <li><a href="@ViewBag.SigInUrl">Đăng nhập</a></li>
+                        <li><a href="@ViewBag.PostingUrl"><span class="mn-posting">Đăng tin</span></a></li>
+                    </ul>
+
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="side-collapse-container">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/landingjs")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

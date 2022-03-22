@@ -1,0 +1,18 @@
+﻿@model List<HappyRE.Core.MapModels.LinkItem>
+@using HappyRE.Core.MapModels
+@using HappyRE.Core.Resources
+@{
+    if (Model == null)
+    {
+        return;
+    }
+}
+<div class="widget similar">
+    <h3>@Message.SearchSimilar_PropType_Title_All <span ng-bind="item.Title"></span></h3>
+    <ul>
+        @foreach (LinkItem item in Model)
+        {
+        <li><a class="circle" ng-href="{{SearchPropType[@item.Id].u}}" gtm-event="link" gtm-cat="listing" gtm-act="cat-right" title="@item.Name">@item.Name</a></li>
+        }
+    </ul>
+</div>

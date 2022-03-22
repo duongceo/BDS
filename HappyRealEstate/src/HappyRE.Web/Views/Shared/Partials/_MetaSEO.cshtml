@@ -1,0 +1,56 @@
+﻿@if (string.IsNullOrWhiteSpace(ViewBag.Robots) == false)
+{
+    <meta name="robots" content="@Html.Raw(ViewBag.Robots)" />
+}
+else
+{
+    <meta name="robots" content="noodp,index,follow">
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.Keywords) == false)
+{
+    <meta name="keywords" content="@Html.Raw(ViewBag.Keywords)" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.Description) == false)
+{
+    <meta name="description" content="@Html.Raw(Html.Encode(ViewBag.Description))" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.Canonical) == false)
+{
+    <meta property="og:url" content="@Html.Raw(ViewBag.Canonical)" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.OG_Image) == false)
+{
+    <meta property="og:image" content="@Html.Raw(ViewBag.OG_Image)" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.OG_Title) == false)
+{
+    <meta property="og:title" content="@Html.Raw(Html.Encode(ViewBag.OG_Title)) - batdongsanhanhphuc.vn" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.OG_Description) == false)
+{
+    <meta property="og:description" content="@Html.Raw(Html.Encode(ViewBag.OG_Description))" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.Canonical) == false)
+{
+    <link rel="canonical" href="@Html.Raw(ViewBag.Canonical)" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.DCTitle) == false)
+{
+    <meta name="DC.title" content="@ViewBag.DCTitle" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.GeoRegion) == false)
+{
+    <meta name="geo.region" content="@ViewBag.GeoRegion" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.GeoPlacename) == false)
+{
+    <meta name="geo.placename" content="@ViewBag.GeoPlacename" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.GeoPosition) == false)
+{
+    <meta name="geo.position" content="@ViewBag.GeoPosition" />
+}
+@if (string.IsNullOrWhiteSpace(ViewBag.ICBM) == false)
+{
+    <meta name="ICBM" content="@ViewBag.ICBM" />
+}

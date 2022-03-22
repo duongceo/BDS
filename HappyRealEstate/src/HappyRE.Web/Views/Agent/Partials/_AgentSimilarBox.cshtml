@@ -1,0 +1,22 @@
+﻿@model List<HappyRE.Core.MapModels.LinkItem>
+@using HappyRE.Core.MapModels
+@{
+    string title = (string)ViewData["title"];
+    //string gtmAct = (string)ViewData["gtmAct"];
+    //string gtmCat = (string)ViewData["gtmCat"];
+    if (Model == null)
+    {
+        return;
+    }
+}
+<div class="widget similar">
+    <h3 class="widget-title">@Html.Raw(title)</h3>
+    <ul class="widget-items">
+        @foreach (LinkItem item in Model)
+        {
+            <li>
+				<a class="circle" title="@item.Title" id="agent-city-@item.Id" href="@item.Url" gtm-event="link" gtm-cat="agent-similar" gtm-act="city">@item.Name <span>(@item.Total.ToString("N0"))</span></a>
+            </li>
+        }
+    </ul>
+</div>

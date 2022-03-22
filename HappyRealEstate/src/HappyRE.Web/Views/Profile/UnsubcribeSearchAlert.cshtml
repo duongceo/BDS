@@ -1,0 +1,57 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	if (ViewBag.Unsubscribe == true)
+	{
+		ViewBag.Title = Message.Alert_Search_Unsubcrible;
+
+	}
+	else
+	{
+		ViewBag.Title = Message.Alert_ChangeFrequency;
+
+	}
+}
+
+<div class="login row" ng-controller="userProfileController">
+	<div class="verticalcenter">
+		<h1>@ViewBag.Title</h1>
+
+		<form class="form-horizontal" name="myForm" ng-submit="UnrollAlert.Confirm()" novalidate>
+			<div class="panel">
+				<div class="panel-body">
+					<p>@ViewBag.AlertTitle</p>
+					<div class="form-group">
+						<div class="col-sm-12">
+
+						</div>
+					</div>
+					<div class="alert-option">
+						<div class="radio" ng-repeat="item in UnrollAlert.Data">
+							<input type="radio" name="receiveEmailType" id="radio{{item.i}}" value="{{item.i}}" checked="" ng-model="UnrollAlert.ReceiveEmailType">
+							<label for="radio{{item.i}}">{{item.n}}</label>
+						</div>
+					</div>
+					<div class="f-footer">
+						<button type="submit" class="btn btn-primary">@HappyRE.Core.Resources.Message.Msg_Confirm</button>
+						<button type="button" ng-click="UnrollAlert.Cancel()" class="btn">@HappyRE.Core.Resources.Message.Msg_Cancel</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section styles {
+	@Styles.Render("~/content/account.css")
+}
+@section scripts{
+	<script type="text/javascript">
+        var alertType = @ViewBag.AlertType;
+	</script>
+	@Scripts.Render("~/bundles/profile")
+}
+
+<style>
+	.body-content {
+		min-height: 500px;
+	}
+</style>

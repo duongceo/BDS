@@ -1,0 +1,306 @@
+﻿
+@using HappyRE.Web.Resources;
+
+@model List<HappyRE.Core.MapModels.Report.HousePrice>
+
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    int CityId = ViewBag.CityId;
+    int DistrictId = ViewBag.DistrictId;
+
+}
+
+<div ng-controller="marketController" class="mg-listing clearfix" ng-init="DetailInit('@ViewBag.StreetId','@ViewBag.DistrictId','@ViewBag.LatestApproved')">
+
+    <section id="breadcrumb" class="clearfix">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_MarketPriceDetail", "CachePartial", new { districtId = (int)ViewBag.DistrictId, location = ViewBag.Location });
+            }
+        </div>
+    </section>
+
+    <div id="mg-page-content" ng-controller="marketController" ng-init="DetailInit('@ViewBag.StreetId','@ViewBag.DistrictId')">
+        <div class="mg-1170-container">
+            <div id="main" class="clearfix">
+                <h1 class="mt-title">
+                    @ViewBag.TitlePage
+                </h1>
+
+                <div class="mt-tbl-block block-chart">
+                    <h2>Giá trung bình tháng <span>@ViewBag.LatestApprovedDisPlay</span></h2>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Loại BĐS</td>
+                                    <td class="text-right">Giá trung bình</td>
+                                    <td class="text-right">Giá thấp nhất</td>
+                                    <td class="text-right">Giá cao nhất</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in Detail.CurrentMonthChart.DataTbl">
+                                    <td><span ng-bind="item.PropertyTypeName"></span></td>
+                                    <td class="text-right">
+                                        <span ng-bind-html="item.AvgPrice"></span>
+                                        <sup class="change" ng-if="item.AvgPriceChanged < 0">
+                                            <span ng-bind="(item.AvgPriceChanged*(-1)) | number: 1"></span>% <i class="down">&#9660;</i>
+                                        </sup>
+                                        <sup class="change" ng-if="item.AvgPriceChanged > 0">
+                                            <span ng-bind="item.AvgPriceChanged | number: 1"></span>% <i class="up">&#9650;</i>
+                                        </sup>
+                                        <sup class="change" ng-if="item.AvgPriceChanged == 0">
+                                            &mdash;
+                                        </sup>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-bind-html="item.MaxPrice"></span>
+                                        <sup class="change" ng-if="item.MaxPriceChanged < 0">
+                                            <span ng-bind="(item.MaxPriceChanged*(-1)) | number: 1"></span>% <i class="down">&#9660;</i>
+                                        </sup>
+                                        <sup class="change" ng-if="item.MaxPriceChanged > 0">
+                                            <span ng-bind="item.MaxPriceChanged | number: 1"></span>% <i class="up">&#9650;</i>
+                                        </sup>
+                                        <sup class="change" ng-if="item.MaxPriceChanged == 0">
+                                            &mdash;
+                                        </sup>
+                                    </td>
+                                    <td class="text-right">
+                                        <span ng-bind-html="item.MinPrice"></span>
+                                        <sup class="change" style="color:red;" ng-if="item.MinPriceChanged < 0">
+                                            <span ng-bind="(item.MinPriceChanged*(-1)) | number: 1"></span>% <i class="down">&#9660;</i>
+                                        </sup>
+                                        <sup class="change" style="color:#11B666" ng-if="item.AvgPriceChanged > 0">
+                                            <span ng-bind="item.MinPriceChanged | number: 1"></span>% <i class="up">&#9650;</i>
+                                        </sup>
+                                        <sup class="change" style="color:#919BA5; font-weight:bold" ng-if="item.MinPriceChanged == 0">
+                                            &mdash;
+                                        </sup>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="block-chart">                  
+                    <div class="content bar-chart">
+                        <canvas height="350" tc-chartjs
+                                chart-type="bar"
+                                chart-data="Detail.CurrentMonthChart.Data"
+                                chart-options="Detail.CurrentMonthChart.Options"></canvas>
+                    </div>
+                </div>
+
+                <div class="tab-pane market-trend">
+                    <div class="clearfix">
+                        <div class="row month-select-group">
+                            <div class="head-inline">
+                                <h2>Xu thế giá</h2>
+                            </div>
+                            <div class="option">
+                                @*<select data-placeholder="Chọn" chosen class="form-control"
+                        allow-single-deselect="true"
+                        placeholder-text-single="''"
+                        required
+                        disable-search="true"
+                        ng-model="Detail.MonthRange"
+                        ng-change="Detail.MonthRangeChanged()"
+                        ng-required="true"
+                        name="CityId"
+                        ng-options="item.i as item.n for item in Detail.MonthRangeOptions" style="min-width:110px;"></select>*@
+                                <ul>
+                                    <li><a ng-class="{'active': Detail.PriceRangeChart.MonthId==6}" ng-click="Detail.PriceTrendChart.LoadData(6)">6 tháng</a></li>
+                                    <li><a ng-class="{'active': Detail.PriceRangeChart.MonthId==12}" ng-click="Detail.PriceTrendChart.LoadData(12)">1 năm</a></li>
+                                    <li><a ng-class="{'active': Detail.PriceRangeChart.MonthId==24}" ng-click="Detail.PriceTrendChart.LoadData(24)">2 năm</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-chart-block">
+                            <div class="chart-container">
+                                <canvas height="310" tc-chartjs
+                                        chart-type="line"
+                                        chart-data="Detail.PriceTrendChart.Data"
+                                        chart-options="Detail.PriceTrendChart.Options"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="mt-tbl-block">
+                            <div class="month-select-group ctr">
+                                <ul>
+                                    <li><a ng-click="Detail.PriceMonthlyChange.Month.Change(-1)"><i class="fa fa-angle-left"></i></a></li>
+                                    <li><a ng-click="Detail.PriceMonthlyChange.Month.Change(1)"><i class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Loại BĐS</td>
+                                            <td class="text-right" ng-class="{'hidden-mobile': $index <3}" ng-repeat="m in Detail.PriceMonthlyChange.Data[0].M track by $index"><span ng-bind="m"></span></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in Detail.PriceMonthlyChange.Data">
+                                            <td><span ng-bind="item.Type"></span></td>
+                                            <td class="text-right" ng-class="{'hidden-mobile': $index <3}" ng-repeat="v in item.V track by $index">
+                                                <span ng-bind-html="v"></span>
+                                            </td>
+                                            @*<td class="text-right"><span ng-bind-html="item.AvgPriceChangedPercent"></span></td>*@
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @*<div class="mt-group">
+                    <div class="mt-list-group-item" ng-repeat="item in Detail.MarketPriceSummary">
+                        <div class="list-group-item-content">
+                            <div class="avg-price-icon avg-{{$index}}"></div>
+                            <div class="mt-text clearfix">
+                                <span class="mt-lable " ng-bind="item.PropertyTypeName"></span>
+                                <span class="mt-value" ng-bind-html="item.AvgPriceDisplay"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                    </div>
+                </div>
+
+
+                @*<div class="block-chart">
+            <h2>Số lượng tin đăng bán theo khoảng giá</h2>
+            <div class="content bar-chart">
+                <canvas height="350" tc-chartjs
+                        chart-type="bar"
+                        chart-data="Detail.PriceRangeChart.Data"
+                        chart-options="Detail.PriceRangeChart.Options"></canvas>
+            </div>
+        </div>*@
+
+                <div class="block-chart">
+                    <h2>Giá trung bình đường so với quận</h2>
+                    <div class="chart-container">
+                        <canvas height="310" tc-chartjs
+                                chart-type="line"
+                                chart-data="Detail.StreetVsDistrictChart.Data"
+                                chart-options="Detail.StreetVsDistrictChart.Options"></canvas>
+                    </div>
+                </div>
+
+                <div class="link-more-search clearfix">
+                    <span>Xem các BĐS đang rao bán</span>
+                    <a target="_blank" href="@ViewBag.UrlToBuy">Tìm kiếm</a>
+                </div>
+
+                <div id="historylist" class="mg-container clearfix block-chart" ng-if="HistoryPrice.List.Total>0">
+                    <h2>Lịch sử giá</h2>
+                    <div class="history-list-source">
+                        Nguồn từ <b class="mua-ban">mua&bán</b>
+                    </div>
+                    <div class="history-container">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td class="hidden-xs">@HappyRE.Web.Resources.Message.MarketPrice_History_PropertyType</td>
+                                        <td>@HappyRE.Web.Resources.Message.MarketPrice_History_Address</td>
+                                        <td class="hidden-xs text-right">@HappyRE.Web.Resources.Message.MarketPrice_History_Area</td>
+                                        <td>@HappyRE.Web.Resources.Message.MarketPrice_History_EndDate</td>
+                                        <td class="text-right">@HappyRE.Web.Resources.Message.MarketPrice_History_Price</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="HistoryPrice.GotoHistoryDetails(item.DetailUrl,'@ViewBag.LocationUrl',item.UId)" ng-repeat="item in HistoryPrice.List.Data">
+                                        <td class="hidden-xs">
+                                            <a class="link-overlay" ng-href="/lich-su-gia-{{item.DetailUrl}}-@ViewBag.LocationUrl-{{item.UId}}"><span ng-bind="item.PropertyTypeName"></span></a>
+                                        </td>
+                                        <td class="price-highlight">
+                                            <span ng-bind="item.Address"></span>
+                                            <span ng-if="item.Address==''" ng-bind="{{'--'}}"></span>
+                                        </td>
+                                        <td class="hidden-xs text-right"><span ng-bind="item.AreaDisplay"></span></td>
+                                        <td><span ng-bind="item.EndDate | date:'dd/MM/yyyy'"></span></td>
+                                        <td class="text-right"><span class="price-highlight" ng-bind="item.PriceText"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center" ng-if="HistoryPrice.List.Total>10"><ul uib-pagination total-items="HistoryPrice.List.Total" items-per-page="HistoryPrice.Query.PageSize" ng-model="HistoryPrice.Query.PageIndex" class="pagination" ng-change="HistoryPrice.PageChanged(@ViewBag.StreetId)"></ul></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane market-trend block-chart">
+                    <div>
+                        <h2>Khu vực gần đây</h2>
+                    </div>
+                    <div class="mt-tbl-block tbl-top5 row">
+                        <div class="col-md-6 tbl-first">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Giá trung bình cao nhất</td>
+                                            <td class="text-right">Giá</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in Detail.MarketPriceTopPrice">
+                                            <td ng-click="GotoDetail(item.StreetId,'@ViewBag.DistrictId')" class="link">
+                                                <span ng-bind="item.StreetName"></span>
+                                            </td>
+                                            <td class="text-right"><span ng-bind-html="item.AvgPriceText"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Giao dịch nhiều nhất</td>
+                                            <td class="text-right">Số lượng</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in Detail.MarketPriceTopTotal">
+                                            <td ng-click="GotoDetail(item.StreetId,'@ViewBag.DistrictId')" class="link">
+                                                <span ng-bind="item.StreetName"></span>
+                                            </td>
+                                            <td class="text-right"><span ng-bind="item.Total"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+            </div>
+
+            <div id="side-bar" class="clearfix">
+                @{
+                    Html.RenderAction("SearchRefined", "CachePartial", new { rent = false, cityId = CityId, districtId = DistrictId, propertyTypeId = 0, propertyStyleId = 0, gtmCat = "houseprice" });
+                }
+            </div>
+        </div>
+    </div>
+    <section id="hidden-content"></section>
+</div>
+
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketDetail")">
+    <link href="~/Content/layout1170.css" rel="stylesheet" />
+
+}
+@section scripts {
+    @*@Scripts.Render("~/bundles/market")*@
+    <script async src='@Scripts.Url("~/bundles/market")' type="text/javascript"></script>
+}

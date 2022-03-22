@@ -1,0 +1,18 @@
+﻿@model HappyRE.Core.MapModels.Search.ProjectSimilarResult
+@using HappyRE.Core.MapModels
+@{
+    if (Model == null || Model.HasProject == false)
+    {
+        return;
+    }
+    string title = Model.ProjectTitle;
+}
+<div class="widget similar" ng-non-bindable>
+    <h3 class="widget-title">@Html.Raw(title)</h3>
+    <ul class="widget-items">
+        @foreach (LinkItem item in Model.Project)
+        {
+            <li><a class="circle" href="@item.Url" title="@item.Title">@item.Name <span>(@item.Total.ToString("N0"))</span></a></li>
+        }
+    </ul>
+</div>

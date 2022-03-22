@@ -1,0 +1,31 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = null;
+
+	var top_right_banner = "list-right-top-" + (Model.Filter.Rent ? "rent" : "sale");
+	var center_right_banner = "list-right-center-" + (Model.Filter.Rent ? "rent" : "sale");
+	var main_bottom_banner = "list-main-bottom-" + (Model.Filter.Rent ? "rent" : "sale");
+
+	int propertyTypeId = Model.Filter.PropertyTypeId.GetValueOrDefault(0);
+	int propertyStyleId = 0;
+	var lstStyle = Model.Filter.PropertyStyles;
+	if (lstStyle != null && lstStyle.Count == 1)
+	{
+		propertyStyleId = lstStyle[0];
+	}
+}
+@{
+	Html.RenderAction("RightBanner", "Banner", new { code = top_right_banner });
+	Html.RenderAction("SearchRefined", "CachePartial", new { rent = Model.Filter.Rent, cityId = Model.Filter.CityId, districtId = Model.Filter.DistrictId, propertyTypeId = propertyTypeId, propertyStyleId = propertyStyleId, gtmCat = "listing-similar" });
+	if (Model.Filter.Rent == false && Model.Filter.DistrictId > 0)
+	{
+		Html.RenderAction("MarketPriceArea", "CachePartial", new { did = Model.Filter.DistrictId, sid = Model.Filter.StreetId, pid = Model.Filter.PropertyTypeId });
+	}
+	if (Model.Filter.CityId > 0)
+	{
+		Html.RenderAction("GoogleStaticMap", "CachePartial", new { cityId = Model.Filter.CityId, districtId = Model.Filter.DistrictId });
+	}
+	Html.RenderAction("RightBanner", "Banner", new { code = center_right_banner });
+	Html.RenderAction("Blogv2", "CachePartial");
+}

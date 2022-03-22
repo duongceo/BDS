@@ -1,0 +1,38 @@
+﻿@model int
+<div class="container" style="padding-top:20px;" ng-controller="cmsController" ng-init="GetListNews(@Model)">
+        <div class="col-md-3">
+            @{ Html.RenderAction("CategoriesByGroup", "Cms", new { id = 8 });}
+        </div>
+        <div class="col-md-9">
+            <div class="news-item-block" ng-repeat="item in CMS_ListNews">
+                <div class="row news-item-title">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <b>
+                            <a href="javascript:void(0);" ng-click="goDetail(item.NewsId)">{{item.Subject}}</a>
+                        </b>
+                        <span class="news-item-publishdate">
+                            {{item.PublishDate | date:'dd/MM/yyyy' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <!--thumb-->
+                        <a href="javascript:void(0);" ng-click="goDetail(item.NewsId)">
+                            <img class="img-responsive" style="max-width: 120px;" ng-src="{{item.CoverImage | imgUrlFromJson}}" alt="{{item.Subject}}">
+                        </a>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-10" style="padding-left:0px;">
+                        {{item.Summary}}
+                    </div>
+                </div>
+            </div>
+            <ul ng-show="CMS_ListNews.length>0" uib-pagination total-items="TotalItem" ng-model="Query.PageIndex" class="pagination" ng-change="PageChanged()" previous-text="Trước" next-text="Sau"></ul>
+        </div>
+</div>
+
+@Styles.Render("~/Content/cmscss")
+
+@section scripts{
+<script src="~/scripts/app/controllers/cmsController.js"></script>
+}

@@ -1,6 +1,6 @@
 ﻿var baseListing = (function () {
     var grid, counter = 1,
-        init = function () {          
+        init = function () {
             grid = $("#_list").data("kendoGrid");
 
             $('#btnSearch').click(function (e) {
@@ -43,7 +43,7 @@
         onDataBoundHandler = function (e) {
             //var pz = $("#_list").data("kendoGrid").dataSource.pageSize();
             //var p = $("#_list").data("kendoGrid").dataSource.page();
-           
+
             counter = 1;
             if ($('.pagerTop').length == 0) {
                 var grid = $('#_list').data('kendoGrid');
@@ -54,6 +54,21 @@
         },
         renderNumber = function (data) {
             return counter++;
+        },
+        cip = function () {
+            var t = setTimeout(checkIp, 120000);
+        },
+        checkIp= function () {
+            restfulSvc.get('/account/_CIP', {}, function (res) {
+                if (res.data == 1) {
+                    toastr.error(res.message);
+                    alert(res.message);
+                    window.location = '/';
+                    clearTimeout(t);
+                } else {
+                   var t= setTimeout(checkIp, 120000);
+                }
+            });
         }
 
     return {
@@ -62,6 +77,7 @@
         onPressSearch: onPressSearch,
         onSearch: onSearch,
         renderNumber: renderNumber,
-        onDataBoundHandler: onDataBoundHandler
+        onDataBoundHandler: onDataBoundHandler,
+        cip: cip
     };
 }())

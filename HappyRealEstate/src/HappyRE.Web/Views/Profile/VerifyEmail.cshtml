@@ -1,0 +1,44 @@
+﻿@model HappyRE.Core.MapModels.MogiPro.ProfileViewModel
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = Message.Msg_Send_EmailVerify;
+}
+<div class="body-content">
+	<div class="login row" ng-controller="userProfileController" ng-init="initProfile()" novalidate ng-cloak>
+		<div class="verticalcenter">
+			<form class="form-horizontal" name="myForm" ng-submit="updateEmail()">
+				<div class="panel">
+					<div class="panel-body">
+						<h1>@ViewBag.Title</h1>
+						<p>@Message.Profile_Verify_Email</p>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<label class="titlename line40">@HappyRE.Core.Resources.Model.UserProfile_Email</label>
+									@Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", new Dictionary<string, string>() { { "class", "text-control" }, { "placeholder", "Email" }, { "autofocus", "true" } }))
+								</div>
+								<div class="msg-error">
+									@Html.AngularMessage("Email")
+								</div>
+							</div>
+						</div>
+						<div class="f-footer">
+							<button type="submit" class="btn btn-primary">@Message.Msg_Send</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+@section styles {
+	<link async rel="stylesheet" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")">
+}
+@section scripts{
+	<script type="text/javascript">
+		var angular_modules = ['ngMessages', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'blockUI', 'ngFileUpload'];
+	</script>
+	@*@Scripts.Render("~/bundles/profile")*@
+	<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/bundles/profile")' type="text/javascript"></script>
+}

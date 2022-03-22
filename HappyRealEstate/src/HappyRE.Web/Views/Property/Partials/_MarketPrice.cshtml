@@ -1,0 +1,50 @@
+﻿@using HappyRE.Web.Resources;
+@using Newtonsoft.Json;
+@model HappyRE.Core.MapModels.Report.MarketPrices
+@{
+	var data = (Model.Month != null) ? Model.Month : null;
+	if (data == null) {
+		return;
+	}
+}
+<div id="market-trend" class="market-trend">
+	<h2 class="prop-content-header">@HappyRE.Core.Resources.Message.PropertyDetail_MarketPrice @Message.MarketPrice_LastOneMonth</h2>
+	<div class="prop-loccation">@ViewBag.LocationName</div>
+	<div class="market-trend-body clearfix" ng-non-bindable>
+		<ul class="list-unstyled clearfix">
+			<li>
+				<div class="avg-icon avg-4"></div>
+				<div>@Message.MarketPrice_Property_AvgPrice</div>
+				<div class="price">@Html.Raw(data.AvgPriceDisplay)</div>
+			</li>
+			<li>
+				<div class="avg-icon avg-1"></div>
+				<div>@Message.MarketPrice_TotalProp</div>
+				<div class="price">@data.Total</div>
+			</li>
+			<li>
+				<div class="avg-icon avg-3"></div>
+				<div>@Message.MarketPrice_MinPrice</div>
+				<div class="price">@Html.Raw(data.MinPriceDisplay)</div>
+			</li>
+			<li>
+				<div class="avg-icon avg-2"></div>
+				<div>@Message.MarketPrice_MaxPtrice</div>
+				<div class="price">@Html.Raw(data.MaxPriceDisplay)</div>
+			</li>
+		</ul>
+	</div>
+	<div class="history-price clearfix" ng-if="HistoryPrice.IsShow()">
+		<h3 class="history-price-header clearfix">
+			<span>@Message.MarketPrice_HistoryPrice<span class="hidden-xs"> - Nguồn mua&bán</span></span>
+			<span class="more"> <a href="@ViewBag.MarketLink"> @Message.Msg_ViewMore &#10095; </a></span>
+		</h3>
+		<table>
+			<tr ng-repeat="item in HistoryPrice.Items">
+				<td ng-bind="item.Updated | date: dd/MM/yyyyy"></td>
+				<td class="text-center" ng-bind="item.AreaDisplay"></td>
+				<td class="text-right bold" ng-bind="item.PriceText"></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	ViewBag.Title = Message.Msg_Register_Success;
+}
+
+<style>
+	/*dialog*/
+	.agent-dialog-message .logo {
+		color: #45bfb7;
+		font-size: 60px;
+		text-align: center;
+		height: 60px;
+	}
+
+		.agent-dialog-message .logo span {
+			display: block;
+		}
+
+	.agent-dialog-message .content {
+		padding-left: 10.4%;
+		padding-right: 10.4%;
+		text-align: center;
+		margin-top: 40px;
+	}
+
+	.agent-dialog-message .command {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+		.agent-dialog-message .command input {
+			width: 109px;
+			height: 36px;
+			border-radius: 4px;
+			background-color: #104b8c;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+			font-size: 12px;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			color: #ffffff;
+			border: 0;
+			padding: 0;
+		}
+</style>
+
+<div class="login row" style="min-height:350px;">
+	<div class="verticalcenter">
+		<div class="agent-dialog-message">
+			<p class="logo">
+				<span class="icon icon-verified"></span>
+			</p>
+			<div class="content">
+				<h4 class="">@Message.Account_RegiterSuccessFull</h4>
+				<p>
+					@ViewBag.Title
+				</p>
+			</div>
+			<div class="command">
+				<input type="button" value="@Message.Msg_Finish" />
+			</div>
+		</div>
+	</div>
+</div>
+@section styles {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}

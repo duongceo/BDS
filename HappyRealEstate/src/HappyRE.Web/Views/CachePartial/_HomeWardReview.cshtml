@@ -1,0 +1,23 @@
+﻿@model List<HappyRE.Core.MapModels.WardReview.WardReviewCitySummarize>
+
+<div class="ward-review desktop" ng-non-bindable>
+    <h2 class="title">Review khu vực</h2>
+    <div class="ward-review-list clearfix">
+        <ul class="ward-review-items">
+            @foreach (var item in Model)
+            {
+                <li class="ward-review-item">
+                    <img src="@item.Cover" alt="@item.Name">
+                    <div class="caption">
+                        Khám phá @item.Total khu vực ở
+                        <span>@item.Name</span>
+                    </div>
+                    <div href="@item.Url" class="bg-overlay"></div>
+                    <a href="@item.Url" class="link-overlay">
+                        <span>Xem review ></span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

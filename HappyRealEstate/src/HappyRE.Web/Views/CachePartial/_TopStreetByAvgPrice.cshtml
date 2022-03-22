@@ -1,0 +1,24 @@
+﻿
+@model List<HappyRE.Core.MapModels.Report.HousePriceTopPrice>
+@using HappyRE.Core.Resources;
+
+
+<ul class="top-price-items">
+    <li class="top-price-item clearfix">
+        <span class="title">Giá nhà mặt tiền</span>
+        <a href="/gia-nha-dat">
+            Xem thêm
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </li>
+
+    @foreach (var item in Model)
+    {
+        <li class="top-price-item">
+            <a href="@item.Url" class="clearfix">
+                <span>@item.StreetName</span>
+                <span>@Html.Raw(item.AvgPriceText)</span>
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,45 @@
+﻿.vpgd {
+    width: 100%;
+    margin: 0px auto 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+.vpgd-list {
+    border-top: 1px solid #e0e0e0;
+}
+.branchoffice-city,
+.branchoffice-district,
+.branchoffice-type,
+.branchoffice-addr {
+    display: block;
+    width: 100%;
+    float: left;
+    min-height: 30px;
+    padding: 8px 0px;
+    font-weight: bold;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.branchoffice-city {
+    color: #333;
+    background-color: #f0f0f0;
+}
+.branchoffice-district {
+    color: #555;
+    background-color: #F9F9F9;
+}
+.branchoffice-type {
+    color: #555;
+    background-color: #F9F9F9;
+    padding-left: 15px;
+}
+    .branchoffice-type .fa-caret-right {
+        margin-right: 5px;
+    }
+.branchoffice-addr {
+    color: #555;
+    font-weight: initial;
+}

@@ -1,0 +1,44 @@
+﻿@model HappyRE.Core.MapModels.WardReview.WardReviewWidget
+
+<div id="ward-review">
+    <h2 class="prop-content-header">Review khu vực</h2>
+    <div class="ward-item">
+        <img src="@Model.CoverUrl" alt="@Model.WardName" />
+        <a href="@Model.Url" class="ward-title link-overlay">@Model.WardName</a>
+        <div class="ward-adress">@Model.DistrictName</div>
+        <ul class="brief clearfix">
+            <li class="clearfix">
+                <div class="ward-icon">
+                    <svg class="icon-sale-price">
+                        <use xlink:href="/content/images/ward-review-icon.svg#icon-school"></use>
+                    </svg>
+                </div>
+                <div class="desc">@Model.TotalSchool trường học</div>
+            </li>
+            
+            @if (ViewBag.ForRent == true && @Model.Totalrent > 0)
+            {
+                <li class="clearfix">
+                    <div class="ward-icon">
+                        <svg class="icon-sale-price">
+                            <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                        </svg>
+                    </div>
+                    <div class="desc">@Model.Totalrent tin thuê</div>
+                </li>
+            }
+
+            @if (ViewBag.ForRent == false && @Model.TotalSale > 0)
+            {
+                <li class="clearfix">
+                    <div class="ward-icon">
+                        <svg class="icon-sale-price">
+                            <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                        </svg>
+                    </div>
+                    <div class="desc">@Model.TotalSale tin bán</div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

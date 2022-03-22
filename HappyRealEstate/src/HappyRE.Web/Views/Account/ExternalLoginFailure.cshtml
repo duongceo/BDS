@@ -1,0 +1,28 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	ViewBag.Title = @Message.Msg_LoginFailed;
+}
+
+<div class="login row">
+	<div class="verticalcenter">
+		<h1>@ViewBag.Title</h1>
+		<div class="panel">
+			<div class="panel-body">
+				<p>@Message.Msg_LoginFailed_Error</p>
+				<p>@Html.ActionLink(Message.Msg_Return_LoginPage, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p>
+			</div>
+		</div>
+	</div>
+</div>
+@section styles {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			var delay = 30000;
+			setTimeout(function () { window.location = '/account/login'; }, delay);
+		});
+	</script>
+}

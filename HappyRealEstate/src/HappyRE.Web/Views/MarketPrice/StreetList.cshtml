@@ -1,0 +1,263 @@
+﻿@using HappyRE.Core.Resources;
+@model List<HappyRE.Core.MapModels.Report.HousePrice>
+@{
+	this.Layout = "~/Views/Shared/_Layout1170.cshtml";
+	int CityId = ViewBag.CityId;
+	int DistrictId = ViewBag.DistrictId;
+}
+
+<div class="mg-listing">
+    <div id="breadcrumb" class="clearfix">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_MarketPriceStreet", "CachePartial", new { location = ViewBag.Location });
+            }
+        </div>
+    </div>
+
+    <div id="mg-page-content" ng-controller="marketController" ng-init="List.GetDistrict(@ViewBag.DistrictId)">
+        <div class="mg-1170-container">
+            <div id="main" class="clearfix">
+                <div class="avg-price-container">
+                    <h1 class="mt-title">
+                        @ViewBag.TitlePage
+                    </h1>
+                    <div class="mt-desc read-more">
+                        @*<span>Thông tin tham kháo giá bất động sản, số lượng tin đăng nhà đất tại Bùi Viện, Quận 1, TP.HCM, giá bán thấp nhất, giá rao cao nhấp, định giá trung bình Thông tin tham kháo giá bất động sản. </span><a ng-click="showmore()" href="/">Xem thêm <i>></i></a>*@
+                        <span>@ViewBag.Description</span>
+                    </div>
+
+                    <div class="market-trend" style="display:none;">
+                        <div class="avg-price-block clearfix">
+                            <div class="clearfix month-select-group">
+                                <div class="lable">
+                                    Giá trung bình trên m<sup>2</sup>
+                                </div>
+                                <div class="option">
+                                    <select data-placeholder="Chọn" chosen class="form-control"
+                                            allow-single-deselect="true"
+                                            placeholder-text-single="''"
+                                            required
+                                            disable-search="true"
+                                            ng-model="List.MonthRange"
+                                            ng-change="List.MonthRangeChanged()"
+                                            ng-required="true"
+                                            name="CityId"
+                                            ng-options="item.i as item.n for item in List.MonthRangeOptions" style="min-width:110px;"></select>
+                                </div>
+                            </div>
+                            <div class="mt-group">
+                                <div class="mt-list-group-item clearfix" ng-repeat="item in List.MarketPriceSummary">
+                                    <div class="list-group-item-content">
+                                        <div class="avg-price-icon avg-{{$index}}"></div>
+                                        <div class="mt-text clearfix">
+                                            <span class="mt-lable" ng-bind="item.PropertyTypeName"></span>
+                                            <span class="mt-value" ng-bind-html="item.AvgPriceDisplay"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="more-box clearfix">
+                                <a class="link-more" target="_blank" href="@ViewBag.UrlToBuy">
+                                    Xem các BĐS rao bán &rang;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="distric clearfix" style="display:none;">
+                    <div class="mt-tbl-block">
+                        <div class="tbl">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <span class="first-col">@HappyRE.Web.Resources.Message.MarketList_StreetName</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div>
+                                                <span>@HappyRE.Web.Resources.Message.MarketPrice_TotalProp</span>
+                                                <img data-toggle="tooltip" title="@HappyRE.Web.Resources.Message.Market_Price_Total_OnStreet"
+                                                     class="icon-tooltip" src="/Content/Images/icons/icon-chamhoi-listinggianhadat.png" />
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="last-col">@HappyRE.Web.Resources.Message.MarketPrice_AvgPrice</span>
+                                            <img class="icon-tooltip" data-toggle="tooltip" title="@HappyRE.Web.Resources.Message.Market_Price_Avg_OnStreet"
+                                                 src="/Content/Images/icons/icon-chamhoi-listinggianhadat.png" />
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in List.Value">
+                                        <td>
+                                            <div class="first-col clearfix">
+                                                <a class="link-overlay" ng-href="{{item.Url}}" ng-bind="item.StreetName"></a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right"><span class="number" ng-bind="item.TotalAssets"></span></td>
+                                        <td class="text-right"><span class="last-col number" ng-bind-html="item.AvgPriceDisplay"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="district price-summary" ng-cloak>
+                    <div class="mt-table mt-avg-type" id="mtTable">
+                        <div class="mt-header clearfix">
+                            <div class="mt-street">
+                                Loại
+                            </div>
+                            <div class="mt-vol text-right">
+                                <span>Giá</span> trung bình
+                            </div>
+                            <div class="mt-vol text-right">
+                                <span>Giá</span> cao nhất
+                            </div>
+                            <div class="mt-vol text-right">
+                                <span>Giá</span> thấp nhất
+                            </div>
+                        </div>
+                        <div class="mt-row clearfix" ng-repeat="item in List.MarketPriceSummary">
+                            <div class="mt-street">
+                                <div>
+                                    <span ng-bind="item.PropertyTypeName"></span>
+                                </div>
+                            </div>
+                            <div class="mt-vol text-right number">
+                                <span ng-bind-html="item.AvgPriceDisplay"></span>
+                                <sup class="change down" ng-if="item.AvgPriceChangedPercentage < 0">
+                                    <span ng-bind="(item.AvgPriceChangedPercentage*(-1)) | number: 1"></span>% <i>&#9660;</i>
+                                </sup>
+                                <sup class="change up" ng-if="item.AvgPriceChangedPercentage > 0">
+                                    <span ng-bind="item.AvgPriceChangedPercentage | number: 1"></span>% <i>&#9650;</i>
+                                </sup>
+                                <sup class="change" ng-if="item.AvgPriceChangedPercentage == 0">
+                                    &mdash;
+                                </sup>
+                            </div>
+                            <div class="mt-vol text-right number">
+                                <span ng-bind-html="item.MaxPriceDisplay"></span>
+                                <sup class="change down" ng-if="item.MaxPriceChangedPercentage < 0">
+                                    <span ng-bind="(item.MaxPriceChangedPercentage*(-1)) | number: 1"></span>% <i>&#9660;</i>
+                                </sup>
+                                <sup class="change up" ng-if="item.MaxPriceChangedPercentage > 0">
+                                    <span ng-bind="item.MaxPriceChangedPercentage | number: 1"></span>% <i>&#9650;</i>
+                                </sup>
+                                <sup class="change" ng-if="item.MaxPriceChangedPercentage == 0">
+                                    &mdash;
+                                </sup>
+                            </div>
+                            <div class="mt-vol text-right number">
+                                <span ng-bind-html="item.MinPriceDisplay"></span>
+                                <sup class="change down" ng-if="item.MinPriceChangedPercentage < 0">
+                                    <span ng-bind="(item.MinPriceChangedPercentage*(-1)) | number: 1"></span>% <i>&#9660;</i>
+                                </sup>
+                                <sup class="change up" ng-if="item.MinPriceChangedPercentage > 0">
+                                    <span ng-bind="item.MinPriceChangedPercentage | number: 1"></span>% <i>&#9650;</i>
+                                </sup>
+                                <sup class="change" ng-if="item.MinPriceChangedPercentage == 0">
+                                    &mdash;
+                                </sup>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-box clearfix">
+                        <a class="link-more" target="_blank" href="@ViewBag.UrlToBuy">
+                            Xem các BĐS rao bán <i>></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="district" ng-cloak>
+                    <h2 class="mt-location-title">Giá nhà đất tại @ViewBag.DistrictName</h2>
+                    <div class="search-keyword clearfix">
+                        <i class="fa fa-search"> </i>
+                        <input type="text" id="q" name="q"
+                               ng-model="List.Keyword"
+                               ng-required="true"
+                               ng-keyup="List.OnKeyUp($event)"
+                               typeahead-loading="LoadingLocations"
+                               typeahead-no-results=""
+                               typeahead-popup-template-url="suggestPopupTemplate.html"
+                               typeahead-show-hint="false"
+                               typeahead-on-select="List.SearchValue()"
+                               autocomplete="off"
+                               placeholder="Nhập tên đường" />
+                        <i ng-show="List.Keyword!=null" ng-click="List.ResetKeyWord()" class="fa fa-times-circle ng-hide"> </i>
+                    </div>
+                    <div class="mt-table" id="mtTable">
+                        <div class="mt-header clearfix">
+                            <div class="mt-street">
+                                Đường
+                            </div>
+                            <div class="hidden-xs mt-ward">
+                                Phường
+                            </div>
+                            <div class="mt-type" style="white-space: nowrap;">Số lượng BĐS</div>
+                            <div class="mt-vol text-right">
+                                Giá trung bình
+                            </div>
+                        </div>
+                        <div class="mt-row clearfix" ng-repeat="item in List.Value">
+                            <div class="mt-street">
+                                <div>
+                                    <a class="link-overlay bold" href="{{item.Url}}" ng-bind="item.StreetName"></a>
+                                </div>
+                            </div>
+                            <div class="mt-ward hidden-xs">
+                                <div ng-bind="item.WardName">
+                                    
+                                </div>
+                            </div>
+                            <div class="mt-type" ng-bind="item.TotalAssets | number"> </div>
+                            <div class="mt-vol text-right number">
+                                <span ng-bind-html="item.AvgPriceDisplay"></span>
+                                <sup class="change down" ng-if="item.PriceChangedPercentage < 0">
+                                    <span ng-bind="(item.PriceChangedPercentage*(-1)) | number: 1"></span>% <i>&#9660;</i>
+                                </sup>
+                                <sup class="change up" ng-if="item.PriceChangedPercentage > 0">
+                                    <span ng-bind="item.PriceChangedPercentage | number: 1"></span>% <i>&#9650;</i>
+                                </sup>
+                                <sup class="change" ng-if="item.PriceChangedPercentage == 0">
+                                    &mdash;
+                                </sup>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+
+            </div>
+            <div id="side-bar" class="clearfix">
+                @{
+                    Html.RenderAction("SearchRefined", "CachePartial", new { rent = false, cityId = CityId, districtId = DistrictId, propertyTypeId = 0, propertyStyleId = 0, gtmCat = "houseprice" });
+                }
+            </div>
+
+        </div>
+    </div>
+    <section id="hidden-content"></section>
+
+</div>
+
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketStreetList")">
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/market")
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

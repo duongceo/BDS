@@ -1,0 +1,14 @@
+﻿@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+
+<div mg-carousel class="property-list owl-carousel" options="PropOptions">
+    @foreach (var property in Model)
+    {
+        <div class="property-item">
+            <div class="item-media"><img class="lozad" data-src="@property.GetCoverImageUrl()"></div>
+            <div class="item-price">@property.PriceView</div>
+            <div class="item-title">
+                <a class="link-overlay" href="@property.Url" gtm-event="link" gtm-cat="detail" gtm-act="ward-review">@property.Title</a>
+            </div>
+        </div>
+    }
+</div>

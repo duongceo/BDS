@@ -1,0 +1,74 @@
+﻿@model List<HappyRE.Core.MapModels.WardReview.WardReviewCity>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mg-detail">
+    <div id="breadcrumb">
+        <div class="mg-1170-container">
+            @{
+                
+                Html.RenderAction("Breadcrumb_WardReviews", "CachePartial");
+            }
+        </div>
+    </div>
+    <div id="mg-page-content" class="clearfix">
+        <div class="mg-1170-container">
+            <h1 class="title">Review khu vực </h1>
+            <div id="location">
+                <ul class="cities clearfix" style="display: block">
+                    @foreach (var item in Model)
+                    {
+                        <li class="city">
+                            <a href="@item.Url">
+                                <img src="@item.Cover" alt="@item.Name">
+                                <div class="bg-overlay"></div>
+                                <span>@item.Name</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="desc">
+                <h2>Giới thiệu tính năng Review Khu Vực</h2>
+                <p>
+                    Review khu vực là gì? Có thể bạn chưa nghe đến bao giờ. Nhưng hãy đọc vì chúng tôi biết nếu không là hiện tại, thì tương lai tính năng này sẽ vô cùng hữu ích với bạn và gia đình bạn.
+                </p>
+                <p>
+                    Hãy hình dung nếu bạn đang có nhu cầu thuê nhà, mua nhà mới và muốn khảo sát tình hình chung, tìm hiểu những tiện ích mà khu vực đó đang sở hữu để quyết định lựa chọn. Vậy lúc này bạn sẽ làm cách nào để khảo sát?
+                </p>
+                <i>Mogi ra mắt tính năng Review khu vực hay Đánh giá khu vực nhằm liệt kê, mô tả và vẽ nên một bức tranh về môi trường sống mà bạn đang quan tâm. </i>
+                <p>
+                    Bạn đang tìm nhà ở quận 5, nhưng không biết rõ khu vực này có những trường học, bệnh viện, trung tâm mua sắm, giải trí nào nổi bật? Đoạn video dưới đây sẽ mô phỏng sơ lược một ngày ở quận 5 để bạn có thể hình dung cuộc sống tương lai của mình và gia đình nếu lựa chọn đây là nơi an cư lập nghiệp.
+                </p>
+                <div class="video">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/KosdKWV_UPQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                </div>
+                <p>
+                    Mỗi phường nổi bật, nằm trong khu dân cư thuận tiện sinh hoạt và làm việc, tọa lạc tại hai thành phố lớn là TPHCM và Hà Nội, đều được chúng tôi đánh giá và thống kê tiện ích một cách chi tiết. Bạn có thể xem, so sánh và hình dung môi trường sống tương lai của mình một cách chân thực hơn. Qua đó việc lựa chọn khu vực sống sẽ trở nên dễ dàng, đáp ứng đúng mong muốn sở hữu một cuộc sống tuyệt vời như ý.
+                </p>
+                <p>
+                    Mỗi phường được liệt kê trong tính năng Review khu vực đều có mục tin đăng bất động sản và môi giới khu vực để bạn thuận tiện xem giá tham khảo, tìm môi giới uy tín.
+                </p>
+                <p>
+                    Vì Mogi thấu hiểu bạn, hiểu rằng việc lựa chọn môi trường sống là một điều không dễ dàng. Để giúp bạn hài lòng nhất với lựa chọn của chính mình, chúng tôi tin rằng tính năng này sinh ra là để mang đến một cuộc sống viên mãn hơn cho bạn và gia đình bạn.
+                </p>
+                <p>
+                    Mọi đóng góp và thắc mắc về tính năng Review khu vực, mời bạn liên hệ trực tiếp qua đường dây nóng hoặc hộp thư.
+                </p>
+                <p>Hi vọng rằng bạn sẽ luôn đồng hành cùng Mogi cũng như đón nhận sự đổi mới của chúng tôi để được phục vụ bạn và gia đình bạn tốt hơn mỗi ngày. Chân thành cảm ơn.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/wardreviewcity.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+    <script type="text/javascript">
+        var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+    </script>
+    <script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/common.js")' type="text/javascript"></script>
+}

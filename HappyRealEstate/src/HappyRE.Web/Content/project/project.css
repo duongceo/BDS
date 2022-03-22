@@ -1,0 +1,116 @@
+﻿.prj-img-left {
+    float: left;
+    margin: 10px 10px 10px 0px;
+}
+
+.prj-img-right {
+    float: right;
+    margin: 10px 0px 10px 10px;
+}
+
+.prj-img-center {
+    text-align: center;
+}
+
+.prj-img-note {
+    padding-bottom: 30px;
+}
+
+.prj-img-480, .prj-img-auto {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    min-height: 200px;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    margin: 10px 0px;
+}
+
+    .prj-img-480 img, .prj-img-auto img {
+        min-width: 100px;
+        min-height: 100px;
+        width: 100%;
+        object-fit: cover;
+        border: 1px solid #f5f5f5;
+    }
+
+    .prj-img-480 div, .prj-img-auto div {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        background-color: rgba(240,240,240,.2);
+        font-size: 13px;
+        padding: 8px;
+        text-align: center;
+    }
+
+.prj-img-480 {
+    width: 480px;
+    max-height: 480px;
+}
+
+    .prj-img-480 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .prj-img-480 div {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        background-color: rgba(240,240,240,.2);
+        font-size: 13px;
+        padding: 8px;
+        text-align: center;
+    }
+
+.prj-img-auto {
+    min-width: 320px;
+    min-height: 240px;
+}
+
+.prj-content {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #5A646E;
+}
+
+    .prj-content > li {
+        font-size: 16px;
+    }
+
+        .prj-content > li:last-child {
+        }
+
+    .prj-content h3 {
+        font-size: 24px;
+        line-height: 27px;
+        font-weight: normal;
+        padding-bottom: 15px;
+        padding-top: 20px;
+        margin: 0;
+        color: #262637;
+    }
+
+    .prj-content li:first-child h3 {
+        padding-top: 0;
+    }
+
+    .prj-content ul {
+        list-style: disc;
+        margin: 0;
+        padding-left: 30px;
+        display: block;
+    }
+
+        .prj-content ul > li {
+            font-size: 16px;
+        }
+/*Mobile*/
+@media (max-width: 767px) {
+    .prj-content h3 {
+        font-size: 22px;
+        line-height: 25px;
+    }
+}

@@ -1,0 +1,104 @@
+﻿<div class="mg-1170-container search-bar">
+	<div class="keywords clearfix">
+		<i class="fa fa-search"> </i>
+		<input type="text" id="q" name="q"
+				ng-model="Keyword"
+				ng-required="true"
+				ng-keyup="OnKeyUp($event)"
+				typeahead-loading="LoadingLocations"
+				typeahead-no-results=""
+				uib-typeahead="item as item.FullName(item.Name) for item in GetMap($viewValue)" value="{{boxKeyword}}"
+				typeahead-popup-template-url="suggestPopupTemplate.html"
+				typeahead-show-hint="false"
+				typeahead-on-select="KeywordOnSelected()"
+				autocomplete="off"
+				placeholder="{{boxPlaceHolder}}"
+				autofocus />
+		<i ng-show="Keyword != null" ng-click="ResetKeyWord()" class="fa fa-times-circle"></i>
+	</div>
+	<div class="property-location-filter search-dropdown" ng-click="FilterMaster.Open(0,$event)">
+		<div class="btn-group" uib-dropdown is-open="Cities.IsOpen" auto-close="outsideClick">
+			<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+				<span ng-bind="Cities.DisplayText"></span>
+			</button>
+			<ul class="mg-dropdown dropdown-menu scrollbar-style-1 noselect"
+				uib-dropdown-menu role="menu" aria-labelledby="single-button"
+				ng-class="{'sub-list': Cities.IsShowBack()}">
+				<li class="clearfix move-back"
+					ng-show="Cities.IsShowBack()"
+					ng-click="Cities.OnClickBack(Cities.ParentItem)">
+					<span class="mg-dropdown-icon fa fa-angle-left"></span>
+					<span class="mg-dropdown-text" ng-bind="Cities.ParentItem.n"></span>
+				</li>
+				<li role="menuitem" class="clearfix"
+					ng-repeat="item in Cities.Data"
+					ng-click="Cities.OnClick(item,$index)">
+					<span class="mg-dropdown-text" ng-class="{'item-selected': Cities.IsSelected(item.i)}" ng-bind="Cities.GetName(item,$index)"></span>
+					<span class="mg-dropdown-icon fa fa-angle-right" ng-show="Cities.IsShowChild(item,$index) == true"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="property-type-filter search-dropdown" ng-click="FilterMaster.Open(1,$event)">
+		<div class="btn-group" uib-dropdown is-open="PropertyType.IsOpen" auto-close="outsideClick">
+			<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+				<span ng-bind="PropertyType.DisplayText"></span>
+			</button>
+			<ul class="mg-dropdown dropdown-menu noselect scrollbar-style-1"
+				uib-dropdown-menu role="menu" aria-labelledby="single-button"
+				ng-class="{'sub-list': PropertyType.IsShowBack()}">
+				<li class="clearfix move-back"
+					ng-show="PropertyType.IsShowBack()"
+					ng-click="PropertyType.OnClickBack(PropertyType.ParentItem)">
+					<span class="mg-dropdown-icon fa fa-angle-left"></span>
+					<span class="mg-dropdown-text" ng-bind="PropertyType.ParentItem.Name"></span>
+				</li>
+				<li role="menuitem" class="clearfix"
+					ng-repeat="item in PropertyType.Data"
+					ng-click="PropertyType.OnClick(item,$index)">
+					<span class="mg-dropdown-text" ng-class="{'item-selected': PropertyType.IsSelected(item.Id)}"
+							ng-bind="PropertyType.GetName(item,$index,boxSelectAll)">
+					</span>
+					<span class="mg-dropdown-icon fa fa-angle-right" ng-show="PropertyType.IsShowChild(item,$index) == true"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="property-price-filter search-dropdown" ng-click="FilterMaster.Open(2,$event)">
+		<!-- Single button -->
+		<div class="btn-group" uib-dropdown is-open="Price.IsOpen" auto-close="outsideClick">
+			<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+				<span class="value" ng-bind="Price.DisplayName"></span>
+			</button>
+			<div class="mg-dropdown dropdown-menu noselect price-dropdown" uib-dropdown-menu>
+				<ul class="price-list">
+					<li class="price-list-title">{{boxMinPrice}}</li>
+					<li ng-repeat="item in Price.Items" ng-click="Price.ChangedFrom(item)" ng-class="{'selected-price':Price.IsSelectedFrom(item) }">
+						<i class="fa" ng-class="(Price.IsSelectedFrom(item)?'fa-check-circle':'fa-circle')"></i>
+						<span ng-bind="item.Name"></span>
+					</li>
+				</ul>
+				<ul class="price-list">
+					<li class="price-list-title">{{boxMaxPrice}}</li>
+					<li ng-repeat="item in Price.Items" ng-click="Price.ChangedTo(item)" ng-class="{'selected-price':Price.IsSelectedTo(item) }">
+						<i class="fa" ng-class="(Price.IsSelectedTo(item)?'fa-check-circle':'fa-circle')"></i>
+						<span ng-bind="item.Name"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="property-filter-more search-dropdown">
+		<div class="btn-group">
+			<button type="button" class="btn btn-search-dropdown dropdown-toggle btn-search-filter" ng-click="FilterMaster.OpenPopUp()">
+				<span>{{boxFilterMore}}</span>
+				<span ng-if="FilterMaster.FilterCount()> 0" class="counter ng-binding" ng-bind="FilterMaster.FilterCount()"></span>
+			</button>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn-search" ng-click="CallSearch()">{{boxSearch}}</a>
+	<div style="display:none"></div>
+</div>

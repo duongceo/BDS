@@ -1,0 +1,83 @@
+﻿@model Mogi.Core.MapModels.FrontEnd.AccountKitAuthModel
+@using Mogi.Core.Resources;
+@{
+	ViewBag.Title = Message.Msg_Confirm_Mobile;
+}
+
+<div class="login row">
+	<div class="verticalcenter">
+		<div class="panel">
+			<div class="f-header"><span class="title">@ViewBag.Title</span></div>
+			<div class="form-horizontal">
+				<div class="panel-body">
+					<div class="block_notify">
+						@Html.Raw(string.Format(Message.ConfirmMobile_Request_AccountKit, Model.Mobile))
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<div class="input-group">
+								@if (!string.IsNullOrEmpty(Model.Mobile))
+								{
+									@Html.TextBoxFor(model => Model.Mobile, new { @readonly = "readonly", @class = "text-control text-control-disabled", @required = "required" })
+								}
+								else
+								{
+									@Html.TextBoxFor(model => Model.Mobile, new { placeholder = Mogi.Core.Resources.Model.UserProfile_Mobile, @class = "text-control", @required = "required" })
+								}
+							</div>
+						</div>
+						<input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+					</div>
+					<div class="f-footer">
+						<button type="button" class="btn btn-primary" onclick="smsLogin()">@Message.Msg_Continue<i class="fa fa-angle-right"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section styles {
+	<link rel="preload" href="@Mogi.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+
+@section scripts{
+	<script src="https://sdk.accountkit.com/@(Model.Locale)/sdk.js"></script>
+	<script type="text/javascript">
+    AccountKit_OnInteractive = function () {
+		AccountKit.init({ appId: '@Model.AppId', state: '@Model.CSRF', version: '@Model.API_Version', debug: true });
+	};
+	// login callback
+	function loginCallback(response) {
+		var mobile = $('#Mobile').val();
+		if (response.status === "PARTIALLY_AUTHENTICATED") {
+			$.post(mogiRoutes.Profile.ackLoginSuccess, { 'code': response.code, 'csrf_nonce': response.state, 'mobile': mobile }, function (rp) {
+				if (!rp.Status) {
+					mogiUtils.showAlert(rp.Message, 'error');
+				} else {
+					window.location = mogiRoutes.Profile.MogiProRegister;
+				}
+			});
+		}
+		else if (response.status === "NOT_AUTHENTICATED") {
+			// handle authentication failure
+			$.post(mogiRoutes.Profile.ackLoginFailed, { 'mobile': mobile }, function (rp) {
+				if (rp.Status) {
+					if (rp.Data != null) window.location = rp.Data.ReturnUrl;
+				}
+			});
+		}
+		else if (response.status === "BAD_PARAMS") {
+		}
+	}
+    function smsLogin() {
+        var code = mogiConst.SmsCountryCode.Vn;
+        var phone = document.getElementById("Mobile").value;
+		if (phone == '' || phone == null) return;
+		AccountKit.login('PHONE', { countryCode: code, phoneNumber: phone }, loginCallback);
+    }
+	</script>
+
+
+	@Scripts.Render("~/bundles/account")
+}

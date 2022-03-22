@@ -1,0 +1,522 @@
+﻿#profile {
+    padding: 0;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+#sidebar {
+    display: none;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
+    float: left;
+}
+
+    #sidebar .col-md-3 {
+        width: 100%;
+        padding: 0;
+    }
+
+.profile-sidebar {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.profile-userinfo {
+    padding: 0 7px 15px 15px;
+    width: 100%;
+}
+
+    .profile-userinfo .profile-userpic {
+        width: 50px;
+        height: 50px;
+        float: left;
+    }
+
+        .profile-userinfo .profile-userpic img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+    .profile-userinfo .profile-usertitle {
+        color: #222222;
+        float: right;
+        width: calc(100% - 65px);
+    }
+
+    .profile-userinfo .profile-usertitle-name {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .profile-userinfo .profile-usertitle-job {
+        font-size: 14px;
+    }
+
+.profile-usermenu {
+    width: 100%;
+    float: left;
+    padding-bottom: 20px;
+}
+
+    .profile-usermenu li {
+        width: 100%;
+    }
+
+        .profile-usermenu li.active {
+            background-color: #f2f2f2;
+            color: #222;
+            font-weight: bold;
+        }
+
+    .profile-usermenu i {
+        margin-right: 15px;
+    }
+
+#property {
+    width: 100%;
+    padding: 0 15px;
+}
+
+    #property .summary {
+        width: 100%;
+        float: left;
+    }
+
+        #property .summary .summary-tab {
+            height: 50px;
+            width: 50%;
+            padding: 15px 0;
+            text-align: center;
+            float: left;
+        }
+
+            #property .summary .summary-tab h4 a {
+                color: #222222;
+            }
+
+            #property .summary .summary-tab.active {
+                border-bottom: 3px solid #104b8c;
+            }
+
+            #property .summary .summary-tab .counter {
+                color: #20a39a;
+            }
+
+.property-item {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    position: relative;
+    height: 233px;
+}
+
+.property-header {
+    float: left;
+    position: relative;
+}
+
+.property-image, .property-price {
+    width: 100%;
+    float: left;
+}
+
+    .property-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+.property-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #20a39a;
+    background-color: #f9f9f9;
+}
+
+.property-content {
+    width: 100%;
+    float: right;
+    background-color: #ffffff;
+    height: 100%;
+    margin-left: -283px;
+    padding-left: 283px;
+}
+
+.property-info {
+    height: 100%;
+    width: 100%;
+}
+
+    .property-info .title {
+        width: 100%;
+        min-height: 21px;
+        max-height: 42px;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 21px;
+        color: #222222;
+    }
+
+    .property-info .property-address {
+        width: 100%;
+        overflow: hidden;
+        max-height: 18px;
+        font-size: 12px;
+        color: #878787;
+        margin: 5px 0px;
+    }
+
+.property-utility {
+    display: block;
+    width: 100%;
+    height: 21px;
+    line-height: 21px;
+    font-weight: bold;
+    color: #5e5e5e;
+    margin-bottom: 5px;
+}
+
+    .property-utility > span {
+        margin-right: 30px;
+    }
+
+        .property-utility > span > i {
+            margin-right: 5px;
+        }
+
+.property-summary {
+    display: block;
+    width: 100%;
+    max-height: 42px;
+    line-height: 21px;
+    overflow: hidden;
+    color: #5e5e5e;
+}
+
+.posted-date {
+    display: block;
+    width: 100%;
+    height: 20px;
+    color: #878787;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.property-agent {
+    border-top: 1px solid #e4e4e4;
+    padding-top: 8px;
+}
+
+.agent-image {
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
+    .agent-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 50%;
+    }
+
+.agent-info {
+    width: 100%;
+    margin-left: -55px;
+    padding-left: 55px;
+    float: right;
+}
+
+.agent-intro {
+    width: 100%;
+    margin-right: -35px;
+    padding-right: 35px;
+    float: left;
+}
+
+.agent-name {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #222222;
+}
+
+.agent-mobile {
+    font-size: 12px;
+    color: #6d6d6d;
+}
+
+.command-delete {
+    float: right;
+    width: 35px;
+    font-size: 24px;
+    padding-top: 5px;
+    z-index: 2;
+    position: relative;
+}
+
+.link-overlay:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/*Mogi FeedBack*/
+#feedback {
+    width: 90%;
+    margin: 50px auto;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+    #feedback ul {
+        padding-left: 40px;
+    }
+
+        #feedback ul li {
+            list-style-type: disc;
+        }
+
+    #feedback .title {
+        padding: 10px 0;
+    }
+
+    #feedback .control {
+        margin-bottom: 10px;
+    }
+
+    #feedback input[type="text"] {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 0 10px 15px;
+        border: solid 1px #e4e4e4;
+    }
+
+    #feedback textarea {
+        width: 100%;
+        height: 180px;
+        padding: 10px 0 10px 15px;
+        border: solid 1px #e4e4e4;
+    }
+
+    #feedback input[type="submit"] {
+        width: 140px;
+        height: 36px;
+        border-radius: 3px;
+        border: 0;
+        background-color: #104b8c;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        color: #ffffff;
+        padding: 0;
+    }
+
+@media (min-width: 1140px) {
+    #sidebar {
+        width: 360px;
+        display: block;
+    }
+
+    .profile-userinfo .profile-userpic {
+        width: 70px;
+        height: 70px;
+        float: left;
+    }
+
+    .profile-userinfo .profile-usertitle {
+        width: calc(100% - 85px);
+    }
+
+    #main {
+        /*margin-left: 390px;
+        margin-bottom: 40px;*/
+        margin-left: -360px;
+        /*margin-bottom: 40px;*/
+        float: right;
+        width: 100%;
+        padding-left: 390px;
+    }
+
+    #property {
+        padding: 0;
+    }
+
+        #property .summary {
+            width: 100%;
+        }
+
+            #property .summary .summary-tab {
+                width: auto;
+                height: auto;
+                padding: 5px 20px 10px 20px;
+            }
+
+
+    /*Mogi FeedBack*/
+    #feedback {
+        width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 992px) and (max-width: 1139px) {
+    #profile {
+        padding: 0 15px;
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+
+    #sidebar {
+        width: 360px;
+        display: block;
+    }
+
+    .profile-userinfo .profile-userpic {
+        width: 70px;
+        height: 70px;
+        float: left;
+    }
+
+    .profile-userinfo .profile-usertitle {
+        width: calc(100% - 85px);
+    }
+
+    #main {
+        margin-left: -360px;
+        float: right;
+        width: 100%;
+        padding-left: 390px;
+    }
+
+
+    /*Mogi FeedBack*/
+    #feedback {
+        width: 70%;
+    }
+}
+
+@media (min-width: 768px) {
+    .property-info .property-address {
+        margin: 5px 0px;
+    }
+
+    .property-header {
+        width: 263px;
+    }
+
+        .property-header .property-image {
+            height: 175px;
+        }
+
+    .property-price {
+        height: 58px;
+        padding: 17px 0 0 20px;
+    }
+
+    .property-content {
+        padding-left: 293px;
+        margin-left: -263px;
+        padding: 10px 20px 0px 283px;
+    }
+
+    .property-info {
+        padding-bottom: 80px;
+        margin-bottom: -80px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #profile {
+        padding: 0 25px;
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    #sidebar {
+        width: 220px;
+        display: block;
+    }
+
+    #main {
+        margin-left: -220px;
+        float: right;
+        width: 100%;
+        padding-left: 250px;
+    }
+
+    #property {
+        padding: 0;
+    }
+
+        #property .summary {
+            width: 100%;
+        }
+
+            #property .summary .summary-tab {
+                width: auto;
+                height: auto;
+                padding: 5px 18px 10px 18px;
+            }
+
+    .property-content {
+        margin-left: -263px;
+        padding: 10px 5px 0px 273px;
+    }
+
+    .property-utility > span {
+        margin-right: 7px;
+    }
+    /*Mogi FeedBack*/
+    #feedback {
+        width: 80%;
+    }
+}
+
+@media (max-width: 767px) {
+    .property-info .property-address {
+        margin: 5px 0px;
+    }
+
+    .property-header {
+        width: 100%;
+    }
+
+        .property-header .property-image {
+            width: 100%;
+            height: 100%;
+        }
+
+    .property-price {
+        height: 58px;
+        padding: 17px 0 0 20px;
+    }
+
+    .property-content {
+        width: 100%;
+        padding: 0px 10px;
+        float: left;
+        margin: 0;
+    }
+
+    .property-info {
+        padding-bottom: 80px;
+        margin-bottom: -80px;
+    }
+
+    .property-item {
+        height: initial;
+    }
+}

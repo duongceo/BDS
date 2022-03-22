@@ -1,0 +1,48 @@
+﻿@model Dictionary<string,string>
+@{
+	var googleCaptchaSiteKey = HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SITEKEY;
+	var google_hl = HappyRE.Core.Utils.Common.GOOGLE_HL;
+	string buttonId = Model["buttonId"];
+	bool on_demand = Model.ContainsKey("onDemand");
+}
+<div id="recaptcha"
+	 class="g-recaptcha"
+	 data-sitekey="@googleCaptchaSiteKey"
+	 data-callback="captchaCallback"
+	 data-size="invisible">
+</div>
+<script type="text/javascript">
+	var captcha_id = 0;
+	var captcha_resp = '';
+	var captcha_buttonId = '@buttonId';
+	function captchaInit() {
+		if (window.gcaptcha) return;
+		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		po.src = 'https://www.google.com/recaptcha/api.js?onload=captchaOnload&render=explicit&hl=@google_hl';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		window.gcaptcha = true;
+	}
+	function captchaOnload() {
+			captcha_id = grecaptcha.render('recaptcha');
+	}
+	function captchaCallback() {
+		captcha_resp = grecaptcha.getResponse(captcha_id);
+		if (captcha_resp != '') {
+			document.getElementById(captcha_buttonId).click();
+		}
+	}
+	function captchaValidate(btnId) {
+		if (btnId) captcha_buttonId = btnId;
+		captcha_resp = grecaptcha.getResponse(captcha_id);
+		if (captcha_resp === '') {
+			grecaptcha.execute(captcha_id);
+			return false;
+		}
+		grecaptcha.reset(captcha_id);
+		return true;
+	}
+</script>
+@if (on_demand == false)
+{
+<script src="https://www.google.com/recaptcha/api.js?onload=captchaOnload&render=explicit&hl=@google_hl" async defer></script>
+}

@@ -10,6 +10,7 @@ namespace HappyRE.Core.Entities
     {
         public const string ACCOUNT = "ACCOUNT";
         public const string ADMIN = "ADMIN";
+        public const string SALEORDER_VIEW_MOBILE = "SALEORDER_VIEW_MOBILE";
         public const string NOTIFICATION_CREATE = "NOTIFICATION_CREATE";
         public const string NOTIFICATION_DELETE = "NOTIFICATION_DELETE";
         public const string COMMENT_DELETE = "COMMENT_DELETE";

@@ -1,0 +1,16 @@
+﻿<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">×</button>
+	<span class="modal-title">{{Data.Title}}</span>
+</div>
+<div class="modal-body noselect">
+	<ul class="list-unstyled alert-option clearfix">
+		<li ng-repeat="item in List">
+			<input type="radio" name="receiveEmailType" id="radio{{item.i}}" ng-value="item.i" ng-checked="(item.i == Data.ReceiveEmailType)" ng-model="Data.ReceiveEmailType">
+			<label for="radio{{item.i}}">{{item.n}}</label>
+		</li>
+	</ul>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default" type="button" ng-click="close()">{{Msg.Msg_Cancel}}</button>
+	<button class="btn btn-primary" type="button" ng-click="update()">{{Msg.Msg_Update}}</button>
+</div>

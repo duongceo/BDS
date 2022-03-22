@@ -1,0 +1,31 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	this.Layout = null;
+	var msg = new
+	{
+		Home_TopSale_Title = HappyRE.Web.Resources.Message.Home_TopSale_Title,
+		Home_TopRent_Title = HappyRE.Web.Resources.Message.Home_TopRent_Title,
+		LogIn = HappyRE.Web.Resources.Message.Home_LogIn,
+	};
+	var routes = new
+	{
+		LogIn = HappyRE.Core.Resources.Message.Routing_LogIn
+	};
+	bool IsMobile = (bool)ViewBag.IsMobile;
+}
+@if (IsMobile)
+{
+	@*Html.RenderAction("HomeCenter", "Banner", new { code = "home-top" });
+	<div id="login" ng-show="!Profile.isAuth()" class="mobile">
+		<a href="@routes.LogIn">@msg.LogIn</a>
+	</div>*@
+}
+else
+{
+	<div class="mg-1170-container" ng-non-bindable>
+        @{Html.RenderAction("HomeWardReview", "CachePartial");}
+		@{Html.RenderAction("TopPropertiesForSale", "CachePartial", new { size = 4, cid = 30, title = msg.Home_TopSale_Title, rent = false, elementId = "property-city-30" });}
+		@{Html.RenderAction("HomeCenter", "Banner", new { code = "home-top" });}
+		@{Html.RenderAction("TopPropertiesForSale", "CachePartial", new { size = 4, cid = 24, title = msg.Home_TopSale_Title, rent = false, elementId = "property-city-24" }); }
+	</div>
+}

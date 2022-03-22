@@ -1,0 +1,107 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.RegisterModel
+@using HappyRE.Core.Resources;
+@using MBN.Utils.Extension;
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = Message.Msg_Register_MogiPro;
+	Model.Agreement = string.Empty; // Chưa sử dụng
+}
+<div class="login row" style="max-width: 100%;width: 640px;" ng-controller="accountController" ng-init="MogiPro.init()" ng-cloak>
+	<div class="verticalcenter">
+		<div class="panel">
+			<div class="f-header"><span class="title">@ViewBag.Title</span></div>
+			<div class="panel-body">
+				<!--Register-->
+				<div ng-show="MogiPro.step=='register'" class="clearfix">
+					<div class="form-group">
+						<span>@Html.Raw(@Message.Msg_RegMogiPro_Title)</span>
+					</div>
+					<div class="form-group">
+						<div class="agreement-block">
+							@{Html.RenderPartial("_Agreement");}
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" ng-click="MogiPro.confirm()" class="btn btn-primary">@Message.Msg_AgreeAndContinue<i class="fa fa-angle-right"></i></button>
+						<button type="button" ng-click="MogiPro.ignore()" class="btn btn-clear">@Message.Register_MogiPro_Ignore</button>
+					</div>
+				</div>
+
+				<!--Upgrade MogiPro-->
+				<div ng-show="MogiPro.step=='mogipro'" class="clearfix">
+					<form name="myForm2" ng-submit="MogiPro.register()" novalidate>
+						<div class="mg-form-group-body">
+							<div class="form-group">
+								<label>@HappyRE.Core.Resources.Model.UserProfile_Mobile:</label>
+								<input type="text" class="form-control" value="{{Profile.Mobile}}" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								@{
+									var attributes = new Dictionary<string, string>() { { "class", "form-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Email }, { "autocomplete", "off" } };
+									if (Model.IsVerifiedEmail == true)
+									{
+										attributes.Add("readonly", "readonly");
+									}
+									else
+									{
+										attributes.Add("autofocus ", "");
+									}
+								}
+								<label>@HappyRE.Core.Resources.Model.UserProfile_Email:</label>
+								@Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", attributes))
+								@Html.AngularMessage("Email", "myForm2", new Dictionary<string, string>() { })
+							</div>
+							<div class="form-group">
+								<label>@Message.UserZone_Title:</label>
+								<select chosen data-placeholder="@HappyRE.Core.Resources.Model.UserZone_ZoneId" class="form-control"
+										placeholder-text-single="'@HappyRE.Core.Resources.Model.UserZone_ZoneId'"
+										no-results-text="'@HappyRE.Core.Resources.Model.UserZone_ZoneId'"
+										allow-single-deselect="true"
+										ng-model="Profile.ZoneId"
+										ng-required="true"
+										name="ZoneId"
+										value=""
+										ng-options="item.ZoneId as item.Name for item in MogiPro.Zones">
+									<option value=""></option>
+								</select>
+								@Html.AngularMessage("ZoneId", "myForm2", null)
+							</div>
+							<div class="form-group">
+								<label>@Message.UserZone_MonthTrial:</label><img class="free-icon" src="~/Content/Images/icons/free-icon.png" />
+								<input type="text" class="form-control" value="1 @HappyRE.Core.Resources.Message.UnitPrice_Suffix_Month" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">@Message.Msg_Register<i class="fa fa-angle-right"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!--Welcome-->
+				<div ng-show="MogiPro.isWelcome()" class="clearfix">
+					<div class="form-group">
+						<div ng-bind="RegisterResult.Msg"></div>
+						<br>
+						<h4 ng-bind="RegisterResult.Title"></h4>
+						<br>
+					</div>
+					<div class="form-group">
+						<button type="button" ng-click="MogiPro.done()" class="btn btn-primary">@Message.Msg_Continue<i class="fa fa-angle-right"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section styles {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/account.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts{
+	<script type="text/javascript">
+		var angular_modules = ['ngMessages', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'blockUI', 'localytics.directives'];
+        var pageData = { "Mobile": "@Model.Mobile", "Profile" : @Html.Raw( Model.ToJson()) };
+	</script>
+	@Scripts.Render("~/content/account.js")
+	@*<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/account.js")' type="text/javascript"></script>*@
+}

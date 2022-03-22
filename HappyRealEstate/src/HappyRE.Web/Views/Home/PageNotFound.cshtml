@@ -1,0 +1,88 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using MBN.Utils.Extension;
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	var msg = new
+	{
+		Filter = HappyRE.Core.Resources.Message.Msg_Filter_More,
+		FilterClear = HappyRE.Core.Resources.Message.Msg_Filter_Clear,
+		Close = HappyRE.Core.Resources.Message.Msg_Close,
+		Finish = HappyRE.Core.Resources.Message.Msg_Finish,
+		Search = HappyRE.Core.Resources.Message.Msg_Search,
+		Keyword_PlaceHolder = HappyRE.Core.Resources.Message.Search_Keyword_PlaceHolder,
+		View_List = HappyRE.Core.Resources.Message.Listing_View_List,
+		View_Map = HappyRE.Core.Resources.Message.Listing_View_Map,
+		MinPrice = HappyRE.Core.Resources.Message.Listing_Price_MinPrice,
+		MaxPrice = HappyRE.Core.Resources.Message.Listing_Price_MaxPrice,
+
+		Location = HappyRE.Web.Resources.Message.Listing_Filter_Location,
+		FilterTitle = HappyRE.Web.Resources.Message.Listing_Filter_Title,
+		FilterMore = HappyRE.Web.Resources.Message.Listing_Filter_More,
+		Apply = HappyRE.Core.Resources.Message.Msg_Apply
+	};
+
+	if (ViewBag.Title == null)
+	{
+		ViewBag.Title = "404 Error | batdongsanhanhphuc.vn";
+	}
+
+}
+
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+	<ul class="dropdown-menu suggest"
+		ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top-3+'px', left: position().left+'px',width: position().width +2 + 'px'}"
+		role="listbox" aria-hidden="{{!isOpen()}}">
+		<li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+			<a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+		</li>
+	</ul>
+</script>
+<div ng-controller="ListViewV2Controller" class="mg-listing">
+	<div id="search-bar">
+		<div ng-include="TemplateUrl"></div>
+	</div>
+
+	<div id="page-content clearfix">
+		<div class="mg-960-container">
+			<div class="container">
+				<div style="text-align:center;margin-top:60px;">
+					<img style="max-width: 100%;" src="~/content/images/404.png" />
+					<div style="padding: 10px;margin-top:40px;">
+						<span style="font-weight:bold;font-size:20px">Rất tiếc trang bạn muốn tìm kiếm không tồn tại hoặc tin đăng đã hết hạn</span>
+						<br />
+						<span style="font-size:16px;color:#53535f;">Bạn hãy thử công cụ tìm kiếm ở trên để tìm bất động sản.</span>
+					</div>
+					<div>
+						<a class="btn btn-mogi-2" href="/" style="padding: 5px 30px; font-weight:bold">Về trang chủ</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section styles {
+	@*@Styles.Render("~/content/list.css")*@
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/list.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section headscripts {
+	w.TemplateSearchBarUrl = '/template/property_searchbar?v=@Model.Version';
+	fetchText(w.TemplateSearchBarUrl, 'property_searchbar');
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+		var filterData = @Html.Raw(Model.Filter.ToJson());
+		var pageData = { IsMapView: false, Ids: [@Html.Raw(Model.GetIds())], Url: '@Html.Raw(ViewBag.Canonical)' };
+		function loadAds(t) {
+			if (t === 0) return;
+			var o = document.getElementById('google-adsense-1');
+			if (o && o.offsetTop > 100) { (adsbygoogle = window.adsbygoogle || []).push({}); return; }
+			setTimeout(function () { loadAds(t-1) }, 100);
+		}
+		if (!w.IsMobile) { loadAds(20); }
+	</script>
+	@*@Scripts.Render("~/content/list.js")*@
+	<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/list.js")' type="text/javascript"></script>
+}

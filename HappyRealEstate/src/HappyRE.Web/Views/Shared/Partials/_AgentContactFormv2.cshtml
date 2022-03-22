@@ -1,0 +1,48 @@
+﻿@model HappyRE.Web.Models.UserInboxViewModel
+@using HappyRE.Core.Resources
+@if (Model == null)
+{
+	return;
+}
+@{
+	bool IsContractorPost = Model.IsContractorPost();
+	string AgentUrl = (Model.IsHidden ? "#" : @Model.AgentUrl);
+}
+
+<div class="agent-info">
+    @if (IsContractorPost)
+    {
+        <img class="agent-avatar" src="@HappyRE.Core.Utils.Common.AvatarUrl" alt="@Model.ContactName" />
+        <div class="agent-name">@Html.Encode(Model.ContactName)</div>
+    }
+    else
+    {
+        <img class="agent-avatar" src="@Model.GetAvatarUrl()" alt="@Model.AgentName" />
+		<div class="agent-name">
+			@if (Model.IsHidden)
+			{
+				@Html.Encode(Model.AgentName)
+			}
+			else
+			{
+				<a href="@AgentUrl">@Html.Encode(Model.AgentName)</a>
+			}
+			@if (Model.IsVerifiedIDCard == true)
+			{
+				<i class="fa-check-circle"></i>
+			}
+		</div>
+        <div class="agent-date">@Message.Detail_JoinedDate: @Model.JoineDateToString()</div>
+    }
+</div>
+<div class="agent-contact">
+    @if (false == IsContractorPost)
+    {
+		<a href="tel:@Model.AgentMobile" class="fa-phone bold" gtm-event="link" gtm-cat="detail" gtm-act="mobile-call" ng-bind="PhoneFormat('@Model.AgentMobile')">@Model.AgentMobile</a>
+		<a href="#" class="fa-envelope" data-toggle="modal" data-target="#message" gtm-event="link" gtm-cat="detail" gtm-act="ask" ng-click="Message.Open()"><span class="hidden-xs">@Message.ContactForm_AskMore</span></a>
+    }
+    else
+    {
+		<a href="tel:@Model.ContactMobile" class="fa-phone bold" gtm-event="link" gtm-cat="detail" gtm-act="mobile-call" ng-bind="PhoneFormat('@Model.ContactMobile')">@Model.ContactMobile</a>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model Mogi.Core.MapModels.FrontEnd.ForgotPasswordViewModel
+@using Mogi.Core.Resources;
+@{
+    ViewBag.Title = Message.Msg_Mobile_Verify;
+}
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()">
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+    <div id="main" class="clearfix">
+        <div class="profile-content">
+            <div class="clearfix">
+                @using (Html.BeginForm("VerifiedMobile", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div>
+                        <div class="block_notify">
+                            <span>@Message.Msg_Mobile_Verify</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                @if (string.IsNullOrEmpty(Model.Mobile))
+                                {
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "text-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Mobile) })
+                                }else
+                                {
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "text-control", @readonly = "readonly", placeholder = Html.DisplayPlaceHolderFor(m => m.Mobile) })
+                                }
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="f-footer">
+                                <button type="submit" class="btn btn-primary">@Message.Msg_Send</button>
+                            </div>
+                        </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+<script>
+        $(document).ready(function () {
+            setTimeout(function () { $('input[name="Mobile"]').focus() }, 1000);
+        });
+</script> 
+@Styles.Render("~/Content/profilecss")
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}

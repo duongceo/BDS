@@ -1,0 +1,136 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using MBN.Utils.Extension;
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	var msg = new
+	{
+		View_List = HappyRE.Core.Resources.Message.Listing_View_List,
+		View_Map = HappyRE.Core.Resources.Message.Listing_View_Map,
+		Sort = HappyRE.Core.Resources.Message.Listing_Sort_Default
+	};
+	bool show_top = (Model.TopItems != null && Model.TopItems.Count > 0 && Model.Data != null && Model.Data.Count > 0);
+	var main_bottom_banner = "list-main-bottom-" + (Model.Filter.Rent ? "rent" : "sale");
+}
+<div ng-controller="ListViewV2Controller" class="mg-listing">
+	<div>
+		<div id="search-bar">
+			<div ng-include="TemplateUrl"></div>
+		</div>
+		<div id="breadcrumb">
+			<div class="mg-1170-container">
+				@{Html.RenderAction("Breadcrumb", "CachePartial", Model.Filter);}
+			</div>
+		</div>
+		<div id="mg-page-content" class="mg-1170-container">
+            <div id="main">
+                <div id="page-header"><h1 class="page-title">@ViewBag.TitlePage</h1></div>
+                @* TOP *@
+                @if (show_top == true)
+                {
+                    Html.RenderPartial("Partials/_TopList", Model.TopItems);
+                }
+                @* Listing *@
+                <div class="property-list">
+                    <div class="property-list-result clearfix">
+                        <div class="property-result-summary">@Html.Raw(Model.GetResult())</div>
+                        <div class="property-filter-control">
+                            <ul>
+                                <li uib-dropdown>
+                                    <a id="dropdown-sort" uib-dropdown-toggle ng-class="{'sort-active': PropertySort.Value==1 }">
+                                        <i class="fa fa-sort"></i><span class="sort-label" ng-bind-html="SortView.Selected.Name">@msg.Sort</span>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" uib-dropdown-menu aria-labelledby="dropdown-sort">
+                                        <li ng-repeat="item in SortView.Items">
+                                            <a ng-click="SortView.Changed(item)" gtm-event="link" gtm-cat="listing" gtm-act="sort" ng-bind="item.Name"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="active hidden-xs"><a href="javascript:void(0)" class=""><i class="fa fa-list" aria-hidden="true"></i>@msg.View_List</a></li>
+                                <li class="hidden-xs"><a ng-click="SortView.ChangedView('map')" gtm-event="link" gtm-cat="listing" gtm-act="map-view"><i class="fa fa-marker"></i>@msg.View_Map</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    @if (Model.IsList())
+                    {
+                        @Html.Partial("Partials/_Listv2")
+
+                    }
+                    else
+                    {
+                        @Html.Partial("Partials/_Map")
+                    }
+                </div>
+
+                <div class="clearfix">@Html.Partial("Partials/_Paging", Model.Paging)</div>
+                <div class="proptype" ng-if="SearchPropType.ShowBottom">
+                    <ul class="clearfix">
+                        <li ng-repeat="item in SearchPropType.Bottom">
+                            <a ng-href="{{item.u}}" ng-bind="item.n" gtm-event="link" gtm-cat="listing" gtm-act="cat-bottom" title="{{item.n}}"></a>
+                        </li>
+                    </ul>
+                </div>
+                @{Html.RenderAction("GetWardReviewByDistrict", "CachePartial", new { districtId = Model.Filter.DistrictId, forRent = Model.Filter.Rent });}
+                @{Html.RenderAction("MainBanner", "Banner", new { code = main_bottom_banner });}
+
+                @if (Model.Paging.CurrentPage == 1)
+                {
+                    <div class="page-desciption">
+                        @Html.Raw(ViewBag.Footer)
+                    </div>
+                }
+            </div>
+			<div id="side-bar">
+				@{
+					var f1 = Model.Filter;
+					int propertyTypeId = Model.Filter.PropertyTypeId.GetValueOrDefault(0);
+					int propertyStyleId = 0;
+					var lstStyle = Model.Filter.PropertyStyles;
+					if (lstStyle != null && lstStyle.Count == 1)
+					{
+						propertyStyleId = lstStyle[0];
+					}
+
+					string templateSideBarUrl = $"/template/property_sidebar?rent={f1.Rent.ToString().ToLower()}&cid={f1.CityId}&did={f1.DistrictId}&pid={propertyTypeId}&psid={propertyStyleId}&sid={f1.StreetId}";
+					<div id="property_sidebar"></div>
+				}
+				<div id="google-adsense-1" style="float:left;width:100%;margin-top:15px">
+					<!-- Mogi Listing  Auto -->
+					<ins class="adsbygoogle"
+						 style="display:block"
+						 data-ad-client="ca-pub-3000426983537206"
+						 data-ad-slot="6671725187"
+						 data-ad-format="auto"
+						 data-full-width-responsive="true"></ins>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section styles {
+	@*@Styles.Render("~/content/list.css")*@
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/list.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section headscripts {
+	w.TemplateSideBarUrl = '@Html.Raw(templateSideBarUrl)';
+	w.TemplateSearchBarUrl = '/template/property_searchbar?v=@Model.Version';
+	fetchText(w.TemplateSearchBarUrl, 'property_searchbar');
+	if (!w.IsMobile) {w.lazy.push('sidebar'); fetchText(w.TemplateSideBarUrl, 'property_sidebar', 'property_sidebar', true);}
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+		var filterData = @Html.Raw(Model.Filter.ToJson());
+		var pageData = { IsMapView: false, Ids: [@Html.Raw(Model.GetIds())], Url: '@Html.Raw(ViewBag.Canonical)' };
+		function loadAds(t) {
+			if (t === 0) return;
+			var o = document.getElementById('google-adsense-1');
+			if (o && o.offsetTop > 100) { (adsbygoogle = window.adsbygoogle || []).push({}); return; }
+			setTimeout(function () { loadAds(t-1) }, 100);
+		}
+		if (!w.IsMobile) { loadAds(20); }
+	</script>
+	@*@Scripts.Render("~/content/list.js")*@
+	<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/list.js")' type="text/javascript"></script>
+}

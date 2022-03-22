@@ -1,0 +1,214 @@
+﻿@using HappyRE.Core.Resources;
+@model HappyRE.Web.Models.SearchAlertViewModel
+
+@using MBN.Utils;
+@{
+    Layout = null;
+    string HomeUrl = WebUtils.AppSettings("HomeUrl", "");
+    string searchUrl = ViewBag.SearchUrl;
+    searchUrl += (searchUrl.IndexOf("?") == -1 ? "?" : "&") + "utm_source=newsletter&utm_medium=email&utm_campaign=tinmoi";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListMail</title>
+</head>
+<body style="background-color:#f0f0f0;">
+    <table width="100%">
+        <tr>
+            <td class="header" align="center">
+                <table width="750" style="font-family: 'Arial',sans-serif;line-height:1.5">
+                    <tr>
+                        <td>
+                            <a href="http://batdongsanhanhphuc.vn">
+                                <img src="https://batdongsanhanhphuc.vn/content/images/logo.png" />
+                            </a>
+                        </td>
+                        <td align="right">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a style="text-decoration:none; font-weight: 600;color: #878787;" href="https://batdongsanhanhphuc.vn/mua-nha-dat">
+                                            @Message.Alert_Sale |
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style="text-decoration:none; font-weight: 600;color: #878787;" href="https://batdongsanhanhphuc.vn/thue-nha-dat">
+                                            @Message.Alert_Rent
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="greeting" align="center">
+                <table width="750" style="border-top: 1px solid black;line-height:32px">
+                    <tr>
+                        <td style="padding-top: 10px; font-size: 24px;    color: #53535f;    font-weight: bold;">
+                            @Html.Raw(string.Format(Message.Alert_Greeting, Model.UserName))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px; font-size: 17px;    color: #53535f;    font-weight: bold;">
+                            @*Có @Model.Alerts.Count bất động sản mới phù hợp tiêu chí bạn đã tìm kiếm*@
+                            @*Có 9 bất động sản mới Thuê Mặt bằng, Cửa hàng, Shop, Quận Hoàn Kiếm, Hà Nội, 10 Triệu - 50 Triệu trong x ngày qua*@
+                            @Html.Raw(string.Format(Message.Alert_Summary, ViewBag.Total, Model.Title, Model.Frequency))
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="content" align="center">
+                <table width="750">
+                    @foreach (var item in Model.Alerts)
+                    {
+                        var image = @item.GetCoverImages().Count > 0 ? @item.GetCoverImages()[0] : "";
+                        var url = HomeUrl + item.Url + "?utm_source=newsletter&utm_medium=email&utm_campaign=tinmoi";
+                        var avatar = (string.IsNullOrEmpty(item.User_LogoSquare) ? "https://batdongsanhanhphuc.vn/content/images/avatar.png" : item.User_LogoSquare);
+                        <tr>
+                            <td align="center">
+
+                                <a style="text-decoration: none; color:black" href="@url">
+                                    <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 10px; background-color: #ffffff; font-family: 'Arial',sans-serif; height:100%; width:750px;line-height:1.5">
+                                        <tr>
+                                            <td width="263" height="175"><img style="width: 263px; height:175px; display:block" width="263" height="175" src="@image" /></td>
+                                            <td style="vertical-align: top; padding-right: 20px;padding-left: 30px; ">
+                                                <div style="height:175px; border-bottom:1px solid #e4e4e4;">
+                                                    <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+                                                        <tr style="width:100%; height: 42px;font-size: 14px;color: #222222;">
+                                                            <td style="padding-top: 10px;padding-right: 5px; ">
+                                                                <div style="font-size:14px; color: #222; height: 42px; overflow:hidden;font-weight:bold;">
+                                                                    @item.Title
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="width:100%; height: 18px">
+                                                            <td style="padding-top: 6px">
+                                                                <div style="font-size: 12px;color: #878787;overflow:hidden;line-height: 1.5;">
+                                                                    @item.Address
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+
+                                                        <tr style="width:100%; height: 21px">
+                                                            <td style="padding-top: 6px;font-size:14px; padding-right:30px">
+                                                                <span style="">@Message.Detail_BedRoom_Label: </span><span style="padding-right:30px; font-weight: bold;"> @item.BedRooms</span>
+                                                                <span style="">@Message.Detail_BathRoom_Label: </span><span style="padding-right:30px; font-weight: bold;"> @item.BathRooms</span>
+                                                                <span style="">@Message.Detail_Area_Label: </span><span style="padding-right:30px; font-weight: bold;"> @item.Area m<sup>2</sup></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="width:100%; height: 42px">
+                                                            <td style="padding-top: 6px;">
+                                                                <div style="font-size:14px; color: #5e5e5e; height: 42px; overflow:hidden">
+                                                                    @item.Summary
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="width:100%; height: 42px">
+                                                            <td style="padding-top: 4px;">
+                                                                <div style="font-size:12px; color: #878787; height: 42px; overflow:hidden">
+                                                                    @Message.Detail_PublishDate_Label: @item.PublishDate.ToString("dd/MM/yyyy")
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 17px 0 17px 20px; background-color: #f9f9f9 "><div style="font-size: 18px;font-weight: bold;color: #20a39a; ">@item.PriceView</div></td>
+                                            <td style="vertical-align: top; padding-right: 20px;padding-left: 30px; ">
+                                                <div>
+                                                    <table border="0" cellpadding="0" cellspacing="0">
+                                                        <tr style="vertical-align: top; padding-right: 20px;padding-left: 30px; ">
+                                                            <td style="padding-top: 8px;"><img width="40" height="40" style="border-radius:50%;width: 40px; height:40px; display:block" src="@avatar" /></td>
+                                                            <td style="padding-top: 8px; vertical-align:top;padding-left: 15px">
+                                                                <div>
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td style="font-size:12px; color: #222222;">@item.User_FullName</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-size:12px; color: #6d6d6d;">@item.User_Mobile</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="content" align="center">
+                <table width="750" style="">
+                    <tr>
+                        <td width="50%" style="text-align:center">
+                            <div style="padding:15px 20px;background:#00e5b9; margin:10px">
+                                <a style="text-decoration:none;color: #222;font-size:16px" href="@searchUrl">@Message.Alert_SearchAll</a>
+                            </div>
+                        </td>
+                        <td width="50%" style="text-align:center">
+                            <div style="padding:15px 20px;background:#00e5b9; margin:10px">
+                                <a style="text-decoration:none;color: #222;font-size:16px" href="http://batdongsanhanhphuc.vn">@Message.Alert_NewSearch</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="greeting" align="center">
+                <table width="750" style="border-top: 1px solid black;line-height:24px">
+                    <tr>
+                        <td>
+                            <a style="text-decoration:none; font-weight: 600;color: #878787;" href="@ViewBag.ChangeUrl ">
+                                @Message.Alert_ChangeFrequency
+                            </a> | <a style="text-decoration:none; font-weight: 600;color: #878787;" href="@ViewBag.UnsubscribeUrl ">
+                                @Message.Alert_Unsubscribe
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="greeting" align="center">
+                <table width="750">
+                    <tr>
+                        <td style="text-align: left;line-height:20px">
+                           @Html.Raw(ViewBag.Footer)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

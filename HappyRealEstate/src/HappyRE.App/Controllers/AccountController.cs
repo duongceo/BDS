@@ -73,13 +73,13 @@ namespace HappyRE.App.Controllers
                 return View(model);
             }
             
-            var isAdmin = await _uow.UserProfile.IsAdmin(model.UserName);
+            var isNotCheckIp = await _uow.UserProfile.IsNotCheckIP(model.UserName);
 
-            if ((isAdmin == false || User.IsInRole(Core.Entities.Permission.IP_ACCESS)==false) && IP_RULE_ENABLE==true)
+            if (isNotCheckIp==false && IP_RULE_ENABLE==true)
             {
                 var ip = Request.UserHostAddress;
                 IPAddress address = IPAddress.Parse(ip);
-                var mac = NetworkHelper.GetMacAddress(address);
+                //var mac = NetworkHelper.GetMacAddress(address);
 
                 string clientIp = (Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ??
                    Request.ServerVariables["REMOTE_ADDR"]).Split(',')[0].Trim();
@@ -352,6 +352,27 @@ namespace HappyRE.App.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        //Check IP
+        public JsonResult _CIP()
+        {
+            if (User.IsInRole(Core.Entities.Permission.IP_ACCESS) == false && IP_RULE_ENABLE == true)
+            {
+                var ip = Request.UserHostAddress;
+                IPAddress address = IPAddress.Parse(ip);
+                string clientIp = (Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ??
+                   Request.ServerVariables["REMOTE_ADDR"]).Split(',')[0].Trim();
+                var valid = _uow.IpAlloweds.IsValidIp(clientIp);
+                if (!valid)
+                {
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return Json(new {data=1, message= "Bạn đang đăng nhập trên thiết bị lạ (" + clientIp + ")" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { data = 0 }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

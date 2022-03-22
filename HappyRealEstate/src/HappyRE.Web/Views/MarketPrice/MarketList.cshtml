@@ -1,0 +1,196 @@
+﻿@using HappyRE.Core.Resources;
+@using System.Linq;
+
+@model HappyRE.Web.Models.MarketListViewModel
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+    <ul class="dropdown-menu suggest"
+        ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left-1+'px',width: position().width +2 + 'px'}"
+        role="listbox" aria-hidden="{{!isOpen()}}">
+        <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+            <a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+        </li>
+    </ul>
+</script>
+
+<div class="mg-listing">
+    <div id="breadcrumb" class="clearfix">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_MarketPrice", "CachePartial");
+            }
+        </div>
+    </div>
+
+    <div id="mg-page-content">
+        <div class="mg-1170-container">
+            <div id="main" class="clearfix">
+                <div class="mt-filter" ng-controller="marketController">
+                    <h1 class="mt-title">
+                        @Html.Raw(@HappyRE.Web.Resources.Message.MarketList_Title)
+                    </h1>
+                    <form id="search-bar" class="clearfix" ng-submit="searchAgent()" novalidate>
+                        <div class="search-box">
+                            <i class="fa fa-search"></i>
+                            @*<i ng-show="Keyword!=null" ng-click="ResetKeyWord()" class="fa fa-times-circle"></i>*@
+                            <input type="text" id="q" name="keyword"
+                                   ng-model="List.Keyword"
+                                   ng-required="true"
+                                   typeahead-loading="LoadingLocations"
+                                   typeahead-no-results=""
+                                   typeahead-on-select="List.SearchStreet()"
+                                   uib-typeahead="item as item.FullName(item.Name) for item in List.GetStreetSuggest($viewValue)" value=""
+                                   typeahead-popup-template-url="suggestPopupTemplate.html"
+                                   typeahead-show-hint="false"
+                                   autocomplete="off" placeholder="@HappyRE.Web.Resources.Message.MarketList_DistrictOrStreet" autofocus />
+                        </div>
+                        <a class="search-btn" ng-click="List.SearchStreet()" href="javascript:void(0)">
+                            @Message.Msg_Search
+                        </a>
+                    </form>
+                    <div class="mt-desc">
+                        @*<span>Thông tin tham kháo giá bất động sản, số lượng tin đăng nhà đất tại Bùi Viện, Quận 1,TP.HCM, giá bán thấp nhất, giá rao cao nhấp, định giá trung bình Thông tin tham kháo giá bất động sản. </span><a href="/">Xem thêm <i>></i></a>*@
+                        <span>@ViewBag.Description</span>
+                    </div>
+                </div>
+                
+                @if (Model.HasHCM())
+                {
+                    <h2 class="mt-location-title">Bảng giá nhà đất TP HCM</h2>
+                    <div class="district">
+                        <div class="mt-table" id="mtTable">
+                            <div class="mt-header clearfix">
+                                <div class="mt-street">
+                                    @HappyRE.Web.Resources.Message.MarketList_District
+                                </div>
+                                <div class="mt-type" style="white-space: nowrap;">Số lượng BĐS</div>
+                                <div class="mt-vol text-right">
+                                    Giá trung bình
+                                </div>
+                            </div>
+                            @foreach (var item in Model.HCM)
+                            {
+                                <div class="mt-row clearfix">
+                                    <div class="mt-street">
+                                        <div>
+                                            <a class="link-overlay" href="@item.Url">
+                                                @item.DistrictName
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-type"> @item.TotalAssets.ToString("N0")</div>
+                                    <div class="mt-vol text-right number">
+                                        <span>@Html.Raw(item.AvgPriceDisplay)/m<sup>2</sup></span>
+                                        @if (item.PriceChangedPercentage < 0)
+                                        {
+                                            <sup class="change down">
+                                                @Math.Abs(item.PriceChangedPercentage).ToString("0.#")% <i>&#9660;</i>
+                                            </sup>
+                                        }
+                                        else if (item.PriceChangedPercentage > 0)
+                                        {
+                                            <sup class="change up">
+                                                @Math.Abs(item.PriceChangedPercentage).ToString("0.#")% <i>&#9650;</i>
+                                            </sup>
+                                        }
+                                        else
+                                        {
+                                            <sup class="change">
+                                                &mdash;
+                                            </sup>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+
+                @if (Model.HasHanoi())
+                {
+                    <h2 class="mt-location-title">Bảng giá nhà đất Hà Nội</h2>
+                    <div class="district">
+                        <div class="mt-table" id="mtTable">
+                            <div class="mt-header clearfix">
+                                <div class="mt-street">
+                                    @HappyRE.Web.Resources.Message.MarketList_District
+                                </div>
+                                <div class="mt-type" style="white-space: nowrap;">Số lượng BĐS</div>
+                                <div class="mt-vol text-right">
+                                    Giá trung bình
+                                </div>
+                            </div>
+                            @foreach (var item in Model.Hanoi)
+                            {
+                                <div class="mt-row clearfix">
+                                    <div class="mt-street">
+                                        <div>
+                                            <a class="link-overlay" href="@item.Url">
+                                                @item.DistrictName
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-type"> @item.TotalAssets.ToString("N0")</div>
+                                    <div class="mt-vol text-right number">
+                                        <span>@Html.Raw(item.AvgPriceDisplay)/m<sup>2</sup></span>
+                                        @if (item.PriceChangedPercentage < 0)
+                                        {
+                                            <sup class="change down">
+                                                @Math.Abs(item.PriceChangedPercentage).ToString("0.#")% <i>&#9660;</i>
+                                            </sup>
+                                        }
+                                        else if (item.PriceChangedPercentage > 0)
+                                        {
+                                            <sup class="change up">
+                                                @Math.Abs(item.PriceChangedPercentage).ToString("0.#")% <i>&#9650;</i>
+                                            </sup>
+                                        }
+                                        else
+                                        {
+                                            <sup class="change">
+                                                &mdash;
+                                            </sup>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                }
+
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+            </div>
+            <div id="side-bar" class="clearfix" style="float:right;">
+                @{
+                    Html.RenderAction("SearchRefined", "CachePartial", new { rent = false, cityId = 0, districtId = 0, propertyTypeId = 0, propertyStyleId = 0, gtmCat = "houseprice" });
+                }
+            </div>
+
+        </div>
+    </div>
+    <section id="hidden-content"></section>
+
+</div>
+
+@section styles {
+
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketlist")">
+    <link href="~/Content/layout1170.css" rel="stylesheet" />
+    @*<link href="~/Content/market/marketlist.css?v=20190306" rel="stylesheet" />*@
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/market")
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

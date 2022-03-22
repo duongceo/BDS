@@ -1,0 +1,44 @@
+﻿@model HappyRE.Web.Models.HomeTopProperty
+@using HappyRE.Core.Resources;
+<div id="@Model.ElementId" class="property-listing desktop" ng-non-bindable>
+	<h2 class="title"><a href="@Model.Url" gtm-event="link" gtm-cat="home" gtm-act="property-latest-more">@Model.Title</a></h2>
+	<div class="property-list clearfix">
+		<ul class="property-items">
+			@foreach (var item in Model.Properties)
+			{
+				var cover = HappyRE.Core.Utils.Common.NoImageUrl;
+				List<string> covers = item.GetCoverImages(true);
+				int count = (covers == null ? 0 : covers.Count);
+				if (count > 0)
+				{
+					cover = covers[0];
+				}
+				<li class="property-item">
+					<img class="lozad" data-src="@cover" alt="">
+					<a href="@item.Url" class="title link-overlay" gtm-event="link" gtm-cat="home" gtm-act="property-latest">@item.Title</a>
+					<ul class="prop-attr">
+						<li class="land">@Convert.ToInt64(item.Area) m<sup>2</sup></li>
+						<li class="bed">@item.BedRooms</li>
+						<li class="bath">@item.BathRooms</li>
+					</ul>
+					<div class="price">@item.PriceView</div>
+				</li>
+			}
+		</ul>
+
+		<ul class="top-price-items">
+			<li class="top-price-item clearfix">
+				<span class="title">@HappyRE.Web.Resources.Message.Home_HousePrice_Title</span>
+				<a class="more" href="/gia-nha-dat">@Message.Msg_LinkMore</a>
+			</li>
+			@foreach (var item in Model.Prices)
+			{
+				<li class="top-price-item">
+					<a href="@item.Url">
+						@item.StreetName <span class="price">@Html.Raw(item.AvgPriceText)</span>
+					</a>
+				</li>
+			}
+		</ul>
+	</div>
+</div>

@@ -13,6 +13,7 @@ namespace HappyRE.Core.BLL.Repositories
         Task<IEnumerable<string>> GetImages(ImageFileQuery query);
         Task<int?> IU(ImageFile obj);
         Task UpdateImages(ImageFileQuery query, List<string> images);
-        Task AddImages(ImageFileQuery query, List<string> images);
+        void AddImages(ImageFileQuery query, List<string> images);
+        Task<bool> IsExists(ImageFileQuery query);
     }
 }

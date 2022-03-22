@@ -1,0 +1,17 @@
+﻿@model Mogi.Web.Models.HomeViewModel
+@using Mogi.Core.Resources;
+<div class="home-recent-search" >
+    <ul>
+        <li class="recent-title"><h3>@Message.Home_003</h3>
+            <a ng-show="Search.ShowRecent()" class="clear-recent" href="javascript:void(0);" ng-click="Search.ClearRecent()" gtm-event="link" gtm-cat="home" gtm-act="latest-clear">@Message.Msg_Delete</a></li>
+        <li class="recent-no-item" ng-show="!Search.ShowRecent()"><span>@Message.Search_HistoryEmpty</span></li>
+        <li ng-repeat="item in Search.Recents  | limitTo:4"><a href="javascript:void(0);" ng-click="Search.CallSearch(item.Filter)" gtm-event="link" gtm-cat="home" gtm-act="latest-search"><i class="fa fa-caret-right"></i><span ng-bind="item.Title"></span></a></li>
+    </ul>
+</div>
+<div class="home-recent-search" ng-show="Search.Show()">
+    <ul>
+        <li class="recent-title"><h3>@Message.Home_004</h3></li>
+        <li ng-repeat="item in Search.Data  | limitTo:4"><a href="javascript:void(0);" ng-click="Search.CallSearch(item.Filter)" gtm-event="link" gtm-cat="home" gtm-act="alert-search"><i class="fa fa-caret-right"></i><span ng-bind="item.Title"></span></a><i class="fa fa-bell" ng-class="{'fa-bell-saved': Search.IsAlert(item)}" ng-click="Search.ShowAlertPopup(item)" gtm-event="link" gtm-cat="home" gtm-act="alert-update"></i></li>
+    </ul>
+</div>
+

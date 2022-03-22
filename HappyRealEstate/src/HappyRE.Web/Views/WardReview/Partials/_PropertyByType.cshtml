@@ -1,0 +1,103 @@
+﻿@model  HappyRE.Web.Models.WardReviewPropertyTypeViewModel
+@using HappyRE.Core.Resources;
+@{
+    var saleTotal = 0;
+    var Sale = Model.Sale;
+    var rentTotal = 0;
+    var Rent = Model.Rent;
+    var noSaleCss = Model.Sale.Count > 0 ? "" : "display:none;";
+    var noRentCss = Model.Rent.Count > 0 ? "" : "display:none;";
+}
+
+<div id="ward-propperty" class="ward">
+    <h2 class="title">Bất động sản @Model.WardName</h2>
+    <div class="summary clearfix">
+        @if (Model.Sale.Count > 0)
+        {
+            <a ng-class="{active: !IsRent}" data-toggle="pill" data-target="#buy-list" ng-click="ToggleTab(false)">@Message.Msg_ForSale</a>
+        }
+
+        @if (Model.Rent.Count > 0)
+        {
+            <a ng-class="{active: IsRent}" data-toggle="pill" data-target="#rent-list" ng-click="ToggleTab(true)">@Message.Msg_ToRent</a>
+        }
+    </div>
+
+    <div id="property-items" class="tab-content">
+        <div id="buy-list" class="tab-pane fade in" ng-class="{active: !IsRent}" style="@noSaleCss">
+            <ul id="sale" class="ward-propperties clearfix">
+                @for (int i = 0; i < Sale.Count; i++)
+                {
+                    var item = Sale[i];
+                    saleTotal = saleTotal + item.Total;
+                    var imageAlt = string.Join(item.Name, "", Model.WardName);
+                    if (i < 3)
+                    {
+                        var img = "/Content/images/propertytype/" + item.Id + ".jpg";
+                        <li class="ward-propperty">
+                            <a href="@item.Url">
+                                <img src="@img" atl="@imageAlt"/>
+                                <div class="bg-overlay"></div>
+                                <div class="info">
+                                    <span>@item.Name</span>
+                                    <span>(@item.Total tin đăng)</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+
+                @if (Sale.Count >= 3)
+                {
+                    <li class="ward-propperty view-more">
+                        <a href="@Model.SaleUrl">
+                            <div class="info">
+                                <span>Xem tất cả</span>
+                                <span>(@saleTotal tin đăng)</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <div id="rent-list" class="tab-pane fade in" ng-class="{active: IsRent}" style="@noRentCss">
+            <ul id="sale" class="ward-propperties clearfix">
+                @for (int i = 0; i < Rent.Count; i++)
+                {
+                    var item = Rent[i];
+                    rentTotal = rentTotal + item.Total;
+                    var imageAlt = string.Join(item.Name, "", Model.WardName);
+                    if (i < 3)
+                    {
+                        var img = "/Content/images/propertytype/" + item.Id + ".jpg";
+                        <li class="ward-propperty">
+                            <a href="@item.Url">
+                                <img src="@img" alt="@imageAlt"/>
+                                <div class="bg-overlay"></div>
+                                <div class="info">
+                                    <span>@item.Name</span>
+                                    <span>(@item.Total tin đăng)</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+
+                @if (Rent.Count >= 3)
+                {
+                    <li class="ward-propperty view-more">
+                        <a href="@Model.RentUrl">
+                            <div class="info">
+                                <span>Xem tất cả</span>
+                                <span>(@rentTotal tin đăng)</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+

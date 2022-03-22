@@ -1,0 +1,89 @@
+﻿@*@model Mogi.Web.Models.FeedBackViewModel
+@using Mogi.Core.Resources;
+@{
+    ViewBag.Title = "Liên hệ";
+}
+<div class="col-md-3">
+    @{ Html.RenderAction("CategoriesByGroup", "Cms", new { codeUrl=ViewBag.CodeUrl });}
+</div>
+<div class="col-md-9">
+    <div id="mg-feedback" class="mg-container" ng-controller="feedbackController">
+        <div id="feedback">
+            <p class="page-title">Liên hệ với Mogi</p>
+            <p>
+                <b>Mọi góp ý, xin liên hệ:</b>
+            </p>
+            <ul>
+                <li>Trực tiếp tại các <a href="#">văn phòng giao dịch, các điểm nhận tin</a> của chúng tôi</li>
+                <li>Tổng đài chăm sóc khách hàng toàn quốc: <b>19006868</b> <i style="color:#656b79">(cước cuộc gọi: 1.800đ/phút/cố định; 2.700đ/phút/di động)</i></li>
+                <li>Email: <a href="mailto:trogiup@mogi.vn">trogiup@mogi.vn</a></li>
+            </ul>
+            <p class="title"><b>Quý khách hàng có thể góp ý trực tiếp tại đây:</b></p>
+            <form name="myForm" ng-submit="SendMessage()">
+                <div class="control clearfix">
+                    <div class="label">
+                        @Html.LabelFor(m => m.Content)<span class="require"></span>:
+                    </div>
+                    <div class="input">
+                        @Html.TextArea("Content", null, @Html.AngularAttibute("Content", "Model", new Dictionary<string, string>() { { "placeholder", "Nhập nội dung" } }))
+                        @Html.AngularMessage("Content")
+                    </div>
+
+                </div>
+                <div class="control clearfix">
+                    <div class="label">
+                        @Html.LabelFor(m => m.Mobile)<span class="require"></span>:
+                    </div>
+                    <div class="input">
+                        @Html.TextBox("Mobile", null, @Html.AngularAttibute("Mobile", "Model", new Dictionary<string, string>() { { "placeholder", "Nhập số điện thoại" } }))
+                        @Html.AngularMessage("Mobile")
+                    </div>
+                </div>
+                <div class="control clearfix">
+
+                    <div class="label">
+                        @Html.LabelFor(m => m.Email):
+                    </div>
+                    <div class="input clearfix">
+                        @Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Model", new Dictionary<string, string>() { { "placeholder", "Nhập địa chỉ email" } }))
+                        @Html.AngularMessage("Email")
+                    </div>
+
+                </div>
+
+
+                <div class="control clearfix">
+                    <div class="input">
+                        @Html.Partial("Partials/_Captcha", "myForm")
+                    </div>
+                </div>
+                <div class="control clearfix">
+                    <div class="input">
+                        <input type="submit" value="GỬI" />
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <section id="hidden-content">
+            <mg-modal-dialog show='modalShown' width='402px' height='150px'>
+                <div class="agent-dialog-message">
+                    <div class="content">
+                        <h4 class="">{{Message}}</h4>
+                    </div>
+                    <div class="command">
+                        <input type="button" value="HOÀN TẤT" ng-click='ToggleModal()' />
+                    </div>
+                </div>
+            </mg-modal-dialog>
+        </section>
+
+    </div>
+</div>
+@section scripts {
+    @Styles.Render("~/Content/feedback")
+    @Scripts.Render("~/bundles/feedback")
+}*@
+

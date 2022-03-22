@@ -1,0 +1,87 @@
+﻿@model Mogi.Core.MapModels.FrontEnd.ProfileViewModel
+@using Mogi.Core.Resources;
+@{
+    ViewBag.Title = Message.Msg_Register_MogiPro;
+}
+<link rel="stylesheet" href="~/scripts/libs/angular.chosen/bootstrap-chosen.css" />
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()">
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+    <div id="main" class="clearfix">
+        <div class="profile-content">
+            <div>
+                <div>
+                    <p></p>
+                </div>
+                <div class="clearfix">
+                    <div class="block_notify">
+                        <span>@Message.Msg_MogiPro_Resiter_Success</span>
+                    </div>
+
+                    <form class="form-horizontal" name="myForm" novalidate>
+                        <div>
+                            <div class="col-sm-12" ng-show="Profile.LoginByOpenId">
+                                <div>
+                                    @Html.TextBox("Mobile", null, @Html.AngularAttibute("Mobile", "Profile", new Dictionary<string, string>() { { "readonly", "" }, { "class", "text-control" }, { "placeholder", Mogi.Core.Resources.Model.UserProfile_Mobile } }))
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div>
+                                    @Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", new Dictionary<string, string>() { { "readonly", "" }, { "class", "text-control" }, { "placeholder", Mogi.Core.Resources.Model.UserProfile_Email } }))
+                                    <div ng-show="Email.HasEmail">
+                                        <i title="@Message.Msg_Email_IsVerified" ng-if="Email.IsVerifiedEmail" class="verify-icon glyphicon glyphicon-ok-sign"></i>
+                                        <div class="email-link-action" ng-if="!Email.IsVerifiedEmail && Profile.Email!=''">@Message.Msg_Email_NotVerify. <a href="javascript:void(0);" ng-click="sendVerifyEmail()">@Message.Msg_Send_EmailVerify</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <select readonly="readonly" data-placeholder="Chọn" chosen class="form-control"
+                                        allow-single-deselect="true"
+                                        placeholder-text-single="'@Mogi.Core.Resources.Model.UserProfile_CityId'"
+                                        no-results-text="'@Mogi.Core.Resources.Model.UserProfile_CityId'"
+                                        ng-init="MogiPro.initCity()"
+                                        @*ng-change="MogiPro.changeCity()"*@
+                                        ng-model="Profile.CityId"
+                                        ng-required="true"
+                                        name="CityId"
+                                        disabled
+                                        ng-options="item.i as item.n for item in MogiPro.CityOptions">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            @*<div class="col-sm-12">
+                                <select data-placeholder="Chọn" chosen class="form-control"
+                                        placeholder-text-single="'@Mogi.Core.Resources.Model.UserProfile_DistrictId'"
+                                        no-results-text="'@Mogi.Core.Resources.Model.UserProfile_DistrictId'"
+                                        allow-single-deselect="true"
+                                        ng-model="Profile.DistrictId"
+                                        ng-required="true"
+                                        name="DistrictId"
+                                        disabled
+                                        ng-options="item.i as item.n for item in MogiPro.DistrictOptions">
+                                    <option value=""></option>
+                                </select>
+                            </div>*@
+                            @*<div class="col-sm-12">
+                                <div>
+                                    @Html.TextArea("Introduction", null, @Html.AngularAttibute("Introduction", "Profile", new Dictionary<string, string>() { { "readonly", "" }, { "class", "text-control" }, { "rows", "5" }, { "placeholder", Mogi.Core.Resources.Model.UserProfile_Introduction } }))
+                                </div>
+                            </div>*@
+                        </div>
+                    </form>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+@Styles.Render("~/Content/profilecss")
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}
+

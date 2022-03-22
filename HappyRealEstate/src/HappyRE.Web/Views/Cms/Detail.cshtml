@@ -1,0 +1,33 @@
+﻿@
+@*@model HappyRE.Core.Entities.CMS_News*@
+@model HappyRE.Core.MapModels.FrontEnd.CMSNewsViewModel
+@{
+this.Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="col-md-3">
+        @{ Html.RenderAction("CategoriesByGroup", "Cms", new { groupId = Const.CMS_GROUP_GUIDE });}
+    </div>
+    <div class="col-md-9">
+        <div class="news-detail">
+            <div>
+                <h2 class="title">@Model.Subject</h2>
+            </div>
+            <div class="summary">
+                @Model.Summary
+            </div>
+            <div class="body">
+                @Html.Raw(Model.Body)
+            </div>
+        </div>
+    </div>
+</div>
+@*@Styles.Render("~/Content/cmscss")*@
+
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/mogicms")">
+
+}
+@section scripts {
+    <script async src='@Scripts.Url("~/bundles/common")' type="text/javascript"></script>
+}

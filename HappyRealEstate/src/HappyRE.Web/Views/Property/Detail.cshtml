@@ -1,0 +1,201 @@
+﻿@model HappyRE.Web.Models.PropertyDetailViewModel
+@using System.Text
+@using Newtonsoft.Json
+@using HappyRE.Core.Resources;
+@using MBN.Utils.Extension;
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    var prop = Model.Property;
+    var data = new
+    {
+        price = prop.Price,
+        userInbox = Model.UserInbox,
+        propertyId = prop.PropertyId,
+        streetId = prop.StreetId,
+        Area = prop.LandArea,
+        PriceText = prop.PriceText,
+        MarketPriceUrl = $"/template/property_marketprice/?sid={prop.StreetId}&psid={prop.SubPropertyTypeId}&did={prop.DistrictId}&cid={prop.CityId}",
+        did = prop.DistrictId,
+        psid = prop.SubPropertyTypeId,
+        rent = prop.IsRent
+    };
+    var msg = new
+    {
+        ThankYou = Message.Msg_ThankYou_Feedback,
+        million = @Message.Price_ToText_Million,
+        principal = Message.Property_Principal,
+        interest = Message.Property_Interest,
+        month = Message.UnitPrice_Suffix_Month
+    };
+    int totalImage = 0;
+    var google_hl = HappyRE.Core.Utils.Common.GOOGLE_HL;
+}
+<script type="text/ng-template" id="detail-header.html">
+    <div class="header">
+        <h1 class="title">@Html.Raw(Model.Property.Title)</h1>
+        <div class="address nowrap">@Model.Property.FullAddress</div>
+        <div class="price">@Model.Property.PriceText</div>
+    </div>
+</script>
+<div ng-controller="propertyDetailController" class="mg-listing clearfix" ng-init="Init()">
+    <div id="breadcrumb">
+        <div class="mg-1170-container">
+            @{Html.RenderAction("Breadcrumb_Detail", "CachePartial", Model.Property);}
+            <div ng-show="SearchNav.show" id="search-nav" class="search-nav clearfix">
+                <a ng-href="{{SearchNav.url}}" class="style2 search-back" gtm-event="detail" gtm-cat="search-nav" gtm-act="listing">@Message.Detail_Nav_BackToResult</a>
+                <a ng-href="{{SearchNav.nextUrl}}" ng-click="SearchNav.getNextUrl()" ng-class="{'disabled':!SearchNav.next}" class="style2 search-paging" gtm-event="detail" gtm-cat="search-nav" gtm-act="next">@Message.Detail_Nav_Next</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="mg-page-content" class="mg-1170-container">
+        <div id="main">
+            <div class="prop-intro clearfix">
+                <div ng-include="headerUrl"></div>
+                <!-- Gallery-->
+                @if (Model.Property.HasMedia() == true)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    string imageUrl = string.Empty;
+                    int index = 0;
+                    if (!string.IsNullOrEmpty(Model.Property.VideoObject))
+                    {
+                        sb.AppendFormat("\r\n<div class=\"media-item\"><a class=\"owl-video\" href=\"{0}\"></a></div>", Model.Property.VideoObject);
+                        totalImage++;
+                    }
+                    foreach (var item in Model.Property.Images)
+                    {
+                        imageUrl = item.SmallPublishUrl.Replace("thumb-small/", "");
+                        if (item.ReferCode == 7)
+                        {
+                            sb.Append("\r\n<div id=\"img360-" + index + "\" class=\"media-item\" data-src=\"" + imageUrl + "\"></div>");
+                        }
+                        else
+                        {
+                            if (totalImage > 0)
+                            {
+                                sb.AppendFormat("\r\n<div class=\"media-item\"><img class=\"lozad\" data-src=\"{0}\" /></div>", imageUrl);
+                            }
+                            else
+                            {
+                                sb.AppendFormat("\r\n<div class=\"media-item\"><img src=\"{0}\" /></div>", imageUrl);
+                            }
+                        }
+                        totalImage++;
+                        index++;
+                    }
+                    <div id="gallery" class="clearfix">
+                        <div id="top-media" class="top-media owl-carousel" ng-non-bindable>
+                            @Html.Raw(sb.ToString())
+                        </div>
+                        @if (totalImage > 1)
+                        {
+                            <div class="gallery-counter" ng-bind="topMedia.counterText"></div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                }
+                <!--End Gallery-->
+                <div ng-include="headerUrl2"></div>
+            </div>
+
+            <div id="property-info" class="prop-content">
+                <h2 class="prop-content-header">@Message.PropertyDetail_MainInfo</h2>
+                <div id="prop-info" class="prop-attrs clearfix">
+                    <ul class="prop-info">
+                        <li><span>@Message.Detail_Price_Label</span>: @Model.Property.PriceText</li>
+                        <li><span>@Message.Detail_Area_Label</span>: @Html.Raw(Model.Property.GetAreaText())</li>
+                        <li><span>@Message.Detail_LandArea_Label</span>: @Html.Raw(@Model.Property.GetLandAreaText())</li>
+                        <li><span>@Message.Detail_PublishDate_Label</span>: @Model.Property.PostedDateDisplay</li>
+                        <li class="last"><span>@Message.Detail_PropertyId_Label</span>: @Model.Property.PropertyId</li>
+                    </ul>
+                    <ul class="prop-info">
+                        <li><span>@Message.Detail_BedRoom_Label</span>: @Model.Property.BedRooms</li>
+                        <li><span>@Message.Detail_BathRoom_Label</span>: @Model.Property.BathRooms</li>
+                        <li><span>@Message.Detail_Legal_Label</span>: @Model.Property.GetLegalText()</li>
+                        <li class="lastest"><span>@Message.Detail_Direction_Label</span>: @Model.Property.GetDirectionText()</li>
+                    </ul>
+                </div>
+                <h2 class="prop-content-header">@Message.PropertyDetail_Description</h2>
+                <div class="prop-info-content">
+                    @Html.Raw(Model.Property.Body)
+                </div>
+                <!-- Contact Agent-->
+                <div id="agent" class="clearfix agent">
+                    @Html.Partial("Partials/_AgentContactFormv2", Model.UserInbox)
+                </div>
+                <div id="command-center" class="prop-command clearfix">
+                    <div class="prop-command-left">
+                        <div class="favorite" ng-click="Favorite.addRemove(@Model.Property.PropertyId)" ng-class="{favorited: Favorite.items[@Model.Property.PropertyId]}"><i class="fa fa-heart"></i><span class="hidden-xs">@Message.Detail_Favorite</span></div>
+                        <div class="report" data-toggle="modal" data-target="#report" ng-click="Report.Open()" id="@Model.Property.PropertyId" gtm-event="all" gtm-cat="detail" gtm-act="report"><i class="fa fa-exclamation-triangle"></i><span class="hidden-xs">@Message.ReportAbuse</span></div>
+                    </div>
+                    <mg-social-share svg-url="/content/fonts/mogi-icons.svg"></mg-social-share>
+                </div>
+            </div>
+
+            <div class="prop-content clearfix">
+                @if (Model.Property.HasLocation())
+                {
+                    <div id="prop-map">
+                        <h2 class="prop-content-header">@Message.PropertyDetail_Utils</h2>
+                        <div class="map-content clearfix" style="width:100%; display:block">
+                            <div id="map-cavas" class="map-display">
+                                <iframe frameborder="0" style="border:0;width:100%;height:100%"
+                                        src="https://www.google.com/maps/embed/v1/place?key=@HappyRE.Core.Utils.Common.GOOGLE_MAP_API_KEY&language=@google_hl&q=@Model.Property.Location" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @{Html.RenderAction("GetWardReview", "CachePartial", new { wardId = prop.WardId, forRent = prop.IsRent });}
+
+            </div>
+            @if (Model.Property.IsRent == false)
+            {
+                <div ng-include="MarketPriceUrl"></div>
+            }
+
+
+        </div>
+        <div id="side-bar">
+            <div id="agent-widget" class="widget clearfix">
+                @Html.Partial("Partials/_AgentContactFormv2", Model.UserInbox)
+            </div>
+            <div id="google-adsense-1" style="float:left;width:100%;">
+                <!-- Mogi Detail Auto -->
+                <ins class="adsbygoogle"
+                     style="display:block;width:100%;"
+                     data-ad-client="ca-pub-3000426983537206"
+                     data-ad-slot="6045324638"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+    </div>
+    <div id="similarProperty" lazy-scroll="loadSimilar()" lazy-scroll-trigger="60" lazy-no-scroll="false">
+        <div class="mg-1170-container">
+            <div ng-include="SimilarUrl" onload="loadSimilarComplete()"></div>
+        </div>
+    </div>
+    <section id="hidden-content">
+        <div ng-include="SendMessageUrl"></div>
+    </section>
+</div>
+@section styles {
+    <link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/detail.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+    <script type="text/javascript">
+		var angular_modules = ['ngMessages', 'ngSanitize', 'ui.bootstrap','720kb.socialshare'];
+		var pageData = { Msg:@Html.Raw(msg.ToJson()), Data:@Html.Raw(data.ToJson()), SimilarUrl: '@Html.Raw(Model.SimilarUrl)', SearchUrl: '@Html.Raw(Model.SearchUrl)' };
+		function loadAds(t) {
+			if (t === 0) return;
+			var o = document.getElementById('google-adsense-1');
+			if (o && o.offsetTop > 100) { (adsbygoogle = window.adsbygoogle || []).push({}); return; }
+			setTimeout(function () { loadAds(t - 1) }, 100);
+		}
+		if (!w.IsMobile) { loadAds(20); }
+    </script>
+    <script async src="@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/detail.js")" type="text/javascript"></script>
+    <script async defer src="@HappyRE.Core.Utils.Common.WebAPIUrl/api/common/tracking-property?id=@Model.Property.PropertyId"></script>
+}

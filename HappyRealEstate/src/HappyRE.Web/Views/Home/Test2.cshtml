@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Test2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    
+</style>
+<div ng-controller="TestController">
+    <i class="fa fa-circel" ng-class=""></i>
+    <h2>Test2</h2>
+    <div style="height:500px;" ng-n>
+        <mogi-near-by location="Location" title="Title" show-near-by="ShowNearBy" style="height:400px" show-map="ShowMap" is-responsive="IsResponsive"></mogi-near-by>
+    </div>
+    <button class="btn btn-primary" ng-click="AShowMap()">ShowMap</button>
+    <button class="btn btn-primary" ng-click="HidenMap()">Đóng map</button>
+</div>
+@section styles {@Styles.Render("~/content/homecssv2")}
+@section scripts{
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDmhiIfWTxjY3MpR2aHhbSHvqEKZ5nf80&libraries=places" async defer></script>
+
+
+   @Scripts.Render("~/bundles/test2")
+
+<script>
+    //function initMap() {
+    //    mogiMapUtil.InitMap("map-cavas", "10.7593018,106.73475699999995", "Địa chỉ dự án", "138 nguyễn văn linh", 16);
+    //}
+    ////initMap();
+    //function AddMarker() {
+    //    mogiMapUtil.clearMarkers();
+    //    mogiMapUtil.AddNearBy();
+    //}
+
+    function TestController($scope) {
+
+        $scope.Location = "10.7593018,106.73475699999995";
+        $scope.Title = "138 nguyễn văn linh";
+        $scope.ShowNearBy = true;
+        $scope.ShowMap = true;
+        $scope.IsResponsive = true;
+        $scope.AShowMap = function () {
+            $scope.ShowMap = true;
+            $scope.IsResponsive = true;
+        };
+        $scope.HidenMap = function () {
+            $scope.ShowMap = false;
+        };
+        //$scope.AddMarker = function () {
+        //    mogiMapUtil.clearMarkers();
+        //    mogiMapUtil.AddNearBy();
+        //}
+
+    }
+    TestController.$inject = ['$scope'];
+    mogiApp.controller('TestController', TestController);
+    //mogiMapUtil.showMap("map-cavas", "10.7593018,106.73475699999995", "Địa chỉ dự án", "138 nguyễn văn linh", 16);
+</script>
+
+}
+

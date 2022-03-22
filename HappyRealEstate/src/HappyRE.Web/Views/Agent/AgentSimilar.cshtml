@@ -1,0 +1,5 @@
+﻿@model HappyRE.Core.MapModels.Search.AgentSimilarResult
+@if (Model.HasData == true)
+{
+    @Html.Partial("~/Views/Agent/Partials/_AgentSimilarBox.cshtml", Model.Items, new ViewDataDictionary { { "title", Model.Title } })
+}

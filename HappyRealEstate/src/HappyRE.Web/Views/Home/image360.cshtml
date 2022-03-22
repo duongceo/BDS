@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Image 360 - batdongsanhanhphuc.vn";
+}
+<link async rel="stylesheet" href="~/scripts/libs/pannellum/pannellum.css">
+<style>
+    @@media (min-width: 768px) {
+        .body-content
+        {
+            min-height:500px;
+            padding-top:30px;
+        }
+    }
+    .body-content{margin-bottom:30px}
+
+    .pnlm-lmsg {
+        display: none !important;
+    }
+
+    #img-gallery {
+        margin: 5px auto;
+        position: relative;
+        width: 100%;
+        max-width: 640px;
+        /*max-height: 320px;
+        height: 70vh;*/
+    }
+
+    #btn-full-screen {
+        position: absolute;
+        right: 5px;
+        top: 0px;
+    }
+
+    .owl-carousel {
+        width: 100%;
+        height: 70vh;
+        max-width: 640px;
+        max-height: 320px;
+        display: block;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .media-item {
+        position: relative;
+        width: 100%;
+        /*max-width: 640px;
+        max-height: 320px;
+        height: 70vh;*/
+        height: 320px;
+    }
+
+        .media-item .media-item-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+    .media-thumb {
+        width: 100%;
+        max-width: 640px;
+        max-height: 60px;
+        display: block;
+        margin: 10px auto;
+    }
+
+        .media-thumb .dot-item {
+            width: calc(20% - 10px);
+            max-width: 120px;
+            max-height: 60px;
+            float: left;
+            margin-right: 10px;
+        }
+
+            .media-thumb .dot-item:last-child {
+                margin-right: 0px;
+            }
+
+        .media-thumb .active {
+            border: solid 2px #00deb6;
+        }
+
+    .dot-item img {
+        width: 100%;
+        height: 100%;
+    }
+
+    body.full-screen {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden;
+    }
+
+    .full-screen .body-content {
+        min-height: 0;
+    }
+
+    .full-screen .mogi-footer {
+        display: none;
+    }
+
+    .full-screen #img-gallery {
+        width: 100%;
+        height: 100%;
+        max-width: initial;
+        max-height: initial;
+        display: block;
+        position: fixed;
+        background: white;
+        padding: 0;
+        margin: 0;
+        top: 0;
+        left: 0;
+        z-index: 100000;
+    }
+
+    .full-screen .owl-carousel, .full-screen .media-item {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+    }
+
+    .full-screen .owl-stage-outer, .full-screen .owl-stage, .full-screen .owl-item {
+        height: 100%;
+    }
+</style>
+
+<div class="clearfix">
+    <div class="body-content">
+        <div id="img-gallery">
+            <span id="btn-full-screen" class="pnlm-fullscreen-toggle-button pnlm-sprite pnlm-fullscreen-toggle-button-inactive pnlm-controls pnlm-control" style="display: none;"></span>
+            <div class="owl-carousel">
+                <div id="img360-1" class="media-item" data-src="/vr360/images/01.jpg"></div>
+                <div id="img360-2" class="media-item" data-src="/vr360/images/02.jpg"></div>
+                <div id="img360-3" class="media-item" data-src="/vr360/images/03.jpg"></div>
+                <div id="img360-4" class="media-item" data-src="/vr360/images/04.jpg"></div>
+                <div id="img360-5" class="media-item" data-src="/vr360/images/05.jpg"></div>
+                @*<div class="media-item"><iframe frameborder="0" style="width:100%;height:100%;" src="/vr360/pannellum.htm?panorama=images/01.jpg&autoLoad=false&preview=images/01_thumb.jpg"></iframe></div>
+                <div class="media-item"><iframe frameborder="0" style="width:100%;height:100%;" src="/vr360/pannellum.htm?panorama=images/02.jpg&autoLoad=false&preview=images/02_thumb.jpg"></iframe></div>
+                <div class="media-item"><iframe frameborder="0" style="width:100%;height:100%;" src="/vr360/pannellum.htm?panorama=images/03.jpg&autoLoad=false&preview=images/03_thumb.jpg"></iframe></div>
+                <div class="media-item"><iframe frameborder="0" style="width:100%;height:100%;" src="/vr360/pannellum.htm?panorama=images/04.jpg&autoLoad=false&preview=images/04_thumb.jpg"></iframe></div>
+                <div class="media-item"><iframe frameborder="0" style="width:100%;height:100%;" src="/vr360/pannellum.htm?panorama=images/05.jpg&autoLoad=false&preview=images/05_thumb.jpg"></iframe></div>*@
+            </div>
+            <div class="media-thumb clearfix">
+                <div class="dot-item"><img src="/vr360/images/01_thumb.jpg"></div>
+                <div class="dot-item"><img src="/vr360/images/02_thumb.jpg"></div>
+                <div class="dot-item"><img src="/vr360/images/03_thumb.jpg"></div>
+                <div class="dot-item"><img src="/vr360/images/04_thumb.jpg"></div>
+                <div class="dot-item"><img src="/vr360/images/05_thumb.jpg"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="img360" style="width:640px;height:320px;display:none;"></div>
+        <img id="thumb" style="width:640px;height:320px;display:none;float:left;"/>
+        <img id="thumb1" src="/vr360/images/01_thumb.jpg" style="width:640px;height:320px;display:none;float:left;" />
+        <div id="msg" style="width:100%;"></div>
+    </div>
+</div>
+
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/detailcssv2")">
+    
+}
+@section scripts {
+    <script type="text/javascript" src="~/scripts/libs/pannellum/pannellum.min.js"></script>
+    <script type="text/javascript">
+        var pageData = {};
+        pageData.Data = { userInbox: {}, propertyId: 0, isFavorited: false };
+        var resx_million = '';
+        var resx_principal = '';
+        var resx_interest = '';
+        var resx_month = '';
+        var prop_location = null;
+        var prop_title = null;
+        var btnFullScreen = $('#btn-full-screen');
+        if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled) {} else {
+            btnFullScreen.css({ "display": "block" });
+        }
+        btnFullScreen.bind('click', function () {
+            $('#btn-full-screen').toggleClass('pnlm-fullscreen-toggle-button-active');
+            $('body').toggleClass('full-screen');
+                
+            for (var i = 1; i < 5; i++) {
+                var id = 'img360-' + i;
+                var item = window.viewers[id];
+                if (!item) continue;
+                //item.resize();
+                //item.setHfov(item.getConfig().yaw + 1);
+                item.refresh();
+            }
+
+            window.dispatchEvent(new Event('resize'));
+        });
+        function ShowError(m) {
+            $('#msg').append(m);
+        }
+        function initCarousel() {
+            window.owl = $(".owl-carousel").owlCarousel({
+                items: 1,
+                rewind: true,
+                nav: true,
+                navText: ['&#x2039;', '&#x203a;'],
+                video: true,
+                dots: true,
+                dotData: true,
+                dotsContainer: '.media-thumb',
+                mouseDrag: false,
+                touchDrag: false,
+                onResize: function (e) {
+                    //var w = $('#top-media-thumb').width() / 5;
+                    //var el = $('.top-media-thumb > div').css('width', w + 'px');
+                },
+                onChange: function(e){
+                    var s = e;
+                },
+                onChanged: function (e) {
+                    if (e.page.index <= 0) return;
+                    var i = e.page.index + 1;
+                    showImage360('img360-' + i);
+                    //$scope.topMedia.go(e.page.index);
+                },
+                onInitialized: function (e) {
+                    //var o = $scope.topMedia.page;
+                    //var c = e.item.count;
+                    //o.total = (c - c % o.size) / o.size + (c % o.size > 0 ? 1 : 0);
+                    //o.itemCount = c;
+                },
+                onDragStart: function (e) {
+                    e.preventDefault();
+                }
+            });
+        }
+        
+
+        window.viewers = {};
+        function showImage360(id) {
+            var el = $('#' + id);
+            var u = el.attr('data-src');
+            if (!u) return;
+            if (window.viewers[id]) return;
+
+            window.viewers[id] = pannellum.viewer(id, {
+                panorama: u,
+                autoLoad: true,
+                showControls: true,
+                showZoomCtrl: false,
+                compass: false,
+                minYaw: -180,
+                maxYaw: 180,
+                minPitch: -90,
+                maxPitch: 90,
+                //minHfov: 50,
+                maxHfov: 120,
+                //yaw: 0,
+                //pitch: 0,
+                hfov: 120,
+                northOffset: 0,
+                orientationOnByDefault: true,
+                strings: {loadButtonLabel: '<img src="/vr360/images/360.png" style="border-radius:50px;opacity:0.5;">'}
+            });
+        }
+
+        initCarousel();
+        showImage360("img360-1");
+
+        
+        $('.pnlm-about-msg').html('').css('padding', '0px');
+        $('.pnlm-load-box').css('top','-10000px');
+
+        //setTimeout(function () { $('#thumb')[0].src = $('#img360 canvas')[0].toDataURL('image/jpeg', 1.0); }, 2000);
+        
+        //ShowError("window.devicePixelRatio: " + window.devicePixelRatio);
+    </script>
+    @Scripts.Render("~/bundles/common")
+}

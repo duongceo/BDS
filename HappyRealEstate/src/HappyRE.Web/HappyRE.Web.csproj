@@ -1,0 +1,1298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7EB54CA9-CACD-4E9D-87DD-E430FC834E46}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HappyRE.Web</RootNamespace>
+    <AssemblyName>HappyRE.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.6.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MBN.Security">
+      <HintPath>..\..\Libs\MBN.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="MBN.Security.Model">
+      <HintPath>..\..\Libs\MBN.Security.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="MBN.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\MBN.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.8.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.8.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.8.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.8.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.8.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.8.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.5\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.0.0\lib\net451\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.4.1.451, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.1\lib\net45\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MogiAuthorizationServerProvider.cs" />
+    <Compile Include="App_Start\MogiInit.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AngularExtensions.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\BaseAPIController.cs" />
+    <Compile Include="Controllers\API\CommonController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\CachePartialController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CompressFilter.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Newtonsoft.JsonResult.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="DependencyResolution\ControllerConvention.cs" />
+    <Compile Include="DependencyResolution\CachedRegistry.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
+    <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
+    <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\HtmlExtension.cs" />
+    <Compile Include="Helpers\LoginHelper.cs" />
+    <Compile Include="Helpers\ReCaptchaHelper.cs" />
+    <Compile Include="Helpers\RouteConfig.cs" />
+    <Compile Include="Helpers\TrimModelBinder.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="HtmlFormatHelper.cs" />
+    <Compile Include="Models\AgentListViewModel.cs" />
+    <Compile Include="Models\AgentMessageViewModel.cs" />
+    <Compile Include="Models\AgentViewModel.cs" />
+    <Compile Include="Models\Breadcrumb.cs" />
+    <Compile Include="Models\FavoriteViewModel.cs" />
+    <Compile Include="Models\FeedBackViewModel.cs" />
+    <Compile Include="Models\FileUploaderResult.cs" />
+    <Compile Include="Models\FooterViewModel.cs" />
+    <Compile Include="Models\HomeTopProperty.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\HousingAvgPriceViewModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InboxMessageViewModel.cs" />
+    <Compile Include="Models\ListFilter.cs" />
+    <Compile Include="Models\ListViewModel.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MarketListViewModel.cs" />
+    <Compile Include="Models\ProjectDetailModel.cs" />
+    <Compile Include="Models\ProjectSearchCache.cs" />
+    <Compile Include="Models\ProjectsViewModel.cs" />
+    <Compile Include="Models\PropertyDetailViewModel.cs" />
+    <Compile Include="Models\ResultSearchCached.cs" />
+    <Compile Include="Models\SearchAlertViewModel.cs" />
+    <Compile Include="Models\UploadFileBinder.cs" />
+    <Compile Include="Models\WardRelationViewModel.cs" />
+    <Compile Include="Models\WardReviewPropertyTypeViewModel.cs" />
+    <Compile Include="Models\WardReviewPropertyViewModel.cs" />
+    <Compile Include="Models\WardReviewViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Common.en-US.Designer.cs">
+      <DependentUpon>Common.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Common.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ContactMogi.en-US.Designer.cs">
+      <DependentUpon>ContactMogi.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ContactMogi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactMogi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Message.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Message.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Project.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Project.resx</DependentUpon>
+    </Compile>
+    <Compile Include="res\email\Mail.Designer.cs" />
+    <Content Include="authcompleted.html" />
+    <Content Include="Content\arrow.svg" />
+    <Content Include="Content\banner.css" />
+    <Content Include="Content\bg-mbn-bds.jpg" />
+    <Content Include="Content\bg-mbn-bds.png" />
+    <Content Include="Content\cms.desktop.css" />
+    <Content Include="Content\cms\blog.css" />
+    <Content Include="Content\cms\branchoffice.css" />
+    <Content Include="Content\cms\notarizeOffice.css" />
+    <Content Include="Content\common\property.list.css" />
+    <Content Include="Content\common\sidebar.css" />
+    <Content Include="Content\default-skin.png" />
+    <Content Include="Content\default-skin.svg" />
+    <Content Include="Content\email\fb-icon.png" />
+    <Content Include="Content\email\mogi.svg" />
+    <Content Include="Content\email\y-icon.png" />
+    <Content Include="Content\email\zalo-icon.png" />
+    <Content Include="Content\font.google.css" />
+    <Content Include="Content\fonts\circle-zalo.svg" />
+    <Content Include="Content\fonts\mogi-icons.svg" />
+    <Content Include="Content\fonts\mogi-new-icon.svg" />
+    <Content Include="Content\fonts\mogi.svg" />
+    <Content Include="Content\footer.css" />
+    <Content Include="Content\home\home.mobile.css" />
+    <Content Include="Content\home\home.desktop.css" />
+    <Content Include="Content\images\404.png" />
+    <Content Include="Content\images\hcm-30.jpg" />
+    <Content Include="Content\images\hn-24.jpg" />
+    <Content Include="Content\images\home\homepage-bg-wardreview.jpg" />
+    <Content Include="Content\images\propertytype\1.jpg" />
+    <Content Include="Content\images\propertytype\2.jpg" />
+    <Content Include="Content\images\propertytype\3.jpg" />
+    <Content Include="Content\images\ward-review-icon.svg" />
+    <Content Include="Content\images\home-mkrt-01.png" />
+    <Content Include="Content\images\home-search-brg.png" />
+    <Content Include="Content\home\buyingguide.css" />
+    <Content Include="Content\home\buyingguidev2.css" />
+    <Content Include="Content\home\home.css" />
+    <Content Include="Content\image.css" />
+    <Content Include="Content\images\04.jpg" />
+    <Content Include="Content\images\1x1.gif" />
+    <Content Include="Content\images\avatar-login.png" />
+    <Content Include="Content\images\avatar.png" />
+    <Content Include="Content\images\banner\agent-listing-desktop.png" />
+    <Content Include="Content\images\banner\home-bg-search.png" />
+    <Content Include="Content\images\banner\home-desktop.gif" />
+    <Content Include="Content\images\banner\home-mobile.gif" />
+    <Content Include="Content\images\banner\home-tablet.gif" />
+    <Content Include="Content\images\banner\listing-desktop.png" />
+    <Content Include="Content\images\banner\mogi_thebank_350x160.png" />
+    <Content Include="Content\images\bg-mbn-bds.jpg" />
+    <Content Include="Content\images\bg-search.png" />
+    <Content Include="Content\images\bocongthuong.png" />
+    <Content Include="Content\images\buyingguide\1-01_03.gif" />
+    <Content Include="Content\images\buyingguide\1-01_07.gif" />
+    <Content Include="Content\images\buyingguide\1-01_10.gif" />
+    <Content Include="Content\images\buyingguide\1-01_15.gif" />
+    <Content Include="Content\images\buyingguide\1-01_17.jpg" />
+    <Content Include="Content\images\buyingguide\1-01_21.gif" />
+    <Content Include="Content\images\buyingguide\1-01_23.gif" />
+    <Content Include="Content\images\buyingguide\1-01_24.gif" />
+    <Content Include="Content\images\buyingguide\1-01_28.gif" />
+    <Content Include="Content\images\buyingguide\10buocmuanha.png" />
+    <Content Include="Content\images\buyingguide\2thamkhaogiaicon.png" />
+    <Content Include="Content\images\buyingguide\7vanphongcongchungicon.png" />
+    <Content Include="Content\images\buyingguide\Asset 10-8.png" />
+    <Content Include="Content\images\buyingguide\Asset 12-8.png" />
+    <Content Include="Content\images\buyingguide\Asset 13-8.png" />
+    <Content Include="Content\images\buyingguide\Asset 9-8.png" />
+    <Content Include="Content\images\buyingguide\checked-icon.png" />
+    <Content Include="Content\images\buyingguide\checked.svg" />
+    <Content Include="Content\images\buyingguide\checklist.png" />
+    <Content Include="Content\images\buyingguide\download.svg" />
+    <Content Include="Content\images\buyingguide\logomogi.png" />
+    <Content Include="Content\images\buyingguide\Logomogi.svg" />
+    <Content Include="Content\images\buyingguide\thebank.jpg" />
+    <Content Include="Content\images\buyingguide\uncheck-icon.png" />
+    <Content Include="Content\images\buyingguide\uncheck.svg" />
+    <Content Include="Content\images\home-icon.png" />
+    <Content Include="Content\images\home\home-bg-d.jpg" />
+    <Content Include="Content\images\home\home-bg-m.jpg" />
+    <Content Include="Content\images\home\home-bg-t.jpg" />
+    <Content Include="Content\images\icons\360.gif" />
+    <Content Include="Content\images\icons\360.svg" />
+    <Content Include="Content\images\icons\detail-house-icon.png" />
+    <Content Include="Content\images\icons\free-icon.png" />
+    <Content Include="Content\images\icons\house-price.png" />
+    <Content Include="Content\images\icons\icon-chamhoi-listinggianhadat.png" />
+    <Content Include="Content\images\icons\loading-32x32-01.gif" />
+    <Content Include="Content\images\icons\loading-32x32.gif" />
+    <Content Include="Content\images\icons\loading.gif" />
+    <Content Include="Content\images\icons\market-price-icon.png" />
+    <Content Include="Content\images\icons\mogi-icon.png" />
+    <Content Include="Content\images\icons\price-icon.png" />
+    <Content Include="Content\images\icons\zalo-icon.png" />
+    <Content Include="Content\images\landing\1.png" />
+    <Content Include="Content\images\landing\2.png" />
+    <Content Include="Content\images\landing\3.png" />
+    <Content Include="Content\images\landing\360ngay.png" />
+    <Content Include="Content\images\landing\bg-title.png" />
+    <Content Include="Content\images\landing\button-1.png" />
+    <Content Include="Content\images\landing\button-2.png" />
+    <Content Include="Content\images\landing\button-3.png" />
+    <Content Include="Content\images\landing\button-4.png" />
+    <Content Include="Content\images\landing\button.png" />
+    <Content Include="Content\images\landing\calling.png" />
+    <Content Include="Content\images\landing\facebook.png" />
+    <Content Include="Content\images\landing\gia-dinh.jpg" />
+    <Content Include="Content\images\landing\google.png" />
+    <Content Include="Content\images\landing\hinh-1-mobile.png" />
+    <Content Include="Content\images\landing\hinh-1.png" />
+    <Content Include="Content\images\landing\hinh-2.png" />
+    <Content Include="Content\images\landing\icon-1.png" />
+    <Content Include="Content\images\landing\icon-3.png" />
+    <Content Include="Content\images\landing\icon-4.png" />
+    <Content Include="Content\images\landing\icon-face.jpg" />
+    <Content Include="Content\images\landing\icon-gcn.png" />
+    <Content Include="Content\images\landing\icon-in.jpg" />
+    <Content Include="Content\images\landing\icon-money.png" />
+    <Content Include="Content\images\landing\icon-people.png" />
+    <Content Include="Content\images\landing\icon-sao.png" />
+    <Content Include="Content\images\landing\icon-shop.png" />
+    <Content Include="Content\images\landing\instagram.png" />
+    <Content Include="Content\images\landing\khach-hang-1.png" />
+    <Content Include="Content\images\landing\khach-hang-2.png" />
+    <Content Include="Content\images\landing\landing3\Asset 11-80.jpg" />
+    <Content Include="Content\images\landing\landing3\Asset 12-80.jpg" />
+    <Content Include="Content\images\landing\landing3\Asset 13-80.jpg" />
+    <Content Include="Content\images\landing\landing3\Asset 14-80.jpg" />
+    <Content Include="Content\images\landing\landing3\Asset 15-80.jpg" />
+    <Content Include="Content\images\landing\landing3\Asset 16.png" />
+    <Content Include="Content\images\landing\landing3\Asset 18.png" />
+    <Content Include="Content\images\landing\landing3\Asset 21.png" />
+    <Content Include="Content\images\landing\landing3\Asset 22.png" />
+    <Content Include="Content\images\landing\landing3\Asset 23.png" />
+    <Content Include="Content\images\landing\landing3\Asset 24.png" />
+    <Content Include="Content\images\landing\landing3\can-ho.png" />
+    <Content Include="Content\images\landing\landing3\dat.png" />
+    <Content Include="Content\images\landing\landing3\mat-bang.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 15.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 16.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 17.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 18.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 19.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 20.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 22.png" />
+    <Content Include="Content\images\landing\landing3\mobile\Asset 9.png" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_02.gif" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_09.gif" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_11.gif" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_15.gif" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_16.gif" />
+    <Content Include="Content\images\landing\landing3\mobile\MOBILE-LP_19.gif" />
+    <Content Include="Content\images\landing\landing3\mua-thue-nha.png" />
+    <Content Include="Content\images\landing\landing3\phong-tro.png" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_02.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_05.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_08.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_10.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_12.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_14.gif" />
+    <Content Include="Content\images\landing\landing3\Untitled-2_16.gif" />
+    <Content Include="Content\images\landing\landing4\avatar_1.png" />
+    <Content Include="Content\images\landing\landing4\avatar_2.png" />
+    <Content Include="Content\images\landing\landing4\avatar_3.png" />
+    <Content Include="Content\images\landing\landing4\fullscreen 1366.jpg" />
+    <Content Include="Content\images\landing\landing4\fullscreen 768.jpg" />
+    <Content Include="Content\images\landing\landing4\phase1_room.png" />
+    <Content Include="Content\images\landing\landing4\phase2_loi-ich_1.png" />
+    <Content Include="Content\images\landing\landing4\phase2_loi-ich_2.png" />
+    <Content Include="Content\images\landing\landing4\phase2_loi-ich_3.png" />
+    <Content Include="Content\images\landing\landing4\phase3_laptop_1.png" />
+    <Content Include="Content\images\landing\landing4\phase3_laptop_2.png" />
+    <Content Include="Content\images\landing\landing4\phase3_laptop_3.png" />
+    <Content Include="Content\images\landing\landing4\social_face.png" />
+    <Content Include="Content\images\landing\landing4\social_youtube.png" />
+    <Content Include="Content\images\landing\landing4\social_zalo.png" />
+    <Content Include="Content\images\landing\landing4\thumbnail-phong-tro-sinh-vien.png" />
+    <Content Include="Content\images\landing\lcd.png" />
+    <Content Include="Content\images\landing\logo-no-slogan.png" />
+    <Content Include="Content\images\landing\logo.png" />
+    <Content Include="Content\images\landing\M.jpg" />
+    <Content Include="Content\images\landing\m1.png" />
+    <Content Include="Content\images\landing\m2.png" />
+    <Content Include="Content\images\landing\m3-1.jpg" />
+    <Content Include="Content\images\landing\M4.png" />
+    <Content Include="Content\images\landing\M5.png" />
+    <Content Include="Content\images\landing\mobi.jpg" />
+    <Content Include="Content\images\landing\mobi.png" />
+    <Content Include="Content\images\landing\mobile\bg-flag.png" />
+    <Content Include="Content\images\landing\mobile\M-1.jpg" />
+    <Content Include="Content\images\landing\mobile\M-2.jpg" />
+    <Content Include="Content\images\landing\mobile\M-3.jpg" />
+    <Content Include="Content\images\landing\mobile\M-4.jpg" />
+    <Content Include="Content\images\landing\mobile\M-5.png" />
+    <Content Include="Content\images\landing\mobile\M-6.png" />
+    <Content Include="Content\images\landing\mobile\M-7.png" />
+    <Content Include="Content\images\landing\mobile\M-8.png" />
+    <Content Include="Content\images\landing\mobile\M-button-1.png" />
+    <Content Include="Content\images\landing\mobile\M-button-2.png" />
+    <Content Include="Content\images\landing\mobile\M-button-3.jpg" />
+    <Content Include="Content\images\landing\mobile\M-button-4.png" />
+    <Content Include="Content\images\landing\mobile\M-face.png" />
+    <Content Include="Content\images\landing\mobile\M-gia-dinh.jpg" />
+    <Content Include="Content\images\landing\mobile\M-In.png" />
+    <Content Include="Content\images\landing\mobile\M-logo-2.png" />
+    <Content Include="Content\images\landing\mobile\M-logo.jpg" />
+    <Content Include="Content\images\landing\mobile\M-mobi-2.jpg" />
+    <Content Include="Content\images\landing\mobile\M-mobi.jpg" />
+    <Content Include="Content\images\landing\mobile\M-mouse.png" />
+    <Content Include="Content\images\landing\mobile\M-mt.jpg" />
+    <Content Include="Content\images\landing\mobile\M-skype.png" />
+    <Content Include="Content\images\landing\mobile\M.png" />
+    <Content Include="Content\images\landing\Mogipro.png" />
+    <Content Include="Content\images\listing\buying-guid-step.png" />
+    <Content Include="Content\images\listing\market-price.png" />
+    <Content Include="Content\Images\no-image-big.png" />
+    <Content Include="Content\images\landing\mouse.png" />
+    <Content Include="Content\images\landing\skype.png" />
+    <Content Include="Content\images\landing\youtobe.png" />
+    <Content Include="Content\images\landing\youtube.jpg" />
+    <Content Include="Content\images\location-daily-hover.png" />
+    <Content Include="Content\images\location-daily.png" />
+    <Content Include="Content\images\location-vp-hover.png" />
+    <Content Include="Content\images\location-vp.png" />
+    <Content Include="Content\images\logo%402x.png" />
+    <Content Include="Content\images\logo%403x.png" />
+    <Content Include="Content\images\logo-90x55.png" />
+    <Content Include="Content\images\logo-mogi-w.png" />
+    <Content Include="Content\images\logo-mogipro.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo.svg" />
+    <Content Include="Content\images\LogoMB2.png" />
+    <Content Include="Content\images\no-avatar-80.png" />
+    <Content Include="Content\images\no-avatar-small.png" />
+    <Content Include="Content\images\no-avatar.jpg" />
+    <Content Include="Content\images\no-image-big.png" />
+    <Content Include="Content\images\no-image-listing.png" />
+    <Content Include="Content\images\no-img-140x76.png" />
+    <Content Include="Content\images\no-img-4.0x40.png" />
+    <Content Include="Content\images\no-img-50x50.png" />
+    <Content Include="Content\images\no-img-750x500.png" />
+    <Content Include="Content\images\no-img-80x80.png" />
+    <Content Include="Content\images\UOB-logo.png" />
+    <Content Include="Content\images\youtube-64.png" />
+    <Content Include="Content\img\background.svg" />
+    <Content Include="Content\img\circle-copylink.svg" />
+    <Content Include="Content\img\circle-facebook.svg" />
+    <Content Include="Content\img\circle-messenger.svg" />
+    <Content Include="Content\img\circle-zalo.svg" />
+    <Content Include="Content\img\compass.svg" />
+    <Content Include="Content\img\grab.svg" />
+    <Content Include="Content\img\grabbing.svg" />
+    <Content Include="Content\img\sprites.svg" />
+    <Content Include="Content\img\zalo-icon.png" />
+    <Content Include="Content\landingpage\landing3.css" />
+    <Content Include="Content\landingpage\landing3.mobile.css" />
+    <Content Include="Content\landingpage\landing4.css" />
+    <Content Include="Content\landingpage\landingpage.css" />
+    <Content Include="Content\landingpage\landingpage.mobile.css" />
+    <Content Include="Content\landingpage\landingpageen.css" />
+    <Content Include="Content\landingpage\landingpageen.mobile.css" />
+    <Content Include="Content\layout1170.css" />
+    <Content Include="Content\layout960.css" />
+    <Content Include="Content\map.desktop.css" />
+    <Content Include="Content\maps\bds-map.css" />
+    <Content Include="Content\maps\images\icons.png" />
+    <Content Include="Content\maps\images\markers\Favorite.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-101.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-102.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-103.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-104.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-105.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-106.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-107.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-108.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-109.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-110.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-111.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-112.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-113.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-114.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-115.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-116.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-117.png" />
+    <Content Include="Content\maps\images\markers\nb-icon-118.png" />
+    <Content Include="Content\maps\images\markers\pin-0.png" />
+    <Content Include="Content\maps\images\markers\pin-1-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-1.png" />
+    <Content Include="Content\maps\images\markers\pin-2-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-2.png" />
+    <Content Include="Content\maps\images\markers\pin-3-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-3.png" />
+    <Content Include="Content\maps\images\markers\pin-4-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-4.png" />
+    <Content Include="Content\maps\images\markers\pin-5-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-5.png" />
+    <Content Include="Content\maps\images\markers\pin-6-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-6.png" />
+    <Content Include="Content\maps\images\markers\pin-7-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-7.png" />
+    <Content Include="Content\maps\images\markers\pin-default.png" />
+    <Content Include="Content\maps\images\markers\pin-favorite-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-favorite.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-101-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-101.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-102-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-102.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-103-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-103.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-104-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-104.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-105-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-105.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-106-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-106.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-107-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-107.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-108-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-108.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-109-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-109.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-110-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-110.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-111-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-111.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-112-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-112.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-113-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-113.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-114-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-114.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-115-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-115.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-116-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-116.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-117-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-117.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-118-hover.png" />
+    <Content Include="Content\maps\images\markers\pin-nb-118.png" />
+    <Content Include="Content\maps\images\markers\polygon-marker.png" />
+    <Content Include="Content\maps\images\markers\polygon-marker1.png" />
+    <Content Include="Content\maps\images\markers\rmpin-green.png" />
+    <Content Include="Content\maps\images\markers\spacer.gif" />
+    <Content Include="Content\maps\images\spacer.gif" />
+    <Content Include="Content\maps\markers\pin-default.png" />
+    <Content Include="Content\maps\markers\polygon-marker.png" />
+    <Content Include="Content\maps\markers\rmpin-green.png" />
+    <Content Include="Content\market\detail.css" />
+    <Content Include="Content\market\marketdetail.css" />
+    <Content Include="Content\market\marketlist.mobile.css" />
+    <Content Include="Content\market\marketlist.css" />
+    <Content Include="Content\market\search.css" />
+    <Content Include="Content\market\street.css" />
+    <Content Include="Content\mogi-icon.css" />
+    <Content Include="Content\mogi-new-icon.css" />
+    <Content Include="Content\project\project.css" />
+    <Content Include="Content\project\detailv2.css" />
+    <Content Include="Content\project\listv2.css" />
+    <Content Include="Content\property\detail.mobile.css" />
+    <Content Include="Content\property\detail.desktop.css" />
+    <Content Include="Content\property\detailv3.css" />
+    <Content Include="Content\property\industry.css" />
+    <Content Include="Content\property\list.css" />
+    <Content Include="Content\property\listv3.css" />
+    <Content Include="Content\property\student.css" />
+    <Content Include="Content\wardReview\city.css" />
+    <Content Include="Content\wardReview\ward.css" />
+    <Content Include="Content\wardReview\wards.css" />
+    <Content Include="Content\wardReview\district.css" />
+    <Content Include="scripts\angular-animate.js" />
+    <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-aria.js" />
+    <Content Include="scripts\angular-aria.min.js" />
+    <Content Include="scripts\angular-cookies.js" />
+    <Content Include="scripts\angular-cookies.min.js" />
+    <Content Include="scripts\angular-csp.css" />
+    <Content Include="scripts\angular-loader.js" />
+    <Content Include="scripts\angular-loader.min.js" />
+    <Content Include="scripts\angular-message-format.js" />
+    <Content Include="scripts\angular-message-format.min.js" />
+    <Content Include="scripts\angular-messages.js" />
+    <Content Include="scripts\angular-messages.min.js" />
+    <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-parse-ext.js" />
+    <Content Include="scripts\angular-parse-ext.min.js" />
+    <Content Include="scripts\angular-resource.js" />
+    <Content Include="scripts\angular-resource.min.js" />
+    <Content Include="scripts\angular-route.js" />
+    <Content Include="scripts\angular-route.min.js" />
+    <Content Include="scripts\angular-sanitize.js" />
+    <Content Include="scripts\angular-sanitize.min.js" />
+    <Content Include="scripts\angular-touch.js" />
+    <Content Include="scripts\angular-touch.min.js" />
+    <Content Include="scripts\angular.js" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\app\controllers\accountController.js" />
+    <Content Include="scripts\app\controllers\buyingguideController.js" />
+    <Content Include="scripts\app\controllers\districtListController.js" />
+    <Content Include="scripts\app\controllers\industrialParkController.js" />
+    <Content Include="scripts\app\controllers\listViewV2Controller.js" />
+    <Content Include="scripts\app\controllers\marketController.js" />
+    <Content Include="scripts\app\controllers\notarizeOfficeController.js" />
+    <Content Include="scripts\app\controllers\cmsController.js" />
+    <Content Include="scripts\app\controllers\branchOfficeController.js" />
+    <Content Include="scripts\app\controllers\marketPriceController.js" />
+    <Content Include="scripts\app\controllers\projectDetailController.js" />
+    <Content Include="scripts\app\controllers\projectsController.js" />
+    <Content Include="scripts\app\controllers\studentController.js" />
+    <Content Include="scripts\app\controllers\wardReviewController.js" />
+    <Content Include="scripts\app\controllers\wardReviewsController.js" />
+    <Content Include="scripts\app\directives\angular-photoswipe.js" />
+    <Content Include="scripts\app\directives\chartMogi.js" />
+    <Content Include="scripts\app\directives\keypressEnter.js" />
+    <Content Include="scripts\app\directives\mgGoogleMap.js" />
+    <Content Include="scripts\app\directives\mgInputFormater.js" />
+    <Content Include="scripts\app\directives\mgMobile.js" />
+    <Content Include="scripts\app\directives\lazyScroll.js" />
+    <Content Include="scripts\app\directives\mgSocial.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="scripts\app\controllers\homeController.js" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\agent\agent.layout.css" />
+    <Content Include="Content\agent\detail.css" />
+    <Content Include="Content\agent\list.css" />
+    <Content Include="Content\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.ext.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\core\layout.css" />
+    <Content Include="Content\core\mogi-core.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\home\feedback.css" />
+    <Content Include="Content\profile.desktop.css" />
+    <Content Include="Content\login.desktop.css" />
+    <Content Include="Content\list.desktop.css" />
+    <Content Include="Content\list.mobile.css" />
+    <Content Include="Content\list.tablet.css" />
+    <Content Include="Content\mogi-font.css" />
+    <Content Include="Content\profile\favorite.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\mogi-icon.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="res\dynjs\mogi-res-common.js" />
+    <Content Include="res\dynjs\mogi-res-postingui.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\angular-locale_vi-vn.js" />
+    <Content Include="scripts\app\app.js" />
+    <Content Include="scripts\app\const.js" />
+    <Content Include="scripts\app\controllers\agentDetailController.js" />
+    <Content Include="scripts\app\controllers\agentListingController.js" />
+    <Content Include="scripts\app\controllers\feedbackController.js" />
+    <Content Include="scripts\app\controllers\userprofileController.js" />
+    <Content Include="scripts\app\directives\mgModalDialog.js" />
+    <Content Include="scripts\app\routes.en-US.js" />
+    <Content Include="scripts\app\services\cityServices.js" />
+    <Content Include="scripts\app\services\cmsServices.js" />
+    <Content Include="scripts\app\services\imageServices.js" />
+    <Content Include="scripts\app\services\marketPriceServices.js" />
+    <Content Include="scripts\app\services\mbnAgentServices.js" />
+    <Content Include="scripts\app\services\messageServices.js" />
+    <Content Include="scripts\app\services\userProfileServices.js" />
+    <Content Include="scripts\app\services\commonServices.js" />
+    <Content Include="scripts\app\services\agentServices.js" />
+    <Content Include="scripts\app\controllers\demoController.js" />
+    <Content Include="scripts\app\controllers\propertyDetailController.js" />
+    <Content Include="scripts\app\directives\dropSearch.js" />
+    <Content Include="scripts\app\directives\imageGallery.js" />
+    <Content Include="scripts\app\directives\mgCarousel.js" />
+    <Content Include="scripts\app\resourceUtils.js" />
+    <Content Include="scripts\app\routes.vi-VN.js" />
+    <Content Include="scripts\app\services\propertyService.js" />
+    <Content Include="scripts\app\services\suggestServices.js" />
+    <Content Include="scripts\app\templates\AlertSearchStatus.html" />
+    <Content Include="scripts\app\templates\ng-photoswipe-wardreview.html" />
+    <Content Include="scripts\app\templates\social_share.html" />
+    <Content Include="scripts\app\templates\captcha.html" />
+    <Content Include="scripts\app\templates\ng-photoswipe.html" />
+    <Content Include="scripts\app\utils.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="appSetting.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Content\fonts\mogi-icon.eot" />
+    <Content Include="Content\fonts\mogi-icon.ttf" />
+    <Content Include="Content\fonts\mogi-icon.woff" />
+    <None Include="connectionString.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="route.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\list.destop-similar-box.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <None Include="appSetting.Release.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Content\maps\images\markers.zip" />
+    <Content Include="Content\common\property.carousel.css" />
+    <Content Include="Content\fonts\mogi-new-icon.eot" />
+    <Content Include="Content\fonts\mogi-new-icon.ttf" />
+    <Content Include="Content\fonts\mogi-new-icon.woff" />
+    <Content Include="Content\fonts\mogi.ttf" />
+    <Content Include="Content\fonts\mogi.woff" />
+    <None Include="Properties\PublishProfiles\dev240-en-US.pubxml" />
+    <None Include="Properties\PublishProfiles\dev240.pubxml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="scripts\errors.json" />
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-touch.min.js.map" />
+    <Content Include="scripts\angular-sanitize.min.js.map" />
+    <Content Include="scripts\angular-route.min.js.map" />
+    <Content Include="scripts\angular-resource.min.js.map" />
+    <Content Include="scripts\angular-parse-ext.min.js.map" />
+    <Content Include="scripts\angular-messages.min.js.map" />
+    <Content Include="scripts\angular-message-format.min.js.map" />
+    <Content Include="scripts\angular-loader.min.js.map" />
+    <Content Include="scripts\angular-cookies.min.js.map" />
+    <Content Include="scripts\angular-aria.min.js.map" />
+    <Content Include="scripts\angular-animate.min.js.map" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\i18n\angular-locale_en-vi.js" />
+    <Content Include="scripts\i18n\angular-locale_en.js" />
+    <Content Include="scripts\i18n\angular-locale_vi-vn.js" />
+    <Content Include="scripts\i18n\angular-locale_vi.js" />
+    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.cookie.js" />
+    <Content Include="scripts\jquery.purl.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\libs\angular-block-ui\angular-block-ui.css" />
+    <Content Include="scripts\libs\angular-block-ui\angular-block-ui.js" />
+    <Content Include="scripts\libs\angular-block-ui\angular-block-ui.ng.html" />
+    <Content Include="scripts\libs\angular-block-ui\block-navigation.js" />
+    <Content Include="scripts\libs\angular-block-ui\block-ui-animations.css" />
+    <Content Include="scripts\libs\angular-block-ui\block-ui-container-directive.js" />
+    <Content Include="scripts\libs\angular-block-ui\block-ui-container-directive.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\block-ui-directive.js" />
+    <Content Include="scripts\libs\angular-block-ui\block-ui-directive.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\config.js" />
+    <Content Include="scripts\libs\angular-block-ui\config.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\exception-handler.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\interceptor.js" />
+    <Content Include="scripts\libs\angular-block-ui\interceptor.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\service.js" />
+    <Content Include="scripts\libs\angular-block-ui\service.test.js" />
+    <Content Include="scripts\libs\angular-block-ui\utils.js" />
+    <Content Include="scripts\libs\angular-block-ui\utils.test.js" />
+    <Content Include="scripts\libs\angular-file-upload\FileAPI.js" />
+    <Content Include="scripts\libs\angular-file-upload\FileAPI.min.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload-all.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload-all.min.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload-shim.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload-shim.min.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-file-upload.min.js" />
+    <Content Include="scripts\libs\angular-file-upload\ng-img-crop.css" />
+    <Content Include="scripts\libs\angular-file-upload\ng-img-crop.js" />
+    <Content Include="scripts\libs\angular-file-upload\upload.js" />
+    <Content Include="scripts\libs\angular-socialshare\angular-socialshare.js" />
+    <Content Include="scripts\libs\angular.checklist-model\angular.checklist-model.js" />
+    <Content Include="scripts\libs\angular.chosen\angular-chosen.js" />
+    <Content Include="scripts\libs\angular.chosen\angular-chosen.min.js" />
+    <Content Include="scripts\libs\angular.chosen\bootstrap-chosen.css" />
+    <Content Include="scripts\libs\angular.chosen\chosen-sprite%402x.png" />
+    <Content Include="scripts\libs\angular.chosen\chosen-sprite.png" />
+    <Content Include="scripts\libs\angular.chosen\chosen-sprite_20140623.png" />
+    <Content Include="scripts\libs\angular.chosen\chosen.jquery.js" />
+    <Content Include="scripts\libs\angular.chosen\chosen.proto.js" />
+    <Content Include="scripts\libs\angular.sortable\ng-sortable.css" />
+    <Content Include="scripts\libs\angular.sortable\ng-sortable.style.css" />
+    <Content Include="scripts\libs\angular.sortable\sortable-helper.js" />
+    <Content Include="scripts\libs\angular.sortable\sortable-item-handle.js" />
+    <Content Include="scripts\libs\angular.sortable\sortable-item.js" />
+    <Content Include="scripts\libs\angular.sortable\sortable-main.js" />
+    <Content Include="scripts\libs\angular.sortable\sortable.js" />
+    <Content Include="scripts\libs\bootbox\bootbox.js" />
+    <Content Include="scripts\libs\bootstrap-slider\bootstrap-slider.css" />
+    <Content Include="scripts\libs\bootstrap-slider\bootstrap-slider.js" />
+    <Content Include="scripts\libs\chartjs\chart.js" />
+    <Content Include="scripts\libs\clipboardjs\clipboard.js" />
+    <Content Include="scripts\libs\hogan\hogan.js" />
+    <Content Include="scripts\libs\lazyload\lozad.js" />
+    <Content Include="scripts\libs\lazyload\lozad.min.js" />
+    <Content Include="scripts\libs\lazyload\me-lazyload.js" />
+    <Content Include="scripts\libs\lazyload\me-lazyload.min.js" />
+    <Content Include="scripts\libs\owl-carousel\ajax-loader.gif" />
+    <Content Include="scripts\libs\owl-carousel\owl.carousel.js" />
+    <Content Include="scripts\libs\owl-carousel\owl.carousel.min.css" />
+    <Content Include="scripts\libs\owl-carousel\owl.carousel.min.js" />
+    <Content Include="scripts\libs\owl-carousel\owl.theme.default.min.css" />
+    <Content Include="scripts\libs\owl-carousel\owl.video.play.png" />
+    <Content Include="scripts\libs\pannellum\img\background.svg" />
+    <Content Include="scripts\libs\pannellum\img\compass.svg" />
+    <Content Include="scripts\libs\pannellum\img\grab.svg" />
+    <Content Include="scripts\libs\pannellum\img\grabbing.svg" />
+    <Content Include="scripts\libs\pannellum\img\sprites.svg" />
+    <Content Include="scripts\libs\pannellum\libpannellum.js" />
+    <Content Include="scripts\libs\pannellum\pannellum.css" />
+    <Content Include="scripts\libs\pannellum\pannellum.js" />
+    <Content Include="scripts\libs\pannellum\pannellum.min.css" />
+    <Content Include="scripts\libs\pannellum\pannellum.min.js" />
+    <Content Include="scripts\libs\pannellum\RequestAnimationFrame.js" />
+    <Content Include="scripts\libs\photoswipe\dist\default-skin\default-skin.css" />
+    <Content Include="scripts\libs\photoswipe\dist\default-skin\default-skin.png" />
+    <Content Include="scripts\libs\photoswipe\dist\default-skin\default-skin.svg" />
+    <Content Include="scripts\libs\photoswipe\dist\default-skin\preloader.gif" />
+    <Content Include="scripts\libs\photoswipe\dist\photoswipe-ui-default.js" />
+    <Content Include="scripts\libs\photoswipe\dist\photoswipe-ui-default.min.js" />
+    <Content Include="scripts\libs\photoswipe\dist\photoswipe.css" />
+    <Content Include="scripts\libs\photoswipe\dist\photoswipe.js" />
+    <Content Include="scripts\libs\photoswipe\dist\photoswipe.min.js" />
+    <Content Include="scripts\libs\toastr\toaster.css" />
+    <Content Include="scripts\libs\toastr\toastr.js" />
+    <Content Include="scripts\libs\ui-bootstrap\ui-bootstrap-custom-2.5.0-csp.css" />
+    <Content Include="scripts\libs\ui-bootstrap\ui-bootstrap-custom-2.5.0.js" />
+    <Content Include="scripts\libs\ui-bootstrap\ui-bootstrap-custom-2.5.0.min.js" />
+    <Content Include="scripts\libs\ui-bootstrap\ui-bootstrap-custom-tpls-2.5.0.js" />
+    <Content Include="scripts\libs\ui-bootstrap\ui-bootstrap-custom-tpls-2.5.0.min.js" />
+    <Content Include="scripts\map\bds-map.js" />
+    <Content Include="scripts\map\map-nearby-template.html" />
+    <Content Include="scripts\map\map-nearby.js" />
+    <Content Include="scripts\map\map.css" />
+    <Content Include="scripts\map\mapUtil.js" />
+    <Content Include="scripts\map\polygon-util.js" />
+    <Content Include="scripts\map\maps.js" />
+    <Content Include="scripts\map\sprite.png" />
+    <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\moment-with-locales.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\respond.js" />
+    <Content Include="scripts\respond.min.js" />
+    <Content Include="scripts\sitemap.xml" />
+    <Content Include="scripts\ui-bootstrap-tpls-2.2.0.js" />
+    <Content Include="scripts\ui-bootstrap-tpls-2.2.0.min.js" />
+    <Content Include="scripts\underscore.js" />
+    <Content Include="scripts\underscore.min.js" />
+    <Content Include="scripts\_references.js" />
+    <Content Include="Views\Account\ResetPasswordSuccess.cshtml" />
+    <Content Include="Views\Banner\HomeCenter.cshtml" />
+    <Content Include="Views\Banner\_ListRightBottom.cshtml" />
+    <Content Include="Views\Profile\InboxMessage.cshtml" />
+    <Content Include="Views\Profile\Partials\Message.cshtml" />
+    <Content Include="Views\MarketPrice\Search.cshtml" />
+    <Content Include="Views\Banner\_AgentListRight.cshtml" />
+    <Content Include="Views\Home\LandingPageEN.cshtml" />
+    <Content Include="Views\Home\LandingPage3.cshtml" />
+    <Content Include="Views\Project\List.cshtml" />
+    <Content Include="Views\Agent\AgentSimilar.cshtml" />
+    <Content Include="Views\Agent\Partials\_AgentSimilarBox.cshtml" />
+    <Content Include="Views\Account\MogiPro.cshtml" />
+    <Content Include="Views\Account\_Agreement.cshtml" />
+    <Content Include="Views\Cms\NotarizeOffice.cshtml" />
+    <Content Include="Views\MarketPrice\MarketList.cshtml" />
+    <Content Include="Views\MarketPrice\Detail_V2.cshtml" />
+    <Content Include="Views\Home\Test2.cshtml" />
+    <Content Include="Views\Home\BuyingGuideV1.cshtml" />
+    <Content Include="Views\Home\BuyingGuide.cshtml" />
+    <Content Include="Views\MarketPrice\DetailHistory.cshtml" />
+    <Content Include="Views\MarketPrice\StreetList.cshtml" />
+    <Content Include="Views\Home\image360.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Property\ListViewv2.cshtml" />
+    <Content Include="Views\CachePartial\_Top3PropertiesForSale.cshtml" />
+    <Content Include="Views\CachePartial\_Top3HilightProjects.cshtml" />
+    <Content Include="Views\Property\Partials\_Listv2.cshtml" />
+    <Content Include="Views\Property\Partials\_MarketPrice.cshtml" />
+    <Content Include="Views\Property\Partials\_TopList.cshtml" />
+    <Content Include="Views\Property\MapView.cshtml" />
+    <Content Include="Views\Property\SearchRefined.cshtml" />
+    <Content Include="Views\Property\Partials\_SearchRefined.cshtml" />
+    <Content Include="Views\CachePartial\_Blogv2.cshtml" />
+    <Content Include="Views\Banner\ListRight.cshtml" />
+    <Content Include="Views\Shared\Partials\_AgentContactFormv2.cshtml" />
+    <Content Include="Views\CachePartial\_HomeNews.cshtml" />
+    <Content Include="Views\Property\Partials\_MarketPriceArea.cshtml" />
+    <Content Include="Views\Shared\Partials\_PropertyListv2.cshtml" />
+    <Content Include="Views\Property\StudentRentHouse.cshtml" />
+    <Content Include="Views\Account\AffilateRegister.cshtml" />
+    <Content Include="Views\Home\LandingPage4.cshtml" />
+    <Content Include="Views\Banner\RightBanner.cshtml" />
+    <Content Include="Views\Banner\MainBanner.cshtml" />
+    <Content Include="Views\MarketPrice\Detail_V3.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
+    <Content Include="Views\Home\LeadUnsubscribe.cshtml" />
+    <Content Include="Views\CachePartial\_SlideMenu.cshtml" />
+    <Content Include="Views\Property\Partials\_SearchPropType.cshtml" />
+    <Content Include="Views\CachePartial\_Preload.cshtml" />
+    <Content Include="Views\Property\IndustrialParkRentHouse.cshtml" />
+    <Content Include="Views\CachePartial\_TopPropertiesForSale.cshtml" />
+    <Content Include="Views\CachePartial\_TopStreetByAvgPrice.cshtml" />
+    <Content Include="Views\Shared\_Layout1170.cshtml" />
+    <Content Include="Views\CachePartial\_HomeFeature.cshtml" />
+    <Content Include="Views\Property\ListViewv3.cshtml" />
+    <Content Include="scripts\version.json" />
+    <Content Include="Views\Template\Property_SearchBar.cshtml" />
+    <Content Include="Views\Template\Layout_TopMenu.cshtml" />
+    <Content Include="Views\Template\Layout_Footer.cshtml" />
+    <Content Include="Views\Template\Property_SideBar.cshtml" />
+    <Content Include="Views\Template\Home_SearchBar.cshtml" />
+    <Content Include="Views\Template\Home_TopProperties.cshtml" />
+    <Content Include="Views\Template\Property_MarketPrice.cshtml" />
+    <Content Include="Views\Template\Property_SendMessage.cshtml" />
+    <Content Include="Views\Template\Property_Similar.cshtml" />
+    <Content Include="Views\WardReview\Ward.cshtml" />
+    <Content Include="Views\WardReview\Wards.cshtml" />
+    <Content Include="Views\WardReview\Partials\_WardProperty.cshtml" />
+    <Content Include="Views\WardReview\Partials\_PropertyList.cshtml" />
+    <Content Include="Views\WardReview\Districts.cshtml" />
+    <Content Include="Views\WardReview\Partials\_Agents.cshtml" />
+    <Content Include="Views\WardReview\Partials\_PropertyByType.cshtml" />
+    <Content Include="Views\WardReview\Partials\_Neighbor.cshtml" />
+    <Content Include="Views\WardReview\City.cshtml" />
+    <Content Include="Views\CachePartial\_HomeWardReview.cshtml" />
+    <Content Include="Views\WardReview\Partials\_WardReviewItem.cshtml" />
+    <Content Include="Views\WardReview\Partials\_WardReviewItems.cshtml" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\VerifyEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Property\Detail.cshtml" />
+    <Content Include="Views\Property\Partials\_List.cshtml" />
+    <Content Include="Views\Shared\Partials\_Paging.cshtml" />
+    <Content Include="Views\Shared\Partials\_TopBreadcrumb.cshtml" />
+    <Content Include="Views\Property\SearchSimilar.cshtml" />
+    <Content Include="Views\Property\Partials\_SearchSimilarBox.cshtml" />
+    <Content Include="Views\Shared\Partials\_AgentContactForm.cshtml" />
+    <Content Include="Views\Shared\Partials\_Captcha.cshtml" />
+    <Content Include="Views\CachePartial\_TopMenu.cshtml" />
+    <Content Include="Views\Agent\Detail.cshtml" />
+    <Content Include="Views\Agent\List.cshtml" />
+    <Content Include="Views\Account\Verified.cshtml" />
+    <Content Include="Views\Account\Welcome.cshtml" />
+    <Content Include="Views\Agent\Partials\__PropertyList.cshtml" />
+    <Content Include="Views\Profile\UserProfile.cshtml" />
+    <Content Include="Views\Profile\ChangePassword.cshtml" />
+    <Content Include="Views\Profile\Avatar.cshtml" />
+    <Content Include="Views\Profile\_LeftMenu.cshtml" />
+    <Content Include="Views\Profile\MogiPro.cshtml" />
+    <Content Include="Views\Profile\Verified.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\FavoriteList.cshtml" />
+    <Content Include="Views\CachePartial\_AccountInfo.cshtml" />
+    <Content Include="Views\Account\_ShowCaptcha.cshtml" />
+    <Content Include="Views\CachePartial\_Footer.cshtml" />
+    <Content Include="Views\Home\Partials\_GuideNews.cshtml" />
+    <Content Include="Views\Banner\_HomeCenter.cshtml" />
+    <Content Include="Views\Banner\_ListRight.cshtml" />
+    <Content Include="Views\Cms\List.cshtml" />
+    <Content Include="Views\Cms\Detail.cshtml" />
+    <Content Include="Views\Cms\_LeftCategory.cshtml" />
+    <Content Include="Views\Project\Detail.cshtml" />
+    <Content Include="Views\Cms\_Categories.cshtml" />
+    <Content Include="Views\Shared\_LayoutMap.cshtml" />
+    <Content Include="Views\Property\Partials\_Map.cshtml" />
+    <Content Include="Views\Property\ListMail.cshtml" />
+    <Content Include="Views\Profile\VerifyEmail.cshtml" />
+    <Content Include="Views\Profile\Partials\_PropertyList.cshtml" />
+    <Content Include="Views\Cms\Contact.cshtml" />
+    <Content Include="Views\Cms\BranchOffice.cshtml" />
+    <Content Include="Views\CachePartial\_Blog.cshtml" />
+    <Content Include="Views\Project\Partials\_SimilarProject.cshtml" />
+    <Content Include="Views\Project\Partials\_NearbyProject.cshtml" />
+    <Content Include="Views\Shared\Partials\_PropertyCarousel.cshtml" />
+    <Content Include="Views\Shared\Partials\_PropertyList.cshtml" />
+    <Content Include="Views\Shared\_LayoutDefault.cshtml" />
+    <Content Include="Views\Shared\Partials\_MetaSEO.cshtml" />
+    <Content Include="Views\Property\Partials\_Top.cshtml" />
+    <Content Include="Views\Property\TopService.cshtml" />
+    <Content Include="Views\Profile\UnsubcribeSearchAlert.cshtml" />
+    <Content Include="Views\Sitemap\_index.cshtml" />
+    <Content Include="Views\Sitemap\_listing.cshtml" />
+    <Content Include="Views\Home\LandingPage.cshtml" />
+    <Content Include="Views\Shared\_LandingPage.cshtml" />
+    <Content Include="Views\CachePartial\_GoogleStaticMap.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="scripts\app\views\" />
+    <Folder Include="Views\Cache\" />
+    <Folder Include="Views\Map\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Common.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.en-US.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Common.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ContactMogi.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContactMogi.en-US.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ContactMogi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContactMogi.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Message.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Message.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Project.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Project.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\email\Mail.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HappyRE.Core.BLL\HappyRE.Core.BLL.csproj">
+      <Project>{e31fd1b2-1ecd-4491-93e1-35df4dc5338c}</Project>
+      <Name>HappyRE.Core.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.Core.Entities\HappyRE.Core.Entities.csproj">
+      <Project>{9e1c2647-968c-45bb-9bed-d78cb0aa2545}</Project>
+      <Name>HappyRE.Core.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HappyRE.Core.Utils\HappyRE.Core.Utils.csproj">
+      <Project>{5d41c6c4-4da6-4ffc-b7d6-2a12865ca753}</Project>
+      <Name>HappyRE.Core.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50243</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8088/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

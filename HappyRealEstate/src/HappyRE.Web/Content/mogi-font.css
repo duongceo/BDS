@@ -1,0 +1,446 @@
+@font-face {
+	font-family: 'mogi';
+	font-display: swap;
+	font-weight: normal;
+	font-style: normal;
+	src: url("fonts/mogi.woff2") format("woff2"), url('fonts/mogi.ttf?b9jif1') format('truetype'), url('fonts/mogi.woff?b9jif1') format('woff'), url('fonts/mogi.svg?b9jif1#mogi') format('svg');
+}
+
+i {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'mogi' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.fa, .icon:before, .icon:after {
+	display: inline-block;
+	font: normal normal normal 14px/1 mogi;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+
+/* makes the font 33% larger relative to the icon container */
+.fa-lg {
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -15%;
+}
+
+.fa-2x {
+	font-size: 2em;
+}
+
+.fa-3x {
+	font-size: 3em;
+}
+
+.fa-4x {
+	font-size: 4em;
+}
+
+.fa-5x {
+	font-size: 5em;
+}
+
+.fa-fw {
+	width: 1.28571429em;
+	text-align: center;
+}
+
+.fa-ul {
+	padding-left: 0;
+	margin-left: 2.14285714em;
+	list-style-type: none;
+}
+
+	.fa-ul > li {
+		position: relative;
+	}
+
+.fa-li {
+	position: absolute;
+	left: -2.14285714em;
+	width: 2.14285714em;
+	top: 0.14285714em;
+	text-align: center;
+}
+
+	.fa-li.fa-lg {
+		left: -1.85714286em;
+	}
+
+.fa-border {
+	padding: .2em .25em .15em;
+	border: solid 0.08em #eeeeee;
+	border-radius: .1em;
+}
+
+.fa-pull-left {
+	float: left;
+}
+
+.fa-pull-right {
+	float: right;
+}
+
+.fa.fa-pull-left {
+	margin-right: .3em;
+}
+
+.fa.fa-pull-right {
+	margin-left: .3em;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.fa.pull-left {
+	margin-right: .3em;
+}
+
+.fa.pull-right {
+	margin-left: .3em;
+}
+
+.fa-spin {
+	-webkit-animation: fa-spin 2s infinite linear;
+	animation: fa-spin 2s infinite linear;
+}
+
+.fa-pulse {
+	-webkit-animation: fa-spin 1s infinite steps(8);
+	animation: fa-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes fa-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes fa-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+.fa-rotate-90 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+	-webkit-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
+	transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+	-webkit-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+	-webkit-transform: scale(1, -1);
+	-ms-transform: scale(1, -1);
+	transform: scale(1, -1);
+}
+
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical {
+	filter: none;
+}
+/*********END HEADER****************/
+
+/*ALIAS:BEGIN*/
+li.land:before {
+	content: "\f752";
+}
+li.bed:before {
+	content: "\f236";
+}
+li.bath:before {
+	content: "\f2cd";
+}
+/*ALIAS:END*/
+
+.fa-search:before {
+	content: "\f002";
+}
+
+.fa-heart:before {
+	content: "\f004";
+}
+
+.fa-star:before {
+	content: "\f005";
+}
+
+.fa-star-o:before {
+	content: "\f006";
+}
+
+.fa-check:before {
+	content: "\f00c";
+}
+
+.fa-close:before {
+	content: "\f00d";
+}
+
+.fa-print:before {
+	content: "\f02f";
+}
+
+.fa-camera:before {
+	content: "\f030";
+}
+
+.fa-list:before {
+	content: "\f03a";
+}
+
+.fa-check-circle:before {
+	content: "\f058";
+}
+
+.fa-times-circle:before {
+	content: "\f05c";
+}
+
+.fa-exclamation-triangle:before {
+	content: "\f071";
+}
+
+.fa-cart:before {
+	content: "\f07a";
+}
+
+.fa-camera-o:before {
+	content: "\f083";
+}
+
+.fa-heart-o:before {
+	content: "\f08a";
+}
+
+.fa-phone:before {
+	content: "\f095";
+}
+
+.fa-facebook:before {
+	content: "\f09a";
+}
+
+.fa-bell-o:before {
+	content: "\f0a2";
+}
+
+.fa-filter:before {
+	content: "\f0b0";
+}
+
+.fa-square-o:before {
+	content: "\f0c8";
+}
+
+.fa-bars:before {
+	content: "\f0c9";
+}
+
+.fa-google-plus:before {
+	content: "\f0d5";
+}
+
+.fa-caret-down:before {
+	content: "\f0d7";
+}
+
+.fa-caret-up:before {
+	content: "\f0d8";
+}
+
+.fa-caret-left:before {
+	content: "\f0d9";
+}
+
+.fa-caret-right:before {
+	content: "\f0da";
+}
+
+.fa-sort:before {
+	content: "\f0dc";
+}
+
+.fa-envelope:before {
+	content: "\f0e0";
+}
+
+.fa-bell:before {
+	content: "\f0f3";
+}
+
+.fa-angle-double-left:before {
+	content: "\f100";
+}
+
+.fa-angle-double-right:before {
+	content: "\f101";
+}
+
+.fa-angle-double-up:before {
+	content: "\f102";
+}
+
+.fa-angle-double-down:before {
+	content: "\f103";
+}
+
+.fa-angle-left:before {
+	content: "\f104";
+}
+
+.fa-angle-right:before {
+	content: "\f105";
+}
+
+.fa-angle-up:before {
+	content: "\f106";
+}
+
+.fa-angle-down:before {
+	content: "\f107";
+}
+
+.fa-circle:before {
+	content: "\f111";
+}
+
+.fa-star-half:before {
+	content: "\f123";
+}
+
+.fa-chevron-circle-right:before {
+	content: "\f138";
+}
+
+.fa-check-square:before {
+	content: "\f14a";
+}
+
+.fa-youtube:before {
+	content: "\f167";
+}
+
+.fa-google:before {
+	content: "\f1a0";
+}
+
+.fa-cart-plus:before {
+	content: "\f217";
+}
+
+.fa-user-plus:before {
+	content: "\f234";
+}
+
+.fa-bed:before {
+	content: "\f236";
+}
+
+.fa-address-card:before {
+	content: "\f2bb";
+}
+
+.fa-user-circle:before {
+	content: "\f2bd";
+}
+
+.fa-bath:before {
+	content: "\f2cd";
+}
+
+.fa-sign-out:before {
+	content: "\f2f5";
+}
+
+.fa-sign-in:before {
+	content: "\f2f6";
+}
+
+.fa-facebook-f:before {
+	content: "\f39e";
+}
+
+.fa-marker:before {
+	content: "\f3c5";
+}
+
+.fa-comment:before {
+	content: "\f4ad";
+}
+
+.fa-user-edit:before {
+	content: "\f4ff";
+}
+
+.fa-password:before {
+	content: "\f502";
+}
+
+.fa-user-avatar:before {
+	content: "\f6a4";
+}
+
+.fa-land:before {
+	content: "\f752";
+}
+
+.fa-zalo-circle:before {
+	content: "\f753";
+}

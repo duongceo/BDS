@@ -1,0 +1,282 @@
+﻿@model HappyRE.Web.Models.WardReviewViewModel
+@using Newtonsoft.Json
+@using HappyRE.Core.Resources;
+
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var ward = Model.WardReview;
+    var places = Model.WardPlaces;
+    var schools = Model.Schools;
+
+    var covers = Model.WardReview.Cover;
+    var images = Model.WardReview.Gallery;
+
+}
+<div class="mg-listing clearfix">
+    <div id="breadcrumbs">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_WardReview", "CachePartial", new { did = Model.DistrictId, ward = Model.WardName });
+            }
+        </div>
+    </div>
+    <div id="mg-page-content" ng-controller="wardReviewController">
+        <div class="mg-1170-container">
+            <div id="ward-info" class="ward clearfix">
+                <div class="cover">
+
+                    @if (covers != null && covers.Count > 0)
+                    {
+                        <img src="@covers[0].PublishUrl" alt="@covers[0].Title" ng-click="Gallery.Show(0)">
+                        <div class="caption">
+                            <span>@covers[0].Title</span>
+                        </div>
+                    }
+                </div>
+                <div class="ward-detail">
+                    <h1 class="ward-title">Review @Model.WardName</h1>
+                    <ul class="brief clearfix">
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-sale-price">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">Bán</div>
+                            <div class="desc">@HappyRE.Core.Utils.Common.PriceToText2(ward.SaleMinPrice) - @HappyRE.Core.Utils.Common.PriceToText2(ward.SaleMaxPrice)</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-sale-qty">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-qty"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">Số tin rao bán</div>
+                            <div class="desc">
+                                <a href="@Model.SaleUrl">@ward.TotalSale tin đăng &rarr;</a>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-rent-price">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-rent-price"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">Thuê</div>
+                            <div class="desc">@HappyRE.Core.Utils.Common.PriceToText2(ward.RentMinPrice) - @HappyRE.Core.Utils.Common.PriceToText2(ward.RentMaxPrice)</div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-rent-qty">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-rent-qty"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">Số tin cho thuê:</div>
+                            <div class="desc">
+                                <a href="@Model.RentUrl">@ward.TotalRent tin đăng &rarr;</a>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-school">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-school"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">@ward.TotalSchool trường học</div>
+                            <div class="desc">Đánh giá @ward.SchooolRate</div>
+                        </li>
+                    </ul>
+                    @if (images != null && images.Count > 0)
+                    {
+                        <div id="ward-gallery">
+                            <ul class="gallery clearfix">
+                                @for (int i = 0; i < 2 && i < images.Count; i++)
+                                {
+                                    <li class="clearfix" ng-click="Gallery.Show(@i + 1)">
+                                        <img src="@images[i].SmallPublishUrl" alt="@images[i].Title">
+                                    </li>
+                                }
+
+                                @if (images.Count > 3)
+                                {
+                                    <li class="gallery-more clearfix" ng-click="Gallery.Show(3)">
+                                        <div class="blur" style="background:url('@images[2].SmallPublishUrl')"></div>
+                                        <div class="counter">
+                                            <span>+@Html.Raw(images.Count - 2)</span>
+                                        </div>
+                                    </li>
+                                }
+                                else if (images.Count == 3)
+                                {
+                                    <li class="clearfix" ng-click="Gallery.Show(3)">
+                                        <img src="@images[2].SmallPublishUrl" alt="@images[2].Title">
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            @if (!String.IsNullOrEmpty(ward.Description))
+            {
+                <div id="ward-desc" class="ward clearfix">
+                    <h2 class="title">Sơ lược về @Model.WardName</h2>
+                    <div class="desc">@Html.Raw(ward.Description)</div>
+                    <div class="map">
+                        <img src="@Model.MapUrl" alt="@Model.WardName">
+                    </div>
+                </div>
+            }
+
+            <div id="ward-statistic" class="ward">
+                <h2 class="title">Thống kê</h2>
+                <ul class="statistic clearfix">
+                    @foreach (var place in places)
+                    {
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                @if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.School)
+                                {
+                                    <svg>
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-school"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.Hospital)
+                                {
+                                    <svg class="icon-hospital">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-hospital"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.ATM)
+                                {
+                                    <svg class="icon-atm">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-atm"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.Market ||
+                                    place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.SupperMarket ||
+                                    place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.ConvenienceStore ||
+                                    place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.Mall)
+                                {
+                                    <svg class="icon-super-market">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-super-market"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.Park)
+                                {
+                                    <svg class="icon-park">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-park"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.Gas)
+                                {
+                                    <svg class="icon-park">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-gas-station"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.KidGarden)
+                                {
+                                    <svg class="icon-park">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-kid-garden"></use>
+                                    </svg>
+                                }
+                                else if (place.CategoryId == (int)HappyRE.Core.WardPlaceCategory.School)
+                                {
+                                    <svg class="icon-park">
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-school"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <svg>
+                                        <use xlink:href="/content/images/ward-review-icon.svg#icon-school"></use>
+                                    </svg>
+                                }
+                            </div>
+                            <div class="desc">@place.Qty @place.Name</div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            @if (schools != null && schools.Count > 0)
+            {
+                <div id="ward-schools" class="ward">
+                    <h2 class="title">Trường học</h2>
+                    <div id="schools" class="clearfix owl-carousel" mg-carousel options="CarouselOptions">
+
+                        @foreach (var school in schools)
+                        {
+                            <div class="school">
+                                <a target="_blank" class="school-title link-overlay" href="@school.GetGmapLink()">
+                                    @school.Name
+                                </a>
+                                <div class="school-adr">@school.Address</div>
+                                <div class="school-rate">@school.Rating.ToString("0.#")</div>
+                                <div class="school-stars">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        var star = school.Rating - i;
+                                        if (star > 0)
+                                        {
+
+                                            if (star < 1)
+                                            {
+                                                <i class="fa fa-star-half-o"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star-o"></i>
+                                        }
+                                    }
+                                </div>
+                                <div class="school-rate-couter">@school.RatingTotal lượt đánh giá</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+
+            @{
+                Html.RenderAction("GetWardAgents", "CachePartial", new { wid = Model.WardId });
+                Html.RenderAction("WardPropertyByType", "CachePartial", new { cid = Model.CityId, did = Model.DistrictId, wid = Model.WardId, rentUrl = @Model.RentUrl, saleUrl = @Model.SaleUrl });
+                Html.RenderAction("WardNeighbor", "CachePartial", new { wid = Model.WardId, did = Model.DistrictId });
+            }
+
+            <div id="market-price" class="clearfix">
+                <span>Khu nhà bạn giá bao nhiêu?</span>
+                <a href="/gia-nha-dat">Tham khảo giá nhà đất</a>
+            </div>
+        </div>
+
+        <div ng-photoswipe
+             slides="Gallery.Data"
+             slide-selector=".slide"
+             open="Gallery.Open"
+             on-close="Gallery.Close()"
+             template="/scripts/app/templates/ng-photoswipe-wardreview.html"
+             options="Gallery.Options"></div>
+        <div class="slide"></div>
+    </div>
+</div>
+@section styles {
+    <link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/wardreviewward.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+    <script type="text/javascript">
+        var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+        var cover  = @Html.Raw(JsonConvert.SerializeObject(covers.Select(t => new{ title= t.Title, url = t.PublishUrl })));
+        var images= @Html.Raw(JsonConvert.SerializeObject(images.Select(t => new { title = t.Title, url = t.PublishUrl })));
+    </script>
+    <script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/wardReview.js")' type="text/javascript"></script>
+}

@@ -1,0 +1,63 @@
+﻿@model HappyRE.Core.Entities.UserProfile
+@using MBN.Utils.Extension;
+@using HappyRE.Core.Resources;
+@{
+    ViewBag.Title = Message.UserProfile_AlertSearch;
+}
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()" ng-cloak>
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+
+    <div id="main" class="clearfix">
+        <h2>@Message.Home_004</h2>
+        <div class="row-content clearfix" ng-init="Search.GetAlertSearchs(false)">
+            <div class="summary clearfix line">
+                <div class="summary-tab" ng-class="{active: !Search.IsRent}">
+                    <h4><a data-toggle="pill" href="#buy-list" ng-click="Search.GetAlertSearchs(false)">@Message.Msg_Buy <span class="counter">({{Search.Counter.buy}})</span></a></h4>
+                </div>
+                <div class="summary-tab" ng-class="{active: Search.IsRent}">
+                    <h4><a data-toggle="pill" href="#rent-list" ng-click="Search.GetAlertSearchs(true)">@Message.Msg_Rent <span class="counter"> ({{Search.Counter.forent}})</span></a></h4>
+                </div>
+            </div>
+            <div class="row clearfix" style="width:100%;float:left;" ng-repeat="item in Search.Data">
+                <div class="col-sm-7"><a class="alert-title" href="javascript:void(0);" ng-click="Search.CallSearch(item.SearchQuery)" ng-bind="item.Title"></a></div>
+                <div class="col-sm-3">
+                    <a class="alert-cmd" href="javascript:void(0)" ng-click="Search.ShowAlertPopup(item,false)" onclick="return false;"><i class="fa fa-bell" ng-class="{'fa-bell-saved': Search.IsAlert(item)}"></i><span ng-if="Search.IsAlert(item)" ng-bind="item.ReceiveEmailTypeName"></span><span ng-if="!Search.IsAlert(item)">@Message.Msg_CreateAlert</span></a>
+                </div>
+                <div class="col-sm-2">
+                    <a class="alert-cmd" href="#" ng-click="Search.Delete(item.AlertSearchId)" click="return false;"><i class="icon icon-trash"></i>@Message.Msg_Delete</a>
+                </div>
+            </div>
+        </div>
+        <div id="/Message" class="row" ng-show="UserMessage.Total > 0" ng-init="UserMessage.Init()" style="margin-top:-50px; padding-top:50px">
+            <div class="col-sm-12"><h2>@Message.Home_005</h2></div>
+        </div>
+        <div class="row" ng-show="UserMessage.Total > 0">
+            <div class="col-sm-12">
+                <ul class="inbox">
+                    <li class="message" ng-repeat="item in UserMessage.Messages">
+                        <a class="m-link" href="#" ng-href="{{item.TargetUrl}}" ng-click="messageService.OnRead(item.MessageId)">
+                            <p class="m-content" ng-bind="item.Subject"></p>
+                            <div class="m-send-date" ng-bind="item.StartDate | date:dd/mm/yyyy"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <ul ng-if="UserMessage.Total >10" uib-pagination items-per-page="10" total-items="UserMessage.Total" ng-model="UserMessage.PageIndex" class="pagination" ng-change="UserMessage.GetMessages()"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Styles.Render("~/Content/profilecss")
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}
+

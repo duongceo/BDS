@@ -1,0 +1,18 @@
+﻿.bocongthuong {
+    display: block;
+    width: 150px;
+	background-color: initial!important;
+}
+.flag-vi-VN, .flag-en-US {
+    float: left;
+	display:block;
+    width: 16px;
+    height: 14px;
+    margin: 3px 0px;
+}
+.flag-vi-VN {
+    background-position: 0px -16px;
+}
+.flag-en-US {
+    background-position: 0px 0px;
+}

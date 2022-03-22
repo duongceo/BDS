@@ -1,0 +1,91 @@
+﻿@model HappyRE.Core.MapModels.Proxy.CMSAPI_NewsContent
+<div class="container">
+    <div class="col-md-3">
+        @{ Html.RenderAction("CategoriesByGroup", "Cms", new { codeUrl = ViewBag.CodeUrl });}
+    </div>
+    <div class="col-md-9">
+        <div class="vpgd" ng-controller="branchOfficeController">
+            <div class="form-group">
+                <h3 class="header">Các địa điểm tư vấn đăng tin và nạp tiền</h3>
+            </div>
+            <div class="form-group clearfix">
+                <select data-placeholder-text-single="'Tỉnh thành'" chosen class="form-control" style="width:200px; display:inline-block"
+                        allow-single-deselect="true"
+                        disable-search="true"
+                        ng-model="City.Value"
+                        ng-required="true"
+                        name="City"
+                        ng-change="City.Changed()"
+                        ng-options="item.CityId as item.CityName for item in City.Options">
+                    <option value=""></option>
+                </select>
+                <select data-placeholder-text-single="'Quận huyện'" chosen class="form-control" style="width:200px; display:inline-block"
+                        disable-search="true"
+                        allow-single-deselect="true"
+                        ng-model="District.Value"
+                        ng-required="true"
+                        name="District"
+                        ng-change="District.Changed()"
+                        no-results-text="'Quận huyện'"
+                        ng-options="item.DistrictId as item.DistrictName for item in District.Options">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group vpgd-list">
+                <div ng-repeat="item in MBNAgents">
+                    <div ng-show="item.IsHeader" >
+                        <div class="branchoffice-city" ng-show="!item.IsDistrict">
+                            <div class="col-md-9 col-sm-8 col-xs-8">
+                                {{item.Name}}
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4" style="padding-right: 20px; text-align: right;">
+                                <a href="javascript:void(0)" ng-click="ShowMapByCity(item.CityId,0)">Bản đồ</a>
+                            </div>
+                        </div>
+                        <div class="branchoffice-district" ng-show="item.IsDistrict && !item.IsAgentHeader">
+                            <div class="col-md-9 col-sm-8 col-xs-8">{{item.Name}}</div>
+                            <div class="col-md-3 col-sm-4 col-xs-4" style="padding-right: 20px; text-align: right;">
+                                <a href="javascript:void(0)" ng-show="!item.IsAgentHeader" ng-click="ShowMapByCity(0, item.CityId)">Bản đồ</a>
+                            </div>
+                        </div>
+                        <div class="branchoffice-type" ng-show="item.IsDistrict && item.IsAgentHeader">
+                            <div>{{item.Name}}</div>
+                        </div>
+                    </div>
+                    <div class="branchoffice-addr" ng-show="!item.IsHeader">
+                        <div class="col-md-9 col-sm-8 col-xs-8">
+                            <span>{{ShowInfo(item.AgentTypeId, item.Name, item.Address, item.Mobile, item.Phone, item.PhoneExt)}}</span>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-4" style="padding-right: 20px; text-align: right;">
+                            <a href="javascript:void(0)" ng-click="ShowMap(item)">Bản đồ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalBrand">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Bản đồ văn phòng/Đại lý/Điểm nhận tin</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="map_canvas" style="width:100%; height:455px;"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@section styles {
+    @Styles.Render("~/content/branchoffice")
+}
+@section scripts {
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=@HappyRE.Core.Utils.Common.GOOGLE_MAP_API_KEY&libraries=drawing,places"></script>
+    @Scripts.Render("~/bundles/branchoffice")
+}

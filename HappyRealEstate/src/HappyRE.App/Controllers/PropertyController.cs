@@ -35,10 +35,10 @@ namespace HappyRE.App.Controllers
         }
 
         [CompressFilter]
-        public async Task<ActionResult> GetListKeyValue(string text, string id)
+        public async Task<ActionResult> GetListKeyValue(string search, string id)
         {
-            var res = await _uow.Property.GetListKeyValue(text,id);
-            return Json(res.ToList(), JsonRequestBehavior.AllowGet);
+            var res = await _uow.Property.SearchForSelect(search, id);
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         [CompressFilter]
@@ -136,6 +136,40 @@ namespace HappyRE.App.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [CompressFilter]
+        [HttpPost]
+        [Authorize(Roles = Permission.PROPERTY_VIEW)]
+        public async Task<JsonResult> _AddImages(Property data)
+        {
+            try
+            {
+                foreach (var item in data.PropertyImages) {
+                    await _uow.ImageFile.IU(new ImageFile()
+                    {
+                        TableName = "Property",
+                        TableKeyId = data.Id,
+                        Src = item,
+                        IsMore = true,
+                        GroupCode = DateTime.Now.GetHashCode().ToString("x")
+                    });
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            catch (HappyRE.Core.BLL.BusinessException ex)
+            {
+                _log.Warn(ex);
+                Response.StatusCode = 400;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                Response.StatusCode = 400;
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [CompressFilter]
         [HttpGet]
         public async Task<JsonResult> _TotalViewedMobileToday()

@@ -68,7 +68,7 @@ namespace HappyRE.Core.BLL.Repositories
                 {
                     if (type == (int)FileType.Property)
                     {
-                        if (refId.HasValue && refId > 0)
+                        if (refId.HasValue && refId > 0 && 1==0)
                         {
                             await uow.ImageFile.IU(new ImageFile()
                             {

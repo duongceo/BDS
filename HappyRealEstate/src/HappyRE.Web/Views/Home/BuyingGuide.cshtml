@@ -1,0 +1,470 @@
+﻿@using Newtonsoft.Json
+@using HappyRE.Core.Resources;
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "10 bước hoàn thành thủ tục cho người mua nhà lần đầu";
+    ViewBag.Description = "Hướng dẫn 10 bước dành cho người mua nhà lần đầu giúp bạn dễ dàng sở hữu ngôi nhà đầu tiên. Chia sẻ kinh nghiệm thực tế từ tìm kiếm thông tin bất động sản, tìm ngân hàng cho vay, hoàn tất thủ tục giấy tờ, tìm đơn vị thiết kế nội thất và đối tác chuyển nhà uy tín được cập nhật liên tục tại trang tin BĐS batdongsanhanhphuc.vn";
+    ViewBag.OG_Description = ViewBag.Description;
+    ViewBag.OG_Title = ViewBag.Title;
+    ViewBag.OG_Image = HappyRE.Core.Utils.Common.RootUrl + "/Content/Images/buyingguide/10buocmuanha.png";
+}
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+    <ul class="dropdown-menu suggest"
+        ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left-1+'px',width: position().width +2 + 'px'}"
+        role="listbox" aria-hidden="{{!isOpen()}}">
+        <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+            <a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+        </li>
+    </ul>
+</script>
+
+<div class="clearfix" ng-controller="buyingguideController">
+    <div id="page-title">
+        <div class="mg-960-container">
+            <h1><span class="highlight">10 bước</span> mua nhà <span class="hidden-xs hidden-sm"> cơ bản</span> </h1>
+        </div>
+    </div>
+    <section id="breadcrumbs" class="clearfix">
+        <div class="mg-960-container">
+            @{
+                Html.RenderAction("Breadcrumb_BuyingGuide", "CachePartial");
+            }
+        </div>
+    </section>
+
+    <div class="mg-960-container">
+        <div id="main">
+            <div class="buying-guide clearfix">
+                <div class="guide-header clearfix">
+                    <h2 class="title">Click vào từng phần để xem chi tiết</h2>
+                    <a class="btn-download" href="~/Content/Images/buyingguide/checklist.png" download="">
+                        Tải về
+                        <img src="~/Content/Images/buyingguide/download.svg" />
+                    </a>
+                </div>
+                <div class="panel-group steps">
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step01'),checked: CheckList.IsChecked('step01'),expanded:Toggle.IsExpand('step01')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step01')"></i>
+                            <a class="" data-toggle="collapse" href="#step01" ng-click="Toggle.OnClick('step01')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>1. Tìm kiếm thông tin BĐS</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div id="step01" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    Bộ lọc thông minh của Mogi có thể giúp người tìm kiếm sàng lọc được tất cả thông tin chi tiết theo mong muốn. Từ những
+                                    thông tin cơ bản nhất như diện tích, số phòng, phong thuỷ cho đến các tiện ích hỗ trợ từng nhu cầu cuộc sống như bệnh
+                                    viện, quán ăn, trường học,… Người xem tin hoàn toàn có thể hình dung ra gần như toàn bộ căn nhà và môi trường sống
+                                    xung quanh.
+                                </div>
+                                @*<div class="content youtube-video">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/TauJLzZuVQY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step02'),checked: CheckList.IsChecked('step02'),expanded:Toggle.IsExpand('step02')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step02')"></i>
+
+                            <a data-toggle="collapse" href="#step02" ng-click="Toggle.OnClick('step02')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>2. Tham khảo giá đất/căn hộ</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step02" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    <div class="buying-guide-form clearfix">
+                                        <div class="form-logo">
+                                            <img src="~/Content/Images/buyingguide/2thamkhaogiaicon.png" />
+                                        </div>
+                                        <div class="form-content">
+                                            <div class="form-text">
+                                                <div class="form-title">Tham khảo giá nhà với thông tin chính xác</div>
+                                            </div>
+                                            <div class="form-text">
+                                                Nỗi sợ lớn nhất đối với người mua bất động sản chính là sự bất minh bạch về vấn đề giá, chính thế mà mức độ rủi ro khi đầu
+                                                tư vào lĩnh vực này luôn ở mức cao. Nhưng hiện nay, người xem tin hoàn toàn có thể biết được mức giá trung bình, mức giá
+                                                cao nhất va thấp nhất của khu vực bạn muốn đầu tư với tính năng tham khảo giá chỉ có tại Mogi.
+                                            </div>
+                                            <div class="form-text mt-mogi-logo">
+                                                <img src="~/Content/Images/buyingguide/Logomogi.svg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <div class="mt-command clearfix ">
+                                        <input type="text" id="q" name="keyword"
+                                               ng-model="List.Keyword"
+                                               ng-required="true"
+                                               typeahead-loading="LoadingLocations"
+                                               typeahead-no-results=""
+                                               typeahead-on-select="List.SearchStreet()"
+                                               uib-typeahead="item as item.FullName(item.Name) for item in List.GetStreetSuggest($viewValue)" value=""
+                                               typeahead-popup-template-url="suggestPopupTemplate.html"
+                                               typeahead-show-hint="false"
+                                               autocomplete="off" placeholder="Tên đường" autofocus />
+
+                                        <a class="link-button" href="javascript:void(0)" ng-click="List.SearchStreet()">Tìm kiếm</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step03'),checked: CheckList.IsChecked('step03'),expanded:Toggle.IsExpand('step03')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step03')"></i>
+
+                            <a data-toggle="collapse" href="#step03" ng-click="Toggle.OnClick('step03')">
+                                <div class="panel-title clearfix">
+
+                                    <div class="title"><span>3. Quy hoạch xung quanh BĐS</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div id="step03" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    Thông tin quy hoạch bất động sản tại khu vực luôn là điều mà bất cứ nhà đầu tư nào cũng muốn biết trước khi hạ tay chi
+                                    tiền. Chính vì vậy mà tính năng tham khảo thông tin quy hoạch bất động sản của Mogi sẽ là một cánh tay đắc lực trong việc
+                                    đưa ra phỏng đoán về tiềm năng đầu tư của khu vực bạn mong muốn.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step04'),checked: CheckList.IsChecked('step04'),expanded:Toggle.IsExpand('step04')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step04')"></i>
+                            <a data-toggle="collapse" href="#step04" ng-click="Toggle.OnClick('step04')">
+                                <div class="panel-title clearfix">
+
+                                    <div class="title"><span>4. Xem các tiện ích xung quanh</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div id="step04" class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="content">
+                                    Bên cạnh các thông số bên trong căn nhà, các bạn trẻ và những người mua nhà thế kỉ 21 còn đặc biệt chú trọng vào không
+                                    gian sống và môi trường sống xung quanh. Tất tần tật những thông tin về các tiện ích hỗ trợ cuộc sống trong khu vực xung
+                                    quanh mỗi bất động sản sẽ luôn được cập nhật chính xác tại <b>Mogi</b>.
+                                </div>
+                                <div class="content half-size-img clearfix">
+                                    <img src="~/Content/Images/buyingguide/1-01_07.gif" />
+                                    <img src="~/Content/Images/buyingguide/1-01_10.gif" />
+
+
+                                </div>
+
+                                <div class="content">
+                                    <div class="listing-command clearfix ">
+                                        <div class="title">
+                                            Tìm kiếm ngay tức thì!!!
+                                        </div>
+                                        <a class="link-button" href="/mua-nha-dat">Tìm mua</a>
+                                        <a class="link-button" href="/thue-nha-dat">Tìm thuê</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step05'),checked: CheckList.IsChecked('step05'),expanded:Toggle.IsExpand('step05')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step05')"></i>
+                            <a data-toggle="collapse" href="#step05" ng-click="Toggle.OnClick('step05')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>5. Tìm ngân hàng</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step05" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    <div class="buying-guide-form clearfix">
+                                        <div class="form-logo">
+                                            @*<img src="~/Content/Images/buyingguide/Asset 13-8.png" />*@
+                                            <img src="~/Content/Images/buyingguide/thebank.jpg" />
+                                        </div>
+                                        <div class="form-content">
+
+                                            <div class="form-text">
+                                                <div class="form-title">Tìm ngân hàng</div>
+
+                                            </div>
+                                            <div class="form-text">
+                                                Với sự hợp tác với <b>THEBANK.VN</b>, tính năng Tìm ngân hàng của Mogi có thể hỗ trợ bạn
+                                                tìm hiểu và so sánh giữa các ngân hàng uy tín hàng đầu Việt Nam hiện nay để đưa ra
+                                                lựa chọn chính xác và an tâm nhất.
+                                            </div>
+                                            <div class="form-text mt-mogi-logo">
+                                                <img src="~/Content/Images/buyingguide/Logomogi.svg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    Đối với những bạn quan tâm đến hình thức vay tiền mua nhà thì điều quan trọng nhất là phải lựa chọn được ngân hàng đang
+                                    có chương trình hỗ trợ hấp dẫn kèm lãi suất vay phù hợp với nhu cầu.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step06'),checked: CheckList.IsChecked('step06'),expanded:Toggle.IsExpand('step06')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step06')"></i>
+
+                            <a data-toggle="collapse" href="#step06" ng-click="Toggle.OnClick('step06')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>6. Đặt cọc</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step06" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    Chỉ đặt cọc sau khi đã xem xét tất cả các giấy tờ pháp lý của ngôi nhà và luôn ký giấy xác nhận có chữ ký của cả hai bên mua – bán.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step07'),checked: CheckList.IsChecked('step07'),expanded:Toggle.IsExpand('step07')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step07')"></i>
+
+                            <a data-toggle="collapse" href="#step07" ng-click="Toggle.OnClick('step07')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>7. Tìm văn phòng công chứng</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step07" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    <div class="buying-guide-form clearfix notarize">
+                                        <div class="form-logo">
+
+                                            <img src="~/Content/Images/buyingguide/7vanphongcongchungicon.png" />
+                                        </div>
+                                        <div class="form-content">
+                                            <div class="form-text">
+                                                <div class="form-title">Tìm văn phòng công chứng</div>
+                                            </div>
+                                            <div class="form-text">
+                                                Bạn có thể xem địa điểm các văn phòng công chứng tại đây
+                                            </div>
+                                            <div class="form-text ">
+                                                <a class="link-button" href="/lien-he/van-phong-cong-chung">Tìm kiếm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    Sau khi đặt cọc, hai bên mua và bán sẽ đem đầy đủ các giấy tờ liên quan ra văn phòng công chứng trong khu vực để hoàn thành các thủ tục pháp lý.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step08'),checked: CheckList.IsChecked('step08'),expanded:Toggle.IsExpand('step08')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step08')"></i>
+
+                            <a data-toggle="collapse" href="#step08" ng-click="Toggle.OnClick('step08')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>8. Thủ tục lấy sang tên sổ đỏ</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step08" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content">
+                                    Khi công chứng xong, hai bên mua và bán tiến hành đóng thuế và các khoản phí liên quan theo yêu cầu để hoàn tất thủ tục sang tên sổ đỏ cho người mua.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step09'),checked: CheckList.IsChecked('step09'),expanded:Toggle.IsExpand('step09')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step09')"></i>
+
+                            <a data-toggle="collapse" href="#step09" ng-click="Toggle.OnClick('step09')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>9. Thiết kế nội thất</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step09" class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="content vendor-list clearfix">
+                                    <ul class="clearfix">
+                                        <li class="clearfix">
+                                            <div class="vendor-card clearfix">
+                                                <a class="clearfix" href="#" target="_blank">
+                                                    <div class="vendor-logo">
+                                                        <img src="~/Content/Images/buyingguide/1-01_15.gif" />
+                                                    </div>
+                                                    <div class="vendor-info">
+                                                        <div class="vendor-title">Phú Hưng Gia</div>
+                                                        <div class="vendor-web"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="vendor-card clearfix">
+                                                <a class="clearfix" target="_blank" href="#">
+                                                    <div class="vendor-logo">
+                                                        <img src="~/Content/Images/buyingguide/1-01_17.jpg" />
+                                                    </div>
+                                                    <div class="vendor-info">
+                                                        <div class="vendor-title">Thiên Nhân</div>
+                                                        <div class="vendor-web">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="vendor-card clearfix last">
+                                                <a class="clearfix" target="_blank" href="#">
+                                                    <div class="vendor-logo">
+                                                        <img src="~/Content/Images/buyingguide/1-01_21.gif" />
+                                                    </div>
+                                                    <div class="vendor-info">
+                                                        <div class="vendor-title">Đại Lĩnh</div>
+                                                        <div class="vendor-web">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content">
+                                    Sau khi hoàn thành thủ tục sang tên sổ đỏ và các giấy tờ pháp lý liên quan thì căn nhà đã chính thức thuộc quyền sở hữu của bạn. Bước cần làm tiếp theo chính là bắt tay vào sửa sang lại và sắm sửa, trang trí nội thất cho ngôi nhà của mình. Bạn có thể tìm kiếm các ý tưởng thiết kế trên internet hay thuê dịch vụ ở ngoài để được hỗ trợ tốt hơn. Bạn có thể tham khảo qua một số bên cung cấp dịch vụ sửa chữa ở trên.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buying-guide" ng-class="{active: Toggle.IsActive('step10'),checked: CheckList.IsChecked('step10'),expanded:Toggle.IsExpand('step10')}">
+                        <div class="panel-heading clearfix">
+                            <i class="checked-icon" ng-click="CheckList.OnCheck('step10')"></i>
+
+                            <a data-toggle="collapse" href="#step10" ng-click="Toggle.OnClick('step10')">
+                                <div class="panel-title clearfix">
+                                    <div class="title"><span>10. Chuyển nhà</span></div>
+                                    <div class="expand-icon">
+                                        @*<i class="fa fa-chevron-down" aria-hidden="true"></i>*@
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="step10" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="content vendor-list clearfix">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <div class="vendor-card clearfix">
+                                                <a class="clearfix" target="_blank" href="#">
+                                                    <div class="vendor-logo">
+                                                        <img src="~/Content/Images/buyingguide/1-01_28.gif" />
+                                                    </div>
+                                                    <div class="vendor-info">
+                                                        <div class="vendor-title"> Xe Ba Gác Lôi</div>
+                                                        <div class="vendor-web">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="vendor-card clearfix last">
+                                                <a class="clearfix" target="_blank" href="#">
+                                                    <div class="vendor-logo ">
+                                                        <img src="~/Content/Images/buyingguide/1-01_23.gif" />
+                                                    </div>
+                                                    <div class="vendor-info">
+                                                        <div class="vendor-title">Thiên Thuận Phát</div>
+                                                        <div class="vendor-web">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content">
+                                    Sau khi đã sửa sang, dọn dẹp lại ngôi nhà mới thì công việc cuối cùng chính là dọn đồ đạc vào và ở. Hiện nay có rất nhiều công ty kinh doanh dịch vụ hỗ trợ vận chuyển, dọn dẹp đồ đạc khi chuyển nhà hay văn phòng vô cùng tiện lợi và nhanh chóng. Bạn có thể tham khảo qua một số công ty vận chuyển ở trên.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div id="sidebar">
+            @{
+				Html.RenderAction("RightBanner", "Banner", new { code = "agent-right-top" });
+            }
+        </div>*@
+    </div>
+</div>
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/home_buyingguide")">
+    @*@Styles.Render("~/content/css")
+    <link href="~/Content/home/buyingguidev2.css" rel="stylesheet" />*@
+}
+@section scripts {
+    <script async src='@Scripts.Url("~/bundles/home_buyingguide")' type="text/javascript"></script>
+    @*@Scripts.Render("~/bundles/common")
+    <script src="~/scripts/app/controllers/buyingguideController.js"></script>*@
+}

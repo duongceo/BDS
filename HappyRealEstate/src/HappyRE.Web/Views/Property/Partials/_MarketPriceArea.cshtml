@@ -1,0 +1,14 @@
+﻿@using HappyRE.Web.Resources;
+@using Newtonsoft.Json;
+@model HappyRE.Core.MapModels.Report.FrontEnd_MarketPriceModel
+@if (Model.Total <= 0) {
+	return;
+}
+<div class="widget price-widget" ng-non-bindable>
+	<h3><span>@ViewBag.Title</span><a class="view-more" href="@ViewBag.MoreUrl" target="_blank">@HappyRE.Core.Resources.Message.Msg_LinkMore<i class="fa fa-angle-right"></i></a></h3>
+	<ul>
+		<li>@Message.MarketPrice_AvgPrice<span class="price">@Model.AvgPriceText/m<sup>2</sup></span></li>
+		<li>@Message.MarketPrice_MinPrice<span class="price">@Model.MinPriceText/m<sup>2</sup></span></li>
+		<li>@Message.MarketPrice_MaxPtrice<span class="price">@Model.MaxPriceText/m<sup>2</sup></span></li>
+	</ul>
+</div>

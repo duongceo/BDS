@@ -1,0 +1,17 @@
+﻿@model HappyRE.Core.MapModels.Search.SearchSimilarResult
+@if (Model.HasProject == true)
+{
+    @Html.Partial("~/Views/Property/Partials/_SearchSimilarBox.cshtml", Model.Project, new ViewDataDictionary { { "title", Model.ProjectTitle }, { "gtmAct", "project" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasWard == true)
+{
+    @Html.Partial("~/Views/Property/Partials/_SearchSimilarBox.cshtml", Model.Ward, new ViewDataDictionary { { "title", Model.WardTitle }, { "gtmAct", "ward" } , { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasDistrict == true)
+{
+    @Html.Partial("~/Views/Property/Partials/_SearchSimilarBox.cshtml", Model.District, new ViewDataDictionary { { "title", Model.DistrictTitle }, { "gtmAct", "district" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasCity == true)
+{
+    @Html.Partial("~/Views/Property/Partials/_SearchSimilarBox.cshtml", Model.City, new ViewDataDictionary { { "title", Model.CityTitle }, { "gtmAct", "city" }, { "gtmCat", Model.GtmCat } })
+}

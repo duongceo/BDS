@@ -26,7 +26,7 @@ public class ImageModule : IHttpModule
         var context = app.Context;
         var ext = Path.GetExtension(app.Context.Request.Path.ToLower());
 
-        if ((ext.EndsWith(".jpg") || ext.EndsWith(".png") || ext.EndsWith(".bmp")) && app.Context.Request.Path.StartsWith("/img/s"))
+        if ((ext.EndsWith(".jpg") || ext.EndsWith(".png") || ext.EndsWith(".bmp") || ext.EndsWith(".jpeg")) && app.Context.Request.Path.StartsWith("/img/s"))
         {
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
             //var pp = app.Context.Server.MapPath(app.Context.Request.Path);
@@ -78,7 +78,7 @@ public class ImageModule : IHttpModule
                     else newImg.Save(mem, ImageFormat.Jpeg);
 
                     byte[] buffer = mem.ToArray();
-                    app.Context.Response.ContentType = (ext == ".jpg") ? "image/jpg" : "image/png";
+                    app.Context.Response.ContentType = (ext == ".jpg") ? "image/jpg" : (ext == ".jpeg") ? "image/jpeg": "image/png";
                     app.Context.Response.BinaryWrite(buffer);
                     app.Context.Response.Flush();
                     context.Response.Cache.SetLastModified(DateTime.Now);

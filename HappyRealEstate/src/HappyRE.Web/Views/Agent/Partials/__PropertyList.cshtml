@@ -1,0 +1,76 @@
+﻿@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+
+@foreach (var item in Model)
+{
+    bool is_vip = item.IsVip();
+    string css = (is_vip ? "vip-item" : "");
+    string cover1 = "", cover2 = "", cover3 = "";
+    cover1 = cover2 = cover3 = HappyRE.Core.Utils.Common.NoImageUrl;
+    List<string> objCovers = item.GetCoverImages();
+    if (objCovers != null && objCovers.Count > 0)
+    {
+        cover1 = objCovers[0];
+        if (objCovers.Count >= 2)
+        {
+            cover2 = objCovers[1];
+        }
+        if (objCovers.Count >= 3)
+        {
+            cover3 = objCovers[2];
+        }
+    }
+    if (is_vip && string.IsNullOrEmpty(item.StickerName))
+    {
+        item.StickerName = "VIP";
+    }
+
+    <div class="list-view-item @css clearfix">
+        <div class="list-view-image">
+            <img src="@cover1" />
+            @if (is_vip)
+            {
+                <img src="@cover2" />
+                <img src="@cover3" />
+                <span class="sticker">@item.StickerName</span>
+            }
+            <span class="gallery-image-total">
+                <span>
+                    <i class="icon icon-image"></i>@item.TotalImage
+                </span>
+                <span>
+                    <i class="icon icon-clip"></i>@item.GetTotalVideo()
+                </span>
+                <span>
+                    <i class="icon icon-plan"></i>@item.TotalFloorPlan
+                </span>
+            </span>
+            <span class="list-view-price">@item.PriceView</span>
+        </div>
+        <div class="list-view-content">
+            <div class="content">
+                <div class="title2">
+                    <a class="link-overlay" href="@item.Url"><h2>@item.Title</h2></a>
+                </div>
+                <div class="title1">@item.Address</div>
+                <div class="room">
+                    <span><i class="fa fa-bed"></i> @item.BedRooms</span>
+                    <span class="bathroom"><i class="fa fa-bath"></i> @item.BathRooms</span>
+                    <span><i class="icon icon-acreage"></i> @Convert.ToInt64(item.Area) m<sup>2</sup></span>
+                </div>
+                <div class="summary">
+                    @item.Summary
+                </div>
+            </div>
+            <span class="date">Ngày đăng: @item.PublishView</span>
+            <div class="list-view-agent">
+                <div class="agent-content">
+                    <img src="@item.AvatarUrl()" alt="" />
+                    <span class="agent-name">@item.User_FullName</span>
+                    <span class="agent-mobile">@item.User_Mobile</span>
+                </div>
+                <div class="favorite" ng-class="{favorited: FavoritedProperties[@item.PropertyId]}">
+                <i class="fa fa-heart" ng-class="{isfavorited: FavoritedProperties[@item.PropertyId]}" ng-click="ToggleFavoviteProperty(@item.PropertyId)"></i></div>
+            </div>
+        </div>
+    </div>
+}

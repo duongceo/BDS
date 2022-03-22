@@ -1,0 +1,88 @@
+﻿@using Newtonsoft.Json
+@using HappyRE.Core.Resources;
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="marketPriceController"
+     class="clearfix">
+
+    <section id="mt-search">
+        <div class="mg-container">
+            <div id="main" class="clearfix">
+                <div class="mt-filter">
+                    <div class="mt-title">
+                        Tham khảo giá khu vực
+                    </div>
+                    <div class="mt-search-box clearfix">
+                        <div class="mt-city mt-form-control ">
+                            <div class="dropdown" uib-dropdown>
+                                <button class="btn btn-default dropdown-toggle" type="button" id="city-dropdown" uib-dropdown-toggle>
+                                    <span class="value" ng-bind="Search.CityLabel()"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu>
+                                    <li ng-repeat="item in Search.Cities">
+                                        <a href="#" ng-click="Search.CityChange(item)">
+                                            <span ng-bind="item.n"></span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-district mt-form-control ">
+                            <div class="dropdown" uib-dropdown>
+                                <button class="btn btn-default dropdown-toggle" type="button" id="city-dropdown" uib-dropdown-toggle>
+                                    <span class="value" ng-bind="Search.DistrictLabel()"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu>
+                                    <li ng-repeat="item in Search.Districts()">
+                                        <a href="#" ng-click="Search.DistrictChange(item)">
+                                            <span ng-bind="item.n"></span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-month mt-form-control last">
+                            <div class="dropdown" uib-dropdown>
+                                <button class="btn btn-default dropdown-toggle" type="button" id="city-dropdown" uib-dropdown-toggle>
+                                    <span class="value" ng-bind="Search.MonthsLabel()"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu>
+                                    <li ng-repeat="item in Search.Months">
+                                        <a href="#" ng-click="Search.MonthChange(item)">
+                                            <span ng-bind="item.n"></span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-command clearfix">
+                            <button class="mt-btn" ng-click="Search.DoSearch()">Tìm Kiếm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="side-bar" class="clearfix">
+                @{
+                    Html.RenderAction("SearchSimilar", "CachePartial", new { rent = false, cityId = 0, districtId = 0, propertyTypeId = 0, propertyStyleId = 0, gtmCat = "listing-similar" });
+                }
+            </div>
+        </div>
+    </section>
+    <section id="hidden-content"></section>
+</div>
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketPriceSearch")">
+    @*<link href="~/Content/market/search.css" rel="stylesheet" />*@
+}
+@section scripts {
+    <script async src='@Scripts.Url("~/bundles/marketPrice")' type="text/javascript"></script>
+}

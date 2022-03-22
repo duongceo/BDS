@@ -469,14 +469,14 @@
           columns.Bound(e => e.TypeHtml).Encoded(false).ClientTemplate("<div><a href='/property/detail/#=Id#'><strong class='highlight'>#=Code#</strong></a></br><span>#=TypeHtml#</span></div>").Title("Mã BĐS");
           columns.Bound(e => e.AddressHtml).Encoded(false).Title("Vị trí BĐS").Width(160);
           columns.Bound(e => e.DetailHtml).Encoded(false).ClientTemplate("<div><b>DT đất</b>: <span>#=Area# m2</span></br><b>Ngang</b>: <span>#=Width# m</span></br><b>Dài</b>: <span>#=Length# m</span></br><b>Số phòng ngủ</b>: <span>#=NumOfBedroom#</span></br><b>Số toilet</b>: <span>#=NumOfToilet#</span></br><b>Số tầng</b>: <span>#=NumOfFloor#</span></br><b>Đường rộng</b>: <span>#=StreetWidth# m</span></br><b>Hướng nhà</b>: <span>#=DirectionName#</span></br><b>Ghi chú</b>: <span>#=common.readMore(common.raw(Note),100,\"/property/detail/\",Id)#</span></div>").Width(220);
-          columns.Bound(e => e.Commission).ClientTemplate("<div><b>Phí MG: </b><strong class='highlight'>#=Commission#</strong></br><b>Giá: </b><strong class='highlight'>#=renderPrice(Price,CurrencyType,CalcMethod)#</strong></br><b>Đơn giá: </b><span>#=PricePerArea#</span></br></div>").Title("Phí MG - Giá").Width(100);
+          columns.Bound(e => e.Commission).ClientTemplate("<div><b>Phí MG: </b><strong class='highlight'>#=common.raw(Commission)#</strong></br><b>Giá: </b><strong class='highlight'>#=renderPrice(Price,CurrencyType,CalcMethod)#</strong></br><b>Đơn giá: </b><span>#=PricePerArea#</span></br></div>").Title("Phí MG - Giá").Width(100);
           columns.Bound(e => e.Id).ClientTemplate("#=bizHelper.renderPropertyShowPhone(IsViewedMobileToday, Id, OwnerName, OwnerPhone)#").Title("Điện thoại");
           columns.Bound(e => e.PostedHtml).ClientTemplate("#=PostedHtml#<br><span class='link'>#=PostedBy#</span>").Encoded(false).Title("Người nhập").Width(85);
           columns.Bound(e => e.IsChecked).Encoded(false).ClientTemplate("<div><span>#=StatusHtml#</span>#=IsChecked? '<span class=\"label label-success\">Đã check</span>':'<label></label>' #</div>").Title("Trạng thái"); ;
           //columns.Bound(e => e.PotentialHtml).Encoded(false).Width(80);
           columns.Bound(e => e.IsVerified).ClientTemplate("<i style='color:green'>#= IsVerified==true?'<span class=\"label label-success\">XT</span>' :'' #</i></br>#=renderHOT(Id,IsHot) #").HtmlAttributes(new { style = "text-align:center" }).Title("XT");
           columns.Bound(e => e.Comment).ClientTemplate("#=common.readMore(common.raw(Comment),100,\"/property/detail/\",Id,1)#").HtmlAttributes(new { style="color:red" });
-          columns.Bound(e => e.ImageHtmlDisplay).Encoded(false).Width(50).Title("Hình");
+          columns.Bound(e => e.ImageHtmlDisplay).Encoded(false).Width(50).HtmlAttributes(new { style = "text-align:center" }).Title("Hình");
           columns.Template(t => { }).ClientTemplate(@"<a title='Chỉnh sửa thông tin' href='/Property/edit/#=Id#' class='#= bizHelper.renderCanEdit('canEdit',PostedBy)# btn btn-default'><span class='k-icon k-edit' aria-hidden='true'></span> Sửa</a>
 <button type='button' onclick='propertyListing.hideMobile(#=Id#,#=IsForceHiddenPhone#)' class='#= bizHelper.renderCanDo('canHideMobile')# btn btn-default'>#=IsForceHiddenPhone?'Hiện SĐT':'Ẩn SĐT'#</button>                                                        
 <button type='button' onclick='propertyListing.delete(#=Id#)' class='#= bizHelper.renderCanDo('canDelete')# btn btn-default'><span class='k-icon k-delete'></span> Xóa</button>").Width(80);
@@ -538,20 +538,11 @@
 
         $(document).ready(function () {
             baseListing.init(); 
+            baseListing.cip(); 
         });
     </script>
 
     <script>
-        //var counter = 1;
-
-        //function onDataBound(e) {
-        //    counter = 1;
-        //}
-
-        //function renderNumber(data) {
-        //    return counter++;
-        //}
-
         function renderPrice(price, currency, method) {
             if (method == 'tổng diện tích') return price + ' ' + currency;
             else return price + ' ' + currency + '/' + method; 

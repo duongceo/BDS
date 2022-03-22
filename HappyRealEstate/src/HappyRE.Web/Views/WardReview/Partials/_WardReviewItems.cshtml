@@ -1,0 +1,53 @@
+﻿@model List<HappyRE.Core.MapModels.WardReview.WardReviewWidget>
+
+<div id="ward-review">
+    <h2 class="ward-review-title">Review khu vực</h2>
+    <div mg-carousel class="ward-review-list owl-carousel" options="WardReviewOptions">
+        @foreach (var item in Model)
+        {
+            <div class="ward-item">
+                <img src="@item.CoverUrl" alt="@item.WardName" />
+                <a href="@item.Url" class="ward-title link-overlay">@item.WardName</a>
+                <div class="ward-adress">@item.DistrictName</div>
+                <ul class="brief clearfix">
+                    <li class="clearfix">
+                        <div class="ward-icon">
+                            <svg class="icon-sale-price">
+                                <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                            </svg>
+                        </div>
+                        <div class="desc">@item.TotalSchool trường học</div>
+                    </li>
+
+                    @if (ViewBag.ForRent == true && @item.Totalrent > 0)
+                    {
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-sale-price">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">@item.Totalrent tin thuê</div>
+                        </li>
+                    }
+
+                    @if (ViewBag.ForRent == false && @item.TotalSale > 0)
+                    {
+                        <li class="clearfix">
+                            <div class="ward-icon">
+                                <svg class="icon-sale-price">
+                                    <use xlink:href="/content/images/ward-review-icon.svg#icon-sale-price"></use>
+                                </svg>
+                            </div>
+                            <div class="desc">@item.TotalSale tin bán</div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+
+
+    </div>
+
+</div>

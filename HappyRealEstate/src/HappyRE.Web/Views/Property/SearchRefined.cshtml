@@ -1,0 +1,25 @@
+﻿@model HappyRE.Core.MapModels.Search.SearchSimilarResult
+@if (Model.HasPropType == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.PropType, new ViewDataDictionary { { "title", Model.PropTypeTitle }, { "gtmAct", "cat-right" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasWard == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.Ward, new ViewDataDictionary { { "title", Model.WardTitle }, { "gtmAct", "ward" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasStreet == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.Street, new ViewDataDictionary { { "title", Model.StreetTitle }, { "gtmAct", "street" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasProject == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.Project, new ViewDataDictionary { { "title", Model.ProjectTitle }, { "gtmAct", "project" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasDistrict == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.District, new ViewDataDictionary { { "title", Model.DistrictTitle }, { "gtmAct", "district" }, { "gtmCat", Model.GtmCat } })
+}
+@if (Model.HasCity == true)
+{
+	@Html.Partial("~/Views/Property/Partials/_SearchRefined.cshtml", Model.City, new ViewDataDictionary { { "title", Model.CityTitle }, { "gtmAct", "city" }, { "gtmCat", Model.GtmCat } })
+}

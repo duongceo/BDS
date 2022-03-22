@@ -3,16 +3,17 @@
         console.log("Select :: " + getFileInfo(e));
     }
 
-    onUpload = function(e) {
+    onUpload = function (e) {
+        var allowFileTypes = [".jpg", ".jpeg", ".png"];
         var files = e.files;
         $.each(files, function () {
-            if (this.extension.toLowerCase() != ".jpg" && this.extension.toLowerCase() != ".png") {
-                alert("Chỉ chấp nhận file hình ảnh JPG, PNG!")
+            if ($.inArray(this.extension.toLowerCase(), allowFileTypes)<0) {
+                alert("Chỉ chấp nhận file hình ảnh JPG, PNG!, file hiện tại:" + this.extension)
                 e.preventDefault();
             }
 
             if (this.size / 1024 / 1024 > 5) {
-                alert("Dung lượng file phải nhỏ hơn 5MB!")
+                alert("Dung lượng file phải nhỏ hơn 5MB!" + " , File này có dung lượng: " + (this.size / 1024 / 1024) + "MB")
                 e.preventDefault();
             }
         });
@@ -35,8 +36,9 @@
         console.log(e.operation);
         if (e.operation == 'upload') {
             console.log('ok');
-            $("#_listImage").data("kendoGrid").dataSource.read();
-            //$("#img_list_more").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='PropertyImages' value='" + e.response.data + "' /><a onclick='propertyDetail.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
+            $("#btn_upload_img").show();
+            //$("#_listImage").data("kendoGrid").dataSource.read();
+            $("#img_list_more").append("<li><img src='" + e.response.data + "' /><input type='hidden' name='PropertyImages' value='" + e.response.data + "' /><a onclick='propertyDetail.removeImg(this)'><i class='glyphicon glyphicon-remove'></i></a></li>");
         }
     }
 

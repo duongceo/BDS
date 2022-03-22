@@ -12,6 +12,7 @@
       .Columns(columns =>
       {
           columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='baseDetailPopup.show(\"IpAllowed\",#=Id#)'>#=Ip#</a>").Title("Ip được truy cập hệ thống");
+          columns.Bound(e => e.Description).Title("Mô tả");
           columns.Command(command => command.Destroy().Text("Xóa")).Width(100);
       })
       .Pageable(x => x.PageSizes(new[] { 10, 30, 50, 80, 100 }))

@@ -1,0 +1,45 @@
+﻿@model List<HappyRE.Core.MapModels.WardReview.WardReviewDistrict>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="mg-detail">
+    <div id="breadcrumb">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_WardReviews_District", "CachePartial", new { cid = ViewBag.CityId });
+            }
+        </div>
+    </div>
+    <div id="mg-page-content" class="clearfix">
+        <div class="mg-1170-container">
+            <h1 class="title">Review khu vực @ViewBag.CityName</h1>
+            <div id="location">
+                <ul class="districts clearfix" style="display: block">
+                    @foreach (var item in Model)
+                    {
+                        <li class="district">
+                            <a href="@item.Url">
+                                <img src="@item.Cover" alt="@item.Name">
+                                <div class="bg-overlay"></div>
+                                <span>@item.Name</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section styles {
+    <link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/wardreviewdistrict.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+    <script type="text/javascript">
+        var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+    </script>
+    <script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/common.js")' type="text/javascript"></script>
+}

@@ -1,0 +1,38 @@
+﻿/*Mobile first layout*/
+body {
+  background-color: #f0f0f0; }
+.mg-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+    .mg-container:before, .mg-container:after {
+        content: " ";
+        display: table;
+    }
+
+    .mg-container:after {
+        clear: both;
+    }
+
+@media (min-width: 1140px) {
+    .mg-container {
+        max-width: 1140px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1139px) {
+    .mg-container {
+        max-width: 100%;
+        padding: 0 5%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .mg-container {
+        max-width: 750px;
+        padding: 0;
+    }
+}

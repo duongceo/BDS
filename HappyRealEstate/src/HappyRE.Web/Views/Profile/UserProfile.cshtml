@@ -1,0 +1,75 @@
+﻿@model HappyRE.Core.Entities.UserProfile
+@using HappyRE.Core.Resources;
+@{
+    ViewBag.Title = Message.Msg_Profile_UserInfo;
+}
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()">
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+    <div id="main" class="clearfix">
+        <div class="profile-content">
+            <div>
+                <form class="form-horizontal" name="myForm" ng-submit="updateProfile()" novalidate>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="clearfix">
+                        <div class="profile-avatar">
+                            <div class="profile-userpic-edit">
+                                <img class="img-responsive" ng-show="Profile.LogoSquare!=null" ng-src="{{Profile.AvatarMediumUrl}}" />
+                                <img class="img-responsive" ng-show="Profile.LogoSquare==null" ng-src="~/content/images/no-avatar.jpg" />
+                            </div>
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    <button type="submit" class="btn btn-primary" ngf-select ngf-drop ng-model="FileAvatar" ngf-drop-available="true">@Message.Msg_Image_Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div>
+                                <label class="titlename">@HappyRE.Core.Resources.Model.UserProfile_LastName</label>
+                                @Html.TextBox("LastName", null, @Html.AngularAttibute("LastName", "Profile", new Dictionary<string, string>() { { "class", "text-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_LastName }, { "autocomplete", "off" } }))
+                            </div>
+                            <div class="msg-error">
+                                @Html.AngularMessage("LastName")
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div>    
+                                <label class="titlename">@HappyRE.Core.Resources.Model.UserProfile_FirstName</label>                            
+                                @Html.TextBox("FirstName", null, @Html.AngularAttibute("FirstName", "Profile", new Dictionary<string, string>() { { "class", "text-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_FirstName }, { "autocomplete", "off" } }))
+                            </div>
+                            <div class="msg-error">@Html.AngularMessage("FirstName")</div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div>
+                                <label class="titlename">@HappyRE.Core.Resources.Model.UserProfile_Email</label> 
+                                @Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", new Dictionary<string, string>() { { "class", "text-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Email }, { "autocomplete", "off" } }))
+                                <i style="top:inherit;left:inherit;" title="@Message.Msg_Email_IsVerified" ng-if="Profile.IsVerifiedEmail" class="verify-icon glyphicon glyphicon-ok-sign"></i>
+                                </div>
+                            <div class="msg-error">
+                                @Html.AngularMessage("Email")
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="f-footer">
+                                <button type="submit" class="btn btn-primary left-120">@Message.Msg_Update</button>
+                            </div>
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+@section scripts{
+
+
+@Styles.Render("~/Content/profilecss")
+@Styles.Render("~/Content/profileFavorite")
+@Scripts.Render("~/bundles/profile")
+}
+
+

@@ -1,0 +1,320 @@
+﻿@media (max-width: 767px) {
+    .navbar-toggle {
+        float: left;
+        background: none;
+        border: none;
+        color: #fff !important;
+    }
+
+    .navbar-brand {
+        /*padding-top: 5px !important;*/
+        width: 120px;
+        padding-left: 10px;
+    }
+
+    .navbar-inverse .navbar-toggle {
+        border-color: #333;
+        padding-right: 0px;
+        margin-right: 0px;
+        padding-left: 20px;
+        padding-top: 15px;
+    }
+
+    .side-collapse-container {
+        width: 100%;
+        position: relative;
+        left: 0;
+        transition: left .4s;
+    }
+
+        .side-collapse-container.out {
+            left: 200px;
+        }
+
+    .side-collapse {
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        width: 80%;
+        position: fixed;
+        overflow: hidden;
+        transition: width .3s;
+        background: #f3f3f3;
+        border-radius: 4px;
+    }
+
+        .side-collapse.in {
+            width: 0;
+        }
+
+    .navbar-inverse .navbar-nav > li {
+        border-bottom: 1px solid #ccc;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:active,
+        .navbar-inverse .navbar-nav > li > a {
+            color: #000;
+            padding-top: 15px;
+        }
+
+    .container {
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .main .top {
+        background: url(../../Content/Images/landing/hinh-1-mobile.png);
+        color: #fff;
+        height: 500px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+        .main .top .logo {
+            margin: auto;
+        }
+
+        .main .top .posting {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 22px;
+            color: #00E5B9;
+            font-weight: bold;
+            line-height: 25px;
+        }
+
+        .main .top .help {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+        }
+
+    .main .body {
+        background: #f5f5f5;
+        height: auto;
+        padding-bottom: 30px;
+    }
+
+        .main .body .regis-360 {
+            text-align: center;
+        }
+
+            .main .body .regis-360 > h2 > img {
+                width: 100%;
+            }
+
+        .main .body .regis-button {
+            display:none !important;
+
+        }
+
+        .main .body .posting {
+            color: #000;
+            font-weight: bold;
+            font-size: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .main .body .promotion {
+            margin-top: 40px;
+        }
+
+            .main .body .promotion .item {
+                width: 100%;
+                text-align: center;
+            }
+
+                .main .body .promotion .item .icon {
+                    height: 130px;
+                }
+
+                .main .body .promotion .item .desc {
+                    margin-top: 10px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                    .main .body .promotion .item .desc .desc-1 {
+                        font-size: 25px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+
+                    .main .body .promotion .item .desc .desc-2 {
+                        margin-top: 10px;
+                        font-size: 18px;
+                        text-align: center;
+                    }
+
+    .main .customer {
+        background: url(../../Content/Images/landing/hinh-2.png) no-repeat center center fixed;
+        height: auto;
+        color: #fff;
+        text-align: center;
+    }
+
+        .main .customer .cus-info {
+            font-size: 30px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .main .customer .cus-item {
+            padding-top: 25px;
+            width: 90%;
+            margin: auto;
+        }
+
+            .main .customer .cus-item .item:last-child {
+                margin-top: 25px;
+            }
+
+            .main .customer .cus-item .item .item-desc {
+                background: #fff;
+                box-shadow: 0px -5px 12px 0px #272739;
+                padding: 10px;
+                text-align: left;
+                font-size: 18px;
+                color: #272739;
+            }
+
+            .main .customer .cus-item .item .item-icon {
+                margin-top: 15px;
+            }
+
+                .main .customer .cus-item .item .item-icon .icon {
+                    float: left;
+                    width: 100%;
+                    margin: auto;
+                }
+
+                .main .customer .cus-item .item .item-icon .icon-info {
+                    float: left;
+                    width: calc(100%-60px);
+                    text-align: center;
+                    font-size: 15px;
+                    padding-left: 0px;
+                    line-height: 60px;
+                    width: 100%;
+                }
+
+
+    .main .regis {
+        color: #fff;
+        height: auto;
+        background: #fff;
+    }
+
+        .main .regis .regis-promotion {
+            margin-top: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+            .main .regis .regis-promotion .promotion {
+                padding-top: 10px;
+                text-align: center;
+                font-size: 20px;
+                color: #313042;
+                width: auto;
+                margin: auto;
+            }
+
+        .main .regis .regis-info {
+            margin-top: 20px;
+        }
+
+            .main .regis .regis-info .regis-pro {
+                font-size: 30px;
+                color: #313042;
+                width: auto;
+                margin: auto;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .main .regis .regis-info .regis-action {
+                margin-top: 20px;
+            }
+
+                .main .regis .regis-info .regis-action .regis-time {
+                    width: 100%;
+                    background: #282739;
+                    height: 250px;
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
+
+                    .main .regis .regis-info .regis-action .regis-time .time-item {
+                        width: 25%;
+                        float: left;
+                        margin-top: 50px;
+                        text-align: center;
+                    }
+
+                        .main .regis .regis-info .regis-action .regis-time .time-item .time-value {
+                            font-size: 40px;
+                            background: #fff;
+                            padding: 20px 0px 20px 0px;
+                            color: #282739;
+                            width: 70%;
+                            margin-left: 10px;
+                            font-weight: bold;
+                        }
+
+                        .main .regis .regis-info .regis-action .regis-time .time-item .time-name {
+                            text-align: center;
+                            margin-top: 10px;
+                            font-size: 30px;
+                        }
+
+                .main .regis .regis-info .regis-action .regis-button {
+                    width: 100%;
+                }
+
+                    .main .regis .regis-info .regis-action .regis-button > a {
+                        line-height: 0px;
+                        cursor: pointer;
+                        width: 50%;
+                    }
+
+                        .main .regis .regis-info .regis-action .regis-button > a > img {
+                            width: 100%;
+                        }
+
+    .main .footer .logo {
+        display: none;
+    }
+
+    .main .footer .address {
+        margin-top: 10px;
+    }
+
+    .main .footer .social {
+        border-top: 2px solid #15D8AE;
+        margin-top: 15px;
+        /*margin-left:20px;*/
+        /*margin-right:20px;*/
+    }
+
+        .main .footer .social > a {
+            margin-left: 20px;
+        }
+
+    .menu-landing {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+    }
+
+        .menu-landing .navbar-nav > li {
+            border-bottom: none;
+        }
+}

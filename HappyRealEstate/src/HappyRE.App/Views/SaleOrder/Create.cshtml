@@ -46,7 +46,10 @@
                         @Html.LabelFor(model => model.PropertyId, htmlAttributes: new { @class = "control-label col-md-3 required" })
                         <div class="col-md-9">
                             <select id="PropertyId" name="PropertyId" style="width:100%;" required validationMessage="Không được để trống">
-                                @{ Html.RenderAction("PropertyListPartial", "Property"); }
+                                @*@{ Html.RenderAction("PropertyListPartial", "Property"); }*@
+                                @if(Model.PropertyId!=null){
+                                    <option value="@Model.PropertyId" selected="selected">@ViewBag.PropertySelectedCode</option>
+                                }
                             </select>
                             @Html.ValidationMessageFor(model => model.PropertyId, "", new { @class = "text-danger" })
                         </div>
@@ -216,9 +219,9 @@
                     <legend><strong>Khách hàng</strong></legend>
                     <div class="form-horizontal right-block">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-3 required" })
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", maxlength = "40", autocomplete = "off" } })
+                                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", maxlength = "40", autocomplete = "off", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -264,7 +267,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.OwnerTargetId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.OwnerTargetId, htmlAttributes: new { @class = "control-label col-md-3 required" })
                             <div class="col-md-9">
                                 @(Html.Kendo().MultiSelect().AutoClose(false)
                                 .DataTextField("Name")
@@ -272,7 +275,7 @@
                                 .DataValueField("BitMask")
                                 .Value((List<int>)ViewBag.selectedCustomerTarget)
                                 .ItemTemplate("<input type='checkbox'/> #:data.Name#")
-                                //.HtmlAttributes(new { required = "required" })
+                                .HtmlAttributes(new { required = "required" })
                                 .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerPotentialType" }))))
                                 @Html.HiddenFor(model => model.CustomerTargetId, new { })
                                 @Html.ValidationMessageFor(model => model.CustomerTargetId, "", new { @class = "text-danger" })
@@ -367,7 +370,24 @@
             $("#SellBy").select2().val('@Model.SellBy').trigger("change");
 
             $("#PropertyId").val(null).trigger("change");
-            $("#PropertyId").select2().val('@Model.PropertyId').trigger("change");
+            @*$("#PropertyId").select2().val('@Model.PropertyId').trigger("change");*@
+
+            $('#PropertyId').select2({
+                ajax: {
+                    url: '/property/GetListKeyValue',
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term
+                           // id: '@Model.PropertyId'
+                        }
+
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    }
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                }
+            }).val('@Model.PropertyId').trigger("change");
 
             @*$("#PropertyId").select2({
                 placeholder: "---Chọn BĐS---",
@@ -376,8 +396,9 @@
 
             $("#PropertyId").on("change", function () {
                 var p = $('#PropertyId').select2('data');
+                console.log(p);
                 if (p.length > 0) {
-                    $("#PostedBy").val((p[0].title || null)).trigger("change");
+                    $("#PostedBy").val((p[0].postedby || null)).trigger("change");
                 }
             });
     });

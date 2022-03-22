@@ -1,0 +1,384 @@
+﻿/* similar property: begin */
+.similar-property {
+    margin-top: 20px;
+    padding-top: 30px;
+    border-top: 1px solid #d7dce0;
+}
+
+.property-list {
+    margin-top: 20px;
+}
+
+.property-item {
+    width: 100%;
+    max-width: 250px;
+    position: relative;
+}
+
+    .property-item .item-media {
+        width: 100%;
+        height: 165px;
+    }
+
+        .property-item .item-media > img {
+            display: inline-block;
+            width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+    .property-item .item-price {
+        font-size: 20px;
+        color: #009177;
+        line-height: 22px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .property-item .item-title {
+        color: #262637;
+        line-height: 20px;
+        height: 60px;
+        margin-top: 10px;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+/* similar property: end */
+
+/* Send Message */
+#message {
+    font-size: 16px;
+}
+
+.agent-input {
+    width: 100%;
+    background-color: #ffffff;
+    border: solid 1px #e4e4e4;
+    height: 36px;
+    margin-top: 10px;
+    padding: 0 10px 0 10px;
+}
+
+textarea.agent-input {
+    height: 140px;
+}
+
+.agent-form .btn-sm {
+    min-width: 100px;
+}
+/* End Send Message */
+
+/* Send report */
+.report-abuse {
+    color: #222;
+    padding: 10px;
+}
+
+    .report-abuse ul {
+        padding: 10px 0;
+        font-size: 14px;
+        list-style: none;
+    }
+
+        .report-abuse ul > li {
+            padding: 5px 0;
+            font-size: 16px;
+            -webkit-font-smoothing: none;
+            cursor: pointer;
+        }
+
+            .report-abuse ul > li:before {
+                margin-right: 10px;
+            }
+
+            .report-abuse ul > li.fa-check-square:before {
+                color: #027b88;
+            }
+
+    .report-abuse .command {
+        text-align: center;
+    }
+
+    .report-abuse .btn-sm {
+        min-width: 100px;
+    }
+
+/* End Send Report */
+
+#ward-review {
+    width: 260px;
+    float:left;
+ }
+
+.ward-item {
+    width: 100%;
+    margin-top: 16px;
+    position: relative;
+}
+
+    .ward-item img {
+        width: 100%;
+        height: 120px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .ward-item .ward-title {
+        margin-top: 4px;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .ward-item .ward-address {
+        margin-top: 4px;
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    .ward-item .brief {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        margin-top: 4px;
+    }
+
+        .ward-item .brief li {
+            width: 50%;
+            float: left;
+        }
+
+        .ward-item .brief > li .ward-icon {
+            float: left;
+            width: 24px;
+            padding-top: 4px;
+        }
+
+    .ward-item .ward-icon > svg {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+
+    .ward-item .brief > li .desc {
+        float: left;
+        width: calc( 100% - 24px);
+        padding-left: 8px;
+        line-height: 16px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+/* Desktop and tablet */
+@media (min-width:768px) {
+    .prop-content {
+        padding: 30px 0;
+        border-top: 1px solid #d7dce0;
+    }
+
+    .prop-content-header {
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+
+    #property-info {
+        border-top: none;
+    }
+
+    #prop-info {
+        margin-top: 20px;
+        padding-bottom: 30px;
+    }
+
+    .prop-info {
+        width: 50%;
+    }
+
+        .prop-info > li {
+            padding: 4px 0;
+        }
+
+    .prop-info-content {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    /* Agent Contact */
+    .agent .agent-info {
+        width: 50%;
+        float: left;
+        position: relative;
+        padding-left: 65px;
+    }
+
+    .agent .agent-contact {
+        float: right;
+        text-align: right;
+        margin-top: 10px;
+    }
+
+        .agent .agent-contact > a {
+            display: inline-block;
+            border: 1px solid #d7dce0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+            .agent .agent-contact > a:before {
+                margin-right: 10px;
+            }
+    /* End Agent Contact Center */
+
+    .prop-command-left {
+        float: left;
+        width: 50%;
+        /*border-right: 1px solid #d7dce0;*/
+    }
+
+        .prop-command-left > div {
+            font-size: 14px;
+            line-height: 18px;
+            cursor: pointer;
+            padding: 10px 20px;
+            user-select: none;
+            display: inline-block;
+            height: 40px;
+        }
+
+        .prop-command-left .favorite {
+            margin-right: 10px;
+            border: 1px solid #D7DCE0;
+            border-radius: 50px;
+        }
+
+            .prop-command-left .favorite:hover {
+                border-color: #5a646e;
+            }
+
+        .prop-command-left .report:hover {
+            background: #f1f4f6;
+            border-radius: 50px;
+        }
+
+        .prop-command-left .fa {
+            margin-right: 5px;
+        }
+
+    .social-network {
+        height: 40px;
+        width: 50%;
+        float: left;
+        text-align: center;
+    }
+
+    .market-trend-body {
+        margin-top: 5px;
+    }
+
+    .history-price {
+        margin-top: 10px;
+    }
+
+    .mortgage-calc {
+        width: calc(100% - 220px);
+    }
+
+    .mortgage-chart {
+        width: 220px;
+        float: left;
+        padding-left: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .calc-doughnut-chart {
+        height: 180px;
+        max-width: 200px;
+        margin: 0px auto;
+    }
+}
+
+/* Desktop*/
+@media (min-width: 992px) {
+    .mg-listing .mg-1170-container {
+        padding: 0 15px;
+    }
+
+    #breadcrumb {
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb {
+        padding: 0;
+        margin: 0;
+        display: -webkit-inline-box;
+        overflow: hidden;
+        float: left;
+        width: calc(100% - 200px);
+        height: 40px;
+    }
+
+        .breadcrumb li {
+            line-height: 40px;
+            max-height: 40px;
+            float: left;
+            position: relative;
+        }
+
+    .search-nav {
+        float: right;
+        width: 185px;
+        padding: 0;
+    }
+
+    #gallery {
+        margin-top: 20px;
+    }
+
+    /* sidebar - widget - agent */
+    #side-bar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 55px;
+    }
+
+    .widget .agent-info {
+        width: 100%;
+        position: relative;
+        padding-left: 65px;
+    }
+
+    .widget .agent-contact {
+        float: left;
+        width: 100%;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+        .widget .agent-contact > a.fa-phone {
+            margin-right: 40px;
+        }
+
+        .widget .agent-contact a:before {
+            margin-right: 5px;
+        }
+    #ward-review {
+        margin-left: 16px;
+    }
+
+}
+
+
+@media (min-width: 1170px) {
+    .mg-listing .mg-1170-container {
+        padding: 0 50px;
+    }
+}

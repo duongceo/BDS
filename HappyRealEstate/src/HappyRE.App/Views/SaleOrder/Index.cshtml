@@ -61,7 +61,7 @@
         }
     }
 </div>
-<input type="hidden" id="hasAdminRole" value="@(User.IsInRole(Permission.ADMIN)?1:0)" />
+<input type="hidden" id="canShowCustomerMobile" value="@(User.IsInRole(Permission.SALEORDER_VIEW_MOBILE)?1:0)" />
 <input type="hidden" id="canEdit" value="@(User.IsInRole(Permission.SALEORDER_MODIFY)?1:0)" />
 <input type="hidden" id="canDelete" value="@(User.IsInRole(Permission.SALEORDER_DELETE)?1:0)" />
 <input type="hidden" id="userName" value="@User.Identity.Name" />
@@ -83,9 +83,9 @@
           columns.Bound(e => e.CreatedDate).ClientTemplate("<div><span>#=kendo.toString(CreatedDate,'HH:mm dd/MM/yyyy')#</span></br><span>#=kendo.toString(UpdatedDate,'HH:mm dd/MM/yyyy')#</span></div>").Title("Thời gian");
           columns.Bound(e => e.PropertyId).ClientTemplate("<a href='/property/detail/#=PropertyId#'>#=PropertyNumber#</a>").Title("Mã BĐS");
           columns.Bound(e => e.PostedBy).ClientTemplate("<strong>#=PostedByHtml#</strong><br><span class='link'>#=PostedBy#</span>").Title("Nhân viên nhập");
-          columns.Bound(e => e.OwnerIDNumber).ClientTemplate(@"#=OwnerName#</br><b>SĐT</b>: <a href='/customerinfo?id=#=OwnerPhone#'>#=OwnerPhone#</a></br><b>Sinh nhật</b>: #=kendo.toString(common.raw(OwnerBirthday),'dd/MM/yyyy')#</br><b>CMND</b>: #=common.raw(OwnerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(OwnerAddress)#<b></br>Tiềm năng</b>: #=common.raw(OwnerTargetHtml)#").Title("Thông tin chủ nhà");
-          columns.Bound(e => e.SellBy).ClientTemplate("<strong>#=SellByHtml#</strong><br><span class='link'>#=SellBy#</span></br><button style='margin-top:5px;' onclick='saleOrderDetail.showCustomerUpdateModal(#=Id#)' class='#= renderCustomerReport(SellBy)# btn btn-sm btn-primary'>BÁO CÁO</button>").Title("Nhân viên bán");
-          columns.Bound(e => e.CustomerIDNumber).ClientTemplate(@"#=common.raw(CustomerName)#</br><b>SĐT</b>: <a class='#= renderCustomerInfo(SellBy)#' href='/customerinfo?id=#=common.raw(CustomerPhone)#'>#=common.raw(CustomerPhone)#</a></br><b>Sinh nhật</b>: #=common.raw(kendo.toString(CustomerBirthday,'dd/MM/yyyy'))#</br><b>CMND</b>: #=common.raw(CustomerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(CustomerAddress)#</br><b>Tiềm năng</b>: #=common.raw(CustomerTargetHtml)#</br><b>Ngày giao dịch</b>: #=common.raw(kendo.toString(OrderDate,'dd/MM/yyyy'))#").Title("Thông tin khách hàng");
+          columns.Bound(e => e.OwnerIDNumber).ClientTemplate(@"#=OwnerName#</br><b>SĐT</b>: <a href='/customerinfo?id=#=OwnerPhone#'>#=OwnerPhone#</a></br><b>Sinh nhật</b>: #=kendo.toString(common.raw(OwnerBirthday),'dd/MM/yyyy')#</br><b>CMND</b>: #=common.raw(OwnerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(OwnerAddress)#<b></br>Tiềm năng</b>: #=common.raw(OwnerTargetHtml)#").Title("Thông tin chủ nhà").Width(250);
+          columns.Bound(e => e.SellBy).ClientTemplate("<strong>#=SellByHtml#</strong><br><span class='link'>#=SellBy#</span></br><button style='margin-top:5px;' onclick='saleOrderDetail.showCustomerUpdateModal(#=Id#)' class='#= renderCustomerReport(SellBy,CustomerPhone)# btn btn-sm btn-primary'>BÁO CÁO</button>").Title("Nhân viên bán");
+          columns.Bound(e => e.CustomerIDNumber).ClientTemplate(@"#=common.raw(CustomerName)#</br><b>SĐT</b>: <a class='#= renderCustomerInfo(SellBy)#' href='/customerinfo?id=#=common.raw(CustomerPhone)#'>#=common.raw(CustomerPhone)#</a></br><b>Sinh nhật</b>: #=common.raw(kendo.toString(CustomerBirthday,'dd/MM/yyyy'))#</br><b>CMND</b>: #=common.raw(CustomerIDNumber)#</br><b>Địa chỉ</b>: #=common.raw(CustomerAddress)#</br><b>Tiềm năng</b>: #=common.raw(CustomerTargetHtml)#</br><b>Ngày giao dịch</b>: #=common.raw(kendo.toString(OrderDate,'dd/MM/yyyy'))#").Title("Thông tin khách hàng").Width(250);
           columns.Bound(e => e.Comment).Title("Ghi chú");
           columns.Bound(e => e.Id).Width(120).Title("").ClientTemplate(@"<a title='Xem chi tiết' href='/SaleOrder/detail/#=Id#' class='btn btn-default'>Chi tiết</a>
         <a title='Chỉnh sửa thông tin' href='/SaleOrder/edit/#=Id#' class='#= bizHelper.renderCanEdit('canEdit',CreatedBy)# btn btn-default'><span class='k-icon k-edit' aria-hidden='true'></span> Sửa</a>
@@ -98,7 +98,7 @@
         .PageSize(20)
         .Model(model => model.Id(p => p.Id))
         .Events(events => events.Error("common.errorHandler"))
-        .Read(read => read.Action("Search", "SaleOrder").Data("additionalData"))      
+        .Read(read => read.Action("Search", "SaleOrder").Data("additionalData"))
         //.Destroy("Delete", "SaleOrder")
         )
         )
@@ -140,6 +140,7 @@
 
                 $(document).ready(function () {
                     baseListing.init();
+                    baseListing.cip(); 
                 });
             </script>
 
@@ -156,15 +157,16 @@
                     placeholder: 'Nhân viên bán..',
                 });
 
-                function renderCustomerReport(sellBy) {
+                function renderCustomerReport(sellBy,phone) {
                     var usn = $('#userName').val();
-                    return sellBy == usn? '':'hidden';
+                    var p = phone || '';
+                    return sellBy == usn && p=='' ? '' : 'hidden';
                 }
 
                 function renderCustomerInfo(sellBy) {
                     var usn = $('#userName').val();
-                    var hasAdminRole = parseInt($('#hasAdminRole').val());
-                    return (sellBy == usn || hasAdminRole == 1) ? '' : 'hidden';
+                    var canShowCustomerMobile = parseInt($('#canShowCustomerMobile').val());
+                    return (sellBy == usn || canShowCustomerMobile == 1) ? '' : 'hidden';
                 }
             </script>
         }

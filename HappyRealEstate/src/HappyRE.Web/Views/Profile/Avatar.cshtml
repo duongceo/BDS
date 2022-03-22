@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Ảnh đại diện";
+}
+<link href="~/Content/profile.desktop.css" rel="stylesheet" />
+<div class="row profile" ng-controller="userProfileController" ng-init="initProfile()">
+    @Html.Partial("_LeftMenu")
+    <div class="col-md-9">
+        <div class="profile-content">
+            <div class="block_notify" ng-show="alertsMsg!=''">
+                <span ng-bind-html="alertsMsg"></span>
+            </div> 
+                                
+            <div class="profile-userpic-edit">
+                <img class="img-responsive" ng-show="Profile.LogoSquare!=null" ng-src="{{Profile.LogoSquare}}" />
+                <img class="img-responsive" ng-show="Profile.LogoSquare==null" ng-src="~/content/images/no-avatar.jpg" />
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    <button type="submit" class="btn btn-primary" ngf-select ngf-drop ng-model="FileAvatar" ngf-drop-available="true">Tải ảnh lên</button>
+                </div>
+                <div class="profile-usertitle-job">
+                    Dung lượng tối đa của ảnh đại diện là 200KB.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/scripts/app/controllers/userprofileController.js"></script>
+}
+

@@ -1,0 +1,207 @@
+﻿/*Footer:Begin*/
+.fa-facebook, .fa-facebook-square {
+	color: #39579a;
+}
+.fa-google-plus {
+	color: #de4d3b;
+}
+.fa-twitter {
+	color: #69ace0;
+}
+.fa-youtube, .fa-youtube-play {
+	color: #dc2217;
+}
+.fa-envelope:before, .fa-phone:before {
+	color: #009177;
+}
+.mogi-footer {
+    padding: 30px 0px;
+    margin: 0;
+    background-color: #e9e9e9;
+    font-size: 14px;
+    color: #222;
+    margin-top: 20px;
+}
+    .mogi-footer .fa {
+        width: 14px;
+        height: 14px;
+        /*color: #a9a9a9;*/
+        margin-right: 5px;
+    }
+    .mogi-footer .social-icon {
+        display: block;
+        height: 20px;
+        margin-top: 15px;
+    }
+		.mogi-footer .social-icon i,
+		.mogi-footer .social-icon .mi {
+			height: 20px;
+			width: 20px;
+			display: inline-block;
+			font-size: 22px;
+			line-height: 20px;
+			margin-right: 10px;
+		}
+		.mogi-footer .social-icon .mi-zalo {
+			width: 18px;
+			height: 16px;
+			background-color: #fff;
+		}
+        
+        
+
+    .mogi-footer ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .mogi-footer > li {
+        float: left;
+    }
+
+    .mogi-footer .footer-left {
+        display: block;
+        width: 286px;
+        float:left;
+    }
+    .mogi-footer .footer-02 > li {
+        padding-top: 5px;
+        color: #5e5e5e;
+    }
+
+    .mogi-footer .footer-title {
+        line-height: 20px;
+        color: #222;
+        font-weight: bold;
+    }
+    .mogi-footer .footer-right {
+        float: right;
+        width: calc(100% - 320px);
+    }
+        .mogi-footer .footer-right ul {
+            width: 100%;
+            /*min-width: 140px;*/
+            float: left;
+            margin-bottom: 10px;
+        }
+        .mogi-footer .footer-right li {
+            display: block;
+        }
+        .mogi-footer .footer-right a {
+            display: block;
+            color: #5e5e5e;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 5px 5px 5px 0px
+        }
+			.mogi-footer .footer-right a:hover {
+				color: #027b88;
+			}
+    .mogi-footer .footer-right-parent {
+        display: block;
+        width: 25%;
+        float: left;
+    }
+/*Footer:End*/
+
+@media (max-width: 768px) {
+    /*Footer:Begin*/
+    .mogi-footer {
+        padding: 10px 0px;
+        margin: 0;
+        background-color: #e9e9e9;
+        font-size: 14px;
+        color: #222222;
+    }
+
+        .mogi-footer .footer-left {
+            display: block;
+            float: left;
+            width: 100%;
+        }
+
+            .mogi-footer .footer-left .footer-01 {
+                width: 185px;
+                float: left;
+            }
+
+            .mogi-footer .footer-left .footer-02 {
+                width: calc(100% - 185px);
+                float: left;
+            }
+
+        .mogi-footer .footer-right {
+            width: 100%;
+        }
+        .mogi-footer .footer-02 > li {
+            padding-top: 5px;
+        }
+    /*Footer:End*/
+}
+@media (min-width: 641px) {
+    .mogi-footer .footer-right .collapse {
+        display: block;
+    }
+}
+@media (max-width: 640px) {
+    /*Footer:Begin-640*/
+    .mogi-footer .footer-left .footer-01,
+    .mogi-footer .footer-left .footer-02 {
+        width: 100%;
+    }
+
+    .mogi-footer .footer-right-parent {
+        width: 100%;
+    }
+    .mogi-footer .footer-right ul {
+        margin-bottom: 0px;
+    }
+    /*.mogi-footer .footer-right li {
+        margin: 10px 0px;
+    }*/
+
+    .mogi-footer .footer-title {
+        width: 100%;
+        height: 36px;
+        line-height: 36px;
+        display: block;
+        position: relative;
+    }
+
+    .mogi-footer .mogi-collapse {
+        width: 100%;
+        height: 100%;
+        display: block;
+        /* position: relative; */
+        float: right;
+        margin-top: -36px;
+        /*border:solid 1px #f3f3f3;*/
+        z-index: 100;
+    }
+    .mogi-footer .mogi-collapse:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        cursor: pointer;
+    }
+
+    .mogi-footer .mogi-collapse:after {
+        font: normal normal normal 14px/1 mogi;
+        content: "\f0d8";
+        float: right;
+        margin-right: 5px;
+        font-size: 16px;
+        line-height: 36px;
+    }
+
+    .mogi-footer .mogi-collapse.collapsed:after {
+        content: "\f0d7";
+    }
+    /*Footer:End-640*/
+}

@@ -1,0 +1,129 @@
+﻿ul,
+ol {
+    padding: 0;
+    margin: 0;
+}
+
+    ul li,
+    ol li {
+        list-style-type: none;
+    }
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+    }
+
+    a:active {
+        text-decoration: none;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+.line {
+    border-bottom: 1px solid #e4e4e4;
+}
+
+body {
+   
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.5 !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.mg-btn {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+
+.mg-btn-primary {
+    width: 98px;
+    height: 36px;
+    border-radius: 4px;
+    background-color: #104B8C;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+    .mg-btn-primary.active {
+        background-color: #08274A;
+    }
+
+    .mg-btn-primary:hover:enabled {
+        background-color: #0C3664;
+    }
+
+    .mg-btn-primary:disabled {
+        background-color: #A9A9A9;
+    }
+
+    .mg-btn-primary:focus {
+        background-color: #08274A;
+    }
+
+.mg-btn-secondary {
+    width: 108px;
+    height: 36px;
+    border-radius: 4px;
+    border: solid 1px #104B8C;
+    background-color: white;
+}
+
+    .mg-btn-secondary.active {
+        background-color: #AAC9EA !important;
+    }
+
+    .mg-btn-secondary:hover:enabled {
+        background-color: #AAC9EA;
+    }
+
+    .mg-btn-secondary:disabled {
+        border: solid 1px #A9A9A9 !important;
+        color: #a9a9a9;
+    }
+
+    .mg-btn-secondary:focus {
+        background-color: #AAC9EA !important;
+    }
+
+.tertiary {
+    font-size: 12px;
+    color: #104B8C;
+    font-weight: bold;
+}
+
+    .tertiary:hover {
+        color: #08274A;
+    }
+
+    .tertiary.active {
+        color: #08274A;
+    }
+
+.tertiary-disabled {
+    color: #a9a9a9;
+}

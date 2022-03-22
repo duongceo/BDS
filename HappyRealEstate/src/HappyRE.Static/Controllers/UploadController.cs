@@ -38,12 +38,12 @@ namespace HappyRE.Static
                     String fileName = file.FileName;
                     string mimeType = Path.GetExtension(fileName);
                     string fileId = FileHelper.generateID();
-                    var newFileName = string.Format("img_{0}{1}", fileId, mimeType); 
+                    var newFileName = string.Format("img_{0}{1}", fileId, mimeType.Replace(".jpeg",".jpg")); 
                     System.IO.Directory.CreateDirectory(Server.MapPath("~/img/"));
                     System.IO.Directory.CreateDirectory(Server.MapPath("~/img/" + code + "/"));
                     var path = Path.Combine(Server.MapPath("~/img/" + code + "/"), newFileName);
 
-                    if (mimeType == ".png" || mimeType == ".jpg" || mimeType == ".bmp")
+                    if (mimeType == ".png" || mimeType == ".jpg" || mimeType == ".bmp" || mimeType == ".jpeg")
                     {
                         //Stream fileStream = file.InputStream;
                         //fileStream.Position = 0;
@@ -93,7 +93,7 @@ namespace HappyRE.Static
                     String fileName = file.FileName;
                     string mimeType = Path.GetExtension(fileName);
                     string fileId = FileHelper.generateID();
-                    var newFileName = string.Format("img_{0}{1}", fileId, mimeType);
+                    var newFileName = string.Format("img_{0}{1}", fileId, mimeType.Replace(".jpeg", ".jpg"));
                     string dirRoot = "~/img/";
                     System.IO.Directory.CreateDirectory(Server.MapPath(dirRoot));
                     var dirs = fileName.Split(new char[1] { '/' });
@@ -113,7 +113,7 @@ namespace HappyRE.Static
                     }
 
                     
-                    if (mimeType == ".png" || mimeType == ".jpg" || mimeType == ".bmp")
+                    if (mimeType == ".png" || mimeType == ".jpg" || mimeType == ".bmp" || mimeType == ".jpeg")
                     {
                         System.Drawing.Image image = System.Drawing.Image.FromStream(file.InputStream);
                         if (image.Width > 2560 || image.Height > 1600)

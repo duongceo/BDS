@@ -1,0 +1,88 @@
+﻿@model HappyRE.Web.Models.AgentViewModel
+@using Newtonsoft.Json
+@using HappyRE.Core.Resources;
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    var noSaleCss = Model.SaleProperties.Count > 0 ? "" : "display:none;";
+    var noRentCss = Model.RentProperties.Count > 0 ? "" : "display:none;";
+    var noPostCss = Model.RentProperties.Count > 0 || Model.SaleProperties.Count > 0 ? "" : "display:none;";
+    var googleCaptchaSiteKey = HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SITEKEY;
+    var google_hl = HappyRE.Core.Const.LANG_CULTURE.Split('-')[0];
+}
+
+<div ng-controller="agentDetailController"
+     class="mg-container clearfix"
+     ng-init="Init()">
+    <div id="breadcrumb">
+        <div class="mg-1170-container">
+            @{Html.RenderAction("Breadcrumb_AgentDetail", "CachePartial", new { name = Model.Agent.Name });}
+        </div>
+    </div>
+    <div id="agent-detail">
+        <div class="mg-1170-container">
+            <div id="main">
+                <div id="agent" class="clearfix">
+                    <div class="avatar">
+                        @if (!string.IsNullOrEmpty(@Model.Agent.AvatarMediumUrl()))
+                        {
+                            <img src="@Model.Agent.AvatarMediumUrl()" />
+                        }
+                    </div>
+                    <div class="info">
+                        <h1 class="title">
+                            @Model.Agent.Name
+                            @if (Model.Agent.IsVerifiedIDCard)
+                            {
+                                <i class="fa fa-check-circle"></i>
+                            }
+                        </h1>
+                        <div class="agent-info-detail" ng-bind="UserType(@Model.Agent.UserTypeId)">&nbsp;</div>
+                        <div class="agent-info-detail">@Message.Detail_JoinedDate <span>@Model.Agent.JoineDateToString()</span></div>
+                        <div class="agent-info-detail"><span>@ViewBag.TotalItems</span> @HappyRE.Web.Resources.Message.AgentDetail_TotalPostedProperty</div>
+                        <div class="agent-phone"><i class="fa fa-phone"></i><a href="tel:@Model.Agent.Mobile" class="bold" ng-bind="PhoneFormat('@Model.Agent.Mobile')">@Model.Agent.Mobile</a></div>
+                    </div>
+                </div>
+
+                <div id="property" class="clearfix" ng-init="IsRent='@ViewBag.IsRent'" style="@noPostCss">
+                    <div class="summary clearfix">
+                        <a style="@noSaleCss" ng-class="{active: !IsRent}" data-toggle="pill" data-target="#buy-list" ng-click="ToggleTab(false)">@Message.Msg_ForSale <span class="counter">(@ViewBag.BuyItems)</span></a>
+                        <a ng-class="{active: IsRent}" style="@noRentCss" data-toggle="pill" data-target="#rent-list" ng-click="ToggleTab(true)">@Message.Msg_ToRent<span class="counter"> (@ViewBag.RentItems)</span></a>
+                    </div>
+
+                    <div id="property-items" class="tab-content">
+                        <div id="buy-list" class="tab-pane fade in" ng-class="{active: !IsRent}" style="@noSaleCss">
+                            @Html.Partial("Partials/_PropertyListv2", Model.SaleProperties, new ViewDataDictionary { { "isRent", false } })
+                            <div style="text-align: center">
+                                @Html.Partial("Partials/_Paging", Model.SalePaging)
+                            </div>
+                        </div>
+                        <div id="rent-list" class="tab-pane fade in" ng-class="{active: IsRent}" style="@noRentCss">
+                            @Html.Partial("Partials/_PropertyListv2", Model.RentProperties, new ViewDataDictionary { { "isRent", true } })
+                            <div style="text-align: center">
+                                @Html.Partial("Partials/_Paging", Model.RentPaging)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+            </div>
+            <div id="side-bar" class="clearfix">
+                @{
+                    Html.RenderAction("RightBanner", "Banner", new { code = "agent-right-center" });
+                    Html.RenderAction("Blogv2", "CachePartial");
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section styles {
+    <link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/agentdetail.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+    <script async src='@Scripts.Url("~/content/agentdetail.js")' type="text/javascript"></script>
+    <script>
+        var pageData = { SaleIds: [@Html.Raw(ViewBag.SaleIds)], RentIds : [@Html.Raw(ViewBag.RentIds)]};
+    </script>
+}

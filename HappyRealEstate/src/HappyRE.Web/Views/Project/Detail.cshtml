@@ -1,0 +1,189 @@
+﻿@model HappyRE.Web.Models.ProjectDetailModel
+@using Newtonsoft.Json
+@using HappyRE.Core.Resources
+
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	var project = Model.ProjectDetail.Project;
+	var investor = Model.ProjectDetail.Investor;
+	string investorName = (investor != null ? investor.Name : "");
+	var msg =
+	new
+	{
+		Summary = HappyRE.Web.Resources.Message.ProjectDetail_Summary,
+		RelativeProps = HappyRE.Web.Resources.Message.ProjectDetail_RelativeProps,
+		Utils = HappyRE.Web.Resources.Message.ProjectDetail_Utils,
+		SampleHouse = HappyRE.Web.Resources.Message.ProjectDetail_SampleHouse,
+		ViewMore = HappyRE.Web.Resources.Message.ProjectDetail_ViewMore
+
+	};
+}
+<div class="clearfix" ng-controller="projectDetailController" ng-init="Init()">
+	<div id="breadcrumb" class="mg-detail">
+		<div class="mg-1170-container">
+			@{
+				Html.RenderAction("Breadcrumb_Project", "CachePartial", new { keyWord = project.Name, cityId = project.DistrictId, projectId = project.ProjectId });
+			}
+		</div>
+	</div>
+	<div id="prj-header" class="mg-detail">
+		<div class="mg-1170-container">
+			<div class="prj-header">
+				<div class="prj-title">
+					<h1>@project.Name</h1>
+					<div>@project.FullAddress</div>
+				</div>
+				<div class="relative-prop">
+					<a href="@ViewBag.SaleUrl">@msg.RelativeProps</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@if (project.HasMedia())
+	{
+
+		var sb = new System.Text.StringBuilder();
+		string imageUrl = string.Empty;
+		var index = 0;
+		foreach (var item in project.Images)
+		{
+			imageUrl = item.PublishUrl;
+			if (index < 3)
+			{
+				sb.AppendFormat("<div class=\"media-item\"><img src=\"{0}\" /></div>", imageUrl);
+			}
+			else
+			{
+				sb.AppendFormat("<div class=\"media-item\"><img class=\"lozad\" data-src=\"{0}\" /></div>", imageUrl);
+			}
+			index++;
+		}
+
+		<div id="gallery" ng-non-bindable>
+			<div class="mg-1170-container">
+				<div id="top-media" class="top-media owl-carousel">
+					@Html.Raw(sb)
+				</div>
+			</div>
+		</div>
+	}
+
+	<div id="mg-page-content" class="mg-detail">
+		<div class="mg-1170-container">
+			<div id="main" class="clearfix">
+				<div class="project-content">
+					<div class="prj-price" ng-bind-html="PriceFormat(@project.GetMinPrice(),@project.GetMaxPrice(),@project.GetMinArea())"></div>
+					<div class="prj-due-date">@HappyRE.Web.Resources.Message.Project_EndDate02: @project.GetEndDate()</div>
+					<div class="prj-investor">@HappyRE.Web.Resources.Message.Project_Investor: <a href="@ViewBag.OrgListing" class="value"> @investorName</a></div>
+				</div>
+
+				<div class="project-content">
+					<h2 class="project-content-title">@msg.Summary</h2>
+					<div class="prj-desciption-content">
+						<span>@Html.Raw(project.ShowSummary)</span>
+						<div class="view-more" ng-if="!viewmore" ng-click="showmore()">@msg.ViewMore</div>
+						<span ng-if="viewmore" ng-bind-html="'@Html.Raw(project.HiddenSummary)'"></span>
+					</div>
+					@if (project.HasLocation())
+					{
+						<div class="map-content clearfix" style="width:100%">
+							<mogi-near-by is-responsive="IsResponsive" show-map="ShowMap" location="Location" title="Title" show-near-by="ShowNearBy" style="height:400px"></mogi-near-by>
+						</div>
+
+					}
+				</div>
+
+				<div class="project-content">
+					@Html.Raw(project.Description)
+				</div>
+
+				<div class="project-content">
+					@if (Model.ProjectDetail.HasExtraUtils())
+					{
+						var features = new System.Text.StringBuilder();
+
+						if (Model.ProjectDetail.HasFeatures())
+						{
+							foreach (var feature in Model.ProjectDetail.Features)
+							{
+								features.AppendFormat("<li><i class=\"icon fa fa-check\"></i>{0}</li>", feature.Name);
+							}
+						}
+
+						if (Model.ProjectDetail.HasUtilities())
+						{
+							foreach (var util in Model.ProjectDetail.Utilities)
+							{
+								features.AppendFormat("<li><i class=\"icon fa fa-check\"></i>{0}</li>", util.Name);
+							}
+						}
+
+						<h2 class="project-content-title">@msg.Utils</h2>
+						<ul class="prj-feature clearfix">
+							@Html.Raw(features)
+						</ul>
+					}
+					@if (Model.ProjectDetail.HasSampleHouse())
+					{
+						<div id="sample-house">
+							<h2 class="project-content-title">@msg.SampleHouse</h2>
+							<ul class="sample-house clearfix">
+								@{
+									int index = 0;
+								}
+								@foreach (var item in Model.ProjectDetail.SampleHouses)
+								{
+									<li ng-click="SampleHouse.Show(@index)">
+										<img class="lozad" data-src="@item.Images[0].src" />
+										<div class="title">@item.Title &#12297;</div>
+										<div ng-photoswipe
+											 slides="SampleHouse.Data[@index]"
+											 slide-selector=".slide"
+											 open="SampleHouse.Open[@index]"
+											 on-close="SampleHouse.Close(@index)"
+											 template="/scripts/app/templates/ng-photoswipe.html"
+											 options="SampleHouse.Options"></div>
+									</li>
+									index++;
+								}
+							</ul>
+							<div class="slide"></div>
+						</div>
+					}
+
+
+					<div class="page-desciption">
+						@Html.Raw(ViewBag.Footer)
+					</div>
+				</div>
+			</div>
+			<div id="side-bar" class="clearfix">
+				@{
+					Html.RenderAction("RightBanner", "Banner", new { code = "project-right-top" });
+					Html.RenderAction("SearchProjectSimilar", "CachePartial", new { cityId = project.CityId });
+					Html.RenderAction("RightBanner", "Banner", new { code = "project-right-center" });
+					Html.RenderAction("Blogv2", "CachePartial");
+				}
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+@section styles {
+	@*@Styles.Render("~/content/projectdetail.css")*@
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/projectdetail.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize'];
+        var SampleHouse = @Html.Raw(JsonConvert.SerializeObject(Model.ProjectDetail.SampleHouses));
+        var prj_location = '@project.Location';
+		var prj_title = '@project.FullAddress';
+	</script>
+	@*@Scripts.Render("~/content/projectdetail.js")*@
+	<script async src='@Scripts.Url("~/content/projectdetail.js")' type="text/javascript"></script>
+	<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=drawing,places&key=@HappyRE.Core.Utils.Common.GOOGLE_MAP_API_KEY"></script>
+}

@@ -1,0 +1,722 @@
+﻿sup {
+    font-size: 80%;
+}
+
+#breadcrumb {
+    background-color: #F1F4F6;
+}
+
+.breadcrumb {
+    margin: 0;
+}
+
+.mt-title {
+    color: #262637;
+    font-size: 24px;
+    line-height: 27px;
+    margin-top: 10px;
+    font-weight: normal;
+}
+
+.market-trend {
+    margin-top: 20px;
+}
+
+.avg-price-block {
+    margin-top: 20px;
+    padding: 20px 15px;
+    background-color: #F1F4F6;
+}
+
+.month-select-group {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+    .month-select-group > .lable {
+        float: left;
+        margin: 0px;
+        padding: 0px;
+        font-size: 16px;
+        line-height: 34px;
+        color: #5A646E;
+    }
+
+    .month-select-group > .option {
+        float: right;
+        width: auto;
+        margin: 0px;
+        padding: 0px;
+    }
+.avg-price-block .mt-group {
+    width: 100%;
+    padding: 0;
+    margin: 20px 0px 0px 0px;
+    border-top: solid 1px #ddd;
+}
+.mt-list-group-item {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 50%;
+    /*max-width: 300px;*/
+    float: left;
+    display: block;
+}
+sup.change {
+    display: block;
+    text-align: right;
+    font-size: 10px;
+    margin-top: 5px;
+    color: #5A646E;
+}
+    sup.change .up {
+        color: #28D178;
+    }
+    sup.change .down {
+        color: #FF6362;
+    }
+    .mt-list-group-item.last > .list-group-item-content {
+        border-bottom: none
+    }
+
+.mt-text {
+}
+
+.mt-lable, .mt-value {
+    width: calc(100% - 45px);
+}
+
+.mt-lable {
+    font-size: 16px;
+    display: inline-block;
+    float: left;
+    padding-top: 1px;
+}
+
+.mt-value {
+    font-size: 22px;
+    color: #444;
+    font-weight: 600;
+    display: inline-block;
+    float: left;
+}
+.hpicon {
+    float: left;
+    width: 26px;
+    height: 42px;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-image: url(/Content/images/icons/price-icon.png)
+}
+
+.avg-price-icon {
+    float: left;
+    width: 35px;
+    height: 56px;
+    margin-right: 10px;
+    /*background-repeat: no-repeat;*/
+    background-image: url(/Content/images/icons/market-price-icon.png)
+}
+
+.avg-0 {
+    background-position: 0 0
+}
+
+.avg-1 {
+    background-position: 133px 0
+}
+
+.avg-2 {
+    background-position: 36px 0
+}
+
+.avg-3 {
+    background-position: 84px 0
+}
+
+.hpicon-avg {
+    background-position: 0 0
+}
+
+.hpicon-min {
+    background-position: -64px 0
+}
+
+.hpicon-max {
+    background-position: -95px 0
+}
+
+.hpicon-total {
+    background-position: -32px 0
+}
+
+.more-box {
+    width: 100%;
+    border-top: solid 1px #ddd;
+    padding: 20px 0px 10px 0px;
+    margin: 0px;
+    float: left;
+}
+
+    .more-box a.link-more {
+        display: block;
+        font-size: 16px;
+        line-height: 18px;
+        color: #036B75;
+    }
+.head-inline {
+    float: left;
+}
+
+    .head-inline h2 {
+        line-height: 32px;
+        margin-bottom: 15px;
+    }
+
+.block-chart, .mt-tbl-block {
+    margin-top: 25px;
+}
+
+    .block-chart h2 {
+        margin-bottom: 15px;
+    }
+
+    .block-chart h2, .head-inline h2 {
+        font-size: 22px;
+        color: #262637;
+        font-weight: bold;
+    }
+
+.month-select-group {
+    min-height: 40px;
+}
+
+    .month-select-group ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+        .month-select-group ul li {
+            float: left;
+        }
+
+    .month-select-group.ctr ul li a {
+        background-color: #F1F4F6;
+        border: none;
+    }
+
+    .month-select-group ul li a {
+        border: 1px solid #D7DCE0;
+        display: block;
+        text-align: center;
+        padding: 5px;
+        width: 72px;
+        height: 32px;
+        text-decoration: none;
+        color: #5A646E;
+    }
+
+    .month-select-group ul li:first-child a {
+        border-radius: 8px 0px 0px 8px;
+        border-right: none;
+    }
+
+    .month-select-group ul li:last-child a {
+        border-radius: 0px 8px 8px 0px;
+        border-left: none;
+    }
+
+    .month-select-group ul li a:hover, .month-select-group ul li a.active {
+        border: solid 1px #05A087;
+        color: #05A087;
+    }
+
+.ctr ul {
+    margin-bottom: 15px;
+    float: right;
+    clear: both;
+}
+
+.month-select-group.ctr ul li a {
+    width: 38px;
+}
+
+    .month-select-group.ctr ul li a i {
+        font-size: 20px;
+    }
+
+.month-select-group.ctr ul li:first-child a {
+    border-radius: 8px 0px 0px 8px;
+    margin-right: 5px;
+}
+
+.month-select-group.ctr ul li:last-child a {
+    border-radius: 0px 8px 8px 0px;
+}
+
+.link-more-search {
+    padding: 15px;
+    border: 1px solid #D7DCE0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+    .link-more-search span {
+        line-height: 40px;
+    }
+
+    .link-more-search a {
+        border: 1px solid #05A087;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding: 10px;
+        float: right;
+        width: 240px;
+        color: #05A087;
+        text-align: center;
+    }
+@media (min-width: 1170px) {
+    .mg-listing .mg-1170-container {
+        padding: 0 50px;
+    }
+}
+/* Desktop*/
+@media (min-width: 992px) {
+
+
+
+    #mg-page-content {
+        margin-top: 20px;
+    }
+}
+/* Tablet*/
+@media (min-width: 768px) and (max-width: 991px) {
+    #page-header {
+        margin-top: 25px;
+    }
+
+    #main {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Tablet and Mobile*/
+@media (max-width: 991px) {
+    .breadcrumb {
+        padding: 10px 15px;
+    }
+
+    .mt-title {
+        text-align: center;
+    }
+
+    
+}
+
+/*Mobile*/
+@media (max-width: 767px) {
+    #page-header {
+        margin: 0;
+        background-color: #F1F4F6;
+        padding: 10px 0 10px 0;
+    }
+
+    .page-title {
+        margin-bottom: 0;
+        font-size: 18px;
+        padding: 0 15px;
+    }
+
+    #main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .mt-type {
+        float: left;
+        width: 20%;
+        text-align: right;
+    }
+
+    .mt-vol {
+        float: left;
+        width: 45%;
+        text-align: right;
+    }
+
+    .mt-list-group-item {
+        width: 100%;
+        max-width: 300px;
+    }
+
+
+    .market-trend .mt-text {
+        padding-top: 0
+    }
+
+    .mt-row-content .mt-info .mt-lable {
+        font-size: 12px;
+    }
+}
+
+
+
+
+.mt-list-footer-item {
+    padding: 0 10px 10px 10px
+}
+
+.mt-prop-search {
+    text-align: right
+}
+
+    .mt-prop-search > a {
+        color: #20a39a;
+        font-size: 14px;
+        font-weight: 600
+    }
+
+.mt-chart-caption {
+    padding: 5px 0 10px 0
+}
+
+.mt-chart {
+    width: calc(100% - 245px);
+    padding-right: 10px;
+    float: right
+}
+
+.mt-line-chart {
+    height: 300px
+}
+
+.market-trend {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    /* padding: 10px; */
+}
+
+.avg-price-block {
+    margin-top: 20px;
+    padding: 20px 30px 10px 30px;
+    /* padding: 17px 30px 20px 10px; */
+    background-color: #eee;
+}
+
+    .mt-tbl-block table thead, .history-container thead {
+        /*background-color: #eee;*/
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .mt-tbl-block table tbody tr td.link {
+        color: #036b75;
+        cursor: pointer
+    }
+
+.mt-chart-block {
+    padding-top: 10px;
+    margin-bottom: 10px
+}
+
+.mt-group {
+    border-top: solid 1px #ddd;
+}
+
+.more-box {
+    width: 100%;
+    border-top: solid 1px #ddd;
+    padding: 20px 0px 10px 0px;
+    margin: 0px;
+    float: left;
+}
+
+    .more-box a.link-more {
+        font-size: 14px;
+        color: #036b75;
+    }
+
+
+    .month-select-group .lbl, .month-select-group .option {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .month-select-group .option {
+        float: right;
+        width: auto;
+    }
+
+.mt-group-header {
+    font-weight: 500;
+    color: #333;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+#history-detail {
+    padding: 50px 95px;
+    margin: 30px auto;
+    background: url(../../Content/Images/bg-mbn-bds.jpg) 0 420px repeat-y
+}
+
+    #history-detail h2 {
+        margin-bottom: 20px
+    }
+
+    #history-detail .bold {
+        font-weight: 600
+    }
+
+    #history-detail .logo-mbm {
+        width: 80px;
+        vertical-align: initial
+    }
+
+#timeline ul {
+    list-style-type: none
+}
+
+    #timeline ul li {
+        float: left;
+        padding-right: 30px
+    }
+
+        #timeline ul li a {
+            color: #27bdbd
+        }
+
+#timeline .row {
+    border-bottom: solid 1px #ccc;
+    padding: 10px
+}
+
+    #timeline .row:last-child {
+        border-bottom: none
+    }
+
+#timeline .col-3 {
+    float: left;
+    width: 25%;
+    max-width: 80px
+}
+
+#timeline .col-9 {
+    float: left;
+    width: 75%
+}
+
+#timeline .row {
+    margin: 0
+}
+
+    #timeline .row::after {
+        content: "";
+        clear: both;
+        display: table
+    }
+
+#timeline .bdr {
+    border-right: solid 1px #ccc
+}
+
+#historylist {
+    margin-top: 30px
+}
+
+.history-list-title {
+    font-weight: 600;
+    font-size: 18px
+}
+
+.history-list-source {
+    font-weight: 400;
+    font-size: 14px;
+    color: #7a7a88;
+    margin-top: 15px
+}
+
+.history-container {
+    max-width: 780px
+}
+
+#historylist table {
+    border-spacing: 1px;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    /*border: solid 1px #d2d2dc;*/
+    border-radius: 3px;
+    margin-top: 8px;
+    margin-bottom: 0
+}
+
+    #historylist table td, table th {
+        padding: 10px;
+        border-top: none; 
+        border-bottom:solid 1px #e2e2e6;
+    }
+
+    #historylist table thead tr {
+        font-weight: 600;
+        color: #222;
+        line-height: 25px !important;
+        white-space: nowrap
+    }
+
+/*#historylist tbody tr:nth-child(even) {
+    background-color: #f5f5f5
+}*/
+
+#historylist tbody tr {
+    color: #222;
+    font-weight: unset;
+    cursor: pointer
+}
+
+    #historylist tbody tr:hover {
+        color: #27bdbd;
+        background-color: #f8f8f8;
+        cursor: pointer
+    }
+
+    #historylist tbody tr td {
+        white-space: nowrap
+    }
+
+        #historylist tbody tr td:first-child {
+        }
+
+#historylist tbody td sup {
+    top: -.1px
+}
+
+#historylist .price-highlight {
+    color: #036b75;
+    white-space: nowrap
+}
+
+#historylist a.link-overlay {
+    width: 90%;
+    position: absolute
+}
+
+.avg-price-block .mt-group {
+    padding: 0;
+    margin: 20px 0px 0px 0px;
+}
+
+@media(max-width:959px) {
+    #main {
+        width: 100%;
+        padding: 0 10px
+    }
+
+    #side-bar {
+        display: none
+    }
+
+    .month-select-group .lbl {
+        width: 75%;
+        float: left;
+    }
+}
+
+@media(min-width:768px)and (max-width:959px) {
+}
+
+@media(min-width:768px) {
+    .tbl-top5 div.col-md-6:first-child {
+        padding-right: 0
+    }
+}
+
+@media(max-width:767px) {
+
+    .block-chart, .mt-tbl-block{
+        margin-top:0px;
+    }
+    .table-responsive {
+        margin-bottom: 0;
+        border: none
+    }
+
+    .tbl-top5 div.col-md-6:first-child {
+        padding-right: 10px;
+    }
+    .tbl-top5 div.col-md-6:last-child {
+        margin-top:10px;
+    }
+
+    #history-detail {
+        padding: 20px 40px;
+        margin: 0 auto
+    }
+
+    .mt-chart {
+        width: 100%
+    }
+
+        .mt-chart .mt-chart-caption {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-weight: 600
+        }
+
+    .mt-row-content {
+        padding: 0 5px
+    }
+
+        .mt-row-content ul {
+            width: 100%;
+            float: left;
+            margin: 0;
+            padding: 0;
+            border: 1px solid #e3e3e3;
+            border-radius: 3px;
+            background-color: #fff
+        }
+
+            .mt-row-content ul li {
+                width: 100%;
+                padding: 10px 10px;
+                border-bottom: 1px solid #e3e3e3;
+                margin-top: 0
+            }
+
+                .mt-row-content ul li.last {
+                    border-bottom: none
+                }
+
+        .mt-row-content .mt-info {
+            float: left;
+            height: 50px;
+            width: 100%;
+            margin-left: -40px;
+            padding-left: 40px
+        }
+
+   
+    #historylist table {
+        font-size: 90%
+    }
+    .hidden-mobile{
+        display:none;
+    }
+
+    .link-more-search{
+        text-align:center;
+        padding-top:10px;
+    }
+    .link-more-search a {
+        width:100% !important;
+        margin-top:5px;
+    }
+}

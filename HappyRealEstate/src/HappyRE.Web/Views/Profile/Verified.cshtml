@@ -1,0 +1,44 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.OTPConfirmViewModel
+@using HappyRE.Core.Resources;
+@{
+    ViewBag.Title = Message.Msg_Confirm_Mobile;
+}
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()">
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+    <div id="main" class="clearfix">
+        <div class="profile-content">
+            <div class="clearfix">
+                @using (Html.BeginForm("Verified", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(x=>x.Mobile)
+                    <div>
+                        <div class="block_notify" style="color: #20a39a;">
+                            @Html.Raw(string.Format(Message.Msg_Confirm_Mobile_Notice, Model.Mobile))
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "text-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Code) })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="f-footer">
+                                <button type="submit" class="btn btn-primary">@Message.Msg_Send</button>
+                            </div>
+                        </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+@Styles.Render("~/Content/profilecss")
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}

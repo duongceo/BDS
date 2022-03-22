@@ -1,0 +1,21 @@
+﻿@model HappyRE.Web.Models.Breadcrumb
+@using HappyRE.Core.Resources
+@{  int count = Model.Items.Count; }
+<ul class="breadcrumb clearfix">
+    @for (int i = 0; i < count; i++)
+    {
+        var item = Model.Items[i];
+        if (i == count - 1)
+        {
+            <li class="active" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">@item.Name</span></li>
+        }
+        else
+        {
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="@item.Url" title="@item.Name" gtm-event="link" gtm-cat="listing" gtm-act="breadcrumb"><span itemprop="title">@item.Name</span></a></li>
+        }
+    }
+    @if (Model.ShowAlertSearch == true)
+	{
+			<li class="alert-search"><a href="#" ng-click="ShowAlertSearch()" gtm-event="link" gtm-cat="listing" gtm-act="alert-save"><i class="fa fa-bell" ng-class="{'active': Profile.savedAlert()}"></i>@Message.Msg_SaveAlertSearch</a></li>
+    }
+</ul>

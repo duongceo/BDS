@@ -1,0 +1,356 @@
+﻿body {
+    background-color: #f0f0f0;
+}
+/*Layout*/
+.mg-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+    .mg-container:before, .mg-container:after {
+        content: " ";
+        display: table;
+    }
+
+    .mg-container:after {
+        clear: both;
+    }
+/*End Layout*/
+#breadcrumbs {
+    width: 100%;
+    background: white;
+}
+
+.breadcrumb {
+    padding: 0;
+    margin-bottom: initial;
+    background-color: #fff;
+    line-height: 50px;
+    height: 50px;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+    .breadcrumb a {
+        color: #104b8c;
+    }
+
+#search {
+    width: 100%;
+    background: lawngreen;
+    padding: 0 15px;
+    background: url(/content/images/bg-search.png) no-repeat;
+}
+
+#search-bar {
+    margin: 15px 0;
+    width: 100%;
+    height: 50px;
+}
+
+    #search-bar .search-box {
+        float: left;
+        width: 100%;
+        margin-right: -135px;
+        padding-right: 135px;
+        height: 100%;
+    }
+
+        #search-bar .search-box input {
+            height: 100%;
+            width: 100%;
+            border-radius: 4px;
+            background-color: #ffffff;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #222222;
+            padding: 10px 15px;
+            border: 0;
+        }
+
+    #search-bar .search-btn {
+        height: 100%;
+        float: right;
+        width: 115px;
+        height: 50px;
+        border-radius: 4px;
+        background-color: #104b8c;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        padding: 0;
+        border: 0;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: #ffffff;
+    }
+
+/*main content*/
+.main-content {
+    float: left;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.result-header {
+    width: 100%;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #222222;
+}
+
+.result-keyword {
+    font-size: 18px;
+}
+
+.result-counter {
+    font-size: 14px;
+    margin: 10px 0 0 0;
+}
+
+.project-items {
+    width: 100%;
+}
+
+.title-highlight {
+    text-transform: uppercase;
+}
+
+.p-item {
+    margin: 15px 0 0 0;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.p-item-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 100%;
+}
+
+.p-item-media {
+    float: left;
+}
+
+    .p-item-media > img {
+        display: inline;
+        width: 100%;
+        height: 100%;
+    }
+
+.p-item-content {
+    float: right;
+    width: 100%;
+}
+
+.project-info {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.project-title {
+    font-weight: bold;
+    color: #222222;
+}
+
+.project-address {
+    margin: 5px 0 0 0;
+    color: #222222;
+}
+
+.project-property-type {
+    margin: 5px 0 0 0;
+    color: #5e5e5e;
+}
+
+.project-investor {
+    font-size: 12px;
+    line-height: 1.5;
+    border-top: 1px solid #e4e4e4;
+}
+
+.investor-logo {
+    float: left;
+    width: 90px;
+    height: 54px;
+}
+
+    .investor-logo img {
+        display: inline;
+        width: 100%;
+        height: 100%;
+    }
+
+.investor-info {
+    margin-left: -105px;
+    padding-left: 105px;
+    float: right;
+    width: 100%;
+}
+
+.investor-name {
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*end main content*/
+
+/*right content*/
+.right-content {
+    width: 360px;
+    margin: 15px 0;
+    float: right;
+}
+
+.mg-pro-ads {
+    width: 100%;
+    height: 273px;
+    background-color: #808080;
+    text-align: center;
+}
+
+.mg-pro-ads-title {
+    margin: 73px 21px 0 21px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.mg-pro-ads-register a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #104b8c;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    padding: 9px 20px;
+    margin-top: 43px;
+    display: inline-block;
+}
+/*end right content*/
+@media (min-width: 1140px) {
+    .mg-container {
+        max-width: 1170px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .mg-container {
+        padding: 0px 15px;
+    }
+
+
+    .main-content {
+        padding-right: 390px;
+        margin-right: -390px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    #search-bar {
+        margin: 45px 0;
+        padding: 0 9%;
+    }
+
+        #search-bar .search-box {
+            margin-right: -120px;
+            padding-right: 120px;
+        }
+
+            #search-bar .search-box input {
+                border-radius: 4px 0px 0px 4px;
+            }
+
+        #search-bar .search-btn {
+            width: 120px;
+            box-shadow: none;
+            border-radius: 0 4px 4px 0px;
+        }
+
+    .p-item-content {
+        padding-left: 293px;
+        margin-left: -293px;
+        padding-right: 20px;
+        height: 175px;
+    }
+
+    .p-item-media {
+        width: 263px;
+        height: 175px;
+    }
+
+    .project-info {
+        /*padding-bottom: 18px;*/
+        height: 100%;
+        padding-bottom: 63px;
+        margin-bottom: -63px;
+    }
+
+    .investor-logo {
+        margin-top: 9px;
+    }
+
+    .investor-info {
+        padding-top: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .mg-container {
+        padding: 0px 25px;
+    }
+
+    .p-item-content {
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .mg-container {
+        padding: 0px 15px;
+    }
+
+    #search-bar {
+        background-position-x: -300px;
+        background-repeat: repeat-y;
+    }
+
+    .p-item-media {
+        width: 100%;
+    }
+
+    .investor-logo {
+        margin-top: 12px;
+    }
+
+    .project-info {
+        padding: 0 0 24px 15px;
+    }
+
+    .investor-info {
+        padding-top: 19px;
+    }
+
+    .project-investor {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    .right-content {
+        display: none;
+    }
+
+    .result-header {
+        padding: 15px 0 10px 0;
+    }
+
+    .result-counter {
+        margin: 12px 0 0 0;
+    }
+}

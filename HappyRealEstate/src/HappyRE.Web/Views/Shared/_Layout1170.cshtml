@@ -1,0 +1,88 @@
+﻿@using HappyRE.Web.Resources;
+<!DOCTYPE html>@{ 
+	bool hasH1 = (ViewBag.H1 ?? true);
+	string locale = HappyRE.Core.Const.LANG_CULTURE.Replace('-', '_');
+	string lang = locale.Substring(0, 2);
+	string og_site_name = HappyRE.Core.Resources.Message.og_site_name;
+	string mogijs = HappyRE.Web.Helpers.LoginHelper.MogiJS();
+	bool IsMobileDevice = (ViewBag.IsMobileDevice ?? false);
+}
+<html lang="@lang">
+<head>
+	<title>@Html.Raw(ViewBag.Title)</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=3,user-scalable=yes">
+	<meta property="og:locale" content="@locale" />
+	<meta property="og:site_name" content="@og_site_name">
+	<meta property="fb:admins" content="">
+	<meta itemprop="image" content="http://batdongsanhanhphuc.vn/fb-share.jpg">
+	<meta property="fb:app_id" content="">
+	<meta name="full-screen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-title" content="@og_site_name">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#fdce09">
+	@{Html.RenderPartial("Partials/_MetaSEO");}
+	@RenderSection("MetaData", required: false)
+	<link rel="apple-touch-icon" href="/img/ios-logo.png" type="image/x-icon">
+	@if (IsMobileDevice) {
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNVersionUrl/content/fonts/mogi.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSv8zf_FOSsgRmwsS7Aa9k2w.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSj0LW-43aMEzIO6XUTLjad8.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSugdm0LZdjqr5-oayXSOefg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	}
+	<style>
+		body { font-family: Arial, sans-serif; display:none;}
+	</style>
+	@RenderSection("styles", required: false)
+	<script async src="@HappyRE.Core.Utils.Common.WebAPIUrl/api/common/profile-get-info"></script>
+	<script type="text/javascript">
+		!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+		function removeHTML(id) {if (window.matchMedia("(max-width: 767px)").matches) {document.getElementById(id).innerHTML='';}}
+	</script>
+	<script></script>
+	@if (HappyRE.Core.Utils.Common.JavaScriptThirdparty)
+	{
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	}
+</head>
+<body ng-app="mogiApp">
+	@*<script type="text/javascript">@Html.Raw(mogijs)</script>*@
+	@if (HappyRE.Core.Utils.Common.JavaScriptThirdparty)
+	{
+	<!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WC9T99"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WC9T99');</script>
+    <!-- End Google Tag Manager -->
+	}
+	
+	<div id="mogi-navbar" class="navbar navbar-inverse navbar-fixed-top mogi-navbar">
+		<div class="mg-1170-container">
+			<div class="navbar-header">
+				<button id="slide-nav" type="button" class="fa fa-bars visible-xs" ng-click="openNav()"></button>
+				@if (hasH1 == true)
+				{
+					<a class="logo" href="/"><img src="~/content/images/logo.svg" width="108" height="36" alt="batdongsanhanhphuc.vn" title="@HappyRE.Core.Resources.Message.Home_002" /></a>
+				}
+				else
+				{
+					<a class="logo" href="/"><h1><img src="~/content/images/logo.svg" width="108" height="36" alt="batdongsanhanhphuc.vn" title="@HappyRE.Core.Resources.Message.Home_002" /></h1></a>
+				}
+			</div>
+			@{Html.RenderAction("TopMenu", "CachePartial", new { code = (string)ViewBag.Menu_ActiveCode, IsAuthenticated = User.Identity.IsAuthenticated });}
+		</div>
+	</div>
+	@RenderBody()
+	@{Html.RenderAction("Footer", "CachePartial");}
+	<div id="mogi-overlay" ng-click="closeNav()"></div>
+	@RenderSection("scripts", required: false)
+</body>
+</html >

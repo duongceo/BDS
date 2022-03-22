@@ -32,6 +32,7 @@ namespace HappyRE.Core.Entities.Model
         public int Size { get; set; } = 0;
         public bool IsMore { get; set; } = false;
         public string GroupCode { get; set; }
+        public bool Deleted { get; set; } = false;
 
     }
 }

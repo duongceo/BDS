@@ -1,0 +1,96 @@
+﻿
+
+<div class="container">
+    <div class="col-md-3">
+        @{ Html.RenderAction("CategoriesByGroup", "Cms", new { codeUrl = ViewBag.CodeUrl });}
+    </div>
+    <div class="col-md-9">
+        <div class="vpgd" ng-controller="notarizeOfficeController">
+            <div class="form-group">
+                <h3 class="header">Danh sách văn phòng công chứng</h3>
+            </div>
+            <div>
+                <table class="notarize-list">
+                    <tr class="city" ng-repeat-start="(city,cities) in Data">
+                        <td ng-bind="city"></td>
+                        <td style="width: 135px;">Điện thoại</td>
+                        <td style="width: 100px;" ng-bind="($first)?'Đại diện':''">Người đại diện</td>
+                        <td style="width: 70px;"><a href="javascript:void(0)" ng-click="ShowMapByCity(city)">Bản đồ</a></td>
+                        <td class="nl-mobile" ng-bind="city"></td>
+                    </tr>
+                    <tr class="district" ng-repeat-start="(dist,districts) in Data[city]">
+                        <td ng-bind="dist"></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="javascript:void(0)" ng-click="ShowMapByDistrict(city,dist)">Bản đồ</a></td>
+                        <td class="nl-mobile" ng-bind="dist"></td>
+
+                    </tr>
+                    <tr class="office" ng-repeat="item in Data[city][dist]">
+                        <td>
+                            <div ng-bind="item.OrgName"></div>
+                            <div ng-bind="item.Address"></div>
+                        </td>
+                        <td ng-bind="item.Phone"></td>
+                        <td ng-bind="item.ContactName"></td>
+                        <td><a href="javascript:void(0)" ng-click="ShowMap(item)">Bản đồ</a></td>
+                        <td class="nl-mobile">
+                            <table>
+                                <tr>
+                                    <td class="mobile-lable">Đại diện:</td>
+                                    <td ng-bind="item.ContactName"></td>
+                                </tr>
+                                <tr>
+                                    <td class="mobile-lable">Địa chỉ:</td>
+                                    <td >
+                                        <div ng-bind="item.OrgName"></div>
+                                        <div ng-bind="item.Address"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mobile-lable">Điện thoại:</td>
+                                    <td ng-bind="item.Phone"></td>
+                                </tr>
+                                <tr>
+                                    <td class="mobile-lable">Bản đồ</td>
+                                    <td><a a href="javascript:void(0)" ng-click="ShowMap(item)"><i style="font-size: 20px;" class="fa fa-map-marker" aria-hidden="true"></i></a></td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                    <tr ng-repeat-end style="display:none"></tr>
+                    <tr ng-repeat-end style="display:none"></tr>
+                </table>
+            </div>
+            <div class="modal fade" id="modalBrand">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Bản đồ văn phòng công chứng</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="map_canvas" style="width:100%; height:455px;"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@section styles {
+    @Styles.Render("~/content/notarizeOffice")
+    <style>
+       
+    </style>
+}
+@section scripts {
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=@HappyRE.Core.Utils.Common.GOOGLE_MAP_API_KEY&libraries=drawing,places"></script>
+    @Scripts.Render("~/bundles/notarizeOffice");
+    @*<script src="~/scripts/app/controllers/notarizeOfficeController.js"></script>*@
+}

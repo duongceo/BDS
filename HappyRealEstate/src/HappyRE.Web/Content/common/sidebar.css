@@ -1,0 +1,157 @@
+﻿/*Common*/
+#side-bar {
+    width: 340px;
+    float: right;
+}
+
+.widget {
+    padding: 15px 10px 10px 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #d2d2dc;
+    border-radius: 4px;
+    width: 100%;
+    float: left;
+    color: #53535f;
+}
+    .widget h3,
+    .widget .title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #262637;
+        line-height: 16px;
+        margin-bottom: 10px;
+    }
+	.widget ul {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		color: #53535f;
+	}
+		.widget ul > li {
+			display: block;
+			clear: both;
+		}
+            .widget ul > li > a {
+                display: block;
+                padding: 5px 0px;
+                /*color: #52525E;*/
+            }
+	.widget .counter {
+		color: #7a7a88;
+	}
+/*End Common*/
+
+.similar ul > li > a {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+/* Ads Banner*/
+.banner-widget {
+    padding: 0;
+    border: 0;
+}
+/* End Ads Banner*/
+
+/* News*/
+.news-widget ul > li {
+	display: table;
+	position: relative;
+	padding: 5px 0px;
+}
+
+.news-widget .news-media {
+	width: 80px;
+	height: 80px;
+	float: left;
+}
+
+    .news-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.news-widget .news-content {
+	float: left;
+	width: calc(100% - 80px);
+	padding-left: 10px;
+	text-align: left;
+}
+
+.news-widget .news-title {
+    font-size: 14px;
+    line-height: 20px;
+    max-height: 60px;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    margin-top: -5px;
+    color: #5A646E
+}
+/*.news-widget .news-title a {
+    color: #5A646E;
+}*/
+.widget .news-date {
+    color: #7a7a88;
+    font-size: 11px;
+    line-height: 15px;
+    color: #919BA5;
+    margin-top: 5px;
+}
+
+.widget .view-more {
+    float: right;
+    text-align: right;
+    font-size: 12px;
+    font-weight: normal;
+    color: #036B75;
+}
+    .widget .view-more .fa {
+        margin-left: 5px;
+        font-size: 16px;
+        line-height: 16px;
+        float: right;
+    }
+/* End News*/
+
+/* HousePrice */
+.price-widget ul > li {
+	line-height: 30px;
+}
+.price-widget h3 > span {
+	max-width: 200px;
+	display: inline-block;
+}
+.price-widget .price {
+	float: right;
+	font-weight: bold;
+}
+/*End HousePrice*/
+
+.map-widget {
+    padding: 0;
+    position: relative;
+}
+    .map-widget img {
+        width: 100%;
+        height: auto;
+    }
+    .map-widget .gsm-title {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 5px 10px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #736161;
+    }
+@media (max-width: 959px) {
+    #side-bar {
+        display: none;
+    }
+}

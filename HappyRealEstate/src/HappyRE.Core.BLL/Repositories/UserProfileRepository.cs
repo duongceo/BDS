@@ -83,11 +83,11 @@ namespace HappyRE.Core.BLL.Repositories
             return await this.Query<string>(query, new { u, d }, CommandType.Text);
         }
 
-        public async Task<bool> IsAdmin(string userName)
+        public async Task<bool> IsNotCheckIP(string userName)
         {
             var query = @"select count(*) from AspNetUsers (nolock) a
                         inner join AspNetUserRoles (nolock) b on a.Id= b.UserId                      
-                        where a.UserName=@userName and b.RoleId in ('ADMIN','SYS_ADMIN','ACCOUNT')";
+                        where a.UserName=@userName and b.RoleId in ('IP_ACCESS')";
             var l = await this.ExecuteScalar<int>(query, new { userName }, CommandType.Text);
             return l > 0;
         }

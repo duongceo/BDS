@@ -1,0 +1,26 @@
+﻿@model List<HappyRE.Core.Entities.CMS_Category>
+    <ul class="nav nav-pills nav-stacked left-menu" id="news-category">
+        @foreach (var item in Model.FindAll(x => x.ChildLevel == 0))
+        {
+        <li>
+            @{
+                string cls = item.Selected ? "collapse in" : "collapse";
+                string selected = item.Selected ? "selected" : "collapsed";
+            }
+            <a class="@selected" href="javascript:void(0)" data-target="#item_@item.CategoryId" data-toggle="collapse"><span class="fa fa-news-cat"></span> @item.Name</a>            
+            <ul id="item_@item.CategoryId" class="nav nav-stacked left-submenu @cls">
+                @foreach (var child in Model.FindAll(x => x.ParentId == item.CategoryId))
+                {
+                    if (string.IsNullOrEmpty(child.TargetUrl) == false)
+                    {
+                    <li>@Html.Raw(string.Format("<a href=\"{0}\" class=\"{2}\">{1}</a>",child.TargetUrl,child.Name, child.Selected ? "selected" : ""))</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink(child.Name, "List", "Cms", new { parentCodeUrl = item.CodeUrl, codeUrl = child.CodeUrl }, new { @class = child.Selected ? "selected" : "" })</li>
+                    }
+                }
+            </ul>
+        </li>
+        }
+    </ul>

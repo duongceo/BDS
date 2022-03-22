@@ -1,0 +1,588 @@
+﻿
+
+@media (max-width: 1023px) {
+    body {
+        font-size: 14pt;
+    }
+
+   .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    .navbar-inverse .navbar-toggle .icon-bar {
+        background: #272739 !important;
+    }
+    .navbar-toggle {
+        float: left;
+        background: #fff !important;
+        border: none;
+        color: #272739 !important;
+    }
+
+    .navbar-brand {
+        /*padding-top: 5px !important;*/
+        width: 120px;
+        padding-left: 10px;
+    }
+
+    .navbar-inverse .navbar-toggle {
+        border-color: #333;
+        padding-right: 0px;
+        margin-right: 0px;
+        padding-left: 20px;
+        padding-top: 15px;
+    }
+
+    .side-collapse-container {
+        width: 100%;
+        position: relative;
+        left: 0;
+        transition: left .4s;
+    }
+
+        .side-collapse-container.out {
+            left: 200px;
+        }
+
+    .side-collapse {
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        width: 80%;
+        position: fixed;
+        overflow: hidden;
+        transition: width .3s;
+        background: #f3f3f3;
+        border-radius: 4px;
+    }
+
+        .side-collapse.in {
+            width: 0;
+        }
+
+    .navbar-inverse .navbar-nav > li {
+        border-bottom: 1px solid #ccc;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:active,
+        .navbar-inverse .navbar-nav > li > a {
+            color: #000;
+            padding-top: 15px;
+        }
+
+    .main {
+        margin-top: 60px;
+    }
+
+        .main .top {
+            padding-bottom:40px;
+            height: auto;
+            width: 100%;
+            background: url(../../Content/Images/landing/landing3/mobile/MOBILE-LP_02.gif) no-repeat;
+            -webkit-background-size:none;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: none;
+            color: #fff;
+        }
+
+            .main .top .content1 {
+                margin-top: 100px;
+                text-align: center;
+            }
+
+                .main .top .content1 .title {
+                    font-weight: 600;
+                    font-size: 19pt;
+                    text-transform: uppercase;
+                }
+
+                    .main .top .content1 .title > span {
+                        color: #ffc80a;
+                    }
+
+            .main .top .content2 {
+                margin-top: 30px;
+                width: 100%;
+                text-align: center;
+            }
+
+                .main .top .content2 .title2 {
+                    font-size: 14pt;
+                }
+
+                    .main .top .content2 .title2 > span {
+                        color: #ffc80a;
+                        font-weight: 600;
+                    }
+
+            .main .top .command {
+                text-align: center;
+                margin-top: 40px;
+                width: 100%;
+            }
+
+        .main .khao-sat {
+            margin-top: 50px;
+            /*position:relative;*/
+        }
+
+            .main .khao-sat .img {
+                display: none;
+                /*width: 100%;*/
+            }
+            .main .khao-sat .m-img {
+                display: inline-block;
+                width: 100%;
+                text-align:center;
+                margin-bottom:15px;
+            }
+
+            .main .khao-sat .m-img {
+                width: 100%;
+                text-align: center;
+                display: inline-block;
+                margin-top: 20px;
+            }
+
+            .main .khao-sat .content {
+                float: left;
+                width: 100%;
+                padding-left: 0px;
+            }
+
+                .main .khao-sat .content .body .img {
+                    display: none;
+                }
+
+                .main .khao-sat .content .body .m-img {
+                    display: inline-block;
+                    margin-top: 15px;
+                }
+
+                .main .khao-sat .content .body .body {
+                    width: 100%;
+                    float: left;
+                    padding-left: 0px;
+                }
+
+                    .main .khao-sat .content .body .body .item1 > span,
+                    .main .khao-sat .content .body .body .item2 > span {
+                        color: #eb8219;
+                    }
+
+                    .main .khao-sat .content .body .body .item2 {
+                        margin-top: 15px;
+                    }
+
+                .main .khao-sat .content .footer1 {
+                    margin-top: 15px;
+                    font-weight: 600;
+                    font-size: 12pt;
+                }
+
+        .main .sumenh {
+            margin-top: 50px;
+            background: #f2f2f2;
+            min-height: 565px;
+        }
+
+            .main .sumenh .title {
+                text-align: left;
+                margin-top: 50px;
+                width: 100%;
+            }
+
+                .main .sumenh .title .info {
+                    margin: auto;
+                    width: 100%;
+                    font-weight: 600;
+                    font-size: 21pt;
+                }
+
+            .main .sumenh .content {
+                margin-top: 30px;
+                background: none;
+                height: auto;
+            }
+
+                .main .sumenh .content .m-icon {
+                    display: inline-block;
+                    position: absolute;
+                }
+
+                .main .sumenh .content .text {
+                    padding-left: 60px;
+                    max-width: 400px;
+                }
+
+                .main .sumenh .content .left {
+                    width: 100%;
+                    text-align: left;
+                    float: left;
+                }
+
+                    .main .sumenh .content .left .item1 {
+                        float: left;
+                        padding-right: 0px;
+                        width: 100%;
+                        display: block;
+                    }
+
+                        .main .sumenh .content .left .item1 .dac-biet {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+                    .main .sumenh .content .left .item2 {
+                        float: left;
+                        padding-right: 0px;
+                        margin-top: 0px;
+                        margin-top: 15px;
+                        width: 100%;
+                        display: block;
+                    }
+
+                        .main .sumenh .content .left .item2 .dac-bietn {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+                    .main .sumenh .content .left .item3 {
+                        float: left;
+                        padding-right: 0px;
+                        margin-top: 0px;
+                        margin-top: 15px;
+                        width: 100%;
+                        display: block;
+                    }
+
+                        .main .sumenh .content .left .item3 .dac-biet {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+                .main .sumenh .content .right {
+                    width: 100%;
+                    text-align: left;
+                    float: left;
+                }
+
+                    .main .sumenh .content .right .item1 {
+                        float: left;
+                        padding-left: 0px;
+                        margin-top: 15px;
+                        max-width: 400px;
+                        display: block;
+                        width: 100%;
+                    }
+
+                        .main .sumenh .content .right .item1 .dac-biet {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+                    .main .sumenh .content .right .item2 {
+                        float: left;
+                        padding-left: 0px;
+                        margin-top: 0px;
+                        margin-top: 15px;
+                        display: block;
+                        width: 100%;
+                    }
+
+                        .main .sumenh .content .right .item2 .dac-biet {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+                    .main .sumenh .content .right .item3 {
+                        float: left;
+                        padding-left: 0px;
+                        margin-top: 0px;
+                        margin-top: 15px;
+                        width: 100%;
+                        display: block;
+                    }
+
+                        .main .sumenh .content .right .item3 .dac-biet {
+                            display: inline;
+                            color: #eb8219;
+                        }
+
+        .main .loi-ich {
+            margin-top: 50px;
+        }
+
+            .main .loi-ich .title {
+                text-align: left;
+                width: 100%;
+                font-size: 18pt;
+            }
+
+                .main .loi-ich .title .info {
+                    font-size: 21pt;
+                    font-weight: 600;
+                }
+
+            .main .loi-ich .content {
+                margin-top: 50px;
+            }
+
+                .main .loi-ich .content .item {
+                    float: left;
+                    width: 100%;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    margin-bottom: 15px;
+                }
+
+                    .main .loi-ich .content .item:last-child {
+                        padding-right: 0px;
+                        margin-bottom: 0px;
+                    }
+
+                    .main .loi-ich .content .item > div {
+                        margin-top: 10px;
+                    }
+
+        .main .vidu {
+            margin-top: 20px;
+        }
+
+            .main .vidu .container {
+                width: 100%;
+            }
+
+            .main .vidu .title {
+                text-align: center;
+                width: 100%;
+            }
+
+                .main .vidu .title .info {
+                    font-size: 21pt;
+                    font-weight: 600;
+                }
+
+            .main .vidu .content {
+                display: none;
+            }
+
+            .main .vidu .m-content {
+                display: block;
+                width: 100%;
+            }
+
+                .main .vidu .m-content > ul {
+                    list-style: none;
+                    padding: 0px;
+                    margin: 0px;
+                }
+
+                    .main .vidu .m-content > ul > li {
+                        float:left;
+                        width: 50%;
+                        text-align: center;
+                        /*padding-right: 5px;*/
+                        margin-bottom: 10px;
+                        /*padding-left:5px;*/
+                       
+                    }
+                    .main .vidu .m-content > ul > li > a > img {
+                        margin:auto;
+                        width:95%;
+                    }
+                    .main .vidu .m-content > ul > li:last-child > a > img {
+                        margin:auto;
+                        width:98%;
+                    }
+                    .main .vidu .m-content > ul > li:last-child {
+                        width:100%;
+                    }
+
+                        .main .vidu .m-content > ul > li > img {
+                            width: 100%;
+                        }
+        /*.main .vidu .content .item {
+                    float: left;
+                    width: 100%;
+                    margin-right: 0px;
+                    position: relative;
+                }
+
+                    .main .vidu .content .item:last-child {
+                        margin-right: 0px;
+                    }
+
+                    .main .vidu .content .item .info {
+                        top: 55px;
+                        position: absolute;
+                        border: none;
+                        border-radius: 4px;
+                        width: 142px;
+                        height: 205px;
+                        text-align: center;
+                        color: #fff;
+                        left: 40px;
+                        padding-top: 30px;
+                        
+                    }
+
+                        .main .vidu .content .item .info > div {
+                            width: 90%;
+                            padding-top: 15px;
+                            margin: auto;
+                            font-weight:600;
+                        }*/
+
+        .main .chua-biet {
+            margin-top: 50px;
+        }
+
+            .main .chua-biet .title {
+                font-weight: 600;
+                font-size: 18pt;
+            }
+
+            .main .chua-biet .content .item {
+                margin-top: 10px;
+            }
+
+                .main .chua-biet .content .item > a {
+                    color: #005d4e;
+                    cursor: pointer;
+                }
+
+            .main .chua-biet .content .left {
+                float: left;
+                width: 100%;
+            }
+
+            .main .chua-biet .content .right {
+                width: 100%;
+                display:inline-block;
+            }
+
+                .main .chua-biet .content .right > img {
+                    width: 100%;
+                }
+
+
+
+        .main .footer {
+            padding-top: 30px;
+            padding-bottom: 20px;            
+            background: #f2f2f2;
+            font-size:10pt;
+        }
+
+            .main .footer .left {
+                float: left;
+                width: 100%;
+            }
+
+                .main .footer .left .m-social,
+                .main .footer .left .m-url {
+                    width:100%;
+                    margin-top:10px;
+                    display: inline-block;
+                }
+
+            .main .footer .center {
+                float: left;
+                width:100%;
+                margin-top:15px;
+                /*padding-left:15px;*/
+            }
+
+                .main .footer .center .url {
+                   display:none;
+                }
+
+                .main .footer .center .calling {
+                    float: left;
+                    width: 100%;
+                }
+
+                .main .footer .center .address {
+                    margin-top:15px;
+                    float: left;
+                    width:100%;
+                }
+
+            .main .footer .right {
+              display:none;
+            }
+            .menu-landing {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+    }
+
+        .menu-landing .navbar-nav > li {
+            border-bottom: none;
+        }
+}
+@media screen and  (max-width: 320px){
+    .main .top {
+        background-size: 320px 540px;
+    }
+}
+@media screen and (min-width: 321px) and (max-width: 375px) {
+     .main .top {
+        background-size: 375px auto;
+    }
+}
+@media screen and (min-width: 376px) and (max-width: 414px) {
+     .main .top {
+        background-size: 414px auto;
+    }
+}
+
+@media screen and (min-width: 838px) and (max-width: 1024px) {
+    .main .sumenh {
+        background-color: #f2f2f2;
+        background: url('../../Content/Images/landing/landing3/mobile/Asset 9.png') no-repeat right bottom !important;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .main .vidu .content .item {
+        float: left;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 667px) and (max-width: 1024px) {
+    .main .loi-ich .content .item {
+        float: left;
+        width: 50% !important;
+        min-height: 129px;
+    }
+    .main .chua-biet {
+            margin-top: 0px;
+     }
+    .main .vidu .m-content > ul > li {
+        width: 50%;
+        text-align: center;
+        margin-bottom: 10px;
+        float:left;
+        min-height:268px;
+        padding-right:20px;
+    }
+    .main .vidu .m-content > ul > li:last-child{
+        width:100%;
+    }
+    .main .footer .left {
+                float: left;
+                width: 150px;
+            }
+     .main .footer .center {
+                float: left;
+                width:calc(100% - 150px);
+               padding-left:20px;
+               
+            }
+}

@@ -1,0 +1,11 @@
+﻿<div class="col-md-3">
+    <ul class="nav nav-pills nav-stacked left-menu" id="stacked-menu" ng-init="GetCategoriesByGroup(8)">
+        <li ng-repeat="item in CMS_Categories | filter: { ChildLevel: 0}">
+            <a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu">{{item.Name}}
+            <span ng-if="cateHasChild(item)" class="caret arrow"></span></a>
+            <ul ng-if="cateHasChild(item)" class="nav nav-stacked  left-submenu">
+                <li ng-repeat="child in CMS_Categories | filter: {ParentId : item.CategoryId}"><a href="#">{{child.Name}}</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

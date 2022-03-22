@@ -1,0 +1,21 @@
+﻿@model List<HappyRE.Core.MapModels.Search.ProjectItem>
+<div class="projects-nearby">
+    <h2>Các dự án trong cùng khu vực</h2>
+    <div class="nprojects">
+        @foreach (var item in Model)
+        {
+            <div class="np-item clearfix">
+                <div class="np-media">
+                    <img src="@Html.Raw(!item.HasCoverImage() ? "/content/images/no-image-listing.png" : item.GetCoverImages()[0])" />
+                </div>
+                <div class="np-info">
+                    <div class="np-title"><a class="link-overlay" href="@Url.Action("Detail","Project",new { id = @item.ProjectId})">@item.Title</a></div>
+                    <div class="np-address">@item.Address</div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+

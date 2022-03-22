@@ -203,10 +203,10 @@ namespace HappyRE.Core.BLL.Repositories
         public async Task<int> MobileViewedToday()
         {
             var q = @"with temp(sl)as(
-                    select count(distinct PropertyId) sl 
-                    from PropertyShowMobileLog (nolock) 
-                    where createdBy=@userName and ViewDate=@viewDate
-                    union all 
+                    --select count(distinct PropertyId) sl 
+                    --from PropertyShowMobileLog (nolock) 
+                    --where createdBy=@userName and ViewDate=@viewDate
+                    --union all 
                     select count(distinct CustomerId) sl
                     from CustomerShowMobileLog (nolock) 
                     where createdBy=@userName and ViewDate=@viewDate)

@@ -85,7 +85,12 @@ namespace HappyRE.App.Controllers
         public async Task<JsonResult> _GetRoles()
         {
             var res = await _uow.Role.Search(new Core.Entities.BaseQuery());
-            return Json(res.Item1, JsonRequestBehavior.AllowGet);
+            var data = res.Item1;
+            if (User.Identity.Name != "admin")
+            {
+                data = res.Item1.Where(x => x.RoleId != Permission.SALEORDER_VIEW_MOBILE);
+            } 
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [CompressFilter]

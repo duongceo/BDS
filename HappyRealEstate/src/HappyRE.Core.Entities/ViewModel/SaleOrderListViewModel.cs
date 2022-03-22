@@ -43,6 +43,8 @@ namespace HappyRE.Core.Entities.ViewModel
         [DisplayName("Họ tên")]
         public string CustomerName { get; set; }
         [DisplayName("Số điện thoại")]
+        [ExportIgnore]
+        [NonTrack]
         public string CustomerPhone { get; set; }
         [DisplayName("Ngày sinh")]
         [ExportIgnore]

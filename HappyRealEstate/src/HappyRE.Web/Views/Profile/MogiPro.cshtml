@@ -1,0 +1,70 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.ProfileViewModel
+@using HappyRE.Core.Resources;
+@{
+    ViewBag.Title = Message.Msg_Register_MogiPro;
+}
+<link rel="stylesheet" href="~/scripts/libs/angular.chosen/bootstrap-chosen.css" />
+
+<div id="profile" class="mg-container" ng-controller="userProfileController" ng-init="initProfile()">
+    <div id="sidebar" class="clearfix">
+        @Html.Partial("_LeftMenu")
+    </div>
+    <div id="main" class="clearfix">
+        <div class="profile-content">
+            <div class="clearfix">
+                <div class="mogipro-title" ng-show="!Profile.IsWaitForApprove">                    
+                    @Message.Profile_MogiPro_Note
+                </div>
+                <form class="form-horizontal" name="myForm" ng-submit="MogiPro.registerMogiPro()" novalidate>
+                    <div>
+                        <div class="col-sm-12">
+                            <div>
+                                <label class="titlename">@HappyRE.Core.Resources.Model.UserProfile_Email</label> 
+                                @Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Profile", new Dictionary<string, string>() { { "class", "text-control" }, { "placeholder", HappyRE.Core.Resources.Model.UserProfile_Email }, { "autocomplete", "off" } }))
+                            </div>
+                            <div class="msg-error">
+                                @Html.AngularMessage("Email")
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="titlename">@HappyRE.Core.Resources.Model.UserProfile_CityId</label>
+                            <select data-placeholder="Chọn" chosen class="form-control"
+                                    allow-single-deselect="true"
+                                    placeholder-text-single="'@HappyRE.Core.Resources.Model.UserProfile_CityId'"
+                                    no-results-text="'@HappyRE.Core.Resources.Model.UserProfile_CityId'"
+                                    ng-init="MogiPro.initCity()"
+                                    ng-model="Profile.CityId"
+                                    ng-required="true"
+                                    name="CityId"
+                                    ng-options="item.i as item.n for item in MogiPro.CityOptions">
+                                <option value=""></option>
+                            </select>
+                            <div class="msg-error">
+                                @Html.AngularMessage("CityId")
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="f-footer">
+                                <button type="submit" class="btn btn-primary">@Message.Msg_Update</button>
+                            </div>
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+<script>
+        $(document).ready(function () {
+            setTimeout(function () { $('input[name="Email"]').focus() }, 1000);
+        });
+</script> 
+@Styles.Render("~/Content/profilecss")
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}
+
+
+

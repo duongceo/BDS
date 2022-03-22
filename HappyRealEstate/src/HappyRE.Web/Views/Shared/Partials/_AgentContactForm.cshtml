@@ -1,0 +1,61 @@
+﻿@model HappyRE.Web.Models.AgentMessageViewModel
+@using HappyRE.Core.Resources
+@using MBN.Utils.Extension
+
+<div class="agent-hidden-command">
+    <div class="agent-hidden-spliter">@Message.Msg_Or</div>
+    <input class="btn btn-primary" type="button" value="@Message.ContactForm_AskMore" ng-click="ShowContactForm()" />
+</div>
+
+<form novalidate name="@Model.Setting.FormName" class="agent-hidden-content agent-contact-form clearfix" ng-submit="SendMessageToAgent(@Model.Setting.FormName)">
+    <input class="agent-input" name="SenderName" ng-model="UserInbox.SenderName" type="text" value="@Model.UserInbox.SenderName" required placeholder="@Message.ContactForm_Name" />
+    <div ng-messages="@string.Format("{0}.SenderName.$error", Model.Setting.FormName)" ng-if="@string.Format("{0}.$submitted || {0}.SenderName.$touched", Model.Setting.FormName)">
+        <div class="validMessage" ng-message="required">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Required, @HappyRE.Core.Resources.Model.UserInbox_Sender)'"></span>
+        </div>
+
+    </div>
+
+    <input class="agent-input" name="SenderMobile" ng-model="UserInbox.SenderMobile" type="text" value="@Model.UserInbox.SenderMobile" required ng-pattern="/@HappyRE.Core.Const.REGEX_PATTERN_MOBILE/" placeholder="@Message.ContactForm_Mobile" />
+    @*<span style="color:red" ng-show="@string.Format("{0}.$submitted || {0}.SenderMobile.$touched", Model.Setting.FormName)">
+            <span ng-show="@string.Format("{0}.SenderMobile.$error.required", Model.Setting.FormName)">@string.Format(HappyRE.Core.Resources.Validation.Required, @HappyRE.Core.Resources.Model.UserInbox_Mobile)</span>
+            <span ng-show="@string.Format("{0}.SenderMobile.$error.pattern", Model.Setting.FormName)">@string.Format(HappyRE.Core.Resources.Validation.Invalid, @HappyRE.Core.Resources.Model.UserInbox_Mobile)</span>
+        </span>*@
+    <div ng-messages="@string.Format("{0}.SenderMobile.$error", Model.Setting.FormName)" ng-if="@string.Format("{0}.$submitted || {0}.SenderMobile.$touched", Model.Setting.FormName)">
+        <div class="validMessage" ng-message="required">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Required, @HappyRE.Core.Resources.Model.UserInbox_Mobile)'"></span>
+        </div>
+        <div class="validMessage" ng-message="pattern">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Invalid, @HappyRE.Core.Resources.Model.UserInbox_Mobile)'"></span>
+        </div>
+    </div>
+
+    <input class="agent-input" name="SenderEmail" ng-model="UserInbox.SenderEmail" type="email" value="@Model.UserInbox.SenderEmail" placeholder="@Message.ContactForm_Email" required />
+
+    <div ng-messages="@string.Format("{0}.SenderEmail.$error", Model.Setting.FormName)" ng-if="@string.Format("{0}.$submitted || {0}.SenderEmail.$touched", Model.Setting.FormName)">
+        <div class="validMessage" ng-message="required">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Required, @HappyRE.Core.Resources.Model.UserInbox_Email)'"></span>
+        </div>
+        <div class="validMessage" ng-message="email">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Invalid, @HappyRE.Core.Resources.Model.UserInbox_Email)'"></span>
+        </div>
+    </div>
+
+    <textarea class="agent-input" ng-model="UserInbox.SenderMessage" name="SenderMessage" required placeholder="@Model.UserInbox.SenderMessage"></textarea>
+
+    <div ng-messages="@string.Format("{0}.SenderMessage.$error", Model.Setting.FormName)" ng-if="@string.Format("{0}.$submitted || {0}.SenderMessage.$touched", Model.Setting.FormName)">
+        <div class="validMessage" ng-message="required">
+            <span ng-bind="'@string.Format(HappyRE.Core.Resources.Validation.Required, @HappyRE.Core.Resources.Model.UserInbox_Body)'"></span>
+        </div>
+
+    </div>
+
+
+    <div id="message-captcha"
+         class="g-recaptcha clearfix"
+         data-sitekey="@HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SITEKEY"
+         data-callback="reCaptchaMessageCallBack"
+         data-size="invisible">
+    </div>
+    <input class="btn btn-primary" type="submit" value="@Message.ContactForm_Send" id="sendmessage" gtm-event="all" gtm-cat="detail" gtm-act="contact" />
+</form>

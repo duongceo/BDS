@@ -1,0 +1,14 @@
+﻿@model List<HappyRE.Core.Entities.CMS_Category>
+@using HappyRE.Core.Resources;
+<div id="slidemenu1">
+	<ul id="mogi-menu" class="nav mogi-menu">
+		@foreach (var item in Model)
+		{
+			<li><a href="@item.CodeUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu"><i class="visible-xs icon icon-@item.Code"></i>@item.Name</a></li>
+		}
+		@if (User.Identity.IsAuthenticated == false)
+		{
+			<li><a href="@Url.Action("Login","Account")" gtm-event="link" gtm-cat="menu" gtm-act="user-signin"><i class="visible-xs icon icon-signin"></i>@Message.Msg_SignIn</a></li>
+		}
+	</ul>
+</div>

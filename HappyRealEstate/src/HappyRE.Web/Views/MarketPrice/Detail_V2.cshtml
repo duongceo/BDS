@@ -1,0 +1,178 @@
+﻿@using HappyRE.Web.Resources;
+
+@model List<HappyRE.Core.MapModels.Report.HousePrice>
+
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 0;
+    //  int count = 0;// Model.Count;
+    int CityId = ViewBag.CityId;
+    int DistrictId = ViewBag.DistrictId;
+    List<string> months = (List<string>)ViewBag.Months;
+    List<HappyRE.Core.MapModels.Report.HousePrice> items = (List<HappyRE.Core.MapModels.Report.HousePrice>)ViewBag.Items;
+
+}
+
+<div ng-controller="marketController" class="clearfix" ng-init="DetailInit()">
+
+    <section id="breadcrumb" class="clearfix">
+        <div class="mg-960-container">
+            @{
+                Html.RenderAction("Breadcrumb_MarketPriceDetail", "CachePartial", new { districtId = (int)ViewBag.DistrictId, location = ViewBag.Location });
+            }
+        </div>
+    </section>
+
+    <div id="mt-detail">
+        <div class="mg-960-container">
+            <div id="main" class="clearfix">
+                <div id="mt-page-title">
+                    <h1 class="page-title">
+                        @ViewBag.TitlePage
+                    </h1>
+                    @*<div class="page-desciption">
+                            @Html.Raw(ViewBag.PageDescription)
+                        </div>*@
+
+                </div>
+                
+                    <div id="market-trend" class="tab-pane  market-trend">
+
+                        @foreach (HappyRE.Core.MapModels.Report.HousePrice item in items)
+                        {
+                            @*<div class="mt-address">@ViewBag.Type</div>*@
+                            <div class="market-trend-item clearfix">
+                                <div class="mt-last-trend-list">
+                                    <div class="mt-list-header-item">
+                                        <div class="mt-list-item-content">
+                                            <span>
+                                                @item.PropertyStyle
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-list-group-item">
+                                        <div class="list-group-item-content">
+                                            <div class="hpicon hpicon-avg"></div>
+                                            <div class="mt-text clearfix">
+                                                <span class="mt-lable ">@Message.MarketPrice_AvgPrice</span>
+                                                <span class="mt-value">@((int)item.AvgPrice) tr/m<sup>2</sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-list-group-item">
+                                        <div class="list-group-item-content">
+                                            <div class="hpicon hpicon-total"></div>
+                                            <div class="mt-text clearfix">
+                                                <span class="mt-lable">@Message.MarketPrice_TotalProp</span>
+                                                <span class="mt-value">@item.Total</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-list-group-item">
+                                        <div class="list-group-item-content">
+                                            <div class="hpicon hpicon-min"></div>
+                                            <div class="mt-text clearfix">
+                                                <span class="mt-lable">@Message.MarketPrice_MinPrice</span>
+                                                <span class="mt-value">@((int)item.MinPrice) tr/m<sup>2</sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-list-group-item last">
+                                        <div class="list-group-item-content">
+                                            <div class="hpicon hpicon-max"></div>
+                                            <div class="mt-text clearfix">
+                                                <span class="mt-lable">@Message.MarketPrice_MaxPtrice</span>
+                                                <span class="mt-value">@((int)item.MaxPrice) tr/m<sup>2</sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-chart">
+                                    <div class="mt-chart-caption">@item.TitleDisplay</div>
+                                    <div class="mt-line-chart">
+                                        <canvas tc-chartjs
+                                                chart-type="line"
+                                                chart-data="Detail.MTChartData[@index]"
+                                                chart-options="Detail.MTChartChartOptions"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            index = index + 1;
+                        }
+                    </div>
+
+                    <div id="historylist" class="mg-container clearfix" ng-if="HistoryPrice.List.Total>0">
+                        @*<h2 class="page-title">
+                                @ViewBag.HistoryPriceTitle
+                            </h2>*@
+                        <h2 class="history-list-title">Lịch sử giá</h2>
+                        <div class="history-list-source">
+                            Nguồn từ <b class="mua-ban">mua&bán</b>
+                        </div>
+                        <div class="history-container">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td class="hidden-xs">@HappyRE.Web.Resources.Message.MarketPrice_History_PropertyType</td>
+                                            <td>@HappyRE.Web.Resources.Message.MarketPrice_History_Address</td>
+                                            <td class="hidden-xs">@HappyRE.Web.Resources.Message.MarketPrice_History_Area</td>
+                                            <td>@HappyRE.Web.Resources.Message.MarketPrice_History_EndDate</td>
+                                            <td>@HappyRE.Web.Resources.Message.MarketPrice_History_Price</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-click="HistoryPrice.GotoHistoryDetails(item.DetailUrl,'@ViewBag.LocationUrl',item.UId)" ng-repeat="item in HistoryPrice.List.Data">
+                                            <td class="hidden-xs">
+                                                <a class="link-overlay" ng-href="/lich-su-gia-{{item.DetailUrl}}-@ViewBag.LocationUrl-{{item.UId}}"><span ng-bind="item.PropertyTypeName"></span></a>
+                                            </td>
+                                            <td class="price-highlight">
+                                                <span ng-bind="item.Address"></span>
+                                                <span ng-if="item.Address==''" ng-bind="{{'--'}}"></span>
+                                            </td>
+                                            <td class="hidden-xs"><span ng-bind="item.AreaDisplay"></span></td>
+                                            <td><span ng-bind="item.EndDate | date:'dd/MM/yyyy'"></span></td>
+                                            <td><span class="price-highlight" ng-bind="item.PriceText"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center" ng-if="HistoryPrice.List.Total>10"><ul uib-pagination total-items="HistoryPrice.List.Total" items-per-page="HistoryPrice.Query.PageSize" ng-model="HistoryPrice.Query.PageIndex" class="pagination" ng-change="HistoryPrice.PageChanged(@ViewBag.StreetId)"></ul></div>
+                            </div>
+                        </div>
+                    </div>
+                
+
+
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+            </div>
+
+            <div id="side-bar" class="clearfix">
+                @{
+                    Html.RenderAction("SearchRefined", "CachePartial", new { rent = false, cityId = CityId, districtId = DistrictId, propertyTypeId = 0, propertyStyleId = 0, gtmCat = "listing-similar" });
+                }
+            </div>
+        </div>
+    </div>
+    <section id="hidden-content"></section>
+</div>
+
+
+
+
+
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketDetail")">
+}
+@section scripts {
+    <script type="text/javascript">
+        var months = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(months));
+        var dataChart = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+        var items = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(items));
+        var sid = @ViewBag.StreetId;
+    </script>
+    @*@Scripts.Render("~/bundles/market")*@
+    <script async src='@Scripts.Url("~/bundles/market")' type="text/javascript"></script>
+}

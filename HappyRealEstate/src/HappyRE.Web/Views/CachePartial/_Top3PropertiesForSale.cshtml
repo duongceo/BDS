@@ -1,0 +1,30 @@
+﻿@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+@using HappyRE.Core.Resources;
+<div class="clearfix property-list" ng-non-bindable>
+    <div class="property-items-header clearfix">
+        <h2 class="property-items-title">@ViewBag.Title</h2>
+		<div class="property-items-viewmore">
+			<a href="@ViewBag.Url" class="mg-link" gtm-event="link" gtm-cat="home" gtm-act="property-latest-more">@Message.Msg_LinkMore<i class="fa fa-angle-right"></i></a>
+		</div>
+    </div>
+    <div class="property-items clearfix">
+        @foreach (var item in Model)
+        {
+            var cover = HappyRE.Core.Utils.Common.NoImageUrl;
+            List<string> covers = item.GetCoverImages(true);
+            int count = (covers == null ? 0 : covers.Count);
+            if (count > 0)
+            {
+                cover = covers[0];
+            }
+            <div class="property">
+                <div class="property-image"><img class="lozad" data-src="@cover" alt=""></div>
+                <div class="property-info">
+                    <a href="@item.Url" class="link-overlay" gtm-event="link" gtm-cat="home" gtm-act="property-latest"><h3 class="property-title">@item.Title</h3></a>
+                    <div class="property-address">@item.Address</div>
+                    <div class="property-price">@item.PriceView</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

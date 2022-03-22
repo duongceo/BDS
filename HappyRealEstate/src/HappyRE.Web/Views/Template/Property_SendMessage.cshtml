@@ -1,0 +1,54 @@
+﻿@model HappyRE.Web.Models.PropertySendMessage
+@using HappyRE.Core.Resources;
+@using res = HappyRE.Core.Resources;
+@{
+	this.Layout = null;
+}
+<!-- message:begin -->
+<div id="message" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<span class="modal-title">@Message.ContactForm_Title</span>
+			</div>
+			<div class="modal-body" style="">
+				<form novalidate name="messageToAgent" class="agent-form clearfix" ng-submit="Message.Send(messageToAgent)">
+					@Html.TextBox("SenderName", null, @Html.AngularAttibute("SenderName", "UserInbox", new Dictionary<string, string>() { { "class", "agent-input" }, { "placeholder", HappyRE.Core.Resources.Model.UserInbox_Sender }, { "autocomplete", "off" } }))
+					@Html.AngularMessage("SenderName", "messageToAgent")
+					@Html.TextBox("SenderMobile", null, @Html.AngularAttibute("SenderMobile", "UserInbox", new Dictionary<string, string>() { { "class", "agent-input" }, { "placeholder", HappyRE.Core.Resources.Model.UserInbox_Mobile }, { "autocomplete", "off" } }))
+					@Html.AngularMessage("SenderMobile", "messageToAgent")
+					@Html.TextBox("SenderEmail", null, @Html.AngularAttibute("SenderEmail", "UserInbox", new Dictionary<string, string>() { { "class", "agent-input" }, { "placeholder", HappyRE.Core.Resources.Model.UserInbox_Email }, { "autocomplete", "off" } }))
+					@Html.AngularMessage("SenderEmail", "messageToAgent")
+					@Html.TextArea("SenderMessage", null, @Html.AngularAttibute("SenderMessage", "UserInbox", new Dictionary<string, string>() { { "class", "agent-input" }, { "placeholder", HappyRE.Core.Resources.Model.UserInbox_Body }, { "autocomplete", "off" } }))
+					@Html.AngularMessage("SenderMessage", "messageToAgent")
+					<input class="btn-sm btn-primary send" type="submit" value="@Message.ContactForm_Send" id="sendmessage" gtm-event="all" gtm-cat="detail" gtm-act="contact" />
+					<input class="btn-sm btn-clear closed" type="button" value="@Message.Button_Cancel" data-dismiss="modal" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- message:end -->
+<!-- report:begin -->
+<div id="report" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<span class="modal-title">@Message.ReportAbuse</span>
+			</div>
+			<div class="modal-body noselect">
+				<form id="report-abuse" class="report-abuse" name="report" ng-submit="Report.SendReport(this)" novalidate method="post">
+					<ul><li ng-repeat="item in Report.ErrorList" ng-click="Report.OnChecking($index,item.Value)" ng-class="Report.ItemCss($index)" ng-bind="item.Name"></li></ul>
+					<div class="command">
+						<input id="sendreport" class="btn-sm btn-primary send" type="submit" value="@Message.Button_Send" />
+						<input class="btn-sm btn-clear closed" type="button" value="@Message.Button_Cancel" data-dismiss="modal" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- report:end -->
+@{Html.RenderPartial("~/Views/Shared/Partials/_Captcha.cshtml", new Dictionary<string, string>() { { "buttonId", "sendmessage" }, { "onDemand", "true" } });}

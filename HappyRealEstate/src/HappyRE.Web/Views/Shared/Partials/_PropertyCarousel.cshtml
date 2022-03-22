@@ -1,0 +1,37 @@
+﻿@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+@foreach (var property in Model)
+{
+    <div class="property-item clearfix">
+        <div class="image-auto-size">
+            <img src="@property.GetCoverImageUrl()">
+        </div>
+        <div class="price">@property.PriceView</div>
+        <div class="property-info">
+            <div class="title"><a class="link-overlay" href="@property.Url">@property.Title</a></div>
+            <div class="address">@property.Address</div>
+
+
+            <div class="utilities">
+
+                <span> <i class="fa fa-bed"></i>@property.BedRooms</span>
+
+                <span><i class="fa fa-bath"></i>@property.BathRooms</span>
+
+                <span><i class="icon icon-acreage"></i>@Convert.ToInt64(@property.Area) m<sup>2</sup></span>
+            </div>
+            <div class="date-posted">Ngày đăng: @property.PublishView</div>
+        </div>
+        <div class="agent">
+            <div class="agent-info">
+                <div class="agent-avatar">
+                    <img src="@property.AvatarUrl()" />
+                </div>
+                <div class="agent-detail">
+                    <div class="agent-name">@property.User_FullName</div>
+                    <div class="agent-mobile">@property.User_Mobile</div>
+                </div>
+            </div>
+            <div class="fa fa-heart" ng-class="{'favorited': SimilarFavorites[@property.PropertyId]}" ng-click="ToggleFavoviteProperty(@property.PropertyId)"></div>
+        </div>
+    </div>
+}

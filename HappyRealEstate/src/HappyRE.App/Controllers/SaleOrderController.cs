@@ -75,13 +75,15 @@ namespace HappyRE.App.Controllers
             var res = await _uow.SaleOrder.GetById(id);
             ViewBag.selectedOwnerTarget = await _uow.SysCode.GetBitMaskByBit(res.OwnerTargetId, "CustomerPotentialType");
             ViewBag.selectedCustomerTarget = await _uow.SysCode.GetBitMaskByBit(res.CustomerTargetId??0, "CustomerPotentialType");
-
+            ViewBag.PropertySelectedCode = "";
             if (res != null)
             {
                 var x= await _uow.ImageFile.GetImages(new ImageFileQuery() { TableName = "SaleOrder_Owner", TableKeyId = id });
                 res.OwnerImages = x.ToList();
                 var y=await _uow.ImageFile.GetImages(new ImageFileQuery() { TableName = "SaleOrder_Customer", TableKeyId = id });
                 res.CustomerImages = y.ToList();
+                var p = await _uow.Property.GetById(res.PropertyId);
+                ViewBag.PropertySelectedCode = p.Code; 
             }
             return View("Create", res);
         }

@@ -1,0 +1,69 @@
+﻿
+@using HappyRE.Core.Resources;
+@model List<HappyRE.Core.MapModels.Search.PropertyItem>
+@{
+    int index = 0;
+    bool isRent = ((bool?)ViewData["isRent"] ?? false);
+}
+<ul class="props">
+    @foreach (var item in Model)
+    {
+        index++;
+        bool is_vip = item.IsVip();
+        bool is_up = item.IsUP();
+        string cover1 = HappyRE.Core.Utils.Common.NoImageUrl;
+        List<string> covers = item.GetCoverImages();
+        int count = (covers == null ? 0 : covers.Count);
+        if (count > 0)
+        {
+            cover1 = covers[0];
+        }
+        if (is_vip && string.IsNullOrEmpty(item.StickerName))
+        {
+            item.StickerName = (isRent ? "Cho thuê gấp" : "Bán gấp");
+        }
+        <li>
+            <div class="prop-img">
+                @if (index <= 3)
+                {
+                    <img src="@cover1" />
+                }
+                else
+                {
+                    <img class="lozad" data-src="@cover1" />
+                }
+                @if (item.TotalImage > 1)
+                {
+                    <div class="total"><i class="fa fa-camera"></i><span>@item.TotalImage</span></div>
+                }
+                @if (is_vip)
+                {
+                    <span class="sticker">@item.StickerName</span>
+                }
+            </div>
+            <div class="prop-info">
+                <h2 class="prop-title"><a class="link-overlay" href="@item.Url">@item.Title</a></h2>
+                <div class="prop-addr">@item.Address</div>
+                <ul class="prop-attr">
+                    <li class="land">@Convert.ToInt64(item.Area) m<sup>2</sup></li>
+                    <li class="bed">@item.BedRooms</li>
+                    <li class="bath">@item.BathRooms</li>
+                </ul>
+                <div class="price">@item.PriceView</div>
+            </div>
+            <div class="prop-extra clearfix">
+                <div class="prop-created"><span class="hidden-xs">@Message.Detail_PublishDate_Label: </span> @item.PublishView</div>
+                <div id="@item.PropertyId" class="favorite" gtm-event="all" gtm-cat="listing" gtm-act="add-favorite" ng-click="Favorite.addRemove(@item.PropertyId)" ng-class="{favorited: Favorite.items[@item.PropertyId]}"><i class="fa fa-heart"></i></div>
+                <div class="prop-mobile">
+                    <i class="hidden-xs fa fa-phone"></i>
+                    <a class="hidden-xs" gtm-event="link" gtm-cat="listing" gtm-act="mobile-show" href="javascript:void(0)" onclick="this.innerText='@item.User_Mobile'">@item.MobileView(3)</a>
+                    <a class="visible-xs" gtm-event="link" gtm-cat="listing" gtm-act="mobile-call" href="tel:@item.User_Mobile"><i id="@item.PropertyId" class="fa fa-phone"></i></a>
+                </div>
+            </div>
+            @if (is_up)
+            {
+                <div class="up-item"><i class="fa fa-star up-item-star"></i></div>
+            }
+        </li>
+    }
+</ul>

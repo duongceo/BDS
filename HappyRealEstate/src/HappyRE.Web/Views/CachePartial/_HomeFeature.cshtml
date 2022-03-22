@@ -1,0 +1,22 @@
+﻿@model List<HappyRE.Core.Entities.CMS_Category>
+@using HappyRE.Core.Resources;
+@using HappyRE.Core.Entities;
+@{
+	if (Model == null || Model.Count == 0)
+	{
+		return;
+	}
+	var parent = Model.OrderByDescending(o => o.Sort).FirstOrDefault(c => c.ParentId == 0);
+	var items  = Model.OrderByDescending(o => o.Sort).Where(c => c.ParentId == parent.CategoryId).ToList();
+}
+<div id="features" ng-non-bindable>
+	<div class="mg-1170-container">
+		<h2 class="title desktop">@parent.Name</h2>
+		<ul class="features clearfix">
+			@foreach (var item in items)
+			{
+			<li><a href="@item.TargetUrl">@item.Name</a></li>
+			}
+		</ul>
+	</div>
+</div>

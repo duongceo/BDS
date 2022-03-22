@@ -1,0 +1,45 @@
+﻿@using HappyRE.Core.Resources;
+@{ 
+    if (User.Identity.IsAuthenticated == false)
+    {
+        return;
+    }
+    string code = (ViewBag.Code == null ? "" : (string)ViewBag.Code).ToLower();
+    string c = "active";
+    string[] css = new[] { "", "", "", "", "", "" };
+    if (code == "mogipro") { css[0] = c; }
+    else if (code == "alertsearch") { css[1] = c; }
+    else if (code == "favorite") { css[2] = c; }
+    else if (code == "info") { css[3] = c; }
+    else if (code == "changepassword") { css[4] = c; }
+}
+<div class="col-md-3">
+    <div class="profile-sidebar">
+        <!-- SIDEBAR USERPIC -->
+        <div class="profile-userinfo clearfix line">
+            <div class="profile-userpic">
+                <img class="img-responsive" ng-show="Profile.LogoSquare!=null" ng-src="{{Profile.AvatarMediumUrl}}" />
+                <img class="img-responsive" ng-show="Profile.LogoSquare==null" ng-src="~/content/images/no-avatar.jpg" />
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name" ng-bind="Profile.FullName"></div>
+                <div class="profile-usertitle-job" ng-bind="Profile.Mobile"></div>
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR MENU -->
+        </div>
+        <div class="profile-usermenu clearfix">
+            <ul class="nav navbar-nav">
+                <li class="@css[1]"><a href="@Url.Action("Index","Profile")" rel="nofollow"><i class="fa fa-bell"></i>@Message.Menu_Profile_Alert</a></li>
+                <li class="@css[2]"><a href="@Url.Action("FavoriteList","Profile")" rel="nofollow"><i class="fa fa-heart"></i>@Message.Menu_Profile_Favorite</a></li>
+                <li class="@css[3]"><a href="@Url.Action("UserProfile","Profile")" rel="nofollow"><i class="fa fa-address-card"></i>@Message.Menu_Profile_Info</a></li>
+                <li class="@css[4]" ng-show="menu.changepassword.visible"><a href="@Url.Action("ChangePassword","Profile")" rel="nofollow"><i class="fa fa-password"></i>@Message.Menu_Profile_ChangePassword</a></li>
+                <li class="@css[0]"><a href="@Url.Action("MogiPro","Profile")" rel="nofollow"><i class="fa fa-user-plus"></i>@Message.Menu_Profile_Pro</a></li>
+                <li><a href="@Url.Action("LogOff","Account")"><i class="fa fa-sign-out f18"></i>@Message.Menu_Profile_LogOff</a></li>
+            </ul>
+        </div>
+        <!-- END MENU -->
+    </div>
+</div>

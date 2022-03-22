@@ -1,0 +1,327 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using MBN.Utils.Extension;
+@using HappyRE.Core.Resources;
+@{
+	this.Layout = "~/Views/Shared/_LayoutMap.cshtml";
+	var msg = new
+	{
+		Filter = HappyRE.Core.Resources.Message.Msg_Filter_More,
+		FilterClear = HappyRE.Core.Resources.Message.Msg_Filter_Clear,
+		Close = HappyRE.Core.Resources.Message.Msg_Close,
+		Finish = HappyRE.Core.Resources.Message.Msg_Finish,
+		Search = HappyRE.Core.Resources.Message.Msg_Search,
+		Keyword_PlaceHolder = HappyRE.Core.Resources.Message.Search_Keyword_PlaceHolder,
+		View_List = HappyRE.Core.Resources.Message.Listing_View_List,
+		View_Map = HappyRE.Core.Resources.Message.Listing_View_Map,
+		Sort = HappyRE.Core.Resources.Message.Listing_Sort_Default,
+		MinPrice = HappyRE.Core.Resources.Message.Listing_Price_MinPrice,
+		MaxPrice = HappyRE.Core.Resources.Message.Listing_Price_MaxPrice,
+
+		Location = HappyRE.Web.Resources.Message.Listing_Filter_Location,
+		FilterTitle = HappyRE.Web.Resources.Message.Listing_Filter_Title,
+		FilterMore = HappyRE.Web.Resources.Message.Listing_Filter_More,
+		Apply = HappyRE.Core.Resources.Message.Msg_Apply
+	};
+	var f = Model.Filter.Map;
+	var keyword = (f != null ? f.Name : "");
+}
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+	<ul class="dropdown-menu suggest"
+		ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left-1+'px',width: position().width +2 + 'px'}"
+		role="listbox" aria-hidden="{{!isOpen()}}">
+		<li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+			<a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+		</li>
+	</ul>
+</script>
+<div ng-controller="ListViewV2Controller">
+	<div id="search-bar">
+		<div class="mg-960-container search-bar">
+			<div>
+				<div class="keywords clearfix">
+					<i class="fa fa-search"> </i>
+					<input type="text" id="q" name="q"
+						   ng-model="Keyword"
+						   ng-required="true"
+						   ng-keyup="OnKeyUp($event)"
+						   typeahead-loading="LoadingLocations"
+						   typeahead-no-results=""
+						   uib-typeahead="item as item.FullName(item.Name) for item in GetMap($viewValue)" value="@keyword"
+						   typeahead-popup-template-url="suggestPopupTemplate.html"
+						   typeahead-show-hint="false"
+						   typeahead-on-select="KeywordOnSelected()"
+						   autocomplete="off"
+						   placeholder="@msg.Keyword_PlaceHolder"
+						   autofocus />
+					<i ng-show="Keyword!=null" ng-click="ResetKeyWord()" class="fa fa-times-circle"></i>
+				</div>
+				<div class="property-location-filter search-dropdown" ng-click="FilterMaster.Open(0,$event)">
+					<div class="btn-group" uib-dropdown is-open="Cities.IsOpen" auto-close="outsideClick">
+						<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+							<span ng-bind="Cities.DisplayText"></span>
+							<i class="fa fa-angle-down" aria-hidden="true"></i>
+						</button>
+						<ul class="mg-dropdown dropdown-menu scrollbar-style-1 noselect"
+							uib-dropdown-menu role="menu" aria-labelledby="single-button"
+							ng-class="{'sub-list': Cities.IsShowBack()}">
+							<li class="clearfix move-back"
+								ng-show="Cities.IsShowBack()"
+								ng-click="Cities.OnClickBack(Cities.ParentItem)">
+								<div class="mg-dropdown-icon">
+									<i class="fa fa-angle-left"></i>
+								</div>
+								<div class="mg-dropdown-text">
+									<span ng-bind="Cities.ParentItem.n"></span>
+								</div>
+							</li>
+							<li role="menuitem" class="clearfix"
+								ng-repeat="item in Cities.Data"
+								ng-click="Cities.OnClick(item,$index)">
+								<div class="mg-dropdown-text">
+									<span ng-class="{'item-selected': Cities.IsSelected(item.i)}" ng-bind="Cities.GetName(item,$index)"></span>
+								</div>
+								<div class="mg-dropdown-icon" ng-show="Cities.IsShowChild(item,$index) == true">
+									<i class="fa fa-angle-right"></i>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="property-type-filter search-dropdown" ng-click="FilterMaster.Open(1,$event)">
+					<div class="btn-group" uib-dropdown is-open="PropertyType.IsOpen" auto-close="outsideClick">
+						<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+							<span ng-bind="PropertyType.DisplayText"></span>
+							<i class="fa fa-angle-down" aria-hidden="true"></i>
+						</button>
+						<ul class="mg-dropdown dropdown-menu noselect scrollbar-style-1"
+							uib-dropdown-menu role="menu" aria-labelledby="single-button"
+							ng-class="{'sub-list': PropertyType.IsShowBack()}">
+							<li class="clearfix move-back"
+								ng-show="PropertyType.IsShowBack()"
+								ng-click="PropertyType.OnClickBack(PropertyType.ParentItem)">
+								<div class="mg-dropdown-icon">
+									<i class="fa fa-angle-left"></i>
+								</div>
+								<div class="mg-dropdown-text">
+									<span ng-bind="PropertyType.ParentItem.Name"></span>
+								</div>
+							</li>
+							<li role="menuitem" class="clearfix"
+								ng-repeat="item in PropertyType.Data"
+								ng-click="PropertyType.OnClick(item,$index)">
+								<div class="mg-dropdown-text">
+									<span ng-class="{'item-selected': PropertyType.IsSelected(item.Id)}"
+										  ng-bind="PropertyType.GetName(item,$index,'@Message.Msg_Select_All')"></span>
+								</div>
+								<div class="mg-dropdown-icon" ng-show="PropertyType.IsShowChild(item,$index) == true">
+									<i class="fa fa-angle-right"></i>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="property-price-filter search-dropdown" ng-click="FilterMaster.Open(2,$event)">
+					<!-- Single button -->
+					<div class="btn-group" uib-dropdown is-open="Price.IsOpen" auto-close="outsideClick">
+						<button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+							<span class="value" ng-bind="Price.DisplayName"></span>
+							<i class="fa fa-angle-down" aria-hidden="true"></i>
+						</button>
+						<div class="mg-dropdown dropdown-menu noselect price-dropdown" uib-dropdown-menu>
+							<ul class="price-list">
+								<li class="price-list-title">@msg.MinPrice</li>
+								<li ng-repeat="item in Price.Items" ng-click="Price.ChangedFrom(item)" ng-class="{'selected-price':Price.IsSelectedFrom(item) }">
+									<i class="fa" ng-class="(Price.IsSelectedFrom(item)?'fa-check-circle':'fa-circle')"></i>
+									<span ng-bind="item.Name"></span>
+								</li>
+							</ul>
+							<ul class="price-list">
+								<li class="price-list-title">@msg.MaxPrice</li>
+								<li ng-repeat="item in Price.Items" ng-click="Price.ChangedTo(item)" ng-class="{'selected-price':Price.IsSelectedTo(item) }">
+									<i class="fa" ng-class="(Price.IsSelectedTo(item)?'fa-check-circle':'fa-circle')"></i>
+									<span ng-bind="item.Name"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="property-filter-more search-dropdown">
+					<div class="btn-group">
+						<button type="button" class="btn btn-search-dropdown dropdown-toggle" ng-click="FilterMaster.OpenPopUp()">
+							<span>@msg.FilterMore</span>
+							<i ng-if="FilterMaster.FilterCount()== 0" class="fa fa-filter" aria-hidden="true"></i>
+							<span ng-if="FilterMaster.FilterCount()> 0" class="counter ng-binding" ng-bind="FilterMaster.FilterCount()"></span>
+						</button>
+					</div>
+				</div>
+				<a href="javascript:void(0)" class="btn-search mg-link-button" ng-click="CallSearch()">@msg.Search</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="main" class="main">
+		<div class="container">
+			<div id="content-left" class="content-left scroll">
+				<div class="property-list-result clearfix">
+					<div class="property-result-summary"><span id="total-result"></span></div>
+					<div class="property-filter-control noselect">
+						<ul>
+							<li uib-dropdown>
+								<a id="dropdown-sort" uib-dropdown-toggle ng-class="{'sort-active': PropertySort.Value==1 }">
+									<i class="fa fa-sort"></i><span class="sort-label" ng-bind-html="SortView.Selected.Name">@msg.Sort</span>
+								</a>
+								<ul class="dropdown-menu pull-right" uib-dropdown-menu aria-labelledby="dropdown-sort">
+									<li ng-repeat="item in SortView.Items">
+										<a ng-click="SortView.Changed(item)" gtm-event="link" gtm-cat="listing" gtm-act="sort" ng-bind="item.Name"></a>
+									</li>
+								</ul>
+							</li>
+							<li><a ng-click="SortView.ChangedView('list')" gtm-event="link" gtm-cat="listing" gtm-act="list"><i class="fa fa-list" aria-hidden="true"></i>@msg.View_List</a></li>
+							<li class="active"><a><i class="fa fa-marker"></i>@msg.View_Map</a></li>
+						</ul>
+					</div>
+				</div>
+				<div id="list-view" class="clearfix" ng-cloak>
+					<ul class="props">
+						<li ng-repeat="item in Map.Data">
+							<div class="prop-img">
+								<img ng-src="{{item.CoverImage}}" />
+								<div class="price" ng-class="{'vip': item.VIP}" ng-bind="item.PriceView"></div>
+								<div class="total" ng-show="item.TotalImage > 1"><i class="fa fa-camera"></i><span ng-bind="item.TotalImage"></span></div>
+								<span class="sticker" ng-show="item.VIP" ng-bind="item.StickerName"></span>
+							</div>
+							<div class="prop-info">
+								<h2 class="prop-title"><a class="link-overlay" ng-href="{{item.Url}}" ng-bind="item.Title"></a></h2>
+								<div class="prop-addr" ng-bind="item.Address"></div>
+								<ul class="prop-attr">
+									<li class="land"><span ng-bind="item.Area"></span>m<sup>2</sup></li>
+									<li class="bed" ng-bind="item.BedRooms"></li>
+									<li class="bath" ng-bind="item.BathRooms"></li>
+								</ul>
+							</div>
+							<div class="prop-extra clearfix">
+								<div class="prop-created"><span class="hidden-xs">@Message.Detail_PublishDate_Label: </span> <span ng-bind="item.PublishView"></span></div>
+								<div class="prop-mobile hidden-xs">
+									<a gtm-event="link" gtm-cat="listing" gtm-act="mobile-show" href="javascript:void(0)" ng-click="Map.ShowMobile(item)" ng-bind="item.MobileView"></a>
+								</div>
+							</div>
+							<div class="command">
+								<div id="{{item.PropertyId}}" class="favorite" gtm-event="all" gtm-cat="listing" gtm-act="add-favorite" ng-click="Favorite.addRemove(item.PropertyId)" ng-class="{favorited: Favorite.items[item.PropertyId]}"><i class="fa fa-heart"></i></div>
+							</div>
+							<div class="up-item" ng-show="item.UP"><i class="fa fa-star up-item-star"></i></div>
+						</li>
+					</ul>
+
+				</div>
+				<div class="text-center"></div>
+			</div>
+			<div id="maps" class="content-map visible-lg visible-md visible-sm">
+				<div id="map" class="map"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Begin Search Popup -->
+	<div id="filter-more" class="modal fade noselect filter">
+		<div class="modal-dialog" style="">
+			<div class="modal-body" style="min-height:380px;">
+				<!-- Master-->
+				<div class="search-popup-header icon" ng-if="FilterMaster.IsShow" data-dismiss="modal">
+					<div class="title">
+						<span>@msg.FilterTitle</span>
+						<span class="counter" ng-bind="FilterMaster.FilterCount()">0</span>
+					</div>
+					<i class="fa fa-close"></i>
+				</div>
+				<ul class="mg-search-popup search-popup-master" ng-if="FilterMaster.IsShow">
+					<li class="clearfix" ng-repeat="item in FilterMaster.Data" ng-click="FilterMaster.OnClick(item,$index)" ng-if="item.i>3">
+						<i class="fa fa-angle-right"></i>
+						<i ng-if="item.val() != ''" class="fa fa-check-circle"></i>
+						<div class="search-popup-master-item">
+							<span ng-bind="item.n"></span><span ng-if="item.val() != ''" ng-bind="item.val()"></span>
+						</div>
+					</li>
+				</ul>
+				<!-- End Master -->
+				<!-- Area -->
+				<div class="search-popup-header icon fa-angle-left" ng-if="FilterMaster.IsSelected(4)" ng-click="Area.OnClickBack()">
+					<div class="title" ng-bind="Area.Label"></div>
+				</div>
+				<ul class="mg-search-popup" ng-if="FilterMaster.IsSelected(4)">
+					<li ng-repeat="item in Area.Items" ng-click="Area.OnClick(item)" ng-bind="item.Name" ng-class="{'item-selected': Area.IsSelected(item)}"></li>
+				</ul>
+				<!-- End Area -->
+				<!-- Room -->
+				<div class="search-popup-header icon fa-angle-left" ng-if="FilterMaster.IsSelected(5)" ng-click="Room.OnClickBack()">
+					<div class="title" ng-bind="Room.Label"></div>
+				</div>
+				<ul class="mg-search-popup" ng-if="FilterMaster.IsSelected(5)">
+					<li ng-repeat="item in Room.Items" ng-click="Room.OnClick(item)" ng-bind="item.Name" ng-class="{'item-selected': Room.IsSelected(item)}"></li>
+				</ul>
+				<!-- End Room -->
+				<!-- Direction -->
+				<div class="search-popup-header icon fa-angle-left" ng-if="FilterMaster.IsSelected(6)" ng-click="Direction.OnClickBack()">
+					<div class="title" ng-bind="Direction.Label"></div>
+				</div>
+				<ul class="mg-search-popup" ng-if="FilterMaster.IsSelected(6)">
+					<li ng-repeat="item in Direction.Items" ng-click="Direction.OnClick(item)" ng-bind="item.Name" ng-class="{'item-selected': Direction.IsSelected(item)}"></li>
+				</ul>
+				<!-- End Direction -->
+				<!-- Legal -->
+				<div class="search-popup-header icon fa-angle-left" ng-if="FilterMaster.IsSelected(7)" ng-click="Legal.OnClickBack()">
+					<div class="title" ng-bind="Legal.Label"></div>
+				</div>
+				<ul class="mg-search-popup" ng-if="FilterMaster.IsSelected(7)">
+					<li ng-repeat="item in Legal.Items" ng-click="Legal.OnClick(item)" ng-bind="item.Name" ng-class="{'item-selected': Legal.IsSelected(item)}"></li>
+				</ul>
+				<!-- End Legal -->
+				<!-- Time -->
+				<div class="search-popup-header icon fa-angle-left" ng-if="FilterMaster.IsSelected(8)" ng-click="Time.OnClickBack()">
+					<div class="title" ng-bind="Time.Label"></div>
+				</div>
+				<ul class="mg-search-popup" ng-if="FilterMaster.IsSelected(8)">
+					<li ng-repeat="item in Time.Items" ng-click="Time.OnClick(item)" ng-bind="item.Name" ng-class="{'item-selected': Time.IsSelected(item)}"></li>
+				</ul>
+				<!-- End Time -->
+				<!-- Command -->
+				<div class="mg-search-popup-command" ng-if="FilterMaster.IsShow">
+					<a class="btn-mogi-1" href="#" ng-click="FilterMaster.Reset()">@msg.FilterClear</a>
+					<a class="btn-mogi-2" href="#" ng-click="FilterMaster.Closed()">@msg.Apply</a>
+				</div>
+				<!-- End Command -->
+			</div>
+		</div>
+	</div>
+	<!-- End Search Popup -->
+</div>
+
+@section styles {
+	@*@Styles.Render("~/content/mapcss")*@
+	<link async rel="stylesheet" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/mapcss")">
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+        var pageData = {IsMapView:true, Ids: [], Paging: {PageIndex: @Model.Paging.CurrentPage, PageSize: 10, Total: @Model.Paging.Total, Url: '@Model.Paging.Url'}};
+        var filterData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Filter));
+        var favorites =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Favorites));
+        var favoritesTop =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FavoritesTop));
+        var isAlert = false, view = 'map', pageSize=25;
+        var mostRecentPinCount = 0;
+        var map,gmap,isUserPolygon = false,ignorePolygonChanges = true;
+
+        function initMap() {
+            if (bdsMap.inited == false) {
+                bdsMap.initialize(null);
+                bdsMap.notifyChange = function (polyenc, isUserPolygon) { bds.notifyChange(polyenc, isUserPolygon); };
+            }
+            ignorePolygonChanges = false;
+        }
+	</script>
+	@*@Scripts.Render("~/bundles/mapv2")*@
+	<script src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/bundles/mapv2")' type="text/javascript"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@HappyRE.Core.Utils.Common.GOOGLE_MAP_API_KEY&callback=initMap&libraries=places,visualization,geometry,overlay"></script>
+}

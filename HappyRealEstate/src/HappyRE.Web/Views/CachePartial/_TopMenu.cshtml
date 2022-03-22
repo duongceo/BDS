@@ -1,0 +1,70 @@
+﻿@model List<HappyRE.Core.Entities.CMS_Category>
+@using HappyRE.Core.Resources;
+@using HappyRE.Core.Utils;
+@{
+	string code = (string)ViewBag.Code;
+	string langUrl = (string)ViewBag.LangUrl;
+	string langCss = (HappyRE.Core.Utils.Common.IsUS() ? "mi-vn" : "mi-en");
+	var inboxUrl = HappyRE.Core.Utils.Common.MogiProUrl + "/inbox";
+	var inboxItemUrl = HappyRE.Core.Utils.Common.MogiProUrl + "/profile/message/";
+}
+<ul id="navbar-nav-user" class="navbar-nav-user navbar-nav navbar-right">
+    <li class="hidden-xs">
+		<a href="@Url.Action("FavoriteList","profile")" gtm-event="link" gtm-cat="menu" gtm-act="user-favorite">
+		<i class="fa fa-heart"></i><span class="badge-total" ng-bind="Profile.getFavorite()" ng-show="Profile.Data.TotalFavorite>0"></span></a>
+	</li>
+	<li class="hidden-xs">
+		<a id="user-message" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#" gtm-event="link" gtm-cat="menu" gtm-act="user-message">
+			<i class="fa fa-bell"></i>
+			<span class="badge-total" ng-bind="Profile.Message.Total" ng-show="Profile.Message.HasValue"></span>
+		</a>
+		<ul id="inbox" class="dropdown-menu inbox">
+			<li class="header clearfix" ng-show="Profile.Message.HasMsg">
+				<span class="title">@Message.Msg_Notification</span>
+				<span class="pull-right"><a href="/trang-ca-nhan/tim-kiem-da-luu#/message">@Message.Msg_LinkMore <i class="fa fa-angle-double-right"></i> </a></span>
+			</li>
+			<li ng-repeat="item in Profile.Message.Items">
+				<a ng-href="{{item.TargetUrl}}" ng-click="Profile.Message.Read(item.MessageId,false)" rel="nofollow">
+					<span ng-class="{bold: !item.Read}" ng-bind="item.Subject"></span><span class="date" ng-bind="item.StartDate | date:'dd/MM/yyyy'"></span>
+				</a>
+			</li>
+			<li class="header clearfix" ng-show="Profile.Message.HasInbox">
+				<span class="title">@Message.Msg_Message</span>
+				<span class="pull-right"><a href="@inboxUrl">@Message.Msg_LinkMore <i class="fa fa-angle-double-right"></i> </a></span>
+			</li>
+			<li ng-repeat="item in Profile.Message.Inboxs">
+				<a ng-href="@Html.Raw(inboxItemUrl){{item.MessageId}}" ng-click="Profile.Message.Read(item.MessageId,true)" rel="nofollow">
+					<span ng-class="{bold: !item.Read}" ng-bind="item.Subject"></span><span class="date" ng-bind="item.StartDate | date:'dd/MM/yyyy'"></span>
+				</a>
+			</li>
+			<li ng-show="!Profile.Message.HasValue"><a href="javascript:void(0)"><span class="text-center">@HappyRE.Core.Resources.Message.Msg_NoMessage</span></a></li>
+		</ul>
+	</li>
+    <li class="hidden-xs"><a href="@langUrl"><svg class="mi @langCss" width="18px" height="16px"><use xlink:href="@Common.CDNIconUrl#@langCss"></use></svg></a></li>
+    <li ng-show="Profile.isAuth()" class="hidden-xs">
+        <a href="javascript:void()" class="avatar dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" gtm-event="all" gtm-cat="menu" gtm-act="user-menu">
+            <span ng-bind-html="Profile.getAvatar()"></span><span class="first-name nowrap" ng-bind="Profile.Data.FirstName"></span>
+        </a>
+		<ul id="profile-menu" class="dropdown-menu profile-menu">
+			<li><a href="@Url.Action("FavoriteList","Profile")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-favorite"><i class="fa fa-heart"></i>@Message.Menu_Profile_Favorite<span class="badge-total visible-xs" ng-bind="Profile.getFavorite()" ng-show="Profile.Data.TotalFavorite>0"></span></a></li>
+			<li><a href="@Url.Action("Index","Profile")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-alert"><i class="fa fa-bell"></i>@Message.Menu_Profile_Alert<span class="badge-total visible-xs" ng-bind="Profile.Message.Total" ng-show="Profile.Message.HasValue"></span></a></li>
+			<li><a href="@Url.Action("UserProfile","Profile")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-profile"><i class="fa fa-address-card"></i>@Message.Menu_Profile_Info</a></li>
+			<li><a href="@Url.Action("ChangePassword","Profile")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-password"><i class="fa fa-password"></i>@Message.Menu_Profile_ChangePassword</a></li>
+			<li><a href="@Url.Action("MogiPro","Profile")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-mogipro"><i class="fa fa-user-plus"></i>@Message.Menu_Profile_Pro</a></li>
+			<li class="divider"></li>
+			<li ng-show="!Profile.isAuth()"><a href="@Url.Action("Login","Account")" gtm-event="link" gtm-cat="menu" gtm-act="user-signin"><i class="visible-xs fa fa-sign-in"></i>@Message.Msg_SignIn</a></li>
+			<li ng-show="Profile.isAuth()"><a href="@Url.Action("LogOff","Account")" rel="nofollow" gtm-event="link" gtm-cat="menu" gtm-act="user-menu-signout"><i class="fa fa-sign-out"></i>@Message.Menu_Profile_LogOff</a></li>
+		</ul>
+    </li>
+    <li><a class="btn btn-sm btn-mogi-1" href="@Url.Action("Posting","Profile")" gtm-event="link" gtm-cat="posting" gtm-act="add-posting">@Message.Msg_NewPost</a></li>
+</ul>
+<div id="slidemenu">
+	<ul id="mogi-menu" class="nav mogi-menu">
+		@foreach (var item in Model)
+		{
+			var css = (item.Code == code ? "actived" : "");
+			<li><a class="@css" href="@item.CodeUrl" gtm-event="link" gtm-cat="menu" gtm-act="top-menu"><i class="visible-xs fa fa-chevron-circle-right"></i>@item.Name</a></li>
+		}
+		<li class="hidden-xs" ng-show="!Profile.isAuth()" id="menu-signin"><a href="@Url.Action("Login","Account")" gtm-event="link" gtm-cat="menu" gtm-act="user-signin"><i class="visible-xs fa fa-sign-in"></i>@Message.Msg_SignIn</a></li>
+	</ul>
+</div>

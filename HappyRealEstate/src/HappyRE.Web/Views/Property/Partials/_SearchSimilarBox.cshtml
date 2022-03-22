@@ -1,0 +1,26 @@
+﻿@model List<HappyRE.Core.MapModels.LinkItem>
+@using HappyRE.Core.MapModels
+@{
+    string title = (string)ViewData["title"];
+    string gtmAct = (string)ViewData["gtmAct"];
+    string gtmCat = (string)ViewData["gtmCat"];
+    if (Model == null)
+    {
+        return;
+    }
+    @*int index = 0;
+    int max = (gtmAct == "city" || gtmAct == "project" ? 3 : 100);
+    string css_hide = "";
+    css_hide = (index < max ? "" : "class=\"hidden\"");
+    index++;
+    @Html.Raw(css_hide)*@
+}
+<div class="search-similar">
+    <h3 class="box-title">@Html.Raw(title.ToUpper())</h3>
+    <ul>
+        @foreach (LinkItem item in Model)
+        {
+            <li><i class="fa fa-caret-right"></i><a href="@item.Url" gtm-event="link" gtm-cat="@gtmCat" gtm-act="@gtmAct" title="@item.Title">@item.Name <span>(@item.Total.ToString("N0"))</span></a></li>
+        }
+    </ul>
+</div>

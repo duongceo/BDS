@@ -1,0 +1,12 @@
+﻿@{ 
+    HappyRE.Core.MapModels.ClaimData claim = ViewBag.UserData;
+    if (claim != null && claim.IsMogiPro) { return; }
+    string url = (HappyRE.Core.Utils.Common.IsUS() == true ? "https://en.batdongsanhanhphuc.vn/ho-chi-minh/buy-property" : "https://news.batdongsanhanhphuc.vn/ngoi-nha-dau-tien/");
+}
+<div class="widget banner-widget visible-lg visible-md banner-list-center widget">
+    <div class="banner-content">
+        <a href="@url" target="_blank" gtm-event="right-banner" gtm-cat="banner" gtm-act="click-promotion">
+            <img src="~/content/images/banner/listing-desktop.jpg" style="width:100%" />
+        </a>
+    </div>
+</div>

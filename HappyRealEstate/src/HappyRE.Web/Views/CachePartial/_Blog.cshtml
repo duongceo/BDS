@@ -1,0 +1,28 @@
+﻿@model List<HappyRE.Core.Entities.CMS_News>
+@using HappyRE.Core.Resources;
+@using HappyRE.Core.Entities;
+@{ 
+    if (Model==null || Model.Count == 0)
+    {
+        return;
+    }
+}
+<div class="blog">
+    <h3 class="box-title">@Message.Box_News_Title</h3>
+    <ul class="blog-news">
+        @foreach (var item in Model)
+        {
+            var imgUrl = "";
+            var cover = item.GetCoverImage();
+            if (cover != null) { imgUrl = cover.WrapMediaUrl("xs"); }
+            <li>
+                <a href="@item.CodeUrl">
+                    <img src="@imgUrl" alt="" width="130" height="87" />
+                    <span class="blog-title">@item.Subject</span>
+                    <span class="blog-date">@item.PublishDate.ToShortDateString()</span>
+                </a>
+            </li>
+        }
+        <li><a class="link-more" href="@ViewBag.LinkMore" target="_blank">@Message.Msg_LinkMore<i class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+</div>

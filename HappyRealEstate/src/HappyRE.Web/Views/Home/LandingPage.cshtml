@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "360 ngày miễn phí đăng tin mua bán nhà đất tại Việt Nam | batdongsanhanhphuc.vn";
+    ViewBag.Description = "Khuyến mãi đăng tin bất động sản cực lớn giúp môi giới và nhà đầu tư bán nhà nhanh chóng, tiếp cận hàng triệu khách hàng mua nhà tiềm năng tại batdongsanhanhphuc.vn";
+    ViewBag.PostingUrl = "https://batdongsanhanhphuc.vn/Profile/Posting";
+    ViewBag.SalesUrl = "https://batdongsanhanhphuc.vn/mua-nha-dat";
+    ViewBag.ForRentUrl = "https://batdongsanhanhphuc.vn/thue-nha-dat";
+    ViewBag.SigUpUrl = "https://batdongsanhanhphuc.vn/dang-ky";
+    ViewBag.SigInUrl = "https://batdongsanhanhphuc.vn/dang-nhap";
+    ViewBag.AgentUrl = "https://batdongsanhanhphuc.vn/tim-moi-gioi";
+    Layout = "~/Views/Shared/_LandingPage.cshtml";
+}
+@Styles.Render("~/content/landingcss")
+<div class="main" ng-controller="landingController">
+    <div class="top">
+        <div class="container">
+            <div class="posting">
+                <h1 class="posting">Giải pháp bán nhà nhanh chóng<br />Đăng tin miễn phí, hiển thị tức thì</h1>
+
+            </div>
+            <div class="help">
+                Tiếp cận hơn 2.000.000 lượt tìm nhà mỗi tháng!
+            </div>
+        </div>
+    </div>
+    <div class="body clearfix">
+        <div class="container">
+            <div class="regis-360">
+                <h2><img src="~/Content/Images/landing/360ngay.png" style="margin:auto" width="100%" alt="Khuyến mãi đăng tin bất động sản cực lớn giúp môi giới và nhà đầu tư bán nhà nhanh chóng, tiếp cận hàng triệu khách hàng mua nhà tiềm năng tại batdongsanhanhphuc.vn" title="ngày miễn phí đăng tin mua bán nhà đất tại Việt Nam | batdongsanhanhphuc.vn" /></h2>
+            </div>
+            <div class="posting"><h2 class="posting">Lợi ích thành viên <img src="~/Content/Images/landing/Mogipro.png" alt="Mogi bất động sản thật" /></h2></div>
+            <div class="promotion">
+                <div class="item">
+                    <div class="icon"><img src="~/Content/Images/landing/1.png" alt="Mogi lan tỏa phủ sóng mạnh" /></div>
+                    <div class="desc">
+                        @*<div class="desc-1"><h3 class="desc-1">Phủ sóng mạnh mẽ</h3></div>*@
+                        <div class="desc-2">Tin đăng hiển thị <span class="bold">NGAY LẬP TỨC</span>, xuất hiện nổi bật trên muaban.net và nhiều trang rao tin <span class="bold">UY TÍN</span> hàng đầu</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="icon"><img src="~/Content/Images/landing/2.png" alt="Mogi chi phí hợp lý, tin đăng không giới hạn" /></div>
+                    <div class="desc">
+                        @*<div class="desc-1"><h3 class="desc-1">Chi phí hợp lý</h3></div>*@
+                        <div class="desc-2">Tặng ngay <span class="bold">1.800.000 VNĐ</span> phí thành viên, đăng tin thoải mái không sợ hết tiền xài</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="icon"><img src="~/Content/Images/landing/3.png" alt="Mogi dịch vụ tốt nhất" /></div>
+                    <div class="desc">
+                        @*<div class="desc-1"><h3 class="desc-1">Dịch vụ tận tâm</h3></div>*@
+                        <div class="desc-2">Được hỗ trợ dịch bài đăng sang tiếng Anh và nhiều ngôn ngữ khác, giúp tiếp cận hàng ngàn đối tượng khách hàng nước ngoài tiềm năng</div>
+                    </div>
+                </div>
+            </div>
+            <div class="regis-button clearfix">
+                <a href="@Url.Action("Register", "Account")">
+                    <img src="~/Content/Images/landing/button.png" alt="Đăng ký ngay mogi đăng tin thật nhanh" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="customer hidden-xs clearfix">
+        <div class="container">
+            <div class="cus-info"><h2 class="cus-info">Khách hàng nói gì về Mogi?</h2></div>
+            <div class="cus-item">
+                <div class="item clearfix">
+                    <div class="item-desc">
+                        "Tôi khá là bất ngờ khi tin mới đăng lên mà có nhiều người liên hệ sớm như vậy, đội ngũ tư vấn đã chăm sóc rất nhiệt tình và chuyên nghiệp. Thật tình cám ơn Mogi rất nhiều"
+                    </div>
+                    <div class="item-icon">
+                        <div class="icon">
+                            <img src="~/Content/Images/landing/khach-hang-1.png" />
+                        </div>
+                        <div class="icon-info">Nguyễn Văn Long - Nhân viên kinh doanh</div>
+                    </div>
+                </div>
+                <div class="item clearfix">
+                    <div class="item-desc">
+                        "Mình là môi giới trẻ thực sự việc tìm kiếm khách hàng rất khó trong thời gian đầu, Tuy nhiên nhờ có batdongsanhanhphuc.vn mà mình đã có những khách hàng tiềm năng đầu tiên. Mình rất vui và cảm thấy quyết tâm hơn trên sự nghiệp môi giới chuyên nghiệp."
+                    </div>
+                    <div class="item-icon">
+                        <div class="icon">
+                            <img src="~/Content/Images/landing/khach-hang-2.png" />
+                        </div>
+                        <div class="icon-info">Trần Ngọc My - Môi giới bất động sản</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="regis clearfix">
+        <div class="container">
+            <div class="regis-promotion" style="display:none">
+                <div class="regis-360">
+                    <h2><img src="~/Content/Images/landing/360ngay.png" style="margin:auto" width="100%" alt="Khuyến mãi đăng tin bất động sản cực lớn giúp môi giới và nhà đầu tư bán nhà nhanh chóng, tiếp cận hàng triệu khách hàng mua nhà tiềm năng tại batdongsanhanhphuc.vn" title="ngày miễn phí đăng tin mua bán nhà đất tại Việt Nam | batdongsanhanhphuc.vn" /></h2>
+                </div>
+                <div class="promotion" style="display:none">
+                    Bạn sẽ được trải nghiệp tất cả lợi ích mà không tốn bất kỳ chi phí nào
+                </div>
+            </div>
+            <div class="regis-info clearfix">
+                <div class="regis-pro clearfix">
+                    Hãy đăng ký thành viên <img src="~/Content/Images/landing/Mogipro.png" alt="Mogi bất động sản thật" /> ngay bây giờ!
+                </div>
+                <div class="regis-action clearfix">
+                    <div class="regis-button clearfix">
+                        <a href="@Url.Action("Register", "Account")">
+                            <img src="~/Content/Images/landing/button.png" alt="Đăng ký ngay mogi đăng tin thật nhanh" />
+                        </a>
+                    </div>
+                    <div class="clearfix" style="width:100%; margin:auto">
+                        <div class="regis-time">
+                            <div class="time-item">
+                                <div class="time-value">{{Time.Day}}</div>
+                                <div class="time-name clearfix">ngày</div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-value">{{Time.Hour}}</div>
+                                <div class="time-name clearfix">giờ</div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-value">{{Time.Minute}}</div>
+                                <div class="time-name clearfix">phút</div>
+                            </div>
+                            <div class="time-item">
+                                <div class="time-value">{{Time.Second}}</div>
+                                <div class="time-name clearfix">giây</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container footer clearfix">
+        <div class="col-md-3 col-sm-3 col-xs-12 logo">
+            <a href="/" alt="batdongsanhanhphuc.vn"><img src="~/Content/Images/landing/logo.png" alt="Mogi bất động sản thật" /></a>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 info">
+            <div class="col-md-4 col-sm-4 col-xs-12 call19006868">
+                <div>webiste: batdongsanhanhphuc.vn</div>
+                <div>&nbsp;</div>
+                <div>hotline: 1900 6868</div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12 address">
+                <div>Số 28-30 Đường số 2</div>
+                <div>Hưng Gia 5, phường Tân Phong</div>
+                <div> Quận 7, TP. Hồ Chí Minh</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12 social">
+            <a href="https://www.facebook.com/mogivietnam"><img src="~/Content/Images/landing/facebook.png" /></a>
+            <a href="https://plus.google.com/110860254645651473650"><img src="~/Content/Images/landing/google.png" /></a>
+            <a href="https://www.youtube.com/channel/UCvRsRjbwCp2fBEizRsaaNqw"><img src="~/Content/Images/landing/youtobe.png" /></a>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var sideslider = $('[data-toggle=collapse-side]');
+        var sel = sideslider.attr('data-target');
+        var sel2 = sideslider.attr('data-target-2');
+        sideslider.click(function (event) {
+            $(sel).toggleClass('in');
+            $(sel2).toggleClass('out');
+        });
+        $('.side-collapse-container').click(function (event) {
+            $(sel).toggleClass('in');
+            $(sel2).toggleClass('out');
+        });
+    });
+    angular.module('mogiAppLanding', []).controller('landingController', ['$scope', '$interval', function ($scope, $interval) {
+        $scope.Time = {
+            Day: 0,
+            Hour: 0,
+            Minute: 0,
+            Second: 0
+        };
+        var target_date = new Date('@Html.Raw(ViewBag.Expired)').getTime(); // set the countdown date
+        //var target_date = new Date(2017,7,17).getTime();
+        var days, hours, minutes, seconds; // variables for time units
+        getCountdown();
+
+        $interval(function () { getCountdown(); }, 1000);
+
+        function getCountdown() {
+
+            // find the amount of "seconds" between now and target
+            var current_date = new Date().getTime();
+            var seconds_left = (target_date - current_date) / 1000;
+
+            days = pad(parseInt(seconds_left / 86400));
+            seconds_left = seconds_left % 86400;
+
+            hours = pad(parseInt(seconds_left / 3600));
+            seconds_left = seconds_left % 3600;
+
+            minutes = pad(parseInt(seconds_left / 60));
+            seconds = pad(parseInt(seconds_left % 60));
+            $scope.Time.Day = days;
+            $scope.Time.Hour = hours;
+            $scope.Time.Minute = minutes;
+            $scope.Time.Second = seconds;
+        }
+
+        function pad(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
+    }]);
+
+    </script>
+}
+

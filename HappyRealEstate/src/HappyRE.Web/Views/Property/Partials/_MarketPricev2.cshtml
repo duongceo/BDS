@@ -1,0 +1,96 @@
+﻿
+@using Mogi.Web.Resources;
+@using Newtonsoft.Json;
+@model Mogi.Core.MapModels.Report.MarketPrices
+@{
+    var lastMonth = (Model.Items != null && Model.Items.Count > 0) ? Model.Items.LastOrDefault() : null;
+
+}
+
+@if (lastMonth != null)
+{
+
+
+    <div id="market-trend" class="property-content">
+        <div class="property-content-header">@Mogi.Core.Resources.Message.PropertyDetail_MarketPrice</div>
+        <div class="clearfix">
+            <div class="mt-chart-caption hidden-lg hidden-md">@ViewBag.Type</div>
+
+            <div class="clearfix">
+                <div class="avg-price-block clearfix">
+                    <div class="row month-select-group">
+                        <div class="col-md-12 lbl">
+                            <label class="mt-group-header">@Message.MarketPrice_LastOneMonth</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-group">
+                        <div class="mt-list-group-item">
+                            <div class="list-group-item-content">
+                                <div class="avg-price-icon avg-4"></div>
+                                <div class="mt-text clearfix">
+                                    <span class="mt-lable">@Message.MarketPrice_Property_AvgPrice</span>
+                                    <span class="mt-value">@Html.Raw(lastMonth.AvgPriceDisplay)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-list-group-item">
+                            <div class="list-group-item-content">
+                                <div class="avg-price-icon avg-1"></div>
+                                <div class="mt-text clearfix">
+                                    <span class="mt-lable">@Message.MarketPrice_TotalProp</span>
+                                    <span class="mt-value">@lastMonth.Total</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-list-group-item">
+                            <div class="list-group-item-content">
+                                <div class="avg-price-icon avg-3"></div>
+                                <div class="mt-text clearfix">
+                                    <span class="mt-lable">@Message.MarketPrice_MinPrice</span>
+                                    <span class="mt-value">@Html.Raw(lastMonth.MinPriceDisplay)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-list-group-item">
+                            <div class="list-group-item-content">
+                                <div class="avg-price-icon avg-2"></div>
+                                <div class="mt-text clearfix">
+                                    <span class="mt-lable">@Message.MarketPrice_MaxPtrice</span>
+                                    <span class="mt-value">@Html.Raw(lastMonth.MaxPriceDisplay)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more-box clearfix">
+                        <a class="link-more" target="_blank" href="@lastMonth.Url">Tham khảo giá khu vực ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="HistoryPrice.Items.length > 0" class="property-content-header price-history-title">Lịch sử giá</div>
+        <div ng-if="HistoryPrice.Items.length > 0">
+            <div class="price-history-source">
+                Nguồn từ <b class="mua-ban">mua&bán</b>
+            </div>
+            <table class="price-history">
+                <tr ng-repeat="item in HistoryPrice.Items">
+                    <td style="width: 30%" ng-bind="item.Updated | date: dd/MM/yyyyy">20/12/2014</td>
+                    <td style="width: 30%" ng-bind="item.AreaDisplay"></td>
+                    <td style="width: 40%; font-weight:600;" ng-bind="item.PriceText"></td>
+                </tr>
+            </table>
+            <div class="price-history-link">
+                <a href="@ViewBag.MarketLink">
+                    Xem lịch sử giá
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+            }
+@{
+    <script>
+        chartData =@Html.Raw(JsonConvert.SerializeObject(Model.Items.OrderBy(t=> t.MonthId)));
+    </script>
+}

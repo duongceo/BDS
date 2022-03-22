@@ -1,0 +1,87 @@
+﻿@model HappyRE.Web.Models.FooterViewModel
+@using HappyRE.Core.Resources;
+@using HappyRE.Core.Entities;
+@using HappyRE.Core.Utils;
+@{
+	ViewBag.Title = "_Footer";
+	List<CMS_Category> lstParent, lstChild;
+	System.Text.StringBuilder sb;
+}
+<div class="mogi-footer" ng-non-bindable>
+	<div class="container">
+		<div class="footer-right">
+			@{
+				sb = new System.Text.StringBuilder();
+				lstParent = Model.Popular.Where(c => c.ParentId == 0).OrderByDescending(o => o.Sort).ToList();
+				sb.Append("<ul>");
+				foreach (var item in lstParent)
+				{
+					lstChild = Model.Popular.Where(c => c.ParentId == item.CategoryId).OrderByDescending(o => o.Sort).ToList();
+					sb.AppendFormat("<li class=\"footer-right-parent\"><h3 class=\"footer-title\">{0}<span class=\"mogi-collapse collapsed\" data-toggle=\"collapse\" data-target=\"#footer{1}\" aria-expanded=\"false\"></span></h3><ul id=\"footer{1}\" class=\"collapse\" aria-expanded=\"false\">", item.Name, item.CategoryId);
+					foreach (var sub in lstChild)
+					{
+						string url = (string.IsNullOrEmpty(sub.TargetUrl) ? sub.CodeUrl : sub.TargetUrl);
+						if (string.IsNullOrEmpty(sub.TemplateBody) == true)
+						{
+							sb.AppendFormat("<li><a rel=\"nofollow\" href=\"{0}\">{1}</a></li>", sub.CodeUrl, sub.Name);
+						}
+						else
+						{
+							sb.AppendFormat("<li>" + sub.TemplateBody + "</li>", url, sub.Name);
+						}
+					}
+					sb.Append("</ul></li>");
+				}
+				sb.Append("</ul>");
+
+				@Html.Raw(sb.ToString());
+			}
+			@{
+				sb = new System.Text.StringBuilder();
+				lstParent = Model.Footer.Where(c => c.ParentId == 0).OrderByDescending(o => o.Sort).ToList();
+				sb.Append("<ul>");
+				foreach (var item in lstParent)
+				{
+					string target = " target=\"_blank\" rel=\"nofollow\"";
+					lstChild = Model.Footer.Where(c => c.ParentId == item.CategoryId).OrderByDescending(o => o.Sort).ToList();
+					sb.AppendFormat("<li class=\"footer-right-parent\"><h3 class=\"footer-title\">{0}<span class=\"mogi-collapse collapsed\" data-toggle=\"collapse\" data-target=\"#footer{1}\" aria-expanded=\"false\"></span></h3><ul id=\"footer{1}\" class=\"collapse\" aria-expanded=\"false\">", item.Name, item.CategoryId);
+					foreach (var sub in lstChild)
+					{
+						string url = (string.IsNullOrEmpty(sub.TargetUrl) ? sub.CodeUrl : sub.TargetUrl);
+						if (string.IsNullOrEmpty(sub.TemplateBody) == true)
+						{
+							sb.AppendFormat("<li><a rel=\"nofollow\" href=\"{0}\"{2}>{1}</a></li>", url, sub.Name, (sub.CodeUrl.StartsWith("http") ? target : ""));
+						}
+						else
+						{
+							sb.AppendFormat("<li>" + sub.TemplateBody + "</li>", url, sub.Name);
+						}
+					}
+					sb.Append("</ul></li>");
+				}
+				sb.Append("</ul>");
+
+				@Html.Raw(sb.ToString());
+			}
+
+		</div>
+		<div class="footer-left">
+			<ul class="footer-01">
+				<li><img src="/content/images/logo.svg" alt="batdongsanhanhphuc.vn" height="32" /></li>
+				<li><i class="fa fa-phone"></i>@Message.Footer_Phone</li>
+				<li><i class="fa fa-envelope"></i><a href="mailto:@Message.Footer_Email">@Message.Footer_Email</a></li>
+				<li class="social-icon">
+					<a href="https://www.facebook.com/mogivietnam" target="_blank" rel="nofollow"><i class="fa fa-facebook"></i></a>
+					<a href="https://www.youtube.com/channel/UCvRsRjbwCp2fBEizRsaaNqw" target="_blank" rel="nofollow"><i class="fa fa-youtube"></i></a>
+					<a href="https://zalo.me/4599343447665056788" class="zalo-icon" target="_blank" rel="nofollow"><svg class="mi mi-zalo"><use xlink:href="@Common.CDNIconUrl#mi-zalo"></use></svg></a>
+				</li>
+			</ul>
+			<ul class="footer-02">
+				<li><h3 class="footer-title">@Message.Footer_Company</h3></li>
+				<li>@Message.Footer_Address<br />@Message.Footer_Responsible<br />@Message.Footer_License</li>
+				<li><a href="http://online.gov.vn/homepage/websitedisplay.aspx?docid=31190" target="_blank" rel="nofollow"><img class="lozad bocongthuong" data-src="@Common.CDNUrl/content/images/bocongthuong.png" alt="bo cong thuong"></a></li>
+				<li>@Message.Footer_001</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using MBN.Utils.Extension
+@{
+	ViewData["FavoriteEvent"] = ",$event";
+}
+@Html.Partial("Partials/_Listv2")
+@if (Model.Paging != null)
+{
+<div class="text-center">
+   @Html.Raw(Model.Paging.RenderAngular())
+</div>
+}
+@*<div id="pagedata-favorite" style="display:none;">@Html.Raw(Model.Favorites.ToJson())</div>*@

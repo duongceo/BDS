@@ -1,0 +1,60 @@
+﻿@
+@model IEnumerable<HappyRE.Core.Entities.CMS_News>
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container">
+	<div class="col-md-3">
+		@{
+			Html.RenderAction("CategoriesByGroup", "Cms", new { groupId = Const.CMS_GROUP_GUIDE, codeUrl = ViewBag.CodeUrl });
+		}
+	</div>
+	<div class="col-md-9">
+		@foreach (HappyRE.Core.Entities.CMS_News item in Model)
+		{
+
+			<div class="news-item-block">
+				<div class="row news-item-title">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<b>
+							@Html.ActionLink(item.Subject, "Detail", "Cms", new { id = item.NewsId }, new { })
+						</b>
+						<span class="news-item-publishdate">
+							@item.PublishDate.ToString("dd/MM/yyyy")
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<!--thumb-->
+						<a href="@Url.Action("Detail", "Cms", new { id = item.NewsId })">
+							@{
+								var cover = item.GetCoverImage();
+								if (cover != null)
+								{
+									<img src="@cover.SmallPublishUrl" class="img-responsive" style="max-width: 120px;" alt="@item.Subject">
+								}
+							}
+						</a>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10" style="padding-left:0px;">
+						@item.Summary
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+@*@Styles.Render("~/Content/cmscss")*@
+@section styles {
+	<link rel="stylesheet" href="@Styles.Url("~/content/mogicms")">
+}
+@section scripts {
+	<script type="text/javascript">
+		var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+	</script>
+	@*@Scripts.Render("~/content/common.js")*@
+	<script async src="@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/common.js")" type="text/javascript"></script>
+}

@@ -230,8 +230,8 @@ var bizHelper = (function() {
             return r == 0 ? (username != createdBy)? 'hidden':'' : '';
         };
     renderPropertyCode = function (address, street) {
-        address = (address || '').replace(' ','_').trim();
-        street = (street || '').trim();
+        address = (address || '').replace(' ', '_').trim();
+        street = (street || '').trim().replace('Đường ','');
         if (street.match(/^\d/)) {
             return (address +'Đ' + street).toUpperCase();
         } 

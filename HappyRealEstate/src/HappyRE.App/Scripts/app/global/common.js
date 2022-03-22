@@ -56,13 +56,13 @@ var common = (function() {
         },
         highlight = function (val) {
             if (val == null) return '';
-            else return '<span class=highlight">' + val+'</span>';
+            else return '<span class=highlight">' + val + '</span>';
         },
-        readMore = function (text,maxlen,link,key) {
+        readMore = function (text, maxlen, link, key) {
             if (text == null) return '';
             if (text.length > maxlen) text = text.substr(0, maxlen);
             else return text;
-            return text.substr(0, 68) + ".. <a target='_blank' href='" + link + key +"'>xem thêm</a>";
+            return text.substr(0, 68) + ".. <a target='_blank' href='" + link + key + "'>xem thêm</a>";
         },
         onDataBoundHandler = function (e) {
             if ($('.pagerTop').length == 0) {
@@ -70,6 +70,15 @@ var common = (function() {
                 var wrapper = $('<div class="k-pager-wrap k-grid-pager pagerTop"/>').insertBefore(grid.element.children("table"));
                 grid.pagerTop = new kendo.ui.Pager(wrapper, $.extend({}, grid.options.pageable, { dataSource: grid.dataSource }));
                 grid.element.height("").find(".pagerTop").css("border-width", "0 0 1px 0");
+            }
+        },
+        showPass = function (input_id) {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $("#" + input_id);
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
             }
         };
 
@@ -86,6 +95,7 @@ var common = (function() {
         onDataBoundHandler: onDataBoundHandler,
         raw: raw,
         highlight: highlight,
-        readMore: readMore
+        readMore: readMore,
+        showPass: showPass
     };
 }())

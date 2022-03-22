@@ -1,0 +1,385 @@
+﻿
+/*Property List*/
+/*item trên danh sách*/
+
+.list-view-item {
+    position: relative;
+}
+
+.list-view-item {
+    height: 233px;
+    margin-top: 15px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
+}
+
+    .list-view-item:first-child {
+        margin-top: 0px;
+    }
+
+.list-view-image {
+    display: block;
+    width: 263px;
+    min-height: 175px;
+    max-height: 265px;
+    float: left;
+    position: relative;
+}
+
+    .list-view-image img:first-child {
+        width: 100%;
+        height: 175px;
+        border-top-left-radius: 4px;
+    }
+
+    .list-view-image img:nth-child(2) {
+        width: 130px;
+        height: 87px;
+        float: left;
+        margin-top: 3px;
+    }
+
+    .list-view-image img:nth-child(3) {
+        width: 130px;
+        height: 87px;
+        float: right;
+        margin-top: 3px;
+    }
+
+.vip-item {
+    height: 323px;
+}
+
+.gallery-image-total {
+    display: block;
+    background-color: #fff;
+    font-size: 14px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    opacity: 0.8;
+}
+
+.list-view-price {
+    float: left;
+    width: 100%;
+    height: 58px;
+    line-height: 58px;
+    padding-left: 15px;
+    background-color: #f9f9f9;
+    color: #009177;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom-left-radius: 4px;
+}
+
+.vip-item .list-view-price {
+    color: #fff;
+    background-color: #11B666;
+    font-size: 16px;
+}
+
+.list-view-content {
+    float: right;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px 0px 283px;
+    margin-left: -283px;
+    overflow: hidden;
+}
+
+    .list-view-content .content {
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        padding-bottom: 80px;
+        margin-bottom: -80px;
+    }
+
+    .list-view-content .title1 {
+        display: block;
+        height: 18px;
+        line-height: 18px;
+        color: #222;
+        font-size: 12px;
+    }
+
+        .list-view-content .title1 .tran {
+            float: left;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .list-view-content .title1 > h3 {
+            display: inline-block;
+            height: 18px;
+            overflow: hidden;
+        }
+
+    .list-view-content .date {
+        display: block;
+        width: 100%;
+        height: 20px;
+        color: #878787;
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    .list-view-content .title1 > span {
+        display: inline-block;
+        height: 18px;
+        overflow: hidden;
+    }
+
+    .list-view-content .title2 {
+        display: block;
+        width: 100%;
+        min-height: 21px;
+        max-height: 42px;
+        line-height: 21px;
+        overflow: hidden;
+        margin: 8px 0px;
+        font-weight: bold;
+    }
+
+.list-view-item .title2 a {
+    display: block;
+    overflow: hidden;
+}
+
+.list-view-content .room {
+    display: block;
+    width: 100%;
+    height: 21px;
+    line-height: 21px;
+    font-weight: bold;
+    color: #5e5e5e;
+    margin-bottom: 5px;
+}
+
+    .list-view-content .room > span > i {
+        margin-right: 5px;
+    }
+
+#property .summary {
+    width: 100%;
+}
+
+.list-view-content .summary {
+    display: block;
+    width: 100%;
+    max-height: 42px;
+    line-height: 21px;
+    overflow: hidden;
+    color: #5e5e5e;
+}
+
+.list-view-content .room > span {
+    margin-right: 30px;
+}
+
+.list-view-agent {
+    display: block;
+    height: 58px;
+    border-top: 1px solid #e4e4e4;
+    padding: 8px 0px;
+}
+
+    .list-view-agent .agent-content {
+        float: left;
+        display: block;
+        width: 100%;
+        padding-right: 35px;
+        margin-right: -35px;
+    }
+
+        .list-view-agent .agent-content > img {
+            float: left;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .list-view-agent .agent-content > span {
+            float: left;
+            width: calc(100% - 50px);
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .list-view-agent .agent-content > span {
+            float: left;
+            width: calc(100% - 50px);
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    .list-view-agent .favorite {
+        float: right;
+        font-size: 22px;
+        color: #e4e4e4;
+        cursor: pointer;
+    }
+
+
+
+.list-view-item .title2 a:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.list-view-agent .favorite {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 767px) {
+    .list-view-item {
+        height: auto;
+        margin-top: 15px;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .list-view-image {
+        display: inline-block;
+        width: 100%;
+        float: left;
+        position: relative;
+        padding-top: 66.66%;
+        font-size: 0px;
+        line-height: initial;
+        min-height: initial;
+        max-height: initial;
+    }
+
+        .list-view-image img:nth-child(2),
+        .list-view-image img:nth-child(3) {
+            display: none;
+        }
+
+        .list-view-image img:first-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f9f9f9;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+    .list-view-price {
+        float: left;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        background-color: #f9f9f9;
+        color: #009177;
+        font-size: 16px;
+        font-weight: bold;
+        position: absolute;
+    }
+
+    .list-view-content {
+        float: right;
+        width: 100%;
+        padding: 40px 0px 0px 0px;
+        overflow: hidden;
+        margin-left: 0;
+    }
+
+        .list-view-content .title1 {
+            display: block;
+            height: 18px;
+            color: #878787;
+            font-size: 12px;
+            margin: 10px;
+        }
+
+            .list-view-content .title1 > span {
+                display: inline-block;
+                height: 18px;
+                overflow: hidden;
+            }
+
+            .list-view-content .title1 .tran {
+                float: left;
+                width: 100%;
+                padding-right: 80px;
+                margin-right: -80px;
+            }
+
+        .list-view-content .date {
+            margin-left: 10px;
+        }
+
+        .list-view-content .title2 {
+            display: block;
+            min-height: 20px;
+            max-height: 40px;
+            line-height: 20px;
+            overflow: hidden;
+            margin: 0px 10px;
+            font-weight: bold;
+        }
+
+        .list-view-content .room {
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            font-weight: bold;
+            color: #5e5e5e;
+            margin: 10px;
+        }
+
+            .list-view-content .room > span {
+                margin-right: 30px;
+            }
+
+                .list-view-content .room > span > i {
+                    margin-right: 5px;
+                }
+
+        .list-view-content .summary {
+            display: none;
+        }
+
+    .list-view-agent {
+        display: block;
+        height: 58px;
+        border-top: 1px solid #e4e4e4;
+        margin: 10px 10px 0px 10px;
+        padding: 8px 0px 0px 0px;
+    }
+
+    .vip-item .list-view-price {
+        color: #fff;
+        background-color: #11B666;
+        font-size: 16px;
+    }
+
+    .top-item .list-view-price {
+        color: #fff;
+        background-color: #45bfb7;
+        font-size: 20px;
+    }
+}
+/*End Property List*/

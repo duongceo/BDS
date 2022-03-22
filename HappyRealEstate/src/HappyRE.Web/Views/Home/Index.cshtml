@@ -1,0 +1,90 @@
+﻿@using HappyRE.Core.Resources;
+@{
+	this.Layout = "~/Views/Shared/_Layout.cshtml";
+	var msg = new
+	{
+		Slogan = HappyRE.Web.Resources.Message.Home_Slogan,
+		MarketPrice = HappyRE.Web.Resources.Message.Home_MarketPrice,
+		Project = HappyRE.Web.Resources.Message.Home_Project,
+		Agent = HappyRE.Web.Resources.Message.Home_Agent,
+		Buy = HappyRE.Web.Resources.Message.Home_Buy,
+		Rent = HappyRE.Web.Resources.Message.Home_Rent,
+		Mobile_Buy = HappyRE.Web.Resources.Message.Home_Search_Buy,
+		Mobile_Rent = HappyRE.Web.Resources.Message.Home_Search_Rent,
+		LogIn = HappyRE.Web.Resources.Message.Home_LogIn
+	};
+
+	var routes = new
+	{
+		MarketPrice = HappyRE.Core.Resources.Message.Routing_Market_Price,
+		Listing_Buy = HappyRE.Core.Resources.Message.Routing_Buy,
+		Listing_Rent = HappyRE.Core.Resources.Message.Routing_Rent,
+		Project = HappyRE.Core.Resources.Message.Routing_Finding_Project,
+		Agent = HappyRE.Core.Resources.Message.Routing_Finding_Agent,
+		LogIn = HappyRE.Core.Resources.Message.Routing_LogIn
+	};
+
+}
+<div id="mg-page-content">
+	<div id="search-bar" class="desktop" ng-controller="HomeController">
+		<div ng-include="TemplateSearchBarUrl"></div>
+	</div>
+
+	<!--mobile:begin-->
+	<div id="quicklinks" class="mobile" ng-non-bindable>
+		<div class="overlay"></div>
+		<h1 class="title">@msg.Slogan</h1>
+		<ul class="quicklink clearfix primary">
+			<li><a href="@routes.Listing_Buy">@msg.Mobile_Buy</a></li>
+			<li><a href="@routes.Listing_Rent">@msg.Mobile_Rent</a></li>
+		</ul>
+		<ul class="quicklink clearfix secondary">
+			<li><a href="@routes.MarketPrice">@msg.MarketPrice</a></li>
+			<li><a href="@routes.Project">@msg.Project</a></li>
+			<li><a href="@routes.Agent">@msg.Agent</a></li>
+		</ul>
+	</div>
+    <div class="mobile review">
+        <div class="header">@HappyRE.Web.Resources.Message.Home_WardReview</div>
+        <div class="content">
+            <div class="copy">@HappyRE.Web.Resources.Message.Home_WardReview_Desc02</div>
+            <div class="command clearfix">
+                <img src="~/content/images/logo.svg" width="80" height="25" alt="batdongsanhanhphuc.vn" />
+                <a href="@HappyRE.Core.Resources.Message.Routing_WardReview">@HappyRE.Web.Resources.Message.Home_WardReview_Btn</a>
+            </div>
+        </div>
+    </div>
+	<div class="mobile">
+		@{Html.RenderAction("HomeCenter", "Banner", new { code = "home-top" }); }
+		<div id="login" ng-show="!Profile.isAuth()">
+			<a href="@routes.LogIn">@msg.LogIn</a>
+		</div>
+	</div>
+	<!--mobile:end-->
+	<div id="top-properties"></div>
+	@{Html.RenderAction("HomeFeature", "CachePartial");}
+</div>
+
+@section styles {
+	@*@Styles.Render("~/content/home.css")*@
+	<link rel="preload" href="@HappyRE.Core.Utils.Common.CDNUrl@Styles.Url("~/content/home.css")" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	@*<link async rel="stylesheet" href="@HappyRE.Core.Utils.Common.CDNUrl/content/home.min.css?v=1.1">*@
+}
+@section headscripts {
+	w.TemplateSearchBarUrl = '/template/home_searchbar?v=@ViewBag.Version';
+	if (!w.IsMobile){
+		w.lazy.push('topproperties');
+		fetchText(w.TemplateSearchBarUrl, 'home_searchbar');
+		fetchText('/template/home_topproperties?v=@ViewBag.Version', 'home_topproperties', 'top-properties', true);
+	}
+}
+@section scripts {
+	<script type="text/javascript">
+        var angular_modules = ['ngSanitize', 'ui.bootstrap'];
+        var msg = {};
+        msg.Price = "@HappyRE.Web.Resources.Message.Home_Msg_Price";
+        msg.AllLocation = "@HappyRE.Web.Resources.Message.Home_Msg_Location_All";
+	</script>
+	@*@Scripts.Render("~/content/home.js")*@
+	<script async src='@HappyRE.Core.Utils.Common.CDNUrl@Scripts.Url("~/content/home.js")' type="text/javascript"></script>
+}

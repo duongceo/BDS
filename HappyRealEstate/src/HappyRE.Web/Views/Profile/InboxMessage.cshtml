@@ -1,0 +1,62 @@
+﻿@model HappyRE.Web.Models.InboxMessageViewModel
+@using HappyRE.Core.Resources;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Inbox Message";
+}
+
+<div id="profile" class="mg-container">
+    @{
+        //var leftCss = "";
+        //var mainCss = "";
+        //if ((bool)ViewBag.IsAuthenticated == false)
+        //{
+
+        //}
+        var leftCss = "display:none";
+        var mainCss = "margin-left:0";
+    }
+    <div id="sidebar" class="clearfix" style="@leftCss">
+        @Html.Partial("_LeftMenu")
+    </div>
+
+    <div id="main" class="clearfix" style="@mainCss">
+        <div class="user-inbox">
+            <div class="inbox-header">
+                @HappyRE.Core.Resources.Message.Msg_MessageList
+            </div>
+            @*<ul class="inbox">
+                <li class="message" ng-repeat="item in UserMessage.Data()">
+                    <a class="m-link"  href="#" ng-click="UserMessage.OnRead(item.MessageId)">
+                        <p class="m-content" ng-bind="item.Subject">
+                        </p>
+                        <div class="m-send-date" ng-bind="item.StartDate"></div>
+                    </a>
+                </li>
+            </ul>*@
+            <ul class="inbox">
+                @foreach (var item in Model.Items)
+                {
+                    <li class="message">
+                        <a class="m-link" href="@item.TargetUrl" onclick="messageService.OnRead(@item.MessageId)">
+                            <p class="m-content">@item.Subject</p>
+                            <div class="m-send-date">@item.StartDate.ToString("dd/MM/yyyy")</div>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div style="text-align: center">
+                @Html.Partial("Partials/_Paging", Model.Paging)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    @Styles.Render("~/Content/profileFavorite")
+    @Scripts.Render("~/bundles/profile")
+}
+@section styles {
+   
+}

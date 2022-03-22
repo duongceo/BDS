@@ -1,0 +1,153 @@
+﻿@media (max-width: 767px) {
+    /*Khu vực tìm kiếm*/
+    .top-search {
+        height: initial;
+        padding-bottom: 30px;
+        background: #262637;
+    }
+        .top-search .top-search-form {
+            height: initial;
+            padding: 0;
+        }
+        .top-search .title-01 {
+            margin-bottom: 15px;
+        }
+        .top-search .title-02 {
+            display: none;
+        }
+        .top-search .command {
+            width: 100%;
+            height: 245px;
+            min-width: initial;
+            max-width: initial;
+            margin: 0;
+            border: none;
+            position: relative;
+        }
+        .top-search .dropdown {
+            border-radius: 4px;
+            border: solid 1px #fff;
+        }
+
+        .top-search .keyword {
+            display: block;
+            height: 50px;
+            width: 100%;
+            border-radius: 4px;
+            color: #222222 !important;
+            font-size: 14px !important;
+            background: #fff;
+            padding-right: initial;
+            margin-right: initial;
+            position: absolute;
+            bottom: 65px;
+        }
+
+        .top-search .keyword > input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        /*Loại giao dịch*/
+        .top-search .transtype {
+            display: block;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border: 0;
+            border-radius: 4px;
+            /*margin-top: 15px;*/
+        }
+
+        /*Loại bất động sản*/
+        .top-search .property-type {
+            display: block;
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border: 0;
+            border-radius: 4px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .top-search .search {
+            width: 100%;
+            height: 50px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 50px;
+            cursor: pointer;
+            margin-top: 65px;
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .top-search .dropdown .btn:active {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .top-search .dropdown .btn-default:active,
+        .top-search .dropdown .btn-default:hover,
+        .top-search .dropdown .btn-default:focus {
+            background: #fff;
+        }
+
+        .top-search .dropdown .btn-search {
+            display: inline-block;
+            position: relative;
+            text-align: left;
+            padding: 0px 25px 0px 10px;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            border: none;
+            margin: 0px;
+            border-radius: 4px;
+            line-height: 50px;
+            background-color: #fff;
+        }
+
+        .top-search .dropdown .selected {
+            color: #104b8c;
+            font-weight: bold;
+            background: #fff;
+        }
+
+        .top-search .dropdown ul.dropdown-menu {
+            width: 100%;
+        }
+        .top-search .dropdown .btn-search > span.title {
+            display: block;
+            float: left !important;
+            color: #a9a9a9;
+        }
+
+        .top-search .dropdown .btn-search > span.value {
+            /*display: inline-block;
+            float: right;
+            width: 100%;
+            overflow-x: hidden;
+            text-align: right;
+            position: absolute;
+            top: 0px;
+            right: 35px;
+            padding-left: 45px;*/
+
+            display: inline-block;
+            float: right;
+            width: initial;
+            max-width: calc(100% - 40px);
+            overflow-x: hidden;
+            text-align: left;
+            position: absolute;
+            top: 0px;
+            right: 35px;
+            padding-left: 5px;
+            background-color: #fff;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+}

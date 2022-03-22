@@ -1,0 +1,37 @@
+﻿@model HappyRE.Web.Models.HomeViewModel
+@using HappyRE.Core.Resources;
+@{
+    string imgUrl = "";
+    HappyRE.Core.Entities.Media cover = null;
+}
+<div class="home-focus">
+    <div mg-carousel class="owl-carousel" options="CarouselOptions">
+        @foreach (var item in Model.FocusNews)
+        {
+            imgUrl = "";
+            cover = item.GetCoverImage();
+            if (cover != null) { imgUrl = cover.SmallPublishUrl; }
+            <div class="home-focus-item clearfix"><div class="home-focus-img"><img src="@imgUrl" alt=""></div>
+                <div class="home-focus-sumary">
+                    <a href="@item.GetUrl()" gtm-event="link" gtm-cat="home" gtm-act="blog"><h2>@item.Subject</h2></a>
+                    <span class="date">@item.PublishDate.ToShortDateString()</span>
+                    <span>@item.Summary</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <ul class="home-guide">
+        @foreach (var item in Model.GuideNews)
+        {
+            imgUrl = "";
+            cover = item.GetCoverImage();
+            if (cover != null) { imgUrl = cover.PublishUrl; }
+            <li>
+                <div><img src="@imgUrl" alt="" width="80" height="80" /></div>
+                <div><a href="@item.GetUrl()" gtm-event="link" gtm-cat="home" gtm-act="guide"><h2>@item.Subject</h2></a><span>@item.Summary</span></div>
+            </li>
+        }
+    </ul>
+</div>

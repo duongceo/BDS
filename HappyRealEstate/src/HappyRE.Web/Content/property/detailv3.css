@@ -1,0 +1,1412 @@
+﻿body {
+	background-color: #fff;
+	color: #262637;
+}
+
+/* Utils*/
+.prop-content {
+	border-bottom: 1px solid #D7DCE0;
+}
+
+	.prop-content:last-child {
+		border-bottom: none;
+	}
+
+#property-info.prop-content {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.prop-content-header {
+	font-weight: normal;
+	color: #262637;
+}
+/* End Utils*/
+
+/*breadcrumb:begin*/
+#breadcrumb {
+	background-color: #F1F4F6;
+}
+
+.breadcrumb {
+	display: none;
+}
+/*breadcrumb:end*/
+.header .title {
+	color: #262637;
+}
+
+.header .address {
+	color: #5A646E;
+	font-size: 14px;
+	line-height: 16px;
+	margin-top: 10px;
+}
+
+.header .price {
+	color: #009177;
+	font-weight: bold;
+}
+
+#gallery {
+	width: 100%;
+	position: relative;
+	padding-top: 66.86%;
+	background-color: #F1F4F6;
+	touch-action: none;
+}
+
+#galery-summary {
+	width: 100%;
+	max-width: 750px;
+	margin: 0 auto;
+	display: block;
+	position: relative;
+}
+
+#btn-full-screen {
+	position: absolute;
+	right: 5px;
+}
+
+#gallery .top-media {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 200px;
+	max-width: 750px;
+	max-height: 500px;
+	margin: 0 auto;
+}
+
+	#gallery .top-media .media-item {
+		display: inline-block;
+		width: 100%;
+		float: left;
+		position: relative;
+		padding-top: 66.667%;
+		font-size: 0px;
+		line-height: initial;
+		background-color: #F1F4F6;
+		border-bottom: 1px solid #e6e6e6;
+	}
+
+		#gallery .top-media .media-item img,
+		#gallery .top-media .media-item .owl-video-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+#galery-counter {
+	font-size: 14px;
+	color: #fff;
+	background-color: rgba(0,0,0,.5);
+	position: absolute;
+	bottom: 3px;
+	z-index: 2;
+	padding: 2px 5px;
+	border-radius: 4px;
+	left: calc(50% - 30px);
+	width: 60px;
+	text-align: center;
+}
+
+
+.owl-stage {
+	padding-left: 0 !important;
+}
+
+.owl-carousel .owl-next,
+.owl-carousel .owl-prev,
+.thumb-nav .thumb-next,
+.thumb-nav .thumb-prev {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: calc(50% - 15px);
+	background-color: rgba(34,34,34,0.2);
+	border-radius: 90px !important;
+	-moz-border-radius: 90px !important;
+	-webkit-border-radius: 90px !important;
+	z-index: 9;
+	font-size: 30px;
+	line-height: 24px;
+	color: #fff;
+	cursor: pointer;
+}
+
+	.owl-carousel .owl-next:hover,
+	.owl-carousel .owl-prev:hover,
+	.owl-carousel:hover .owl-next,
+	.owl-carousel:hover .owl-prev {
+		background-color: rgba(34,34,34,0.8);
+	}
+
+.owl-carousel .owl-next,
+.thumb-nav .thumb-next {
+	right: 1px;
+	text-align: right;
+	padding-right: 9px;
+}
+
+.owl-carousel .owl-prev,
+.thumb-nav .thumb-prev {
+	left: 1px;
+	padding-left: 9px;
+}
+
+.thumb-nav .thumb-next {
+	right: 2px;
+}
+
+.thumb-nav .thumb-prev {
+	left: 2px;
+}
+/*gallery:end*/
+
+/* Agent Contact */
+.agent {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.agent-avatar {
+	float: left;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.agent-name, .agent-date {
+	float: left;
+	display: block;
+	width: 100%;
+	line-height: 25px;
+}
+
+.agent-name {
+	color: #262637;
+	font-size: 16px;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.agent-date {
+	color: #919ba5;
+	font-size: 14px;
+}
+
+.agent-info .fa-check-circle {
+	font-size: 14px;
+	color: #009177;
+	margin-left: 10px;
+}
+/* Agent Contact: End */
+
+#prop-info {
+	border-bottom: 1px solid #D7DCE0;
+}
+
+.prop-info {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+	.prop-info li {
+		font-size: 16px;
+		color: #262637;
+	}
+
+		.prop-info li > span {
+			min-width: 130px;
+			color: #919BA5;
+			display: inline-block;
+		}
+
+.prop-info-content {
+	width: 100%;
+	font-size: 16px;
+	font-weight: normal;
+	color: #5A646E !important;
+	overflow-x: hidden;
+}
+/*map:begin*/
+.map-content {
+	margin-top: 20px;
+	height: 300px;
+}
+
+#map-cavas {
+	float: left;
+	height: 300px;
+}
+/*map:end*/
+
+/*mortgage-calc:begin*/
+#mortgage {
+}
+
+#mortgage-calc {
+	width: calc(100% - 220px);
+	float: left;
+	position: relative;
+}
+
+.calc {
+	margin-top: 20px;
+}
+
+.mortgage-calc {
+	background-color: #F1F4F6;
+	padding: 15px;
+}
+
+#mortgage-calc .calc-row {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	display: block;
+	float: left;
+}
+
+	#mortgage-calc .calc-row:not(:last-child) {
+		margin-bottom: 10px;
+	}
+
+#mortgage-calc .calc-label {
+	float: left;
+	font-size: 16px;
+	width: calc(100% - 145px);
+	overflow: hidden;
+	color: #5A646E;
+	line-height: 40px;
+	text-overflow: ellipsis;
+	height: 40px;
+}
+
+	#mortgage-calc .calc-label .extra-label {
+		font-weight: normal;
+		color: #a9a9a9;
+	}
+
+#mortgage-calc .calc-value {
+	float: right;
+	font-size: 16px;
+	line-height: 40px;
+}
+
+	#mortgage-calc .calc-value input {
+		width: 145px;
+		line-height: 40px;
+		height: 40px;
+		font-size: 16px;
+		color: #5A646E;
+		background-color: #fff;
+	}
+
+	#mortgage-calc .calc-value input,
+	#mortgage-calc .calc-value select {
+		width: 145px;
+		padding: 0px 5px;
+		line-height: 40px;
+		height: 40px;
+		font-size: 16px;
+		color: #5A646E;
+		background-color: #fff;
+		border: solid 1px #e4e4e4;
+	}
+
+#mortgage-calc .calc-result {
+	float: left;
+	width: 100%;
+	background-color: #d0f4f2;
+	padding: 20px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+	#mortgage-calc .calc-result span:last-child {
+		font-size: 20px;
+		font-weight: bold;
+		color: #20a39a;
+	}
+
+#mortgage-calc .calc-disclaimer {
+	float: left;
+	width: 100%;
+	font-size: 12px;
+	color: #919BA5;
+	margin-top: 10px;
+}
+
+.calc-chart-legends ul {
+	width: 200px;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+	.calc-chart-legends ul li {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		height: 18px;
+		line-height: 18px;
+		font-size: 14px;
+		color: #5A646E;
+		vertical-align: middle;
+	}
+
+		.calc-chart-legends ul li:not(:first-child) {
+			margin-top: 10px;
+		}
+
+		.calc-chart-legends ul li > span {
+			font-weight: bold;
+			color: #262637;
+		}
+
+.mortgage-chart {
+	width: 220px;
+	float: left;
+	padding-left: 20px;
+	position: relative;
+	z-index: 1;
+}
+
+.calc-doughnut-chart {
+	height: 180px;
+	max-width: 200px;
+	margin: 0px auto;
+}
+
+.square {
+	width: 18px;
+	height: 18px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.partner-logo {
+	display: block;
+	width: 100px;
+	height: 45px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+/*mortgage-calc:end*/
+
+/*house-price:begin*/
+.market-trend {
+	margin-top: 30px;
+}
+
+	.market-trend .prop-content-header {
+		margin-bottom: initial;
+	}
+
+	.market-trend .prop-loccation {
+		margin-top: 10px;
+		color: #919BA5;
+		font-size: 14px;
+		line-height: 16px;
+	}
+
+.market-trend-body > ul {
+	margin: 0;
+	padding: 0;
+}
+
+	.market-trend-body > ul > li {
+		float: left;
+		width: 50%;
+		display: inline-block;
+		margin: 30px 0;
+		position: relative;
+		padding-left: 45px;
+		font-size: 16px;
+		line-height: 17px;
+		color: #5A646E;
+	}
+
+.market-trend-body .price {
+	margin-top: 5px;
+	font-size: 22px;
+	line-height: 25px;
+	font-weight: bold;
+	display: block;
+}
+
+.avg-0 {
+	background-position: 0 0
+}
+
+.avg-1 {
+	background-position: 133px 0
+}
+
+.avg-2 {
+	background-position: 36px 0
+}
+
+.avg-3 {
+	background-position: 84px 0
+}
+
+.avg-icon {
+	float: left;
+	width: 35px;
+	height: 56px;
+	background-image: url(/content/images/icons/detail-house-icon.png);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.history-price-header {
+	font-size: 18px;
+	line-height: 20px;
+	color: #262637;
+	font-weight: normal;
+}
+
+/*.history-price .source {
+    font-size: 14px;
+    color: #919BA5;
+    font-weight: normal;
+}*/
+
+.history-price table {
+	width: 100%;
+	margin-top: 10px;
+	border-bottom: 1px solid #d2d2dc;
+	font-size: 16px;
+	color: #5A646E;
+}
+
+.history-price tr {
+	border-top: 1px solid #d2d2dc;
+}
+
+.history-price td {
+	padding: 6px 0;
+}
+
+.history-price .more {
+	float: right;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+/*house-price:end*/
+#similarProperty {
+}
+
+.similar-property {
+	padding-top: 30px;
+	border-top: 1px solid #d7dce0;
+}
+
+.property-list {
+	margin-top: 20px;
+}
+
+.property-item {
+	width: 250px;
+	position: relative;
+}
+
+	.property-item .item-media {
+		width: 100%;
+		height: 165px;
+	}
+
+		.property-item .item-media > img {
+			display: inline-block;
+			width: 100%;
+			max-height: 100%;
+			object-fit: cover;
+		}
+
+	.property-item .item-price {
+		font-size: 20px;
+		color: #009177;
+		line-height: 22px;
+		font-weight: bold;
+		margin-top: 15px;
+	}
+
+	.property-item .item-title {
+		color: #262637;
+		line-height: 20px;
+		height: 60px;
+		margin-top: 10px;
+		overflow: hidden;
+		-webkit-line-clamp: 2;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+
+/*search-nav:begin*/
+.search-nav {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+
+	.search-nav a {
+		color: #5A646E;
+		display: inline-block;
+	}
+
+	.search-nav .fa {
+		float: left;
+		margin-right: 5px;
+		font-size: 20px;
+		line-height: 40px;
+	}
+
+	.search-nav .fa-angle-right {
+		float: right;
+		margin-left: 5px;
+	}
+
+	.search-nav .search-back {
+		float: left;
+	}
+
+	.search-nav .search-paging {
+		float: right;
+	}
+
+		.search-nav .search-paging a.disabled {
+			color: #a9a9a9;
+			cursor: not-allowed;
+		}
+/*search-nav:end*/
+
+#command-center {
+	padding: 15px 0;
+	margin-top: 20px;
+	border-top: 1px solid #d7dce0;
+	border-bottom: 1px solid #d7dce0;
+}
+
+.mogi-actions {
+	text-align: center;
+}
+
+	.mogi-actions > div {
+		display: inline-block;
+	}
+
+		.mogi-actions > div .fa {
+			font-size: 16px;
+			line-height: 1;
+		}
+
+.social-network a.share-link {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin-left: 15px;
+}
+
+	.social-network a.share-link:hover {
+		opacity: 0.5;
+	}
+
+	.social-network a.share-link img {
+		width: 40px;
+		height: 40px;
+		float: left;
+	}
+
+/* Send Message Model*/
+.agent-input {
+	width: 100%;
+	background-color: #ffffff;
+	border: solid 1px #e4e4e4;
+	height: 36px;
+	margin-top: 10px;
+	padding: 0 10px 0 10px;
+}
+
+textarea.agent-input {
+	height: 140px;
+}
+
+.agent-form .btn-sm {
+	min-width: 100px;
+}
+
+#message {
+	font-size: 16px;
+}
+/* End Send Message Model*/
+/* Send report  Model*/
+.report-abuse {
+	color: #222;
+	padding: 10px;
+}
+
+	.report-abuse ul {
+		padding: 10px 0;
+		font-size: 14px;
+		list-style: none;
+	}
+
+		.report-abuse ul > li {
+			padding: 5px 0;
+			font-size: 16px;
+			-webkit-font-smoothing: none;
+			cursor: pointer;
+		}
+
+			.report-abuse ul > li:before {
+				margin-right: 10px;
+			}
+
+			.report-abuse ul > li.fa-check-square:before {
+				color: #027b88;
+			}
+
+	.report-abuse .command {
+		text-align: center;
+	}
+
+	.report-abuse .btn-sm {
+		min-width: 100px;
+	}
+/* End Send Report Model*/
+
+@media (min-width: 1170px) {
+	.mg-listing .mg-1170-container {
+		padding: 0 50px;
+	}
+}
+/* Desktop*/
+@media (min-width: 992px) {
+	.breadcrumb {
+		padding: 0;
+		margin: 0;
+		display: block;
+		overflow: hidden;
+		float: left;
+		width: calc(100% - 320px);
+		margin-right: 40px;
+		height: 40px;
+		vertical-align: middle;
+	}
+
+		.breadcrumb li {
+			font-size: 14px;
+			line-height: 40px;
+			max-height: 40px;
+			float: left;
+			position: relative;
+		}
+
+	#search-nav {
+		float: right;
+		width: 280px;
+	}
+
+	#mg-page-content {
+		margin-top: 20px;
+	}
+
+	.header .title {
+		font-size: 18px;
+		line-height: 20px;
+		margin-top: 6px;
+	}
+
+
+	.header .price {
+		margin-top: 15px;
+		font-size: 22px;
+		line-height: 25px;
+	}
+
+	.market-trend-body {
+		padding: 0 30px;
+	}
+
+	/* sidebar - widget - agent */
+	.widget .agent-info {
+		width: 100%;
+		position: relative;
+		padding-left: 65px;
+	}
+	/*.widget .agent-avatar {
+		position: absolute;
+		top:0;
+		left:0;
+	}*/
+	/*.widget .agent-name,
+	.widget .agent-date {
+		float: left;
+		margin-top: 8px;
+		display: block;
+		width: 100%;
+	}*/
+	.widget .agent-contact {
+		float: left;
+		width: 100%;
+		margin-top: 15px;
+		text-align: center;
+	}
+
+		.widget .agent-contact > a.fa-phone {
+			margin-right: 40px;
+		}
+
+		.widget .agent-contact a:before {
+			margin-right: 5px;
+		}
+}
+
+/* Desktop and tablet */
+@media (min-width:768px) {
+	.prop-content {
+		margin-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	.prop-content-header {
+		font-size: 24px;
+		line-height: 27px;
+	}
+
+	.header .title {
+		font-size: 18px;
+		line-height: 20px;
+		margin-top: 6px;
+	}
+
+	.header .price {
+		margin-top: 15px;
+		font-size: 22px;
+		line-height: 25px;
+	}
+
+	#gallery {
+		margin-top: 20px;
+	}
+
+	#prop-info {
+		margin-top: 20px;
+		padding-bottom: 30px;
+	}
+
+	.prop-info {
+		width: 50%;
+	}
+
+		.prop-info > li {
+			padding: 4px 0;
+		}
+
+	.prop-desc-title {
+		margin-top: 30px;
+	}
+
+	.prop-info-content {
+		margin-top: 20px;
+	}
+
+	/* Agent Contact */
+	.agent .agent-info {
+		width: 50%;
+		float: left;
+		position: relative;
+		padding-left: 65px;
+	}
+
+	.agent .agent-contact {
+		float: right;
+		text-align: right;
+		margin-top: 10px;
+	}
+
+		.agent .agent-contact > a {
+			display: inline-block;
+			border: 1px solid #d7dce0;
+			padding: 6px 12px;
+			border-radius: 4px;
+			margin-left: 10px;
+			font-size: 15px;
+		}
+
+			.agent .agent-contact > a:before {
+				margin-right: 10px;
+			}
+	/* End Agent Contact Center */
+
+	.mogi-actions {
+		float: left;
+		width: 50%;
+		border-right: 1px solid #d7dce0;
+	}
+
+		.mogi-actions > div {
+			font-size: 14px;
+			line-height: 18px;
+			cursor: pointer;
+			padding: 10px 20px;
+			user-select: none;
+		}
+
+			.mogi-actions > div:not(:last-child) {
+				margin-right: 10px;
+				border: 1px solid #D7DCE0;
+				border-radius: 50px;
+			}
+
+			.mogi-actions > div:first-child:hover {
+				border-color: #5A646E;
+			}
+
+			.mogi-actions > div:last-child:hover {
+				background: #F1F4F6;
+				border-radius: 50px;
+			}
+
+			.mogi-actions > div .fa {
+				margin-right: 5px;
+			}
+
+	.social-network {
+		height: 40px;
+		width: 50%;
+		float: left;
+		text-align: center;
+	}
+
+	.market-trend-body {
+		margin-top: 5px;
+	}
+
+	.history-price {
+		margin-top: 10px;
+	}
+}
+/* Tablet*/
+@media (min-width: 768px) and (max-width: 991px) {
+	.breadcrumb {
+		display: none;
+	}
+
+	#search-nav {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	#main {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	.header .title {
+		margin-top: 20px;
+	}
+
+	.market-trend-body {
+		padding: 0 35px;
+	}
+}
+
+/* Tablet and Mobile*/
+@media (max-width: 959px) {
+	body {
+		margin-top: 0;
+	}
+
+	.breadcrumb {
+		padding: 0 10px;
+	}
+
+	#search-nav {
+		width: 100%;
+	}
+
+	.header .title {
+		margin-top: 20px;
+	}
+
+	#similarProperty {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	#side-bar {
+		display: none;
+	}
+}
+
+/*Mobile*/
+@media (max-width: 767px) {
+	.prop-content {
+		padding-left: 15px;
+		padding-right: 15px;
+		margin-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.prop-content-header {
+		font-size: 22px;
+		line-height: 25px;
+	}
+
+	.prop-intro {
+		padding-top: 0;
+	}
+
+		.prop-intro .header {
+			display: none;
+		}
+
+	.header {
+		margin-left: 15px;
+		margin-right: 15px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #D7DCE0;
+	}
+
+		.header .title {
+			font-size: 16px;
+			line-height: 18px;
+		}
+
+		.header .price {
+			margin-top: 15px;
+			font-size: 20px;
+			line-height: 22px;
+		}
+
+	#prop-info {
+		margin-top: 15px;
+		padding-bottom: 10px;
+	}
+
+	.prop-info {
+		width: 100%;
+	}
+
+		.prop-info li {
+			padding-bottom: 15px;
+		}
+
+	.prop-desc-title {
+		margin-top: 20px;
+	}
+
+	.prop-info-content {
+		margin-top: 15px;
+	}
+
+	.agent .agent-info {
+		width: 100%;
+	}
+
+	/* Agent Contact Bottom Button */
+	.agent .agent-contact {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		padding: 10px;
+		background-color: #262637;
+		z-index: 200;
+	}
+
+		.agent .agent-contact > a {
+			display: inline-block;
+			font-size: 16px;
+			padding: 6px 10px 5px 10px;
+			color: #262637;
+			background-color: #00deb6;
+			text-align: center;
+			border-radius: 4px;
+			float: left;
+		}
+
+			.agent .agent-contact > a.fa-phone {
+				float: right;
+				margin-left: 10px;
+				width: calc(70%);
+			}
+
+				.agent .agent-contact > a.fa-phone:before {
+					margin-right: 10px;
+					color: #262637;
+				}
+
+			.agent .agent-contact > a.fa-envelope {
+				width: calc(30% -15px);
+				background-color: #F1F4F6;
+			}
+	/* END Agent Contact Bottom Button */
+
+	#mortgage-calc {
+		width: 100%;
+	}
+
+	.mortgage-chart {
+		margin: 0;
+		margin-top: 25px;
+		padding: 0;
+		width: 100%;
+	}
+
+	.market-trend-body {
+		padding: 0 25px;
+	}
+
+		.market-trend-body > ul > li {
+			float: left;
+			width: 100%;
+			display: block;
+			margin: 20px 0;
+			position: relative;
+			padding-left: 45px;
+			font-size: 16px;
+		}
+
+			.market-trend-body > ul > li:first-child {
+			}
+
+	.history-price {
+		margin-top: 20px;
+	}
+
+	#command-center {
+		text-align: center;
+	}
+
+	.mogi-actions {
+		display: inline-block;
+		float: left;
+		line-height: 40px;
+	}
+
+		.mogi-actions > div {
+			margin-left: 10px;
+		}
+
+			.mogi-actions > div .fa {
+				font-size: 36px;
+			}
+
+	.social-network a.share-link {
+		margin-left: 15px;
+	}
+}
+
+/*=====================*/
+
+/* similar property: begin */
+.similar-property {
+	padding-top: 30px;
+	border-top: 1px solid #d7dce0;
+}
+.property-list {
+    margin-top: 20px;
+}
+
+.property-item {
+    width: 250px;
+    position: relative;
+}
+
+    .property-item .item-media {
+        width: 100%;
+        height: 165px;
+    }
+
+        .property-item .item-media > img {
+            display: inline-block;
+            width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+    .property-item .item-price {
+        font-size: 20px;
+        color: #009177;
+        line-height: 22px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .property-item .item-title {
+        color: #262637;
+        line-height: 20px;
+        height: 60px;
+        margin-top: 10px;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+/* similar property: end */
+
+/* Send Message */
+#message {
+	font-size: 16px;
+}
+.agent-input {
+    width: 100%;
+    background-color: #ffffff;
+    border: solid 1px #e4e4e4;
+    height: 36px;
+    margin-top: 10px;
+    padding: 0 10px 0 10px;
+}
+
+textarea.agent-input {
+    height: 140px;
+}
+
+.agent-form .btn-sm {
+    min-width: 100px;
+}
+/* End Send Message */
+
+/* Send report */
+.report-abuse {
+    color: #222;
+    padding: 10px;
+}
+
+    .report-abuse ul {
+        padding: 10px 0;
+        font-size: 14px;
+        list-style: none;
+    }
+
+        .report-abuse ul > li {
+            padding: 5px 0;
+            font-size: 16px;
+            -webkit-font-smoothing: none;
+            cursor: pointer;
+        }
+
+            .report-abuse ul > li:before {
+                margin-right: 10px;
+            }
+
+            .report-abuse ul > li.fa-check-square:before {
+                color: #027b88;
+            }
+
+    .report-abuse .command {
+        text-align: center;
+    }
+
+    .report-abuse .btn-sm {
+        min-width: 100px;
+    }
+/* End Send Report */
+
+/* Desktop and tablet */
+@media (min-width:768px) {
+	.prop-content {
+		padding: 30px 0;
+		border-top: 1px solid #d7dce0;
+	}
+
+	.prop-content-header {
+		font-size: 24px;
+		line-height: 28px;
+	}
+
+	#gallery {
+		margin-top: 20px;
+	}
+
+	#prop-info {
+		margin-top: 20px;
+		padding-bottom: 30px;
+	}
+
+	.prop-info {
+		width: 50%;
+	}
+
+		.prop-info > li {
+			padding: 4px 0;
+		}
+
+	.prop-info-content {
+		margin-top: 20px;
+		font-size: 16px;
+	}
+
+	/* Agent Contact */
+	.agent .agent-info {
+		width: 50%;
+		float: left;
+		position: relative;
+		padding-left: 65px;
+	}
+
+	.agent .agent-contact {
+		float: right;
+		text-align: right;
+		margin-top: 10px;
+	}
+
+		.agent .agent-contact > a {
+			display: inline-block;
+			border: 1px solid #d7dce0;
+			padding: 6px 12px;
+			border-radius: 4px;
+			margin-left: 10px;
+			font-size: 15px;
+		}
+
+			.agent .agent-contact > a:before {
+				margin-right: 10px;
+			}
+	/* End Agent Contact Center */
+
+	.prop-command-left {
+		float: left;
+		width: 50%;
+		/*border-right: 1px solid #d7dce0;*/
+	}
+
+		.prop-command-left > div {
+			font-size: 14px;
+			line-height: 18px;
+			cursor: pointer;
+			padding: 10px 20px;
+			user-select: none;
+			display: inline-block;
+			height: 40px;
+		}
+
+		.prop-command-left .favorite {
+			margin-right: 10px;
+			border: 1px solid #D7DCE0;
+			border-radius: 50px;
+		}
+
+			.prop-command-left .favorite:hover {
+				border-color: #5a646e;
+			}
+
+		.prop-command-left .report:hover {
+			background: #f1f4f6;
+			border-radius: 50px;
+		}
+
+		.prop-command-left .fa {
+			margin-right: 5px;
+		}
+
+	.social-network {
+		height: 40px;
+		width: 50%;
+		float: left;
+		text-align: center;
+	}
+
+	.market-trend-body {
+		margin-top: 5px;
+	}
+
+	.history-price {
+		margin-top: 10px;
+	}
+
+	.mortgage-calc {
+		width: calc(100% - 220px);
+	}
+	.mortgage-chart {
+		width: 220px;
+		float: left;
+		padding-left: 20px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.calc-doughnut-chart {
+		height: 180px;
+		max-width: 200px;
+		margin: 0px auto;
+	}
+}
+
+/* Desktop*/
+@media (min-width: 992px) {
+	#breadcrumb {
+		margin-bottom: 20px;
+	}
+
+	.breadcrumb {
+		padding: 0;
+		margin: 0;
+		display: flex;
+		overflow: hidden;
+		float: left;
+		width: calc(100% - 200px);
+		height: 40px;
+	}
+
+		.breadcrumb li {
+			line-height: 40px;
+			max-height: 40px;
+			float: left;
+			position: relative;
+		}
+
+	.search-nav {
+		float: right;
+		width: 200px;
+		padding: 0;
+	}
+
+	/* sidebar - widget - agent */
+	#side-bar {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 55px;
+	}
+
+	.widget .agent-info {
+		width: 100%;
+		position: relative;
+		padding-left: 65px;
+	}
+
+	.widget .agent-contact {
+		float: left;
+		width: 100%;
+		margin-top: 15px;
+		text-align: center;
+	}
+
+		.widget .agent-contact > a.fa-phone {
+			margin-right: 40px;
+		}
+
+		.widget .agent-contact a:before {
+			margin-right: 5px;
+		}
+}

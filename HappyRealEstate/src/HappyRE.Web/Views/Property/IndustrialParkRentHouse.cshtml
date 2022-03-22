@@ -1,0 +1,171 @@
+﻿@model HappyRE.Web.Models.ListViewModel
+@using MBN.Utils.Extension;
+@using HappyRE.Core.Resources;
+@using Newtonsoft.Json
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    var data = ViewBag.Place;
+    var msg = new
+    {
+        FilterClear = HappyRE.Core.Resources.Message.Msg_Filter_Clear,
+        Close = HappyRE.Core.Resources.Message.Msg_Close,
+        Finish = HappyRE.Core.Resources.Message.Msg_Finish,
+        Search = HappyRE.Core.Resources.Message.Msg_Search,
+        Keyword_PlaceHolder = HappyRE.Core.Resources.Message.Search_Keyword_PlaceHolder,
+        Location = HappyRE.Web.Resources.Message.Listing_Filter_Location,
+        FilterTitle = HappyRE.Web.Resources.Message.Listing_Filter_Title,
+        Apply = HappyRE.Core.Resources.Message.Msg_Apply
+    };
+
+}
+
+
+<script type="text/ng-template" id="suggestPopupTemplate.html">
+    <ul class="dropdown-menu suggest"
+        ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top-3+'px', left: position().left+'px',width: position().width +2 + 'px'}"
+        role="listbox" aria-hidden="{{!isOpen()}}">
+        <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index, $event)" role="option" id="{{::match.id}}">
+            <a href="#" tabindex="-1" ng-bind-html="match.model.Name"></a>
+        </li>
+    </ul>
+</script>
+<div ng-controller="industrialParkController" class="mg-detail">
+    <div id="breadcrumb">
+        <div class="mg-1170-container">
+            @{
+                Html.RenderAction("Breadcrumb_IndustrialParkRentHouse", "CachePartial");
+            }
+        </div>
+    </div>
+    <div id="mg-page-content" class="clearfix">
+        <div class="mg-1170-container">
+            <div id="main">
+                <h1 class="title">Tìm <span>phòng trọ công nhân</span> gần khu công nghiệp</h1>
+                <div id="search" class="clearfix" ng-cloak>
+                    <div class="search-keyword clearfix">
+                        <i class="fa fa-search"> </i>
+                        <input type="text" id="q" name="q"
+                               ng-model="Keyword"
+                               ng-required="true"
+                               ng-keyup="OnKeyUp($event)"
+                               typeahead-loading="LoadingLocations"
+                               typeahead-no-results=""
+                               typeahead-popup-template-url="suggestPopupTemplate.html"
+                               typeahead-show-hint="false"
+                               typeahead-on-select="KeywordOnSelected()"
+                               autocomplete="off"
+                               placeholder="Tên khu công nghiệp"
+                               autofocus />
+                        <i ng-show="Keyword!=null" ng-click="ResetKeyWord()" class="fa fa-times-circle ng-hide"> </i>
+                    </div>
+                    <div class="search-location search-dropdown" ng-click="Cities.Show($event)">
+                        <div class="btn-group" uib-dropdown is-open="Cities.IsOpen" auto-close="outsideClick">
+                            <button type="button" class="btn btn-search-dropdown dropdown-toggle" uib-dropdown-toggle>
+                                <span ng-bind="Cities.DisplayText"></span>
+                                <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="mg-dropdown dropdown-menu scrollbar-style-1 noselect"
+                                uib-dropdown-menu role="menu" aria-labelledby="single-button"
+                                ng-class="{'sub-list': Cities.IsShowBackButton()}">
+                                <li class="clearfix move-back"
+                                    ng-show="Cities.IsShowBackButton()"
+                                    ng-click="Cities.OnClickBack(Cities.ParentItem)">
+                                    <div class="mg-dropdown-icon ">
+                                        <i class="fa fa-angle-left"></i>
+                                    </div>
+                                    <div class="mg-dropdown-text">
+                                        <span ng-bind="Cities.ParentItem.n"></span>
+                                    </div>
+                                </li>
+                                <li role="menuitem" class="clearfix"
+                                    ng-repeat="item in Cities.Data"
+                                    ng-click="Cities.OnClick(item,$index)">
+                                    <div class="mg-dropdown-text">
+                                        <span ng-class="{'item-selected': Cities.IsSelected(item.i)}" ng-bind="!($index==0 && Cities.IsShowBackButton())?item.n:'Tất cả'"></span>
+                                    </div>
+                                    <div class="mg-dropdown-icon" ng-show="Cities.IsShowViewMore(item,$index) == true">
+                                        <i class="fa fa-angle-right"></i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="submit" ng-click="searchProject()" class="search-btn" value="Tìm kiếm">
+                </div>
+                <div id="items" >
+                    <ul class="items">
+                        <li class="item header clearfix">
+                            <div class="item-name">Khu CN</div>
+                            <div class="item-loc">Quận</div>
+                        </li>
+                        <li class="item clearfix" ng-repeat="item in Place.GetData()">
+                            <a ng-href="{{item.url}}">
+                                <div class="item-name" ng-bind="item.n"></div>
+                                <div class="item-loc" ng-bind="item.d"></div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div style="text-align:center">
+                    <ul ng-if="Place.Items.length >0" uib-pagination next-text=">" previous-text="<" max-size="5" items-per-page="20"
+                        total-items="Place.Items.length" ng-model="Query.PageIndex" class="pagination" ng-change="Place.PageChanged()"></ul>
+                </div>
+
+                <div class="page-desciption">
+                    @Html.Raw(ViewBag.Footer)
+                </div>
+            </div>
+            <div id="side-bar">
+                @{
+                    Html.RenderAction("RightBanner", "Banner", new { code = "list-right-top-rent" });
+                    Html.RenderAction("Blogv2", "CachePartial");
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="filter-more" class="modal fade noselect">
+        <div class="modal-dialog" style="">
+            <div class="modal-body" style="min-height:380px;">
+                <!-- Location -->
+                <div class="search-popup-header clearfix"
+                     ng-click="Cities.OnClickBack(Cities.ParentItem)">
+                    <div class="search-popup-icon" ng-if="Cities.IsShowBackButton()"><i class="fa fa-angle-left"></i></div>
+                    <div class="search-popup-header-title">
+                        <span ng-bind="Cities.GetTitle('@msg.Location')"></span>
+                    </div>
+                </div>
+                <ul class="mg-search-popup search-popup-detail">
+                    <li class="clearfix"
+                        ng-repeat="item in Cities.Data"
+                        ng-click="Cities.OnClick(item,$index)">
+                        <div class="mg-search-popup-text" ng-class="{'item-selected': Cities.IsSelected(item.i)}">
+                            <span ng-bind="Cities.GetName(item,$index)"></span>
+                        </div>
+                        <div class="mg-search-popup-icon" ng-if="Cities.IsShowChild(item,$index) == true">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- End Location -->
+                <!-- Command -->
+                <div class="mg-search-popup-command" ng-if="FilterMaster.IsShow">
+                    <a class="btn-mogi-1" href="#" ng-click="FilterMaster.Reset()">@msg.FilterClear</a>
+                    <a class="btn-mogi-2" href="#" ng-click="FilterMaster.Closed()">@msg.Apply</a>
+                </div>
+                <!-- End Command -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/content/css")
+    <link href="~/Content/property/industry.css" rel="stylesheet" />
+}
+@section scripts {
+
+    @Scripts.Render("~/bundles/industrialpark");
+}

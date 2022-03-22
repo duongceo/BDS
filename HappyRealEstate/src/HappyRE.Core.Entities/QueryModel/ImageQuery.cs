@@ -10,5 +10,6 @@ namespace HappyRE.Core.Entities
     {
         public string TableName { get; set; }
         public int TableKeyId { get; set; }
+        public string Src { get; set; }
     }
 }

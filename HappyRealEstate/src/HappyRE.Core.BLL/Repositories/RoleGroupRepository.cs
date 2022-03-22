@@ -27,7 +27,8 @@ namespace HappyRE.Core.BLL.Repositories
             p.Add("limit", query.Limit);
             p.Add("page", query.Page);
             p.Add("keyword", query.Keyword);
-            var res = await this.Query<RoleGroup>("msp_RoleGroup_Search", p, System.Data.CommandType.StoredProcedure);
+            p.Add("username", System.Threading.Thread.CurrentPrincipal.Identity.Name);
+            var res = await this.Query<RoleGroup>("msp_RoleGroup_Search1", p, System.Data.CommandType.StoredProcedure);
             var total = p.Get<int>("total");
             return new Tuple<IEnumerable<RoleGroup>, int>(res, total);
 

@@ -12,7 +12,7 @@
 
       .Columns(columns =>
       {
-          columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='sysCodeDetail.show(\"SysCode\",\"#=TableId#\",#=Id#)'>#=Name#</a>").Title("Tên");
+          columns.Bound(e => e.Id).ClientTemplate("<a href='javascript:void(0);' onclick='sysCodeDetail.show(\"SysCode\",\"#=TableId#\",#=Id#)'>#=Name#</a>").Title("Tên").HtmlAttributes(new { style = "white-space:nowrap;" });
           //columns.Bound(p => p.TableId).Width(200);
           columns.Bound(p => p.Body).Width(200);
           columns.Command(command => command.Destroy().Text("Xóa")).Width(100);

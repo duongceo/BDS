@@ -1,0 +1,31 @@
+﻿@model HappyRE.Core.MapModels.FrontEnd.ExternalLoginListViewModel
+@using HappyRE.Core.Resources;
+@{
+	string msg = (Model.SignUp == true ? Message.Msg_SignUp_With : Message.Msg_Login_With);
+}
+<div id="socialLoginList">
+	@using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { name = "extLoginFrm" }))
+	{
+		@Html.AntiForgeryToken()
+		<button type="submit" id="Facebook" name="provider" value="Facebook" class="btn btn-block btn-social btn-facebook">
+			<span class="fa fa-facebook-f"></span><span ng-bind="Register.openId('Facebook')"></span>
+		</button>
+		<button type="submit" id="Google" name="provider" value="Google" class="btn btn-block btn-social btn-google">
+			<span class="fa fa-google"></span><span ng-bind="Register.openId('Google')"></span>
+		</button>
+		<button type="button" id="Zalo" name="zalo" value="Zalo" class="btn btn-block btn-social btn-zalo" onclick="zaloLogin()">
+			<span class="fa fa-zalo-circle"></span><span ng-bind="Register.openId('Zalo')"></span>
+		</button>
+	}
+</div>
+<script type="text/javascript">
+	function zaloLogin() {
+		var zalo_data = @Html.Raw(Model.GetJson());
+		Zalo.init(zalo_data);
+		Zalo.callLogin = function () {
+			this.apiClient.login(zalo_data.state, "access_profile,access_friends_list,send_msg,push_feed");
+		}
+		Zalo.callLogin();
+		//Zalo.login(zalo_data.state,"access_profile,access_friends_list,send_msg,push_feed");
+	}
+</script>

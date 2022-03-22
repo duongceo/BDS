@@ -1,0 +1,101 @@
+﻿@model HappyRE.Web.Models.FeedBackViewModel
+@using HappyRE.Core.Resources;
+@using HappyRE.Web.Resources;
+@{
+	ViewBag.Title = "Liên hệ";
+	var googleCaptchaSiteKey = HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SITEKEY;
+	var google_hl = HappyRE.Core.Const.LANG_CULTURE.Split('-')[0];
+}
+<div class="container">
+	<div class="col-md-3">
+		@{ Html.RenderAction("CategoriesByGroup", "Cms", new { codeUrl = ViewBag.CodeUrl });}
+	</div>
+	<div class="col-md-9">
+		<div id="mg-feedback" class="mg-container" ng-controller="feedbackController">
+			<div id="feedback">
+				<p class="page-title">@Html.Raw(@ContactMogi.ContactMogi_PageHeader)</p>
+				<p>
+					<b>@Html.Raw(@ContactMogi.ContactMogi_Title)</b>
+				</p>
+				<ul>
+					<li>@Html.Raw(string.Format(@ContactMogi.ContactMogi_Body1.ToString(), @Url.Action("BranchOffice", "Cms")))</li>
+					<li>@Html.Raw(@ContactMogi.ContactMogi_Body2)</i></li>
+					<li>@Html.Raw(@ContactMogi.ContactMogi_Body3)</li>
+				</ul>
+				<p class="title"><b>@Html.Raw(@ContactMogi.ContactMogi_FormTitle)</b></p>
+				<form name="myForm" ng-submit="SendMessage()">
+					<div class="control clearfix">
+						<div class="label">
+							@Html.LabelFor(m => m.Content)<span class="require"></span>:
+						</div>
+						<div class="input">
+							@Html.TextArea("Content", null, @Html.AngularAttibute("Content", "Model", new Dictionary<string, string>() { { "placeholder", @Html.Raw(@ContactMogi.ContactMogi_ContentPlaceHolder).ToString() } }))
+							@Html.AngularMessage("Content")
+						</div>
+					</div>
+					<div class="control clearfix">
+						<div class="label">
+							@Html.LabelFor(m => m.Mobile)<span class="require"></span>:
+						</div>
+						<div class="input">
+							@Html.TextBox("Mobile", null, @Html.AngularAttibute("Mobile", "Model", new Dictionary<string, string>() { { "placeholder", @Html.Raw(@ContactMogi.ContactMogi_MobilePlaceHolder).ToString() } }))
+							@Html.AngularMessage("Mobile")
+						</div>
+					</div>
+					<div class="control clearfix">
+						<div class="label">
+							@Html.LabelFor(m => m.Email):
+						</div>
+						<div class="input clearfix">
+							@Html.TextBox("Email", null, @Html.AngularAttibute("Email", "Model", new Dictionary<string, string>() { { "placeholder", @Html.Raw(@ContactMogi.ContactMogi_EmailPlaceHolder).ToString() } }))
+							@Html.AngularMessage("Email")
+						</div>
+					</div>
+					<div class="control clearfix">
+						<div class="input">
+							<input id="send-message" type="submit" value="@HappyRE.Core.Resources.Message.Button_Send" onclick="reCaptchaExec(event)" />
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<section id="hidden-content">
+				<mg-modal-dialog show='modalShown' width='402px' height='150px'>
+					<div class="agent-dialog-message">
+						<div class="content">
+							<h4 class="">{{Message}}</h4>
+						</div>
+						<div class="command">
+							<input type="button" value="@HappyRE.Core.Resources.Message.Button_Closed" ng-click='ToggleModal()' />
+						</div>
+					</div>
+				</mg-modal-dialog>
+			</section>
+
+		</div>
+	</div>
+	<div id="grecaptcha"
+		 class="g-recaptcha clearfix"
+		 data-sitekey="@googleCaptchaSiteKey"
+		 data-callback="reCaptchaCallback"
+		 data-size="invisible">
+	</div>
+</div>
+@section styles {
+	@Styles.Render("~/content/feedback.css")
+}
+@section scripts {
+	<script type="text/javascript">
+		function reCaptchaOnload() {
+			$captcha.onload();
+		}
+		function reCaptchaExec(e) {
+			$captcha.exec(e);
+		}
+		function reCaptchaCallback() {
+			$captcha.callback('send-message');
+		}
+	</script>
+	@Scripts.Render("~/content/feedback.js")
+	<script defer async src="https://www.google.com/recaptcha/api.js?onload=reCaptchaOnload&render=explicit&hl=@google_hl"></script>
+}

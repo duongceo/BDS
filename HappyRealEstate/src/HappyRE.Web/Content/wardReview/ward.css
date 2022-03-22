@@ -1,0 +1,946 @@
+﻿/* carousel:begin */
+.owl-carousel .owl-next,
+.owl-carousel .owl-prev {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: calc(50% - 15px);
+    background-color: rgba(34,34,34,0.2);
+    border-radius: 90px !important;
+    -moz-border-radius: 90px !important;
+    -webkit-border-radius: 90px !important;
+    z-index: 9;
+    font-size: 30px;
+    line-height: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .owl-carousel .owl-next:hover,
+    .owl-carousel .owl-prev:hover,
+    .owl-carousel:hover .owl-next,
+    .owl-carousel:hover .owl-prev {
+        background-color: rgba(34,34,34,0.8);
+    }
+
+.owl-carousel .owl-next {
+    right: 3px;
+    text-align: right;
+    padding-right: 9px;
+}
+
+.owl-carousel .owl-prev {
+    left: 3px;
+    padding-left: 9px;
+}
+
+.owl-stage {
+    padding-left: 0 !important;
+}
+
+.bg-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 8px;
+    background-color: #0003;
+    background-color: #1d1d1d66;
+}
+/* carousel:end */
+#breadcrumbs {
+    background-color: #F1F4F6;
+    padding: 0 15px;
+}
+
+.breadcrumb {
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+}
+
+    .breadcrumb .active {
+        max-width: initial;
+    }
+
+/* icon */
+
+.ward-icon {
+}
+
+    .ward-icon > svg {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+
+/* end icon */
+
+/* utils */
+
+.caption {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-left: 16px;
+    background-color: rgba(40,40,46, 0.5);
+    border-radius: 0px 0px 8px 8px;
+}
+
+    .caption > span {
+        line-height: 16px;
+        font-size: 14px;
+        margin-top: 12px;
+        color: #fff;
+        display: inline-block;
+    }
+
+/* utils */
+
+.ward > .title {
+    font-size: 22px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+#ward-info {
+    width: 100%;
+    padding-top: 30px;
+}
+
+.ward-title {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 0;
+}
+
+.cover {
+    position: relative;
+    background-color: #f1f4f6;
+    border: solid 1px #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+    .cover > img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+.ward-detail {
+    float: left;
+}
+
+.brief {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 12px;
+}
+
+    .brief > li {
+        display: block;
+        width: 50%;
+        float: left;
+        padding: 4px 4px 4px 0;
+        height: 42px;
+    }
+
+        .brief > li .ward-icon {
+            float: left;
+            width: 24px;
+            padding-top: 4px;
+        }
+
+        .brief > li .desc {
+            float: left;
+            width: calc( 100% - 24px);
+            padding-left: 8px;
+            line-height: 16px;
+            height: 16px;
+            overflow: hidden;
+        }
+
+            .brief > li .desc:last-child {
+                margin-top: 2px;
+            }
+
+            .brief > li .desc a {
+                color: #036B75;
+                text-decoration: none;
+            }
+
+.map {
+    /*margin-top: 12px;*/
+    float: left;
+}
+
+    .map > img {
+        display: inline-block;
+        max-width: 360px;
+        width: 100%;
+        max-height: 200px;
+        height: calc( (100vw - 24px) * 0.55555555555 );
+        object-fit: cover;
+        background: #D7DCE0;
+    }
+
+.gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .gallery > li {
+        position: relative;
+        display: block;
+        float: left;
+        cursor: pointer;
+        border: solid 1px #f5f5f5;
+        border-radius: 8px;
+    }
+
+        .gallery > li img {
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .gallery > li .blur {
+            display: inline-block;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            filter: blur(2px);
+            -webkit-filter: blur(2px);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .gallery > li .counter {
+            width: 100%;
+            height: 100%;
+        }
+
+.gallery-more {
+    position: relative;
+}
+
+.counter {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: rgba(40, 40, 46, 0.5);
+    border-radius: 8px;
+}
+
+    .counter > span {
+        font-weight: bold;
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+#ward-desc > .title {
+    font-size: 16px;
+}
+
+#ward-desc > .desc {
+    margin: 0;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+}
+
+	#ward-desc > .desc > * {
+		font-size: 16px;
+		color: #262637;
+		text-align: justify;
+	}
+
+    #ward-desc > .desc > p {
+        margin-bottom: 24px;
+    }
+
+        #ward-desc > .desc > p:last-child {
+            margin-bottom: 0;
+        }
+
+#ward-statistic {
+    margin-top: 32px;
+}
+
+.statistic {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 12px;
+}
+
+    .statistic > li {
+        display: block;
+        float: left;
+        padding: 4px 4px 4px 0;
+        height: 42px;
+    }
+
+        .statistic > li .ward-icon {
+            float: left;
+            width: 24px;
+        }
+
+        .statistic > li .desc {
+            float: left;
+            width: calc( 100% - 24px);
+            padding-left: 8px;
+            line-height: 16px;
+            overflow: hidden;
+        }
+
+            .statistic > li .desc:last-child {
+                margin-top: 2px;
+            }
+
+#ward-schools {
+    margin-top: 32px;
+}
+
+#schools {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.school {
+    max-width: 250px;
+    border: 1px solid #D7DCE0;
+    border-radius: 8px;
+    padding: 16px 8px;
+    position: relative;
+}
+
+.school-title {
+    font-size: 16px;
+    line-height: 24px;
+    height: 48px;
+    overflow: hidden;
+    font-weight: bold;
+    display: block;
+}
+
+.school-adr {
+    font-size: 12px;
+    line-height: 1.5;
+    height: 36px;
+    overflow: hidden;
+    color: #919BA5;
+    margin-top: 8px;
+}
+
+.school-rate {
+    font-size: 20px;
+    line-height: 22px;
+    height: 22px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.school-stars {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+
+    .school-stars > .fa-star, .school-stars > .fa-star-half-o {
+        color: #FFC000;
+    }
+
+.school-rate-couter {
+    font-size: 12px;
+    line-height: 13px;
+    height: 13px;
+    overflow: hidden;
+    color: #919BA5;
+    text-align: center;
+    margin-top: 8px;
+}
+
+#market-price {
+    margin-top: 40px;
+    border: 1px solid #D7DCE0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+    #market-price > span {
+        float: left;
+        line-height: 40px;
+        color: #262637;
+        font-size: 16px;
+    }
+
+    #market-price > a {
+        float: right;
+        border: 1px solid #00B292;
+        display: inline-block;
+        text-align: center;
+        height: 40px;
+        color: #00B292;
+        font-size: 16px;
+        line-height: 40px;
+        border-radius: 4px;
+    }
+
+.pswp__caption__center {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pswp__counter {
+    bottom: 0;
+    right: 0;
+    left: auto !important;
+    top: auto !important;
+}
+
+#ward-properties {
+    margin-top: 30px;
+}
+
+    #ward-properties > .summary {
+        width: 100%;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+
+    #ward-properties .summary a.active {
+        border: 1px solid #d7dce0;
+        border-radius: 8px;
+        color: #009177;
+    }
+
+    #ward-properties > .summary a {
+        display: inline-block;
+        color: #262637;
+        padding: 10px 15px;
+        font-size: 16px;
+        line-height: 17px;
+    }
+
+.tab-content > .active {
+    display: block !important;
+}
+
+.property-list {
+    margin-top: 20px;
+}
+
+.property-item {
+    width: 250px;
+    position: relative;
+}
+
+    .property-item .item-media {
+        width: 100%;
+        height: 165px;
+    }
+
+        .property-item .item-media > img {
+            display: inline-block;
+            width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+    .property-item .item-price {
+        font-size: 20px;
+        color: #009177;
+        line-height: 22px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .property-item .item-title {
+        color: #262637;
+        line-height: 20px;
+        height: 60px;
+        margin-top: 10px;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+#ward-agent {
+    margin-top: 32px;
+}
+
+    #ward-agent .agents {
+        margin-top: 16px;
+    }
+
+    #ward-agent .agent {
+        text-align: center;
+        max-width: 250px;
+        width: 100%;
+        border: 1px solid #D7DCE0;
+        border-radius: 8px;
+        position: relative;
+        padding-top: 12px;
+        padding-bottom: 16px;
+    }
+
+        #ward-agent .agent > img {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            border-radius: 50%;
+        }
+
+        #ward-agent .agent > .name {
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        #ward-agent .agent > .total-post {
+            font-size: 13px;
+            line-height: 15px;
+            color: #5A646E;
+            margin-top: 2px;
+        }
+
+        #ward-agent .agent > .mobile {
+            display: inline-block;
+            font-size: 14px;
+            line-height: 16px;
+            color: #262637;
+            margin-top: 8px;
+            padding: 4px 10px;
+            border: 1px solid #D7DCE0;
+            border-radius: 4px;
+        }
+
+#ward-propperty {
+    margin-top: 32px;
+}
+
+    #ward-propperty > .summary {
+        width: 100%;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+
+    #ward-propperty .summary a.active {
+        border: 1px solid #d7dce0;
+        border-radius: 8px;
+        color: #009177;
+    }
+
+    #ward-propperty > .summary a {
+        display: inline-block;
+        color: #262637;
+        padding: 10px 15px;
+        font-size: 16px;
+        line-height: 17px;
+    }
+
+    #ward-propperty .ward-propperties {
+        padding: 0;
+        margin: 0;
+        margin-top: 16px;
+    }
+
+    #ward-propperty .ward-propperty {
+        float: left;
+        height: 140px;
+        display: block;
+        border-radius: 8px;
+        position: relative;
+        cursor: pointer;
+    }
+
+        #ward-propperty .ward-propperty:last-child {
+            margin-right: 0;
+        }
+
+        #ward-propperty .ward-propperty.view-more {
+            border: 1px solid #0AAA8C;
+            border-radius: 8px;
+        }
+
+        #ward-propperty .ward-propperty > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #ward-propperty .ward-propperty img {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+    #ward-propperty .info {
+        position: absolute;
+        top: calc( 50% - 27px);
+        width: 100%;
+        text-align: center;
+        z-index: 3;
+    }
+
+        #ward-propperty .info > span {
+            display: block;
+            color: #FFFFFF;
+            font-size: 18px;
+            line-height: 150%;
+            font-weight: bold;
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+    #ward-propperty .ward-propperty.view-more .info > span {
+        color: #0AAA8C;
+        text-shadow: none;
+    }
+
+#ward-neighbor {
+    margin-top: 32px;
+}
+
+    #ward-neighbor .neighbors {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    #ward-neighbor .neighbor {
+        max-width: 340px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+        #ward-neighbor .neighbor img {
+            width: 110px;
+            height: 110px;
+            float: left;
+        }
+
+        #ward-neighbor .neighbor .content {
+            width: calc( 100% - 110px);
+            padding-left: 8px;
+            float: left;
+        }
+
+            #ward-neighbor .neighbor .content .title {
+                font-size: 16px;
+                line-height: 1.5;
+                font-weight: bold;
+            }
+
+            #ward-neighbor .neighbor .content .total-props {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-top: 10px;
+            }
+
+            #ward-neighbor .neighbor .content .price-range {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-top: 10px;
+            }
+
+    #ward-neighbor svg {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+        vertical-align: bottom;
+        margin-right: 8px;
+    }
+
+    #ward-neighbor .view-more {
+        background: #00BE9A;
+        border-radius: 8px;
+        padding: 8px 80px;
+    }
+
+    #ward-neighbor .view-more {
+        background: #00BE9A;
+        border-radius: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 150%;
+        text-align: center;
+        color: #FFFFFF;
+        margin: 0 auto;
+        margin-top: 24px;
+        display: block;
+        max-width: 342px;
+        width: 100%;
+    }
+
+@media (max-width: 767px) {
+    #ward-info {
+        padding-top: 12px;
+    }
+
+    .ward {
+        padding: 0 12px;
+    }
+
+    .ward-detail {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ward-title {
+        margin-top: 16px;
+        order: 2;
+    }
+
+    .cover {
+        width: 100%;
+        height: 75vw;
+        margin: 0 auto;
+    }
+
+
+    .brief {
+        width: 100%;
+        order: 3;
+    }
+
+    .map {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    #ward-gallery {
+        order: 1;
+        margin-top: 12px;
+    }
+
+    .gallery > li {
+        width: calc((100% - 24px) / 3);
+        height: 100px;
+    }
+
+        .gallery > li:not(:first-child) {
+            margin-left: 12px;
+        }
+
+        .gallery > li .caption {
+            display: none;
+        }
+
+    .counter > span {
+        font-size: 25px;
+    }
+
+    #ward-desc {
+        padding: 0px 12px;
+        margin-top: 24px;
+    }
+
+    .statistic > li {
+        width: 50%;
+    }
+
+    #market-price {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+        #market-price > span {
+            width: 100%;
+            text-align: center;
+        }
+
+        #market-price > a {
+            width: 100%;
+        }
+
+    #ward-propperty .ward-propperty {
+        width: calc( (100% - 12px) / 2);
+        margin-right: 12px;
+    }
+
+        #ward-propperty .ward-propperty:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        #ward-propperty .ward-propperty:nth-child(n + 3) {
+            margin-top: 10px;
+        }
+}
+
+@media (min-width: 768px) {
+    .mg-1170-container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #ward-gallery {
+        margin-top: 37px;
+    }
+
+    .statistic > li {
+        width: 25%;
+    }
+
+    #market-price > a {
+        width: 400px;
+    }
+
+    #ward-desc {
+        margin-top: 32px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .cover {
+        width: 360px;
+        height: 360px;
+        float: left;
+    }
+
+    .ward-detail {
+        width: calc(100% - 360px);
+    }
+
+    .ward-title {
+        padding-left: 16px;
+    }
+
+    .brief {
+        padding-left: 16px;
+    }
+
+    .map {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+
+    #ward-gallery {
+        padding-left: 16px;
+    }
+
+    .counter > span {
+        font-size: 32px;
+    }
+
+    .gallery > li {
+        width: calc((100% - 32px) / 3);
+        height: 160px;
+    }
+
+        .gallery > li:not(:first-child) {
+            margin-left: 16px;
+        }
+
+    #market-price {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #ward-propperty .ward-propperty {
+        width: calc( (100% - 40px) / 3);
+        margin-right: 20px;
+    }
+
+        #ward-propperty .ward-propperty:nth-child(3) {
+            display: none;
+        }
+}
+
+@media (min-width: 992px) {
+    #breadcrumbs {
+        padding: 0;
+    }
+
+    .cover {
+        width: 460px;
+        height: 360px;
+        float: left;
+    }
+
+    .ward-detail {
+        width: calc(100% - 460px);
+    }
+
+    .ward-title {
+        padding-left: 16px;
+    }
+
+    .brief {
+        padding-left: 16px;
+    }
+
+    .map {
+        width: 360px;
+    }
+
+    #ward-gallery {
+        padding-left: 16px;
+    }
+
+    .gallery > li {
+        width: calc((100% - 40px) / 3);
+        height: 160px;
+    }
+
+        .gallery > li:not(:first-child) {
+            margin-left: 20px;
+        }
+
+    .counter > span {
+        font-size: 60px;
+    }
+
+    #ward-desc > .desc {
+        float: left;
+        padding-right: 40px;
+        width: calc(100% - 360px)
+    }
+
+    #ward-propperty .ward-propperty {
+        width: calc( (100% - 60px) / 4);
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 1170px) {
+    .mg-listing .mg-1170-container {
+        padding: 0 50px;
+    }
+}

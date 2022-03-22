@@ -1,0 +1,81 @@
+﻿@using Newtonsoft.Json
+@using HappyRE.Web.Resources;
+@{
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+    HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel Model = (HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel)ViewBag.LastHistory;
+    List<HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel> Items = (List<HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel>)ViewBag.Objs;
+    List<HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel> TimeLine = (List<HappyRE.Core.MapModels.MogiHousePrice.PropertyHPDetailModel>)ViewBag.TimeLine;
+}
+
+<div ng-controller="historypriceController" class="clearfix">
+    <section id="breadcrumbs" class="clearfix">
+        <div class="mg-960-container">
+            @{
+                Html.RenderAction("Breadcrumb_MarketPriceDetailHistory", "CachePartial", new { location = ViewBag.TitleProperty, url = ViewBag.NodeUrl, name = ViewBag.NodeName });
+            }
+        </div>
+    </section>
+    <div id="mt-detail">
+        <div id="mt-page-title">
+            <div class="mg-960-container">
+                <h1 class="page-title">
+                    @ViewBag.TitlePage
+                </h1>
+                <div class="page-desciption">
+                </div>
+            </div>
+        </div>
+        <div class="mg-960-container">
+            <div>
+                <div id="history-detail" class="clearfix">
+                    <h2>@ViewBag.TitleProperty</h2>
+
+                    <p>@HappyRE.Web.Resources.Message.MarketPrice_History_PropertyType: <span class="bold">@Model.PropertyTypeName</span></p>
+                    <p>@HappyRE.Web.Resources.Message.MarketPrice_History_Area: <span class="bold">@Model.AreaDisplay</span></p>
+                    <p>@HappyRE.Web.Resources.Message.Project_Price: <span class="bold">@Model.PriceText</span></p>
+                    <p></p>
+                    <p>@HappyRE.Web.Resources.Message.MarketPrice_History_Desc:</p>
+                    <p>@Html.Raw(@Model.Body)</p>
+                    <br />
+                    <p>@HappyRE.Web.Resources.Message.MarketPrice_History_Date: <span class="bold">@Model.EndDate.ToString("dd/MM/yyyy")</span></p>
+                    <p>
+                        @HappyRE.Web.Resources.Message.MarketPrice_History_Source: <span>
+                            <img class="logo-mbm" src="~/Content/Images/LogoMB2.png" />
+                        </span>
+                    </p>
+
+                </div>
+                <p>@HappyRE.Web.Resources.Message.MarketPrice_History_TimeLine</p>
+                <div id="timeline" class="clearfix">
+                    <div>
+                        @foreach (var time in TimeLine)
+                        {
+                            <div class="row">
+                                <div class="col-3 bdr"><strong>@time.EndDate.Year</strong></div>
+                                <div class="col-9">
+                                    <ul>
+                                        @foreach (var item in Items.Where(x => x.EndDate.Year == time.EndDate.Year).OrderBy(x => x.EndDate))
+                                        {
+                                            <li>@Html.ActionLink(item.EndDate.ToString("dd/MM/yyyy"), "DetailHistory", "MarketPrice", new { id = item.UId, d = item.PropertyId }, new { }) <span></span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <section id="hidden-content"></section>
+            </div>
+            <div class="page-desciption">
+                @Html.Raw(ViewBag.Footer)
+            </div>
+        </div>
+    </div>
+</div>
+@section styles {
+    <link async rel="stylesheet" href="@Styles.Url("~/content/marketDetail")">
+}
+@section scripts {
+    @*<script async src='@Scripts.Url("~/bundles/historyprice")' type="text/javascript"></script>*@
+}
+

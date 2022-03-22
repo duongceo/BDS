@@ -1,0 +1,70 @@
+﻿.home-banner {
+    margin-top: 50px;
+}
+
+.banner-home-center {
+    display: block;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+    .banner-home-center > div {
+        width: 100%;
+        height: 100%;
+        font-size: 24px;
+        color: #fff;
+    }
+
+    .banner-home-center img {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+    }
+
+.banner-widget .banner-content a {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+
+.banner-listing-main {
+    display: block;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+    .banner-listing-main > div {
+        width: 100%;
+        height: auto;
+        font-size: 24px;
+        color: #fff;
+    }
+
+    .banner-listing-main img {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+    }
+
+/*@media(max-width:680px) {
+    .banner-home-center img {
+        max-width: 646px;
+    }
+
+    .banner-listing-main img {
+        max-width: 646px;
+    }
+}
+
+@media(max-width:460px) {
+    .banner-home-center img {
+        max-width: 330px;
+    }
+
+    .banner-listing-main img {
+        max-width: 300px;
+    }
+}*/

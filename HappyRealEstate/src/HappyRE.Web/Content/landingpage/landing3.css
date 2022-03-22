@@ -1,0 +1,424 @@
+﻿@import url('https://fonts.google.com/specimen/Montserrat?selection.family=Montserrat:400,500,600,600i,700&selection.subset=vietnamese');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #272739;
+    background: #fff;
+    font-size: 16pt;
+}
+
+a {
+    color: #272739;
+}
+
+    a:hover {
+        color: #272739;
+        text-decoration: none;
+    }
+
+.bold {
+    font-weight: bold;
+}
+
+.main {
+    margin: auto;
+}
+
+.container {
+    width: 1100px;
+    padding: 0px !important;
+    padding-left: 0px !important;
+}
+
+.navbar-inverse {
+    border: none;
+    background: #fff;
+}
+
+    .navbar-inverse .navbar-toggle .icon-bar {
+        color: #272739;
+    }
+
+    .navbar-inverse .navbar-nav > li > a:hover,
+    .navbar-inverse .navbar-nav > li > a:active,
+    .navbar-inverse .navbar-nav > li > a {
+        color: #000;
+        font-size: 18px;
+        padding-top: 25px;
+    }
+
+.navbar-brand {
+    float: left;
+    height: auto;
+    padding: 15px 15px;
+    margin-left: 0px !important;
+    width: 150px;
+}
+
+.mn-posting {
+    background: #23E0B9;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.main {
+    margin-top: 60px;
+}
+
+    .main .top {
+        height: 578px;
+        background: url(../../Content/Images/landing/landing3/Untitled-2_02.gif) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        color: #fff;
+    }
+
+        .main .top .content1 {
+            margin-top: 100px;
+        }
+
+            .main .top .content1 .title {
+                font-weight: 600;
+                font-size: 27pt;
+                text-transform: uppercase;
+            }
+
+                .main .top .content1 .title > span {
+                    color: #ffc80a;
+                }
+
+        .main .top .content2 {
+            margin-top: 30px;
+            width: 500px;
+        }
+
+            .main .top .content2 .title2 {
+                font-size: 16pt;
+            }
+
+                .main .top .content2 .title2 > span {
+                    color: #ffc80a;
+                    font-weight: 600;
+                }
+
+        .main .top .command {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+    .main .khao-sat {
+        margin-top: 50px;
+    }
+
+        .main .khao-sat .img {
+            float: left;
+            width: 312px;
+        }
+         .main .khao-sat .m-img{
+             display:none;
+         }
+
+        .main .khao-sat .content {
+            float: left;
+            width: calc(100% - 312px);
+            padding-left: 50px;
+        }
+
+            .main .khao-sat .content .body .img {
+                float: left;
+                width: 133px;
+            }
+
+            .main .khao-sat .content .body .body {
+                width: calc(100% - 183px);
+                float: left;
+                padding-left: 20px;
+            }
+
+                .main .khao-sat .content .body .body .item1 > span,
+                .main .khao-sat .content .body .body .item2 > span {
+                    color: #eb8219;
+                }
+                 .main .khao-sat .content .body .body .m-img {
+                     display:none;
+                 }
+                .main .khao-sat .content .body .body .item2 {
+                    margin-top: 30px;
+                }
+
+            .main .khao-sat .content .footer1 {
+                margin-top:15px;
+                font-weight: 600;
+                font-size: 14pt;
+            }
+            .main .khao-sat .m-img {
+                display:none;
+            }
+
+    .main .sumenh {
+        margin-top: 50px;
+        background:none;
+    }
+
+        .main .sumenh .title {
+            text-align: center;
+            width: 100%;
+        }
+
+            .main .sumenh .title .info {
+                margin: auto;
+                width: 70%;
+                font-weight: 600;
+                font-size: 25pt;
+            }
+
+        .main .sumenh .content {
+            margin-top: 60px;
+            background: url('../../Content/Images/landing/landing3/Asset 18.png') no-repeat center;
+            height: 291px;
+        }
+
+            .main .sumenh .content .left {
+                width: 50%;
+                text-align: right;
+                float: left;
+            }
+            .main .sumenh .content .m-icon {
+                display:none;
+            }
+                .main .sumenh .content .left .item1 {
+                    float: right;
+                    padding-right: 140px;
+                }
+
+                    .main .sumenh .content .left .item1 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+                .main .sumenh .content .left .item2 {
+                    float: right;
+                    padding-right: 180px;
+                    margin-top: 50px;
+                }
+
+                    .main .sumenh .content .left .item2 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+                .main .sumenh .content .left .item3 {
+                    float: right;
+                    padding-right: 140px;
+                    margin-top: 50px;
+                }
+
+                    .main .sumenh .content .left .item3 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+            .main .sumenh .content .right {
+                width: 50%;
+                text-align: left;
+                float: left;
+            }
+
+                .main .sumenh .content .right .item1 {
+                    float: left;
+                    padding-left: 140px;
+                }
+
+                    .main .sumenh .content .right .item1 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+                .main .sumenh .content .right .item2 {
+                    float: left;
+                    padding-left: 180px;
+                    margin-top: 50px;
+                }
+
+                    .main .sumenh .content .right .item2 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+                .main .sumenh .content .right .item3 {
+                    float: left;
+                    padding-left: 140px;
+                    margin-top: 50px;
+                }
+
+                    .main .sumenh .content .right .item3 .dac-biet {
+                        display: block;
+                        color: #eb8219;
+                    }
+
+    .main .loi-ich {
+        margin-top: 50px;
+    }
+
+        .main .loi-ich .title {
+            text-align: center;
+            width: 100%;
+        }
+
+            .main .loi-ich .title .info {
+                font-size: 25pt;
+                font-weight: 600;
+            }
+
+        .main .loi-ich .content {
+            margin-top: 50px;
+        }
+
+            .main .loi-ich .content .item {
+                float: left;
+                padding-left:0px;
+                padding-right: 60px;
+                width:25%;
+            }
+
+                .main .loi-ich .content .item:last-child {
+                    padding-right: 20px;
+                }
+
+                .main .loi-ich .content .item > div {
+                    margin-top: 10px;
+                }
+
+    .main .vidu {
+        margin-top: 50px;
+    }
+
+        .main .vidu .container {
+            width: 1160px;
+        }
+
+        .main .vidu .title {
+            text-align: center;
+            width: 100%;
+        }
+
+            .main .vidu .title .info {
+                font-size: 25pt;
+                font-weight: 600;
+            }
+         .main .vidu .m-content {
+           display:none;
+        }
+        .main .vidu .content {
+            margin-top: 50px;
+        }
+
+            .main .vidu .content .item {
+                float: left;
+                width: 216px;
+                margin-right: 20px;
+                position: relative;
+            }
+
+                .main .vidu .content .item:last-child {
+                    margin-right: 0px;
+                }
+
+                .main .vidu .content .item .info {
+                    top: 55px;
+                    position: absolute;
+                    border: 2px solid #ffc80a;
+                    border-radius: 4px;
+                    width: 142px;
+                    height: 205px;
+                    text-align: center;
+                    color: #fff;
+                    left: 40px;
+                    padding-top: 30px;
+                }
+                .main .vidu .content .item .info:hover {
+                    background:#ffc80a;
+                    opacity:0.9;
+                }
+
+                    .main .vidu .content .item .info > div {
+                        width: 90%;
+                        padding-top: 15px;
+                        margin: auto;
+                        font-weight: 500;
+                    }
+
+    .main .chua-biet {
+        margin-top: 50px;
+       
+    }
+
+        .main .chua-biet .title {
+            font-weight: 600;
+            font-size: 19pt;
+        }
+
+        .main .chua-biet .content .item {
+            margin-top: 10px;
+        }
+
+            .main .chua-biet .content .item > a {
+                color: #005d4e;
+                cursor: pointer;
+            }
+             .main .chua-biet .content .left {
+                float:left;
+                width:522px;
+            }
+            .main .chua-biet .content .right {
+                float:left;
+                width:578px;
+            }
+
+
+
+    .main .footer {
+        padding-top: 30px;
+        padding-bottom: 20px;
+        font-size: 20px;
+        background:#f2f2f2;
+    }
+
+        .main .footer .left {
+            float: left;
+            width: 150px;
+        }
+
+            .main .footer .left .m-social,
+            .main .footer .left .m-url {
+                display: none;
+            }
+
+        .main .footer .center {
+            float: left;
+            width: 660px;
+        }
+
+            .main .footer .center .url {
+                float: left;
+                padding-left: 20px;
+                width: 170px;
+            }
+
+            .main .footer .center .calling {
+                float: left;
+                width: 180px;
+            }
+
+            .main .footer .center .address {
+                float: left;
+                width: 300px;
+            }
+
+        .main .footer .right {
+            float: left;
+            width: 150px;
+            text-align: right;
+        }
