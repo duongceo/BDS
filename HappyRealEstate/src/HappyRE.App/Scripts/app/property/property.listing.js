@@ -26,7 +26,7 @@
             $("#_list").data("kendoGrid").dataSource.page(1);
         },
         showMobile = function (id) {
-            var isAdmin = $('#canHideMobile').val() || "0";
+            var isAdmin = $('#canShowAllMobile').val() || "0";
             restfulSvc.get('/Property/_TotalViewedMobileToday', {}, function (res) {
                 if (isAdmin == "0") {
                     if (confirm("Bạn đã xem " + res + " /10 SĐT được xem mỗi ngày. Bạn muốn xem thêm SĐT khách này?") == false) {

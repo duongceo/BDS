@@ -214,12 +214,12 @@ namespace HappyRE.App.Controllers
                     Response.StatusCode = 400;
                     return Json("Bạn không có quyền xem SĐT", JsonRequestBehavior.AllowGet);
                 }
-                if (Property.IsForceHiddenPhone == true && User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)==false)
+                if (Property.IsForceHiddenPhone == true && User.IsInRole(Permission.CUSTOMER_INFO_ADMIN) ==false)
                 {
                     Response.StatusCode = 400;
                     return Json("Vui lòng liên hệ Admin", JsonRequestBehavior.AllowGet);
                 }
-                var res = await _uow.Property.ShowMobile(id, User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE));
+                var res = await _uow.Property.ShowMobile(id, User.IsInRole(Permission.CUSTOMER_INFO_ADMIN));
                 this.Log("Property", id, "ShowMobileProperty", null);
                 return Json(new {data= res}, JsonRequestBehavior.AllowGet);
             }
@@ -244,11 +244,8 @@ namespace HappyRE.App.Controllers
         {
             try
             {
-                if (this.IsAdmin)
-                {
-                    var res = await _uow.Property.ChangeHot(id, isHot);
-                    return Json(res, JsonRequestBehavior.AllowGet);
-                }
+                var res = await _uow.Property.ChangeHot(id, isHot);
+                return Json(res, JsonRequestBehavior.AllowGet);
             }
             catch (HappyRE.Core.BLL.BusinessException ex)
             {

@@ -46,6 +46,7 @@ namespace HappyRE.Core.Entities
         public const string SALEORDER_MODIFY = "SALEORDER_MODIFY";
         public const string SALEORDER_DELETE = "SALEORDER_DELETE";
         public const string SALEORDER_EXPORT = "SALEORDER_EXPORT";
+        public const string CUSTOMER_INFO_ADMIN = "CUSTOMER_INFO_ADMIN";
     }
 
     public enum UserStatus

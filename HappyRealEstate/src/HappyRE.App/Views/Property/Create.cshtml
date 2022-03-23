@@ -595,7 +595,7 @@
                                         @Html.LabelFor(model => model.IsVerified, htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
                                             <div class="checkbox">
-                                                @if (User.IsInRole(Permission.PROPERTY_VERIFY))
+                                                @if (User.IsInRole(Permission.PROPERTY_HOT))
                                                 {
                                                     @Html.CheckBoxFor(model => model.IsVerified)
                                                 }

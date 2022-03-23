@@ -447,6 +447,7 @@
 <input type="hidden" id="canDelete" value="@(User.IsInRole(Permission.PROPERTY_DELETE)?1:0)" />
 <input type="hidden" id="canViewMobile" value="@(((bool)@ViewBag.CanViewMobile)?1:0)" />
 <input type="hidden" id="canHideMobile" value="@(User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)?1:0)" />
+<input type="hidden" id="canShowAllMobile" value="@(User.IsInRole(Permission.CUSTOMER_INFO_ADMIN)?1:0)" />
 <input type="hidden" id="canChangeHOT" value="@(User.IsInRole(Permission.PROPERTY_HOT)?1:0)" />
 <input type="hidden" id="userName" value="@User.Identity.Name" />
 

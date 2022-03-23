@@ -19,6 +19,7 @@
 </style>
 
 <input type="hidden" id="canHideMobile" value="@(User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE)?1:0)" />
+<input type="hidden" id="canShowAllMobile" value="@(User.IsInRole(Permission.CUSTOMER_INFO_ADMIN)?1:0)" />
 
 <div class="row">
     <div class="col-md-6">

@@ -198,13 +198,13 @@ namespace HappyRE.App.Controllers
                     return Json("Bạn không có quyền xem SĐT", JsonRequestBehavior.AllowGet);
                 }
 
-                if (customer.IsForceHiddenPhone == true && User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE) == false)
+                if (customer.IsForceHiddenPhone == true && User.IsInRole(Permission.CUSTOMER_INFO_ADMIN) == false)
                 {
                     Response.StatusCode = 400;
                     return Json("Vui lòng liên hệ Admin", JsonRequestBehavior.AllowGet);
                 }
                 //var userId = this.GetUserId();
-                var res = await _uow.Customer.ShowMobile(id,User.IsInRole(Permission.PROPERTY_CUSTOMER_INFO_HIDE));
+                var res = await _uow.Customer.ShowMobile(id,User.IsInRole(Permission.CUSTOMER_INFO_ADMIN));
                 this.Log("Customer", id, "ShowMobile", null);
                 return Json(new {data=res}, JsonRequestBehavior.AllowGet);
             }
