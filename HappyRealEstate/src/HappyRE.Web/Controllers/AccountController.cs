@@ -21,7 +21,6 @@ namespace HappyRE.Web.Controllers
     {
 		private static readonly bool ACCOUNTKIT_USE = WebUtils.AppSettings("ACCOUNTKIT_USE", false);
 		private static readonly int ACCOUNTKIT_MAX_FAIL = WebUtils.AppSettings("ACCOUNTKIT_MAX_FAIL", 3);
-
         public AccountController(IUow uow) : base(uow) { }
 
 		#region Đăng nhập bằng số điện thoại
