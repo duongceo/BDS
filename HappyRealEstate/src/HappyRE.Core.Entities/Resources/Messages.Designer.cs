@@ -124,6 +124,15 @@ namespace HappyRE.Core.Entities.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Có lỗi trong quá trình xử lý!.
+        /// </summary>
+        public static string GeneralError {
+            get {
+                return ResourceManager.GetString("GeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tài khoản Gmail đã hết hạn truy cập, vui lòng kết nối lại.
         /// </summary>
         public static string Gmail_Expired {
@@ -210,6 +219,24 @@ namespace HappyRE.Core.Entities.Resources {
         public static string System_Err {
             get {
                 return ResourceManager.GetString("System_Err", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên đăng nhập hoặc mật khẩu không đúng..
+        /// </summary>
+        public static string User_InvalidLogin {
+            get {
+                return ResourceManager.GetString("User_InvalidLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài khoản đã bị khóa sử dụng..
+        /// </summary>
+        public static string User_Locked {
+            get {
+                return ResourceManager.GetString("User_Locked", resourceCulture);
             }
         }
     }

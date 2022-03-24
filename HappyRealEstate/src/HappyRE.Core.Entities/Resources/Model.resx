@@ -1,0 +1,1951 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="City_AreaId" xml:space="preserve">
+    <value>Khu vực</value>
+  </data>
+  <data name="City_CityId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="City_CityName" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="City_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="City_CodeUrl" xml:space="preserve">
+    <value>Url thân thiện</value>
+  </data>
+  <data name="City_DistrictName" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="City_Name" xml:space="preserve">
+    <value>Tên khu vực</value>
+  </data>
+  <data name="City_ParentId" xml:space="preserve">
+    <value>Cấp cha</value>
+  </data>
+  <data name="City_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="ConfirmMobile_ConfirmId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ConfirmMobile_GenDate" xml:space="preserve">
+    <value>Ngày tạo mã</value>
+  </data>
+  <data name="ConfirmMobile_IsVerified" xml:space="preserve">
+    <value>Đã xác thực</value>
+  </data>
+  <data name="ConfirmMobile_Mobile" xml:space="preserve">
+    <value>Số di động</value>
+  </data>
+  <data name="ConfirmMobile_ProfileId" xml:space="preserve">
+    <value>ProfileId</value>
+  </data>
+  <data name="ConfirmMobile_SMSCode" xml:space="preserve">
+    <value>Mã SMS</value>
+  </data>
+  <data name="ConfirmMobile_VerifiedCode" xml:space="preserve">
+    <value>Mã xác thực</value>
+  </data>
+  <data name="ConfirmMobile_VerifiedDate" xml:space="preserve">
+    <value>Ngày xác thực</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Người tạo</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Hiệu lực</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>Đã duyệt</value>
+  </data>
+  <data name="IsDeleted" xml:space="preserve">
+    <value>Đã xóa</value>
+  </data>
+  <data name="IsRejected" xml:space="preserve">
+    <value>Không duyệt</value>
+  </data>
+  <data name="IsWaitForApprove" xml:space="preserve">
+    <value>Chờ duyệt</value>
+  </data>
+  <data name="LevelDetail_LevelId" xml:space="preserve">
+    <value>Gói dịch vụ</value>
+  </data>
+  <data name="LevelDetail_Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="LevelDetail_RewardAmount" xml:space="preserve">
+    <value>Mệnh giá</value>
+  </data>
+  <data name="LevelDetail_RewardTypeId" xml:space="preserve">
+    <value>Loại khuyến mãi</value>
+  </data>
+  <data name="LevelDetail_Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="LevelDetail_TotalDays" xml:space="preserve">
+    <value>Số ngày</value>
+  </data>
+  <data name="Level_Code" xml:space="preserve">
+    <value>Mã gói</value>
+  </data>
+  <data name="Level_Description" xml:space="preserve">
+    <value>Diến giải</value>
+  </data>
+  <data name="Level_Features" xml:space="preserve">
+    <value>Chức năng</value>
+  </data>
+  <data name="Level_Name" xml:space="preserve">
+    <value>Tên gói</value>
+  </data>
+  <data name="Level_Price" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="Map_Encode" xml:space="preserve">
+    <value>Encode</value>
+  </data>
+  <data name="Map_JSON" xml:space="preserve">
+    <value>JSON</value>
+  </data>
+  <data name="Map_KML" xml:space="preserve">
+    <value>KML</value>
+  </data>
+  <data name="Map_Location" xml:space="preserve">
+    <value>Trung tâm</value>
+  </data>
+  <data name="Map_MapId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Map_ReferId" xml:space="preserve">
+    <value>Mã liên quan</value>
+  </data>
+  <data name="Map_ReferTypeId" xml:space="preserve">
+    <value>Loại dữ liệu</value>
+  </data>
+  <data name="Map_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Map_SVG" xml:space="preserve">
+    <value>SVG</value>
+  </data>
+  <data name="Map_WKT" xml:space="preserve">
+    <value>WKT</value>
+  </data>
+  <data name="OrgType_AllowChange" xml:space="preserve">
+    <value>Cho phép thay đổi</value>
+    <comment>Có cho phép thay đổi hay không (hard-code)</comment>
+  </data>
+  <data name="OrgType_Code" xml:space="preserve">
+    <value>Mã loại</value>
+    <comment>(không trùng)</comment>
+  </data>
+  <data name="OrgType_Name" xml:space="preserve">
+    <value>Tên loại</value>
+  </data>
+  <data name="OrgType_OrgTypeId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="Org_Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Org_BankAccount" xml:space="preserve">
+    <value>Tài khoản ngân hàng</value>
+  </data>
+  <data name="Org_BankName" xml:space="preserve">
+    <value>Tên ngân hàng</value>
+  </data>
+  <data name="Org_Brief" xml:space="preserve">
+    <value>Giới thiệu tóm tắt</value>
+  </data>
+  <data name="Org_BusinessLicense" xml:space="preserve">
+    <value>Giấy phép kinh doanh</value>
+  </data>
+  <data name="Org_CityId" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="Org_Code" xml:space="preserve">
+    <value>Mã đơn vị</value>
+  </data>
+  <data name="Org_ContactName" xml:space="preserve">
+    <value>Tên liên hệ</value>
+  </data>
+  <data name="Org_Created" xml:space="preserve">
+    <value>Org_Created</value>
+  </data>
+  <data name="Org_CreatedBy" xml:space="preserve">
+    <value>Org_CreatedBy</value>
+  </data>
+  <data name="Org_Description" xml:space="preserve">
+    <value>Diễn giải</value>
+  </data>
+  <data name="Org_DistrictId" xml:space="preserve">
+    <value>Quận huyện</value>
+  </data>
+  <data name="Org_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Org_ExpiredDate" xml:space="preserve">
+    <value>Org_ExpiredDate</value>
+  </data>
+  <data name="Org_Fax" xml:space="preserve">
+    <value>Số Fax</value>
+  </data>
+  <data name="Org_InputCompleted" xml:space="preserve">
+    <value>Org_InputCompleted</value>
+  </data>
+  <data name="Org_LogoUrl" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="Org_Location" xml:space="preserve">
+    <value>Vị tí bản đồ</value>
+  </data>
+  <data name="Org_MicroSite" xml:space="preserve">
+    <value>Org_MicroSite</value>
+  </data>
+  <data name="Org_Mobile" xml:space="preserve">
+    <value>Đi động</value>
+  </data>
+  <data name="Org_Name" xml:space="preserve">
+    <value>Tên đơn vị</value>
+  </data>
+  <data name="Org_OrgTypeId" xml:space="preserve">
+    <value>Loại đơn vị</value>
+  </data>
+  <data name="Org_OwnerBy" xml:space="preserve">
+    <value>Org_OwnerBy</value>
+  </data>
+  <data name="Org_ParentId" xml:space="preserve">
+    <value>Đại lý cha</value>
+  </data>
+  <data name="Org_Phone" xml:space="preserve">
+    <value>Điện thoại</value>
+  </data>
+  <data name="Org_Publish" xml:space="preserve">
+    <value>Org_Publish</value>
+  </data>
+  <data name="Org_SEO" xml:space="preserve">
+    <value>Org_SEO</value>
+  </data>
+  <data name="Org_ShortName" xml:space="preserve">
+    <value>Tên ngắn</value>
+  </data>
+  <data name="Org_SiteTemplateId" xml:space="preserve">
+    <value>Org_SiteTemplateId</value>
+  </data>
+  <data name="Org_Socials" xml:space="preserve">
+    <value>Link xã hội</value>
+  </data>
+  <data name="Org_StartDate" xml:space="preserve">
+    <value>Org_StartDate</value>
+  </data>
+  <data name="Org_Status" xml:space="preserve">
+    <value>Org_Status</value>
+  </data>
+  <data name="Org_StreetId" xml:space="preserve">
+    <value>Tên đường</value>
+  </data>
+  <data name="Org_TaxCode" xml:space="preserve">
+    <value>Mã số thuế</value>
+  </data>
+  <data name="Org_Updated" xml:space="preserve">
+    <value>Org_Updated</value>
+  </data>
+  <data name="Org_UpdatedBy" xml:space="preserve">
+    <value>Org_UpdatedBy</value>
+  </data>
+  <data name="Org_UserId" xml:space="preserve">
+    <value>Org_UserId</value>
+  </data>
+  <data name="Org_VerifiedBusiness" xml:space="preserve">
+    <value>Org_VerifiedBusiness</value>
+  </data>
+  <data name="Org_VerifiedEmail" xml:space="preserve">
+    <value>Org_VerifiedEmail</value>
+  </data>
+  <data name="Org_VerifiedLogo" xml:space="preserve">
+    <value>Org_VerifiedLogo</value>
+  </data>
+  <data name="Org_VerifiedMobile" xml:space="preserve">
+    <value>Org_VerifiedMobile</value>
+  </data>
+  <data name="Org_VerifiedPhone" xml:space="preserve">
+    <value>Org_VerifiedPhone</value>
+  </data>
+  <data name="Org_VerifiedTaxCode" xml:space="preserve">
+    <value>Org_VerifiedTaxCode</value>
+  </data>
+  <data name="Org_WardId" xml:space="preserve">
+    <value>Phường</value>
+  </data>
+  <data name="Org_Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Org_Images" xml:space="preserve">
+    <value>Hình</value>
+  </data>
+  <data name="Project_Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Project_BuildArea" xml:space="preserve">
+    <value>Diện tích xây dựng (m2)</value>
+  </data>
+  <data name="Project_CityId" xml:space="preserve">
+    <value>Tỉnh/thành phố</value>
+  </data>
+  <data name="Project_OrgId" xml:space="preserve">
+    <value>Chủ đầu tư</value>
+  </data>
+  <data name="Project_CoverImage" xml:space="preserve">
+    <value>Hình đại diện</value>
+  </data>
+  <data name="Project_Description" xml:space="preserve">
+    <value>Giới thiệu dự án</value>
+  </data>
+  <data name="Project_Description2" xml:space="preserve">
+    <value>Mô tả quy hoạch</value>
+  </data>
+  <data name="Project_Description3" xml:space="preserve">
+    <value>Nhà mẫu</value>
+  </data>
+  <data name="Project_Description4" xml:space="preserve">
+    <value>Mô tả các loại phí</value>
+  </data>
+  <data name="Project_Description5" xml:space="preserve">
+    <value>Mô tả thêm về xây dựng</value>
+  </data>
+  <data name="Project_DistrictId" xml:space="preserve">
+    <value>Quận/huyện</value>
+  </data>
+  <data name="Project_EndDate" xml:space="preserve">
+    <value>Ngày hoàn thành</value>
+  </data>
+  <data name="Project_Features" xml:space="preserve">
+    <value>Đặc điểm riêng</value>
+  </data>
+  <data name="Project_Images" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Project_Location" xml:space="preserve">
+    <value>Vị trí trên bản đồ</value>
+  </data>
+  <data name="Project_Name" xml:space="preserve">
+    <value>Tên dự án</value>
+  </data>
+  <data name="Project_ProjectStatusId" xml:space="preserve">
+    <value>Hiện trạng/Tiến độ</value>
+  </data>
+  <data name="Project_Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="Project_StartDate" xml:space="preserve">
+    <value>Ngày khởi công</value>
+  </data>
+  <data name="Project_Status" xml:space="preserve">
+    <value>Duyệt</value>
+  </data>
+  <data name="Project_StreetId" xml:space="preserve">
+    <value>Đường</value>
+  </data>
+  <data name="Project_TotalArea" xml:space="preserve">
+    <value>Tổng diện tích</value>
+  </data>
+  <data name="Project_TotalImage" xml:space="preserve">
+    <value>Tổng số hình</value>
+  </data>
+  <data name="Project_TotalRent" xml:space="preserve">
+    <value>Tổng số cho thuê</value>
+  </data>
+  <data name="Project_TotalSale" xml:space="preserve">
+    <value>Tổng số bán</value>
+  </data>
+  <data name="Project_Utilities" xml:space="preserve">
+    <value>Tiện ích nội khu</value>
+  </data>
+  <data name="Project_WardId" xml:space="preserve">
+    <value>Phường</value>
+  </data>
+  <data name="Project_Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="PropertyType_Code" xml:space="preserve">
+    <value>Mã loại</value>
+  </data>
+  <data name="PropertyType_Enabled" xml:space="preserve">
+    <value>Sử dụng</value>
+  </data>
+  <data name="PropertyType_ForProject" xml:space="preserve">
+    <value>Loại cho dự án</value>
+  </data>
+  <data name="PropertyType_ForRent" xml:space="preserve">
+    <value>Loại cho thuê</value>
+  </data>
+  <data name="PropertyType_ForSale" xml:space="preserve">
+    <value>Loại bán</value>
+  </data>
+  <data name="PropertyType_FullName" xml:space="preserve">
+    <value>Tên đầy đủ</value>
+  </data>
+  <data name="PropertyType_Name" xml:space="preserve">
+    <value>Loại bất động sản</value>
+  </data>
+  <data name="PropertyType_ParentId" xml:space="preserve">
+    <value>Cấp cha</value>
+  </data>
+  <data name="PropertyType_PropertyTypeId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="PropertyType_Sort" xml:space="preserve">
+    <value>Thứ tự</value>
+  </data>
+  <data name="PropertyType_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="RE_Currency_CurrencyId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="RE_Currency_CurrencyType" xml:space="preserve">
+    <value>VND/USD/SJC</value>
+  </data>
+  <data name="RE_Currency_ForRent" xml:space="preserve">
+    <value>Áp dụng cho thuê</value>
+  </data>
+  <data name="RE_Currency_ForSale" xml:space="preserve">
+    <value>Áp dụng cho bán</value>
+  </data>
+  <data name="RE_Currency_IsTotalPrice" xml:space="preserve">
+    <value>Loại giá</value>
+    <comment>1:Giá tổng; 0:Giá/m2</comment>
+  </data>
+  <data name="RE_Currency_Name" xml:space="preserve">
+    <value>Tên đơn vị tiền tệ</value>
+  </data>
+  <data name="RE_Currency_PriceVND" xml:space="preserve">
+    <value>Giá quy đổi sang VND</value>
+  </data>
+  <data name="RE_Currency_Sort" xml:space="preserve">
+    <value>Thứ tự</value>
+  </data>
+  <data name="RE_Direction_DirectionId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="RE_Direction_Name" xml:space="preserve">
+    <value>Tên hướng</value>
+  </data>
+  <data name="RE_Direction_Sort" xml:space="preserve">
+    <value>Thứ tự</value>
+  </data>
+  <data name="RE_Legal_Name" xml:space="preserve">
+    <value>Tên pháp lý</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sắp xếp</value>
+  </data>
+  <data name="StreetName_Name" xml:space="preserve">
+    <value>Tên đường</value>
+  </data>
+  <data name="StreetName_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="StreetName_StreetNameId" xml:space="preserve">
+    <value>StreetNameId</value>
+  </data>
+  <data name="Street_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="Street_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Street_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="Street_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Street_StreetId" xml:space="preserve">
+    <value>StreetId</value>
+  </data>
+  <data name="Street_StreetNameId" xml:space="preserve">
+    <value>Tên đường</value>
+  </data>
+  <data name="SysCode_BitMask" xml:space="preserve">
+    <value>Giá trị bitmask</value>
+  </data>
+  <data name="SysCode_Body" xml:space="preserve">
+    <value>Nội dung chi tiết</value>
+  </data>
+  <data name="SysCode_Code" xml:space="preserve">
+    <value>Mã danh mục</value>
+  </data>
+  <data name="SysCode_Created" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="SysCode_CreatedBy" xml:space="preserve">
+    <value>Người tạo</value>
+  </data>
+  <data name="SysCode_Enabled" xml:space="preserve">
+    <value>Sử dụng</value>
+    <comment>Còn sử dụng hay không</comment>
+  </data>
+  <data name="SysCode_Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="SysCode_Sort" xml:space="preserve">
+    <value>Sắp xếp thứ tự</value>
+  </data>
+  <data name="SysCode_SysCodeId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="SysCode_SysTableId" xml:space="preserve">
+    <value>Mã bảng dữ liệu</value>
+  </data>
+  <data name="SysCode_Updated" xml:space="preserve">
+    <value>Ngày sửa</value>
+  </data>
+  <data name="SysCode_UpdatedBy" xml:space="preserve">
+    <value>Người sửa</value>
+  </data>
+  <data name="SysTable_Code" xml:space="preserve">
+    <value>Mã bảng dữ liệu</value>
+  </data>
+  <data name="SysTable_IsBitMask" xml:space="preserve">
+    <value>Khoá chính bảng dữ liệu có sử dụng Bitmask hay không</value>
+    <comment>Khoá chính bảng dữ liệu có sử dụng Bitmask hay không</comment>
+  </data>
+  <data name="SysTable_IsHidden" xml:space="preserve">
+    <value>Bảng dữ liệu ẩn</value>
+  </data>
+  <data name="SysTable_Name" xml:space="preserve">
+    <value>Tên bảng dữ liệu</value>
+  </data>
+  <data name="SysTable_SysTableId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Ngày cập nhật</value>
+  </data>
+  <data name="UpdatedBy" xml:space="preserve">
+    <value>Người cập nhật</value>
+  </data>
+  <data name="UserMobile_IsDeleted" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="UserMobile_IsVerified" xml:space="preserve">
+    <value>Xác thực</value>
+  </data>
+  <data name="UserMobile_Mobile" xml:space="preserve">
+    <value>Số di động</value>
+  </data>
+  <data name="UserMobile_ProfileId" xml:space="preserve">
+    <value>ProfileId</value>
+  </data>
+  <data name="UserMobile_UserMobileId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="UserMobile_VerifiedCounter" xml:space="preserve">
+    <value>Số lần xác thực</value>
+    <comment>Số lần thực hiện xác minh</comment>
+  </data>
+  <data name="UserMobile_VerifiedDate" xml:space="preserve">
+    <value>Ngày xác thực</value>
+  </data>
+  <data name="UserProfile_Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="UserProfile_Birthday" xml:space="preserve">
+    <value>Ngày sinh</value>
+  </data>
+  <data name="UserProfile_CertDate" xml:space="preserve">
+    <value>Ngày cấp chứng chỉ</value>
+  </data>
+  <data name="UserProfile_CertNo" xml:space="preserve">
+    <value>Số chứng chỉ</value>
+  </data>
+  <data name="UserProfile_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành phố</value>
+  </data>
+  <data name="UserProfile_CustomerId" xml:space="preserve">
+    <value>Mã khách</value>
+  </data>
+  <data name="UserProfile_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="UserProfile_Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="UserProfile_FullName" xml:space="preserve">
+    <value>Tên đầy đủ</value>
+  </data>
+  <data name="UserProfile_GenderId" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="UserProfile_Google" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="UserProfile_IDCard" xml:space="preserve">
+    <value>CMND/Passport</value>
+  </data>
+  <data name="UserProfile_IDCardTypeId" xml:space="preserve">
+    <value>Loại giấy tờ</value>
+  </data>
+  <data name="UserProfile_Introduction" xml:space="preserve">
+    <value>Tự giới thiệu</value>
+  </data>
+  <data name="UserProfile_IsLocked" xml:space="preserve">
+    <value>Khóa tài khoản</value>
+  </data>
+  <data name="UserProfile_LastIP" xml:space="preserve">
+    <value>IP đăng nhập</value>
+  </data>
+  <data name="UserProfile_LastLogin" xml:space="preserve">
+    <value>Đăng nhập cuối</value>
+  </data>
+  <data name="UserProfile_LevelExpired" xml:space="preserve">
+    <value>Ngày hết hạn</value>
+  </data>
+  <data name="UserProfile_LevelId" xml:space="preserve">
+    <value>Thành viên</value>
+  </data>
+  <data name="UserProfile_LogoRectangle" xml:space="preserve">
+    <value>Logo chữ nhật</value>
+  </data>
+  <data name="UserProfile_LogoSquare" xml:space="preserve">
+    <value>Logo vuông</value>
+  </data>
+  <data name="UserProfile_Member_AcceptedDate" xml:space="preserve">
+    <value>Ngày chấp nhận lời mời</value>
+  </data>
+  <data name="UserProfile_Member_Code" xml:space="preserve">
+    <value>Mã thành viên</value>
+  </data>
+  <data name="UserProfile_Member_IsAccepted" xml:space="preserve">
+    <value>Chấp nhận lời mời</value>
+  </data>
+  <data name="UserProfile_Member_Roles" xml:space="preserve">
+    <value>Quyền của thành viên</value>
+  </data>
+  <data name="UserProfile_Mobile" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="UserProfile_OrgId" xml:space="preserve">
+    <value>Mã tổ chức</value>
+  </data>
+  <data name="UserProfile_OwnerBy" xml:space="preserve">
+    <value>Người phụ trách</value>
+  </data>
+  <data name="UserProfile_Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="UserProfile_Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="UserProfile_Socials" xml:space="preserve">
+    <value>Mạng xã hội</value>
+    <comment>{Facebook:, Twitter:, LinkedIn:, Skype:, Yahoo:}</comment>
+  </data>
+  <data name="UserProfile_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="UserProfile_StreetId" xml:space="preserve">
+    <value>Đường</value>
+  </data>
+  <data name="UserProfile_TotalRent" xml:space="preserve">
+    <value>Tổng tin Cho thuê</value>
+  </data>
+  <data name="UserProfile_TotalSale" xml:space="preserve">
+    <value>Tổng tin Bán</value>
+  </data>
+  <data name="UserProfile_UserId" xml:space="preserve">
+    <value>Mã tài khoản</value>
+  </data>
+  <data name="UserProfile_UserName" xml:space="preserve">
+    <value>Tên đăng nhập</value>
+  </data>
+  <data name="UserProfile_UserTypeId" xml:space="preserve">
+    <value>Loại môi giới</value>
+  </data>
+  <data name="UserProfile_Verified" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="UserProfile_VerifiedCertNo" xml:space="preserve">
+    <value>Ngày xác thực Chứng chỉ</value>
+  </data>
+  <data name="UserProfile_VerifiedEmail" xml:space="preserve">
+    <value>Ngày xác thực Email</value>
+  </data>
+  <data name="UserProfile_VerifiedIDCard" xml:space="preserve">
+    <value>Ngày xác thực CMND/Passport</value>
+  </data>
+  <data name="UserProfile_VerifiedLogo" xml:space="preserve">
+    <value>Ngày xác thực Logo</value>
+  </data>
+  <data name="UserProfile_VerifiedMobile" xml:space="preserve">
+    <value>Ngày xác thực Số di động</value>
+  </data>
+  <data name="UserProfile_WardId" xml:space="preserve">
+    <value>Phường</value>
+  </data>
+  <data name="UserProfile_FirstName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="UserProfile_LastName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="Register_ConfirmPassword" xml:space="preserve">
+    <value>Nhập lại mật khẩu</value>
+  </data>
+  <data name="Ward_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="Ward_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Ward_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="Ward_Name" xml:space="preserve">
+    <value>Tên phường</value>
+  </data>
+  <data name="Ward_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Ward_WardId" xml:space="preserve">
+    <value>WardId</value>
+  </data>
+  <data name="Zone_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="Zone_Code" xml:space="preserve">
+    <value>Mã khu vực</value>
+  </data>
+  <data name="Zone_IsFree" xml:space="preserve">
+    <value>Miễn phí</value>
+  </data>
+  <data name="Zone_Name" xml:space="preserve">
+    <value>Tên khu vực</value>
+  </data>
+  <data name="Zone_ZoneId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Map_Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="Map_Keywords" xml:space="preserve">
+    <value>Từ khóa</value>
+  </data>
+  <data name="Map_Name" xml:space="preserve">
+    <value>Tên hiển thị</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Place_CityId" xml:space="preserve">
+    <value>Tỉnh thành</value>
+  </data>
+  <data name="Place_CodeUrl" xml:space="preserve">
+    <value>CodeUrl</value>
+  </data>
+  <data name="Place_DistrictId" xml:space="preserve">
+    <value>Quận/huyện</value>
+  </data>
+  <data name="Place_Enabled" xml:space="preserve">
+    <value>Sử dụng</value>
+  </data>
+  <data name="Place_Name" xml:space="preserve">
+    <value>Tên địa danh</value>
+  </data>
+  <data name="Place_Sort" xml:space="preserve">
+    <value>Sắp xếp</value>
+  </data>
+  <data name="UserProfile_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="UserProfile_IsVerifiedCerNo" xml:space="preserve">
+    <value>Xác thực chứng chỉ môi giới</value>
+  </data>
+  <data name="UserProfile_IsVerifiedEmail" xml:space="preserve">
+    <value>Xác thực Email</value>
+  </data>
+  <data name="UserProfile_IsVerifiedIDCard" xml:space="preserve">
+    <value>Xác thực CMND</value>
+  </data>
+  <data name="UserProfile_IsVerifiedLogo" xml:space="preserve">
+    <value>Xác thực Logo</value>
+  </data>
+  <data name="UserProfile_IsVerifiedMobile" xml:space="preserve">
+    <value>Xác thực Số ĐT</value>
+  </data>
+  <data name="ProjectPropertyType_MaxArea" xml:space="preserve">
+    <value>Diện tích lớn nhất</value>
+  </data>
+  <data name="ProjectPropertyType_MaxRentPrice" xml:space="preserve">
+    <value>Giá cho thuê đến</value>
+  </data>
+  <data name="ProjectPropertyType_MaxSalePrice" xml:space="preserve">
+    <value>Giá bán đến</value>
+  </data>
+  <data name="ProjectPropertyType_MinArea" xml:space="preserve">
+    <value>Diện tích nhỏ nhất</value>
+  </data>
+  <data name="ProjectPropertyType_MinRentPrice" xml:space="preserve">
+    <value>Giá cho thuê từ</value>
+  </data>
+  <data name="ProjectPropertyType_MinSalePrice" xml:space="preserve">
+    <value>Giá bán từ</value>
+  </data>
+  <data name="UserProfile_Message" xml:space="preserve">
+    <value>Thông báo lỗi</value>
+  </data>
+  <data name="UserProfile_Months" xml:space="preserve">
+    <value>Số tháng</value>
+  </data>
+  <data name="UserZone_ZoneId" xml:space="preserve">
+    <value>Khu vực</value>
+  </data>
+  <data name="UserZone_DelegateBy" xml:space="preserve">
+    <value>Ủy quền</value>
+  </data>
+  <data name="UserZone_DelegateDate" xml:space="preserve">
+    <value>Ngày Ủy quền</value>
+  </data>
+  <data name="ApprovedBy" xml:space="preserve">
+    <value>Người duyệt</value>
+  </data>
+  <data name="ApprovedDate" xml:space="preserve">
+    <value>Ngày duyệt</value>
+  </data>
+  <data name="Property_Address" xml:space="preserve">
+    <value>Số nhà</value>
+  </data>
+  <data name="Property_Area" xml:space="preserve">
+    <value>Diện tích sử dụng</value>
+  </data>
+  <data name="Property_BathRooms" xml:space="preserve">
+    <value>Số phòng tắm</value>
+  </data>
+  <data name="Property_BedRooms" xml:space="preserve">
+    <value>Số phòng ngủ</value>
+  </data>
+  <data name="Property_Body" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Property_BuiltYear" xml:space="preserve">
+    <value>Năm xây dựng</value>
+  </data>
+  <data name="Property_BusinessFeatures" xml:space="preserve">
+    <value>Đặc điểm kinh doanh</value>
+  </data>
+  <data name="Property_CanUseCar" xml:space="preserve">
+    <value>Ô tô đỗ cửa</value>
+  </data>
+  <data name="Property_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="Property_ClientIP" xml:space="preserve">
+    <value>ClientIP</value>
+  </data>
+  <data name="Property_ContactAddress" xml:space="preserve">
+    <value>Địa chỉ liên hệ</value>
+  </data>
+  <data name="Property_ContactMobile" xml:space="preserve">
+    <value>Số di động</value>
+  </data>
+  <data name="Property_ContactName" xml:space="preserve">
+    <value>Người liên hệ</value>
+  </data>
+  <data name="Property_ContactPhone" xml:space="preserve">
+    <value>Số cố định</value>
+  </data>
+  <data name="Property_Contract" xml:space="preserve">
+    <value>Hợp đồng</value>
+  </data>
+  <data name="Property_CoverObject" xml:space="preserve">
+    <value>Hình ảnh riêng</value>
+  </data>
+  <data name="Property_CurrencyId" xml:space="preserve">
+    <value>Loại tiền tệ</value>
+  </data>
+  <data name="Property_CustomerId" xml:space="preserve">
+    <value>Mã khách hàng</value>
+  </data>
+  <data name="Property_Deposit" xml:space="preserve">
+    <value>Đặt cọc</value>
+  </data>
+  <data name="Property_DirectionId" xml:space="preserve">
+    <value>Hướng</value>
+  </data>
+  <data name="Property_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="Property_EditXML" xml:space="preserve">
+    <value>EditXML</value>
+  </data>
+  <data name="Property_ExpiredDate" xml:space="preserve">
+    <value>Ngày hết hạn</value>
+  </data>
+  <data name="Property_Facade" xml:space="preserve">
+    <value>Số mặt tiền</value>
+  </data>
+  <data name="Property_Features" xml:space="preserve">
+    <value>Đặc điểm riêng</value>
+  </data>
+  <data name="Property_Floor" xml:space="preserve">
+    <value>Vị trí lầu</value>
+  </data>
+  <data name="Property_FloorPlan" xml:space="preserve">
+    <value>Tổng số anh thiets kế</value>
+  </data>
+  <data name="Property_FloorPlanObject" xml:space="preserve">
+    <value>Hình thiết kế</value>
+  </data>
+  <data name="Property_ForRent" xml:space="preserve">
+    <value>Cho thuê</value>
+  </data>
+  <data name="Property_HiddenAddress" xml:space="preserve">
+    <value>Ẩn số nhà</value>
+  </data>
+  <data name="Property_ImageObject" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Property_IndoorUtilities" xml:space="preserve">
+    <value>Tiện nghi trong nhà</value>
+  </data>
+  <data name="Property_LandArea" xml:space="preserve">
+    <value>Diện tích đất</value>
+  </data>
+  <data name="Property_LegalId" xml:space="preserve">
+    <value>Pháp lý</value>
+  </data>
+  <data name="Property_Length" xml:space="preserve">
+    <value>Chiều dài</value>
+  </data>
+  <data name="Property_Location" xml:space="preserve">
+    <value>Bản đồ</value>
+  </data>
+  <data name="Property_ManagementFee" xml:space="preserve">
+    <value>Phí quản lý</value>
+  </data>
+  <data name="Property_MediaState" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Property_NumOfFloors" xml:space="preserve">
+    <value>Số lầu</value>
+  </data>
+  <data name="Property_OtherRooms" xml:space="preserve">
+    <value>Phòng khác</value>
+  </data>
+  <data name="Property_OutdoorUtilities" xml:space="preserve">
+    <value>Tiện ích xung quanh</value>
+  </data>
+  <data name="Property_OwnerBy" xml:space="preserve">
+    <value>Người sở hữu</value>
+  </data>
+  <data name="Property_ParentId" xml:space="preserve">
+    <value>Mã BĐS gốc</value>
+  </data>
+  <data name="Property_Price" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="Property_ProfileId" xml:space="preserve">
+    <value>Người đăng</value>
+  </data>
+  <data name="Property_ProjectId" xml:space="preserve">
+    <value>Thuộc dự án</value>
+  </data>
+  <data name="Property_PropertyId" xml:space="preserve">
+    <value>Mã BĐS</value>
+  </data>
+  <data name="Property_PropertyTypeId" xml:space="preserve">
+    <value>Loại BĐS</value>
+  </data>
+  <data name="Property_Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="Property_PublishDate" xml:space="preserve">
+    <value>Ngày hiển thị</value>
+  </data>
+  <data name="Property_RoadWidth" xml:space="preserve">
+    <value>Đường trước nhà</value>
+  </data>
+  <data name="Property_SEODescription" xml:space="preserve">
+    <value>SEODescription</value>
+  </data>
+  <data name="Property_SEOKeyword" xml:space="preserve">
+    <value>SEOKeyword</value>
+  </data>
+  <data name="Property_SEOTitle" xml:space="preserve">
+    <value>SEOTitle</value>
+  </data>
+  <data name="Property_SEOUrl" xml:space="preserve">
+    <value>SEO Url</value>
+  </data>
+  <data name="Property_Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Property_Sort" xml:space="preserve">
+    <value>Sắp xếp</value>
+  </data>
+  <data name="Property_SourceId" xml:space="preserve">
+    <value>Nguồn đăng</value>
+  </data>
+  <data name="Property_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Property_StreetId" xml:space="preserve">
+    <value>Đường</value>
+  </data>
+  <data name="Property_SubPropertyTypeId" xml:space="preserve">
+    <value>Kiểu BĐS</value>
+  </data>
+  <data name="Property_Summary" xml:space="preserve">
+    <value>Tóm tắt</value>
+  </data>
+  <data name="Property_Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Property_TotalImage" xml:space="preserve">
+    <value>Số hình</value>
+  </data>
+  <data name="Property_TotalPrice" xml:space="preserve">
+    <value>Tổng giá</value>
+  </data>
+  <data name="Property_VideoObject" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Property_WardId" xml:space="preserve">
+    <value>Phường/Xã</value>
+  </data>
+  <data name="Property_Width" xml:space="preserve">
+    <value>Chiều rộng</value>
+  </data>
+  <data name="Property_WidthBehind" xml:space="preserve">
+    <value>Nở hậu</value>
+  </data>
+  <data name="IsActived" xml:space="preserve">
+    <value>Kích hoạt</value>
+  </data>
+  <data name="IsDraft" xml:space="preserve">
+    <value>Đang soạn</value>
+  </data>
+  <data name="Property_UpLatest" xml:space="preserve">
+    <value>Ngày UP</value>
+  </data>
+  <data name="Property_UpTime" xml:space="preserve">
+    <value>Giờ UP</value>
+  </data>
+  <data name="IsSEO" xml:space="preserve">
+    <value>SEO</value>
+  </data>
+  <data name="PostingField_FieldId" xml:space="preserve">
+    <value>Mã trường</value>
+  </data>
+  <data name="PostingField_Name" xml:space="preserve">
+    <value>Tên trường</value>
+  </data>
+  <data name="PostingField_Label" xml:space="preserve">
+    <value>Nhãn trường</value>
+  </data>
+  <data name="PostingField_PlaceHolder" xml:space="preserve">
+    <value>Thay thế</value>
+  </data>
+  <data name="PostingField_Tooltip" xml:space="preserve">
+    <value>Tooltip</value>
+  </data>
+  <data name="PostingField_Min" xml:space="preserve">
+    <value>Nhỏ nhất</value>
+  </data>
+  <data name="PostingField_Max" xml:space="preserve">
+    <value>Lớn nhất</value>
+  </data>
+  <data name="PostingField_MinLength" xml:space="preserve">
+    <value>Ngắn nhất</value>
+  </data>
+  <data name="PostingField_MaxLength" xml:space="preserve">
+    <value>Dài nhất</value>
+  </data>
+  <data name="PostingField_Pattern" xml:space="preserve">
+    <value>Kiểu</value>
+  </data>
+  <data name="PostingUI_FieldId" xml:space="preserve">
+    <value>Tên trường</value>
+  </data>
+  <data name="PostingUI_ForRent" xml:space="preserve">
+    <value>Cho thuê</value>
+  </data>
+  <data name="PostingUI_Label" xml:space="preserve">
+    <value>Tên hiển thị</value>
+  </data>
+  <data name="PostingUI_PropertyTypeId" xml:space="preserve">
+    <value>Loại bất động sản</value>
+  </data>
+  <data name="PostingUI_Required" xml:space="preserve">
+    <value>Bắt buộc Nhập/Chọn</value>
+  </data>
+  <data name="PostingUI_SubPropertyTypeId" xml:space="preserve">
+    <value>Kiểu bất động sản</value>
+  </data>
+  <data name="PostingUI_Tooltip" xml:space="preserve">
+    <value>Hướng dẫn</value>
+  </data>
+  <data name="PostingUI_PlaceHolder" xml:space="preserve">
+    <value>Thay thế</value>
+  </data>
+  <data name="PostingUI_Min" xml:space="preserve">
+    <value>Nhỏ nhất</value>
+  </data>
+  <data name="PostingUI_Max" xml:space="preserve">
+    <value>Lớn nhất</value>
+  </data>
+  <data name="PostingUI_MinLength" xml:space="preserve">
+    <value>Ngắn nhất</value>
+  </data>
+  <data name="PostingUI_MaxLength" xml:space="preserve">
+    <value>Dài nhất</value>
+  </data>
+  <data name="PostingUI_Pattern" xml:space="preserve">
+    <value>Kiểu</value>
+  </data>
+  <data name="PostingUI_Number" xml:space="preserve">
+    <value>Số</value>
+  </data>
+  <data name="PostingUI_Hidden" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
+  <data name="FilterRange_FilterId" xml:space="preserve">
+    <value>Lọc theo</value>
+  </data>
+  <data name="FilterRange_FromValue" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="FilterRange_Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="FilterRange_ToValue" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="Filter_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="Filter_CustomValueFactor" xml:space="preserve">
+    <value>Thừa số</value>
+  </data>
+  <data name="Filter_CustomValueSuffix" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="Filter_FilterId" xml:space="preserve">
+    <value>Khóa chính</value>
+  </data>
+  <data name="Filter_FilterType" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="Filter_Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Filter_UrlTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="Filter_ForRent" xml:space="preserve">
+    <value>Cho thuê</value>
+  </data>
+  <data name="Filter_ForSale" xml:space="preserve">
+    <value>Bán</value>
+  </data>
+  <data name="Project_PropertyTypes" xml:space="preserve">
+    <value>Loại BĐS</value>
+  </data>
+  <data name="Property_TotalFloorPlan" xml:space="preserve">
+    <value>Số hình</value>
+  </data>
+  <data name="Media_Created" xml:space="preserve">
+    <value>Media_Created</value>
+  </data>
+  <data name="Media_CreatedBy" xml:space="preserve">
+    <value>Media_CreatedBy</value>
+  </data>
+  <data name="Media_Duration" xml:space="preserve">
+    <value>Media_Duration</value>
+  </data>
+  <data name="Media_Height" xml:space="preserve">
+    <value>Media_Height</value>
+  </data>
+  <data name="Media_MediaId" xml:space="preserve">
+    <value>MediaId</value>
+  </data>
+  <data name="Media_MediaTypeId" xml:space="preserve">
+    <value>Media_MediaTypeId</value>
+  </data>
+  <data name="Media_MediaUrl" xml:space="preserve">
+    <value>Media_MediaUrl</value>
+  </data>
+  <data name="Media_Publish" xml:space="preserve">
+    <value>Media_Publish</value>
+  </data>
+  <data name="Media_ReferId" xml:space="preserve">
+    <value>Media_ReferId</value>
+  </data>
+  <data name="Media_ReferTypeId" xml:space="preserve">
+    <value>Media_ReferTypeId</value>
+  </data>
+  <data name="Media_ServerId" xml:space="preserve">
+    <value>Media_ServerId</value>
+  </data>
+  <data name="Media_Size" xml:space="preserve">
+    <value>Media_Size</value>
+  </data>
+  <data name="Media_Sort" xml:space="preserve">
+    <value>Media_Sort</value>
+  </data>
+  <data name="Media_Status" xml:space="preserve">
+    <value>Media_Status</value>
+  </data>
+  <data name="Media_Title" xml:space="preserve">
+    <value>Media_Title</value>
+  </data>
+  <data name="Media_Updated" xml:space="preserve">
+    <value>Media_Updated</value>
+  </data>
+  <data name="Media_UpdatedBy" xml:space="preserve">
+    <value>Media_UpdatedBy</value>
+  </data>
+  <data name="Media_Width" xml:space="preserve">
+    <value>Media_Width</value>
+  </data>
+  <data name="Property_RejectedMessage" xml:space="preserve">
+    <value>Lý do từ chối</value>
+  </data>
+  <data name="HelpLink_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="HelpLink_Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="HelpLink_Hits" xml:space="preserve">
+    <value>Click</value>
+  </data>
+  <data name="HelpLink_LinkId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="HelpLink_LinkType" xml:space="preserve">
+    <value>Loại liên kết</value>
+  </data>
+  <data name="HelpLink_Name" xml:space="preserve">
+    <value>Tên liên kết</value>
+  </data>
+  <data name="HelpLink_TargetUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Map_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="CMS_Category_CategoryId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="CMS_Category_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="CMS_Category_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="CMS_Category_Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="CMS_Category_Name" xml:space="preserve">
+    <value>Tên chuyên mục</value>
+  </data>
+  <data name="CMS_Category_FullName" xml:space="preserve">
+    <value>Tên chuyên mục đầy đủ</value>
+  </data>
+  <data name="CMS_Category_ParentId" xml:space="preserve">
+    <value>Cấp cha</value>
+  </data>
+  <data name="CMS_Category_TargetUrl" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="CMS_Category_TemplateId" xml:space="preserve">
+    <value>Mẫu hiển thị</value>
+  </data>
+  <data name="CMS_Category_GroupId" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="CMS_News_Body" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="CMS_News_CategoryId" xml:space="preserve">
+    <value>Chuyên mục</value>
+  </data>
+  <data name="CMS_News_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="CMS_News_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="CMS_News_NewsId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="CMS_News_CoverImage" xml:space="preserve">
+    <value>Hình đại diện</value>
+  </data>
+  <data name="CMS_News_HasImage" xml:space="preserve">
+    <value>Có hình</value>
+  </data>
+  <data name="CMS_News_Images" xml:space="preserve">
+    <value>Hình</value>
+  </data>
+  <data name="CMS_News_PublishDate" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="CMS_News_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="CMS_News_Subject" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="CMS_News_Summary" xml:space="preserve">
+    <value>Tóm tắt</value>
+  </data>
+  <data name="CMS_News_Publish" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="CMS_Template_Body" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="CMS_Template_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="CMS_Template_Name" xml:space="preserve">
+    <value>Tên mẫu</value>
+  </data>
+  <data name="CMS_Template_TemplateId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Property_StickerId" xml:space="preserve">
+    <value>Sticker</value>
+  </data>
+  <data name="UserInbox_Body" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="UserInbox_Created" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="UserInbox_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="UserInbox_InboxId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="UserInbox_InboxTypeId" xml:space="preserve">
+    <value>Loại tin nhắn</value>
+  </data>
+  <data name="UserInbox_IsDeleted" xml:space="preserve">
+    <value>Đã xóa</value>
+  </data>
+  <data name="UserInbox_IsRead" xml:space="preserve">
+    <value>Đã xem</value>
+  </data>
+  <data name="UserInbox_Mobile" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="UserInbox_ProfileId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="UserInbox_PropertyId" xml:space="preserve">
+    <value>Mã tin</value>
+  </data>
+  <data name="UserInbox_PropertyUrl" xml:space="preserve">
+    <value>Liên kết</value>
+  </data>
+  <data name="UserInbox_ReadDate" xml:space="preserve">
+    <value>Ngày xem</value>
+  </data>
+  <data name="UserInbox_Sender" xml:space="preserve">
+    <value>Họ &amp; Tên</value>
+  </data>
+  <data name="UserInbox_SentDate" xml:space="preserve">
+    <value>ngày gửi</value>
+  </data>
+  <data name="UserInbox_Updated" xml:space="preserve">
+    <value>Ngảy sửa</value>
+  </data>
+  <data name="UserProfile_NewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="UserProfile_OldPassword" xml:space="preserve">
+    <value>Mật khẩu hiện tại</value>
+  </data>
+  <data name="UserProfile_MBPayAccount" xml:space="preserve">
+    <value>Tài khoản MBPay</value>
+  </data>
+  <data name="FeedBack_Content" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="FeedBack_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FeedBack_Mobile" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="IsStopped" xml:space="preserve">
+    <value>Ngưng</value>
+  </data>
+  <data name="Property_StopDate" xml:space="preserve">
+    <value>Ngày ngưng</value>
+  </data>
+  <data name="Property_StopTypeId" xml:space="preserve">
+    <value>Lý do ngưng</value>
+  </data>
+  <data name="SEO_Description" xml:space="preserve">
+    <value>SEO Description</value>
+  </data>
+  <data name="SEO_Keyword" xml:space="preserve">
+    <value>SEO Keyword</value>
+  </data>
+  <data name="SEO_Title" xml:space="preserve">
+    <value>SEO Title</value>
+  </data>
+  <data name="BackOfficeUser_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="BackOfficeUser_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="BackOfficeUser_FullName" xml:space="preserve">
+    <value>Họ &amp; Tên</value>
+  </data>
+  <data name="BackOfficeUser_IsSale" xml:space="preserve">
+    <value>NVCS</value>
+  </data>
+  <data name="BackOfficeUser_UserName" xml:space="preserve">
+    <value>Tên đăng nhập</value>
+  </data>
+  <data name="Project_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="UserProfile_ShortIntro" xml:space="preserve">
+    <value>Giới thiệu ngắn gọn</value>
+  </data>
+  <data name="IsLaterApprove" xml:space="preserve">
+    <value>Duyệt sau</value>
+  </data>
+  <data name="SEO_PageDetail_CityId" xml:space="preserve">
+    <value>Tỉnh/Thành</value>
+  </data>
+  <data name="SEO_PageDetail_Description" xml:space="preserve">
+    <value>Meta Description</value>
+  </data>
+  <data name="SEO_PageDetail_DistrictId" xml:space="preserve">
+    <value>Quận/Huyện</value>
+  </data>
+  <data name="SEO_PageDetail_Footer" xml:space="preserve">
+    <value>Footer</value>
+  </data>
+  <data name="SEO_PageDetail_Keyword" xml:space="preserve">
+    <value>Meta Keyword</value>
+  </data>
+  <data name="SEO_PageDetail_PageDescription" xml:space="preserve">
+    <value>Mô tả trang</value>
+  </data>
+  <data name="SEO_PageDetail_PageId" xml:space="preserve">
+    <value>Trang</value>
+  </data>
+  <data name="SEO_PageDetail_PropertyTypeId" xml:space="preserve">
+    <value>Loại/Kiểu BĐS</value>
+  </data>
+  <data name="SEO_PageDetail_Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="SEO_PageDetail_Title" xml:space="preserve">
+    <value>Meta Title</value>
+  </data>
+  <data name="SEO_PageDetail_TitlePage" xml:space="preserve">
+    <value>Tiêu đề trang</value>
+  </data>
+  <data name="Project_IsFocus" xml:space="preserve">
+    <value>Dự án nổi bật</value>
+  </data>
+  <data name="Property_CodeUrl" xml:space="preserve">
+    <value>CodeUrl</value>
+  </data>
+  <data name="PropertySEO_Canonical" xml:space="preserve">
+    <value>SEO_Canonical</value>
+  </data>
+  <data name="PropertySEO_Description" xml:space="preserve">
+    <value>SEO_Description</value>
+  </data>
+  <data name="PropertySEO_Keyword" xml:space="preserve">
+    <value>SEO_Keyword</value>
+  </data>
+  <data name="PropertySEO_Title" xml:space="preserve">
+    <value>SEO_Title</value>
+  </data>
+  <data name="UserProfile_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="BackOfficeUser_Notify" xml:space="preserve">
+    <value>Nhận thông báo</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Số di động</value>
+  </data>
+  <data name="UserProfile_Languages" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="UserProfile_IsHidden" xml:space="preserve">
+    <value>Ẩn môi giới</value>
+  </data>
+  <data name="Lang" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="UserProfile_LanguageId" xml:space="preserve">
+    <value>Ngôn ngữ liên hệ</value>
+  </data>
+  <data name="UserProfile_FullName_Format" xml:space="preserve">
+    <value>{0} {1}</value>
+  </data>
+  <data name="UserProfile_ConfirmNewPassword" xml:space="preserve">
+    <value>Nhập lại mật khẩu mới</value>
+  </data>
+  <data name="UserZone_LanguageId" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="UserMessage_Body" xml:space="preserve">
+    <value> Nội dung</value>
+  </data>
+  <data name="UserMessage_Created" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="UserMessage_CreatedBy" xml:space="preserve">
+    <value>Người tạo</value>
+  </data>
+  <data name="UserMessage_Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="UserMessage_MessageId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="UserMessage_MessageTypeId" xml:space="preserve">
+    <value>Loại tin</value>
+  </data>
+  <data name="UserMessage_Publish" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="UserMessage_StartDate" xml:space="preserve">
+    <value>Ngày gửi</value>
+  </data>
+  <data name="UserMessage_Subject" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="UserMessage_TargetUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="UserMessage_Updated" xml:space="preserve">
+    <value>Ngày sửa</value>
+  </data>
+  <data name="UserMessage_UpdatedBy" xml:space="preserve">
+    <value>Người sửa</value>
+  </data>
+  <data name="Project_MaxArea" xml:space="preserve">
+    <value>đến</value>
+  </data>
+  <data name="Project_MaxPrice" xml:space="preserve">
+    <value>đến</value>
+  </data>
+  <data name="Project_MinArea" xml:space="preserve">
+    <value>Diện tích từ</value>
+  </data>
+  <data name="Project_MinPrice" xml:space="preserve">
+    <value>Giá từ</value>
+  </data>
+  <data name="Project_Summary" xml:space="preserve">
+    <value>Giới thiệu tóm tắt</value>
+  </data>
+  <data name="Org_CodeUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="UserProfile_ZoneId" xml:space="preserve">
+    <value>Khu vực đăng tin</value>
+  </data>
+  <data name="ConfirmMobile_Code" xml:space="preserve">
+    <value>Mã xác thực</value>
+  </data>
+  <data name="Reward_Name" xml:space="preserve">
+    <value>Tên chương trình</value>
+  </data>
+  <data name="Reward_Languages" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="Reward_Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Reward_Amount" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="Reward_UnitValue" xml:space="preserve">
+    <value>Đơn vị</value>
+  </data>
+  <data name="Reward_UnitSuffix" xml:space="preserve">
+    <value>Hậu tố đơn vị</value>
+  </data>
+  <data name="Reward_LimitTime" xml:space="preserve">
+    <value>Giới hạn số lần</value>
+  </data>
+  <data name="Reward_LimitAmount" xml:space="preserve">
+    <value>Giới hạn giá trị</value>
+  </data>
+  <data name="Reward_RuleId" xml:space="preserve">
+    <value>Quy định</value>
+  </data>
+  <data name="Reward_StartDate" xml:space="preserve">
+    <value>Bắt đầu</value>
+  </data>
+  <data name="Reward_EndDate" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="Reward_Publish" xml:space="preserve">
+    <value>Hiệu lực</value>
+  </data>
+  <data name="Loan_LoanId" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Loan_Code" xml:space="preserve">
+    <value>Mã ngân hàng</value>
+  </data>
+  <data name="Loan_Name" xml:space="preserve">
+    <value>Tên ngân hàng</value>
+  </data>
+  <data name="Loan_Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Loan_MaxLoan" xml:space="preserve">
+    <value>Khoản vay tối đa(%)</value>
+  </data>
+  <data name="Loan_MinYear" xml:space="preserve">
+    <value>Số năm tối thiểu</value>
+  </data>
+  <data name="Loan_MaxYear" xml:space="preserve">
+    <value>Số năm tối đa</value>
+  </data>
+  <data name="Loan_SpecialInterestRate" xml:space="preserve">
+    <value>Lãi suất ưu đãi</value>
+  </data>
+  <data name="Loan_InterestRate6Month" xml:space="preserve">
+    <value>Ưu đãi 6 tháng</value>
+  </data>
+  <data name="Loan_InterestRate1Year" xml:space="preserve">
+    <value>Ưu đãi 1 năm</value>
+  </data>
+  <data name="Loan_InterestRate2Year" xml:space="preserve">
+    <value>Ưu đãi 2 năm</value>
+  </data>
+  <data name="Loan_InterestRate3Year" xml:space="preserve">
+    <value>Ưu đãi 3 năm</value>
+  </data>
+  <data name="Loan_InterestRate4Year" xml:space="preserve">
+    <value>Ưu đãi 4 năm</value>
+  </data>
+  <data name="Loan_InterestRate5Year" xml:space="preserve">
+    <value>Ưu đãi 5 năm</value>
+  </data>
+  <data name="Loan_SavingInterestRate" xml:space="preserve">
+    <value>Lãi suất tiết kiệm</value>
+  </data>
+  <data name="Loan_InterestRateDelta" xml:space="preserve">
+    <value>Lãi suất biến động</value>
+  </data>
+  <data name="Loan_InterestRate" xml:space="preserve">
+    <value>Lãi suất cho vay</value>
+  </data>
+  <data name="Loan_InterestRateFormula" xml:space="preserve">
+    <value>Công thức tính</value>
+  </data>
+  <data name="Loan_Fee" xml:space="preserve">
+    <value>Phí</value>
+  </data>
+  <data name="Loan_Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Loan_Publish" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="SEO_SEOId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="SEO_ReferId" xml:space="preserve">
+    <value>SEO_ReferId</value>
+  </data>
+  <data name="SEO_ReferTypeId" xml:space="preserve">
+    <value>SEO_ReferTypeId</value>
+  </data>
+  <data name="SEO_Url" xml:space="preserve">
+    <value>SEO_Url</value>
+  </data>
+  <data name="Banner_BannerId" xml:space="preserve">
+    <value>ID banner</value>
+  </data>
+  <data name="Banner_Code" xml:space="preserve">
+    <value>Mã banner</value>
+  </data>
+  <data name="Banner_Name" xml:space="preserve">
+    <value>Tên banner</value>
+  </data>
+  <data name="Banner_Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Banner_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Banner_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Banner_Rel" xml:space="preserve">
+    <value>Rel</value>
+  </data>
+  <data name="Banner_GA_Event" xml:space="preserve">
+    <value>GA_Event</value>
+  </data>
+  <data name="Banner_GA_Category" xml:space="preserve">
+    <value>GA_Category</value>
+  </data>
+  <data name="Banner_GA_Action" xml:space="preserve">
+    <value>GA_Action</value>
+  </data>
+  <data name="Banner_MediaTypeId" xml:space="preserve">
+    <value>Loại Media</value>
+  </data>
+  <data name="Banner_MediaUrl" xml:space="preserve">
+    <value>Media Url</value>
+  </data>
+  <data name="Banner_MediaUrl_Tablet" xml:space="preserve">
+    <value>Media Url Tablet</value>
+  </data>
+  <data name="Banner_MediaUrl_Mobile" xml:space="preserve">
+    <value>Media Url Mobile</value>
+  </data>
+  <data name="Banner_Dimension" xml:space="preserve">
+    <value>Kích cỡ</value>
+  </data>
+  <data name="Banner_Publish" xml:space="preserve">
+    <value>Hiệu lực</value>
+  </data>
+  <data name="CouponExt_RewardId" xml:space="preserve">
+    <value>Chương trình thưởng</value>
+  </data>
+  <data name="CouponExt_RewardTypeId" xml:space="preserve">
+    <value>Loại mã thưởng</value>
+  </data>
+  <data name="CouponExt_InvoiceTypeId" xml:space="preserve">
+    <value>Loại hóa đơn</value>
+  </data>
+  <data name="CouponExt_Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="CouponExt_Amount" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="CouponExt_Days" xml:space="preserve">
+    <value>Số ngày</value>
+  </data>
+  <data name="CouponExt_IsActived" xml:space="preserve">
+    <value>Kích hoạt</value>
+  </data>
+  <data name="CouponExt_GeneralCode" xml:space="preserve">
+    <value>Mã dùng chung</value>
+  </data>
+  <data name="CouponExt_Mobile" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="CouponExt_Description" xml:space="preserve">
+    <value>Diễn giải</value>
+  </data>
+  <data name="Suggest_SuggestId" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Suggest_Code" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="Suggest_Name" xml:space="preserve">
+    <value>Từ khóa</value>
+  </data>
+  <data name="Suggest_Priority" xml:space="preserve">
+    <value>Ưu tiên</value>
+  </data>
+  <data name="Suggest_Sort" xml:space="preserve">
+    <value>Sắp xếp</value>
+  </data>
+  <data name="Suggest_IsApproved" xml:space="preserve">
+    <value>Đã duyệt</value>
+  </data>
+  <data name="Suggest_ApprovedDate" xml:space="preserve">
+    <value>Ngày duyệt</value>
+  </data>
+  <data name="Suggest_ApprovedBy" xml:space="preserve">
+    <value>Duyệt bởi</value>
+  </data>
+  <data name="Suggest_Publish" xml:space="preserve">
+    <value>Hiệu lực</value>
+  </data>
+  <data name="Suggest_Synonym" xml:space="preserve">
+    <value>Synonym</value>
+  </data>
+  <data name="Suggest_TotalResults" xml:space="preserve">
+    <value>Kết quả</value>
+  </data>
+  <data name="SuggestCategory_CategoryId" xml:space="preserve">
+    <value>Kiểu BĐS</value>
+  </data>
+  <data name="Suggest_Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="CouponExt_Code" xml:space="preserve">
+    <value>Mã code</value>
+  </data>
+  <data name="Place_PlaceTypeId" xml:space="preserve">
+    <value>Loại địa danh</value>
+  </data>
+  <data name="WardRate_CategoryId" xml:space="preserve">
+    <value>Danh mục</value>
+  </data>
+  <data name="WardRate_Color" xml:space="preserve">
+    <value>Màu hiển thị</value>
+  </data>
+  <data name="WardRate_FromScore" xml:space="preserve">
+    <value>Từ điểm</value>
+  </data>
+  <data name="WardRate_Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="WardRate_Review" xml:space="preserve">
+    <value>Đánh giá</value>
+  </data>
+  <data name="WardRate_ToScore" xml:space="preserve">
+    <value>Đến điểm</value>
+  </data>
+  <data name="UserProfile_IsTrial" xml:space="preserve">
+    <value>Dùng thử</value>
+  </data>
+</root>

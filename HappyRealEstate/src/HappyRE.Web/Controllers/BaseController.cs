@@ -11,6 +11,7 @@ using MBN.Utils.Caching;
 using MBN.Utils.Extension;
 using System.Text.RegularExpressions;
 using HappyRE.Core.BLL.Repositories;
+using HappyRE.Core.Entities.ViewModel;
 
 namespace HappyRE.Web.Controllers
 {
@@ -44,7 +45,8 @@ namespace HappyRE.Web.Controllers
             {
                 if (string.IsNullOrEmpty(_ClientIP))
                 {
-                    _ClientIP = MBN.Security.BLL.Utils.HttpUtils.GetRequestIP();
+                    _ClientIP = (Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ??
+                   Request.ServerVariables["REMOTE_ADDR"]).Split(',')[0].Trim();
                 }
 
                 return _ClientIP;
@@ -143,26 +145,6 @@ namespace HappyRE.Web.Controllers
             }
         }
 
-		//public string MogiJS()
-		//{
-		//	bool is_auth = System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-		//	string auth = (is_auth ? "true" : "false");
-		//	string thirdparty = (Core.Utils.Common.JavaScriptThirdparty ? "true" : "false");
-		//	string member = "";
-		//	string res = string.Empty;
-		//	if (is_auth == true)
-		//	{
-		//		var u = this.UserData;
-		//		if (u != null)
-		//		{
-		//			member = (u.IsMogiPro ? "mogipro" : "member");
-		//			// dataLayer = [{'userID': '12483'}]
-		//			res = "dataLayer = [{'userID': 'agent." + u.ProfileId + (string.IsNullOrEmpty(u.Mobile) == true ? "" : ".m" + u.Mobile) + "'}];";
-		//		}
-		//	}
-		//	return $"var MOGI={{IsAuth:{auth},Thirdparty:{thirdparty},Member:'{member}'}};" + res;
-		//}
-
         internal void SignOut()
         {
             _UserData = null;
@@ -172,10 +154,6 @@ namespace HappyRE.Web.Controllers
         #endregion
 
         #region Cached
-        //private string GetCacheKey(string name, string key)
-        //{
-        //    return (name + "_" + this.ClientId() + "_" + key);
-        //}
         public List<T> GetCacheList<T>(string key)
         {
             return (List<T>)CacheManager.CacheClient.GetValue(key);
@@ -205,39 +183,6 @@ namespace HappyRE.Web.Controllers
             return null;
         }
 
-        /// <summary>
-        /// Get value from cache
-        /// cuong.phung 20.04.2017
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        //public T GetCache<T>(string name, string key)
-        //{
-        //    string cacheKey = GetCacheKey(name, key);
-        //    string value = GetCacheValue<string>(cacheKey);
-        //    if (string.IsNullOrEmpty(value) == false)
-        //    {
-        //        var obj = value.FromJson<T>();
-        //        return obj;
-        //    }
-        //    return default(T);
-        //}
-
-        /// <summary>
-        /// Save value to cache
-        /// cuong.phung 20.04.2017
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <param name="key"></param>
-        /// <param name="cache"></param>
-        //public void SaveCache<T>(string name, string key, T cache)
-        //{
-        //    string cacheKey = GetCacheKey(name, key);
-        //    cache.ToJson().MemoryCache(cacheKey);
-        //}
         #endregion
 
         #region Captcha Google
@@ -247,12 +192,12 @@ namespace HappyRE.Web.Controllers
             {
                 captcha = Request["g-recaptcha-response"];
             }
-            string secretKey = HappyRE.Core.Utils.Common.GOOGLE_CAPTCHA_SECRETKEY;
+            string secretKey = "GOOGLE_CAPTCHA_SECRETKEY";
             string clientIP = this.ClientIP;
             string url = string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}&remoteip={2}", secretKey, captcha, clientIP);
             var client = new System.Net.WebClient();
             var resp = client.DownloadString(url);
-            var data = resp.FromJson<Core.MapModels.FrontEnd.GoogleCaptchaResponse>();
+            var data = resp.FromJson<GoogleCaptchaResponse>();
             if (data == null || data.Success == false)
             {
                 return false;

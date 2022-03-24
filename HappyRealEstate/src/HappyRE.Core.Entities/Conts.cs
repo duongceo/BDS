@@ -94,5 +94,19 @@ namespace HappyRE.Core.Entities
         }
 
         #endregion
+
+        #region Validation
+        public const string VALIDATION_PASSWORD = @"^[A-Za-z0-9!@#$%^&*]{6,50}$";
+        public const string VALIDATION_OTP = "^[0-9]{6}$";
+        public const string REGEX_PATTERN_EMAIL = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
+        public const string REGEX_PATTERN_MOBILE = "^(02|03|05|07|08|09)[0-9]{8}$";
+        #endregion
+
+        #region UserProfile
+        public const string PROFILE_PROVIDER_DEFAULT = "mobile";
+        public const string PROFILE_PROVIDER_GOOGLE = "google";
+        public const string PROFILE_PROVIDER_FACEBOOK = "facebook";
+        public const string PROFILE_PROVIDER_ZALO = "zalo";
+        #endregion
     }
 }

@@ -37,6 +37,9 @@
     <Reference Include="Dapper.Contrib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.Contrib.2.0.78\lib\net461\Dapper.Contrib.dll</HintPath>
     </Reference>
+    <Reference Include="MBN.Utils">
+      <HintPath>..\libs\MBN.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -108,6 +111,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Model.Designer.cs">
+      <DependentUpon>Model.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Validation.Designer.cs">
+      <DependentUpon>Validation.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ClaimData.cs" />
     <Compile Include="ViewModel\CustomerInfoSummary.cs" />
     <Compile Include="ViewModel\ImageFileViewModel.cs" />
     <Compile Include="ViewModel\SaleOrderListViewModel.cs" />
@@ -131,6 +141,8 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Model.resx" />
+    <EmbeddedResource Include="Resources\Validation.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

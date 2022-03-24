@@ -290,6 +290,7 @@
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="HtmlFormatHelper.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AgentListViewModel.cs" />
     <Compile Include="Models\AgentMessageViewModel.cs" />
     <Compile Include="Models\AgentViewModel.cs" />
