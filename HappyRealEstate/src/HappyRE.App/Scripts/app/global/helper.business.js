@@ -231,7 +231,7 @@ var bizHelper = (function() {
         };
     renderPropertyCode = function (address, street) {
         address = (address || '').replace(' ', '_').trim();
-        street = (street || '').trim().replace('Đường ','');
+        street = (street || '').trim().replace('Đường ', '').replace('Phố ', '');
         if (street.match(/^\d/)) {
             return (address +'Đ' + street).toUpperCase();
         } 

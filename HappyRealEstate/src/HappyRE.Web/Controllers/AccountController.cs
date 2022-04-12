@@ -19,8 +19,6 @@ namespace HappyRE.Web.Controllers
 {
     public class AccountController : BaseController
     {
-		private static readonly bool ACCOUNTKIT_USE = WebUtils.AppSettings("ACCOUNTKIT_USE", false);
-		private static readonly int ACCOUNTKIT_MAX_FAIL = WebUtils.AppSettings("ACCOUNTKIT_MAX_FAIL", 3);
         public AccountController(IUow uow) : base(uow) { }
 
 		#region Đăng nhập bằng số điện thoại
@@ -45,18 +43,12 @@ namespace HappyRE.Web.Controllers
 				}
 			}
 
-			//ViewBag.ReturnUrl = returnUrl;
-			//var openIdInfo = GetOpenIdInfo();
-			//Session["Auth_State"] = openIdInfo["STATE"];
-			//return View(new LoginViewModel() { RememberMe = true, OpenId = openIdInfo });
-
 			string state = DateTime.Now.GetHashCode().ToString("x");
 			var openIdInfo = GetOpenIdInfo();
 			Session["Auth_State"] = openIdInfo["STATE"];
 			return View(new RegisterModel()
 			{
 				OpenId = openIdInfo,
-				ACK = new AccountKitAuthModel() { CSRF = this.AccountKitCSRF },
 				Step = "login",
 				ReturnUrl = returnUrl
 			});

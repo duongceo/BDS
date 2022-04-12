@@ -27,5 +27,6 @@ namespace HappyRE.Core.BLL.Repositories
         Task NotifyGood(Property obj);
 
         Task TranferImages(int? from=0, int? to=0);
+        Task CleanImages(int? from = 0, int? to = 0);
     }
 }

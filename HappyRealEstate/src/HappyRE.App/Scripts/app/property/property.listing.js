@@ -29,7 +29,7 @@
             var isAdmin = $('#canShowAllMobile').val() || "0";
             restfulSvc.get('/Property/_TotalViewedMobileToday', {}, function (res) {
                 if (isAdmin == "0") {
-                    if (confirm("Bạn đã xem " + res + " /10 SĐT được xem mỗi ngày. Bạn muốn xem thêm SĐT khách này?") == false) {
+                    if (confirm("Bạn đã xem " + res + " /" + CONFIG.MAX_VIEW_MOBILE + " SĐT được xem mỗi ngày. Bạn muốn xem thêm SĐT khách này?") == false) {
                         return;
                     }
                 } else {

@@ -333,9 +333,9 @@ ul.acc-menu li a{
 }
 
 @media only screen and (min-width: 992px) {
-    #main-container {
+   /* #main-container {
         margin-left: 200px !important;
-    }
+    }*/
 }
     @media only screen and (max-width: 1024px) {
         .k-widget.k-grid table {

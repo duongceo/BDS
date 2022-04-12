@@ -1,7 +1,9 @@
-﻿
-var common = (function() {
-    var serverMapPath = "",
+﻿var CONFIG = {
+    MAX_VIEW_MOBILE : 20
+}
 
+var common = (function() {
+    var serverMapPath = "",       
         initPath = function (path) {
             serverMapPath = path;
         },

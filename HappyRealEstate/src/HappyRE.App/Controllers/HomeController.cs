@@ -21,11 +21,12 @@ namespace HappyRE.App.Controllers
         }
 
         //[OutputCache(Duration = 3600, VaryByParam = "*")]
-        public ActionResult FAQ(int from, int to)        
+        public async Task<ActionResult> FAQ(int from, int to)        
         {
-            from = 5054;
-            to = 5054;
+            from = 1;
+            to = 1;
             //await _uow.Property.TranferImages(from, to);
+            await _uow.Property.CleanImages(from, to);
             return View();
         }
 
@@ -44,7 +45,8 @@ namespace HappyRE.App.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> _TranferImage(int from, int to)
         {
-            await _uow.Property.TranferImages(from, to);
+            //await _uow.Property.TranferImages(from, to);
+            await _uow.Property.CleanImages(from, to);
             return Json(0, JsonRequestBehavior.AllowGet);
         }
 

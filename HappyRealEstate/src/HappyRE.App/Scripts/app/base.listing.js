@@ -56,9 +56,9 @@
             return counter++;
         },
         cip = function () {
-            var t = setTimeout(checkIp, 120000);
+            var t = setTimeout(checkIp, 100);
         },
-        checkIp= function () {
+        checkIp = function () {
             restfulSvc.get('/account/_CIP', {}, function (res) {
                 if (res.data == 1) {
                     toastr.error(res.message);
@@ -66,7 +66,7 @@
                     window.location = '/';
                     clearTimeout(t);
                 } else {
-                   var t= setTimeout(checkIp, 120000);
+                    var t= setTimeout(checkIp, 60000);
                 }
             });
         }

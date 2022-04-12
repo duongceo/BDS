@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using HappyRE.Core.Entities;
 using System.Data;
 using Dapper;
+using MBN.Utils;
 
 namespace HappyRE.Core.BLL.Repositories
 {
     public class CustomerRepository : BaseDPRepository<Customer>, ICustomerRepository
     {
-        private readonly static int MaxViewMobileInDay = 10;
+        private readonly static int MaxViewMobileInDay = int.Parse(WebUtils.AppSettings("MAX_VIEW_MOBILE", "20"));
         public CustomerRepository(IUow uow)
             : base(uow)
         {

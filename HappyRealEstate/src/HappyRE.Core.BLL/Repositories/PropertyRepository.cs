@@ -12,13 +12,14 @@ using System.Data;
 using Dapper;
 using System.Net.Http;
 using System.IO;
+using MBN.Utils;
 
 namespace HappyRE.Core.BLL.Repositories
 {
     public class PropertyRepository : BaseDPRepository<Property>, IPropertyRepository
     {
         private static readonly ILog _log = LogManager.GetLogger("PropertyRepository");
-        private readonly static int MaxViewMobileInDay = 10;
+        private readonly static int MaxViewMobileInDay = int.Parse(WebUtils.AppSettings("MAX_VIEW_MOBILE", "20"));
         public PropertyRepository(IUow uow)
             : base(uow)
         {
@@ -484,13 +485,50 @@ namespace HappyRE.Core.BLL.Repositories
             }
 
         }
+
+        public async Task CleanImages(int? from = 0, int? to = 0)
+        {
+            //string root_folder = @"C:\DATA\BACKUP\HappyRE\Product\Product";
+            //string root_folder_target = @"C:\DATA\BACKUP\HappyRE\Images";
+
+            string root_folder = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\_temp\product";
+            string root_folder_target = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\product";
+
+            var bds = await this.Query<PropertyRef>(@"select a.Id ImgId, b.Id, b.CreatedDate, b.RefId, a.Src
+                                                    from ImageFile (nolock)a
+                                                    inner join Property(nolock) b on a.TableKeyId = b.Id
+                                                    where a.CreatedDate <= '2022-03-19' and a.CreatedBy = 'system' and a.Deleted =0 and b.Id >=@from and b.Id<=@to", new { from = from, to = to }, CommandType.Text);
+            _log.Warn($"BĐS from {from} to {to}: {bds.Count()}");
+            foreach (var item in bds)
+            {
+                try {
+                    var idx = item.Src.IndexOf("img_");
+                    if (idx > 0)
+                    {
+                        var fileName = item.Src.Substring(idx+4, (item.Src.Length -4) - idx);
+                        var path = System.IO.Path.Combine(root_folder, item.CreatedDate.ToString("yyyyMM"), item.RefId.ToString(), fileName);
+                        if (System.IO.File.Exists(path) == false)
+                        {
+                            await uow.ImageFile.Delete(new ImageFile() { Id = item.ImgId });
+                        }
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error(ex);
+                    }
+                }
+
+        }
         #endregion
     }
 
     public class PropertyRef
     {
+        public int ImgId { get; set; }
         public int Id { get; set; }
         public int RefId { get; set; }
+        public string Src { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }
