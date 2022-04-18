@@ -17,8 +17,8 @@ namespace HappyRE.Core.BLL.Utils
 {
     public class EmailUtils
     {
-        static string EMAIL_IMG_BASE_URL = WebUtils.AppSettings("EMAIL_IMG_BASE_URL", "https://static.batdongsanhanhphuc.vn/img/mail/");
-        static string BASE_URL_IMG_200 = WebUtils.AppSettings("BASE_URL_IMG_200", "https://static.batdongsanhanhphuc.vn/img/s200x200/");
+        static string EMAIL_IMG_BASE_URL = WebUtils.AppSettings("EMAIL_IMG_BASE_URL", "https://static.lenmay.vn/img/mail/");
+        static string BASE_URL_IMG_200 = WebUtils.AppSettings("BASE_URL_IMG_200", "https://static.lenmay.vn/img/s200x200/");
         MailAddress _replyMail;
         EmailToModel _emailTo;
 

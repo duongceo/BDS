@@ -116,7 +116,7 @@ namespace HappyRE.Core.Entities.ViewModel
         public static bool ImageCanResize(string name)
         {
             name = name.ToLower();
-            var res = -1 == name.IndexOf("static.batdongsanhanhphuc.vn") && -1 == name.IndexOf(".ico") && -1 == name.IndexOf(".svg") && -1 == name.IndexOf(".gif") ? true : false;
+            var res = -1 == name.IndexOf("static.lenmay.vn") && -1 == name.IndexOf(".ico") && -1 == name.IndexOf(".svg") && -1 == name.IndexOf(".gif") ? true : false;
             return res;
         }
 

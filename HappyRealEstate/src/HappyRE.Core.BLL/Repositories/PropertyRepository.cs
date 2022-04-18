@@ -417,8 +417,8 @@ namespace HappyRE.Core.BLL.Repositories
             //string root_folder = @"C:\DATA\BACKUP\HappyRE\Product\Product";
             //string root_folder_target = @"C:\DATA\BACKUP\HappyRE\Images";
 
-            string root_folder = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\_temp\product";
-            string root_folder_target = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\product";
+            string root_folder = @"C:\DATA\BDS\static.lenmay.vn\img\_temp\product";
+            string root_folder_target = @"C:\DATA\BDS\static.lenmay.vn\img\product";
             //Lấy tất cả bđs chưa đc cập nhật hình
             var bds = await this.Query<PropertyRef>("select Id, RefId, CreatedDate from Property (nolock) where Deleted=0 and Id >=@from and Id<=@to", new {from=from,to=to }, CommandType.Text);
             List<string> imgs = new List<string>();
@@ -447,12 +447,12 @@ namespace HappyRE.Core.BLL.Repositories
                                 {
                                     System.IO.File.Copy(file.FullName, Path.Combine(root_folder_target, f, newFn), true);
 
-                                    var fileName = $"https://static.batdongsanhanhphuc.vn/img/s200x200/product/{f}/{newFn}";
+                                    var fileName = $"https://static.lenmay.vn/img/s200x200/product/{f}/{newFn}";
                                     imgs.Add(fileName);
                                 }
                                 else
                                 {
-                                    var fileName = $"https://static.batdongsanhanhphuc.vn/img/s200x200/product/{f}/{newFn}";
+                                    var fileName = $"https://static.lenmay.vn/img/s200x200/product/{f}/{newFn}";
                                     if (await uow.ImageFile.IsExists(new ImageFileQuery()
                                     {
                                         TableName="Property",
@@ -491,8 +491,8 @@ namespace HappyRE.Core.BLL.Repositories
             //string root_folder = @"C:\DATA\BACKUP\HappyRE\Product\Product";
             //string root_folder_target = @"C:\DATA\BACKUP\HappyRE\Images";
 
-            string root_folder = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\_temp\product";
-            string root_folder_target = @"C:\DATA\BDS\static.batdongsanhanhphuc.vn\img\product";
+            string root_folder = @"C:\DATA\BDS\static.lenmay.vn\img\_temp\product";
+            string root_folder_target = @"C:\DATA\BDS\static.lenmay.vn\img\product";
 
             var bds = await this.Query<PropertyRef>(@"select a.Id ImgId, b.Id, b.CreatedDate, b.RefId, a.Src
                                                     from ImageFile (nolock)a

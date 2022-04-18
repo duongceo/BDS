@@ -23,7 +23,7 @@ var WidgetsStats = function() {
             };
             $('#mini-chart-bar1').sparkline('html', miniChartBarOptions);
 
-            miniChartBarOptions['barColor'] = '#e29f00';
+            miniChartBarOptions['barColor'] = '#196bab';
             miniChartBarOptions['tooltipPrefix'] = '';
             miniChartBarOptions['tooltipSuffix'] = ' Projects';
             $('#mini-chart-bar2').sparkline('html', miniChartBarOptions);

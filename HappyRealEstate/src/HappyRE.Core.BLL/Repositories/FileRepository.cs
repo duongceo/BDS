@@ -17,7 +17,7 @@ namespace HappyRE.Core.BLL.Repositories
     {
         private static readonly int FILE_MAXSIZE = int.Parse(ConfigSettings.Get("FILE_MAXSIZE", "5"));
         private static readonly string FILE_IMG_ALLOW = ConfigSettings.Get("FILE_IMG_ALLOW", "'.jpg,image/*,.jpeg,.png,.gif,.svg,.ico'");
-        private static readonly string FILE_API_DOMAIN = "https://static.batdongsanhanhphuc.vn";
+        private static readonly string FILE_API_DOMAIN = "https://static.lenmay.vn";
         public FileRepository(IUow uow) : base(uow) { }
 
         public void AddFile(File file)

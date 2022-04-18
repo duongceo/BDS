@@ -208,7 +208,7 @@ div.frame {
     }
         #noti_list ul > li > a:hover {
             color: #fff;
-            background-color: #e29f00;
+            background-color: #196bab;
         }
 
     #noti_list ul > li > a span.time {
@@ -227,21 +227,10 @@ div.frame {
     margin-bottom: 5px;
 }
 
-
-
-.k-state-selected, .k-primary, .k-overflow-container .k-primary {
-    background-color: #ffb400 !important;
-    border-color: #ffb400 !important;
-}
-
 table thead.k-grid-header, table thead.k-grid-header th.k-header {
-    background-color: #FFC10E !important;
+    background-color: #f5f5f5 !important;
     font-weight:600;
     color:#333;
-}
-
-#title {
-    color: #f8b403;
 }
 
 .inline-page .form-inline {

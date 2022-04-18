@@ -3108,8 +3108,10 @@
     <Content Include="Content\images\src\border-anim-v.gif" />
     <Content Include="Content\images\src\border-h.gif" />
     <Content Include="Content\images\src\border-v.gif" />
+    <Content Include="Content\images\src\logo32.png" />
     <Content Include="Content\images\src\favicon.ico" />
     <Content Include="Content\images\src\logo.png" />
+    <Content Include="Content\images\src\logo.svg" />
     <Content Include="Content\images\src\new.gif" />
     <Content Include="Content\images\src\next-create-custom-line-item.svg" />
     <Content Include="Content\images\src\no-image.jpg" />

@@ -28,7 +28,7 @@ var CompCharts = function() {
             miniChartBarOptions['tooltipSuffix'] = '';
             $('#mini-chart-bar2').sparkline('html', miniChartBarOptions);
 
-            miniChartBarOptions['barColor'] = '#e29f00';
+            miniChartBarOptions['barColor'] = '#196bab';
             miniChartBarOptions['tooltipPrefix'] = '';
             miniChartBarOptions['tooltipSuffix'] = ' Updates';
             $('#mini-chart-bar3').sparkline('html', miniChartBarOptions);
