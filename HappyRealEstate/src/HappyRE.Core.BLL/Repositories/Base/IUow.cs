@@ -48,7 +48,7 @@ namespace HappyRE.Core.BLL.Repositories
         ITokenRepository Token { get; }
         INotificationRepository Notification { get; }
         INotificationReadRepository NotificationRead { get; }
-
+        IReportRepository Report { get; }
 
     }
 }

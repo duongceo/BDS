@@ -193,6 +193,11 @@ namespace HappyRE.Core.BLL.Repositories
             get { return _NotificationRead ?? (_NotificationRead = this.GetRepository<INotificationReadRepository>()); }
         }
 
+        private IReportRepository _Report = null;
+        public IReportRepository Report
+        {
+            get { return _Report ?? (_Report = this.GetRepository<IReportRepository>()); }
+        }
 
         private ITokenRepository _Token = null;
         public ITokenRepository Token

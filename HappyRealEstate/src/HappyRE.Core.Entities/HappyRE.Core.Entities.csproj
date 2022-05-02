@@ -91,6 +91,7 @@
     <Compile Include="Model\UserProfile.cs" />
     <Compile Include="ObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryModel\ReportQuery.cs" />
     <Compile Include="QueryModel\SaleOrderQuery.cs" />
     <Compile Include="QueryModel\NotificationQuery.cs" />
     <Compile Include="QueryModel\HistoryLogQuery.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="ViewModel\ClaimData.cs" />
     <Compile Include="ViewModel\CustomerInfoSummary.cs" />
     <Compile Include="ViewModel\ImageFileViewModel.cs" />
+    <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\SaleOrderListViewModel.cs" />
     <Compile Include="ViewModel\PropertyListViewModel.cs" />
     <Compile Include="ViewModel\KeyValueModel.cs" />

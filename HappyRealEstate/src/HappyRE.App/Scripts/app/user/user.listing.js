@@ -83,7 +83,7 @@
             dialog.data("kendoWindow").open();
         },
         resetPass = function (id, newPass) {
-            newPass = newPass || 'TQTReal8@';
+            newPass = newPass || 'Pw000@111';
             restfulSvc.post('/User/_ResetPass', { id: id, newPassword: newPass }, function () {
                 $("#_list").data("kendoGrid").dataSource.read();
             });

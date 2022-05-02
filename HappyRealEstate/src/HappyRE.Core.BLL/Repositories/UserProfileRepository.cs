@@ -18,6 +18,7 @@ namespace HappyRE.Core.BLL.Repositories
     public class UserProfileRepository : BaseDPRepository<UserProfile>, IUserProfileRepository
     {
         private static readonly ILog _log = LogManager.GetLogger("UserProfileRepository");
+        private readonly static int LimitUser = int.Parse(WebUtils.AppSettings("LIMIT_USER", "0"));
 
         public UserProfileRepository(IUow uow)
             : base(uow)
@@ -137,6 +138,15 @@ namespace HappyRE.Core.BLL.Repositories
             var m = await this.GetById(obj.Id);
             if (m == null)
             {
+                if (LimitUser > 0)
+                {
+                    var canAdd = await base.CheckInsertLimit<UserProfile>(LimitUser);
+                    if (canAdd == false)
+                    {
+                        throw new BusinessException($"Gói tài khoản sử dụng đang giới hạn quản lý {LimitUser} nhân viên!");
+                    }
+                }
+
                 obj.ActiveDate = DateTime.Now;
                 var res= await this.Insert(obj);
                 await ChangeRoleGroup(obj.UserId, obj.RoleGroupId.Value);

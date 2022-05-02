@@ -1,0 +1,238 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.QueryModel.ReportQuery
+@{
+    ViewBag.Title = "Thống kê";
+}
+
+<style>
+    .nav-horizontal {
+        padding: 10px 7px 1px;
+        margin: 0;
+        list-style: none;
+    }
+        .nav-horizontal li {
+            display: inline-block;
+            margin: 0 3px 9px;
+        }
+            .nav-horizontal a:hover, .nav-horizontal li.active a {
+                background-color: #1bbae1;
+                text-decoration: none;
+                color: #fff;
+            }
+                .nav-horizontal a:hover i, .nav-horizontal li.active a i {
+                    color: #fff;
+                    opacity: .6;
+                }
+    @@media screen and (min-width: 768px){
+        .breadcrumb-top, .content-header, .content-top {
+            margin: -20px -20px 20px;
+        }
+        .content-header, .content-top {
+            margin: -10px -5px 10px;
+        }
+        .content-header {
+            border-top: 1px solid #eaedf1;
+        }
+        .content-header, .content-top {
+            background-color: #fff;
+            border-bottom: 1px solid #dbe1e8;
+        }
+
+        .nav-horizontal a {
+            text-decoration: none;
+            text-align: center;
+            min-width: 130px;
+            padding: 12px 15px;
+        }
+
+        .nav-horizontal a {
+            display: block;
+            min-width: 140px;
+            border-radius: 3px;
+            font-weight: 700;
+            padding: 8px 10px;
+            background-color: #f9fafc;
+        }
+        .nav-horizontal i {
+            display: inline-block;
+            font-size: 14px;
+            color: #dbe1e8;
+            margin-right: 5px;
+        }
+
+        .nav-horizontal i {
+            display: block;
+            height: 55px;
+            margin-right: 0;
+            margin-bottom: 10px;
+            font-size: 42px;
+            padding: 10px;
+        }
+}
+</style>
+
+
+<div>
+    <div class="content-header">
+        <ul class="nav-horizontal text-center">
+            <li class="active">
+                <a href="#"><i class="gi gi-charts"></i> Tổng quan</a>
+            </li>
+            <li>
+                <a href="/report/property"><i class="gi gi-shop_window"></i> Sản phẩm</a>
+            </li>
+            <li>
+                <a href="/report/saleorder"><i class="gi gi-shopping_cart"></i> Giao dịch</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="filter-block" style="padding:20px 10px;float:right;display:block;width:100%;">
+        
+            @Html.HiddenFor(x => x.FromDate)
+            @Html.HiddenFor(x => x.ToDate)
+            <button id="btnSearch" type="button" class="btn btn-sm btn-primary" onclick="report.getSummary()"><i class="fa fa-search"></i> Tìm kiếm</button>
+            @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;display:none;" })
+            @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;display:none;" })
+    </div>
+    <div class="row text-center">
+        <div class="col-sm-6 col-lg-3">
+            <a class="widget widget-hover-effect2" href="javascript:void(0)">
+                <div class="widget-extra themed-background">
+                    <h4 class="widget-content-light"><strong>Bất động sản</strong> mới</h4>
+                </div>
+                <div class="widget-extra-full"><span id="total_property" class="h2 animation-expandOpen"></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="widget widget-hover-effect2" href="javascript:void(0)">
+                <div class="widget-extra themed-background">
+                    <h4 class="widget-content-light"><strong>Khách hàng</strong> mới</h4>
+                </div>
+                <div class="widget-extra-full"><span id="total_customer" class="h2 animation-expandOpen"></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="widget widget-hover-effect2" href="javascript:void(0)">
+                <div class="widget-extra themed-background">
+                    <h4 class="widget-content-light"><strong>Giao dịch</strong> mới</h4>
+                </div>
+                <div class="widget-extra-full"><span id="total_saleorder" class="h2 animation-expandOpen"></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="widget widget-hover-effect2" href="javascript:void(0)">
+                <div class="widget-extra themed-background">
+                    <h4 class="widget-content-light"><strong>Nhân viên</strong> mới</h4>
+                </div>
+                <div class="widget-extra-full"><span id="total_user" class="h2 animation-expandOpen"></span></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Top nhân viên <strong>nhập BĐS</strong></h2>
+                </div>
+
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ReportTopUserViewModel>()
+          .Name("_list1")
+         .Columns(columns =>
+         {
+             columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+             columns.Bound(e => e.FullName).Title("Nhân viên");
+             columns.Bound(e => e.Value).Title("Đã nhập");
+         })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("TopProductAdd", "Report").Data("additionalData"))
+          )
+          )
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Top nhân viên <strong>xem thông tin chủ nhà</strong></h2>
+                </div>
+
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ReportTopUserViewModel>()
+          .Name("_list2")
+         .Columns(columns =>
+         {
+             columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+             columns.Bound(e => e.FullName).Title("Nhân viên");
+             columns.Bound(e => e.Value).Title("Đã xem");
+         })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("TopViewMobile", "Report").Data("additionalData"))
+          )
+          )
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Top nhân viên <strong>hiệu quả</strong></h2>
+                </div>
+
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ReportTopUserViewModel>()
+          .Name("_list3")
+         .Columns(columns =>
+         {
+             columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+             columns.Bound(e => e.FullName).Title("Nhân viên");
+             columns.Bound(e => e.Value).Title("Đã xem");
+             columns.Bound(e => e.Value1).Title("Đã chốt");
+         })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("TopHighPerformance", "Report").Data("additionalData"))
+          )
+          )
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Top nhân viên <strong>kém hiệu quả</strong></h2>
+                </div>
+
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ReportTopUserViewModel>()
+          .Name("_list4")
+         .Columns(columns =>
+         {
+             columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+             columns.Bound(e => e.FullName).Title("Nhân viên");
+             columns.Bound(e => e.Value).Title("Đã xem");
+             columns.Bound(e => e.Value1).Title("Đã nhập BĐS");
+             columns.Bound(e => e.Value2).Title("Đã chốt");
+         })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("TopLowPerformance", "Report").Data("additionalData"))
+          )
+          )
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        report.getSummary();
+    });
+
+    function additionalData() {
+            return {
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val()
+            }
+        }
+</script>

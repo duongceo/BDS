@@ -321,9 +321,10 @@ namespace HappyRE.App.Controllers
         [Authorize(Roles = Permission.PROPERTY_EXPORT)]
         public async Task<FileContentResult> Export(Core.Entities.PropertyQuery model)
         {
-            var res = await _uow.Property.Export(model);
+            var res = await _uow.Property.Export(model);           
             string[] columns = new string[] { "PropertyNumber", "Code", "Commission", "Location", "Type", "Detail", "Status", "Direction", "Office", "RegionCode", "MapCode", "OwnerName", "OwnerPhone", "OwnerPhoneExt", "OwnerNote", "Price", "PriceMatched", "CurrencyType", "CalcMethod", "Width", "Length", "Area", "AreaForBuild", "NumOfBedroom", "NumOfToilet", "NumOfFloor", "StreetWidth", "Source", "Strong", "Weak", "Utility", "Contruct","Structure", "IsHot", "IsVerified", "IsChecked", "Posted", "Created_Date", "Modified_Date" };
             byte[] filecontent = ExcelExportHelper.ExportExcel(res.ToList(), "Bất động sản", true, columns);
+            this.Log("Property", null, "Export", null);
             return File(filecontent, ExcelExportHelper.ExcelContentType, $"BDS_{DateTime.Today.ToString("ddMMyyyy")}.xlsx");
         }
 

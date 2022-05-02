@@ -20,6 +20,7 @@ namespace HappyRE.Core.BLL.Repositories
     {
         private static readonly ILog _log = LogManager.GetLogger("PropertyRepository");
         private readonly static int MaxViewMobileInDay = int.Parse(WebUtils.AppSettings("MAX_VIEW_MOBILE", "20"));
+        private readonly static int LimitProduct = int.Parse(WebUtils.AppSettings("LIMIT_PRODUCT", "0"));
         public PropertyRepository(IUow uow)
             : base(uow)
         {
@@ -131,6 +132,14 @@ namespace HappyRE.Core.BLL.Repositories
             }
             if (m == null)
             {
+                if (LimitProduct > 0)
+                {
+                    var canAdd = await base.CheckInsertLimit<Property>(LimitProduct);
+                    if (canAdd == false)
+                    {
+                        throw new BusinessException($"Gói tài khoản sử dụng đang giới hạn quản lý {LimitProduct} sản phẩm!");
+                    }
+                }
                 obj.PostedDate = DateTime.Now;
                 var userName = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated ? System.Threading.Thread.CurrentPrincipal.Identity.Name : "System";
                 if(obj.PostedBy==null) obj.PostedBy = userName;

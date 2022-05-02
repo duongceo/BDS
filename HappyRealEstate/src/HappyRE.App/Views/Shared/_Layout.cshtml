@@ -70,6 +70,12 @@
                                 <a href="~/notification/admin"><i class="gi gi-bell sidebar-nav-icon"></i>Quản trị thông báo</a>
                             </li>
                         }
+                        @if (User.IsInRole(Permission.NOTIFICATION_CREATE) || User.IsInRole(Permission.NOTIFICATION_DELETE))
+                        {
+                            <li>
+                                <a href="~/report"><i class="gi gi-charts sidebar-nav-icon"></i>Thống kê</a>
+                            </li>
+                        }
                     </ul>
 
                     @if (User.IsInRole(Permission.PROPERTY_VIEW))

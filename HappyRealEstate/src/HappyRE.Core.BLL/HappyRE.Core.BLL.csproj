@@ -162,9 +162,13 @@
     <Compile Include="Repositories\IImageFileRepository.cs">
       <DependentUpon>ImageFileRepository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IReportRepository.cs">
+      <DependentUpon>ReportRepository.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\ISaleOrderRepository.cs">
       <DependentUpon>SaleOrderRepository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\SaleOrderRepository.cs" />
     <Compile Include="Repositories\INotificationReadRepository.cs">
       <DependentUpon>NotificationReadRepository.cs</DependentUpon>

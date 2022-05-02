@@ -1,0 +1,205 @@
+﻿@using Kendo.Mvc.UI
+@model HappyRE.Core.Entities.QueryModel.ReportSaleOrderDailyQuery
+@{
+    ViewBag.Title = "Thống kê giao dịch";
+}
+
+<style>
+    .nav-horizontal {
+        padding: 10px 7px 1px;
+        margin: 0;
+        list-style: none;
+    }
+
+        .nav-horizontal li {
+            display: inline-block;
+            margin: 0 3px 9px;
+        }
+
+            .nav-horizontal a:hover, .nav-horizontal li.active a {
+                background-color: #1bbae1;
+                text-decoration: none;
+                color: #fff;
+            }
+
+                .nav-horizontal a:hover i, .nav-horizontal li.active a i {
+                    color: #fff;
+                    opacity: .6;
+                }
+
+    @@media screen and (min-width: 768px) {
+        .breadcrumb-top, .content-header, .content-top {
+            margin: -20px -20px 20px;
+        }
+
+        .content-header, .content-top {
+            margin: -10px -5px 10px;
+        }
+
+        .content-header {
+            border-top: 1px solid #eaedf1;
+        }
+
+        .content-header, .content-top {
+            background-color: #fff;
+            border-bottom: 1px solid #dbe1e8;
+        }
+
+        .nav-horizontal a {
+            text-decoration: none;
+            text-align: center;
+            min-width: 130px;
+            padding: 12px 15px;
+        }
+
+        .nav-horizontal a {
+            display: block;
+            min-width: 140px;
+            border-radius: 3px;
+            font-weight: 700;
+            padding: 8px 10px;
+            background-color: #f9fafc;
+        }
+
+        .nav-horizontal i {
+            display: inline-block;
+            font-size: 14px;
+            color: #dbe1e8;
+            margin-right: 5px;
+        }
+
+        .nav-horizontal i {
+            display: block;
+            height: 55px;
+            margin-right: 0;
+            margin-bottom: 10px;
+            font-size: 42px;
+            padding: 10px;
+        }
+    }
+</style>
+
+
+<div>
+    <div class="content-header">
+        <ul class="nav-horizontal text-center">
+            <li>
+                <a href="/report"><i class="gi gi-charts"></i> Tổng quan</a>
+            </li>
+            <li>
+                <a href="/report/property"><i class="gi gi-shop_window"></i> Sản phẩm</a>
+            </li>
+            <li class="active">
+                <a href="#"><i class="gi gi-shopping_cart"></i> Giao dịch</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="filter-block" style="padding:20px 10px;float:right;display:block;width:100%;">
+
+        @Html.HiddenFor(x => x.FromDate)
+        @Html.HiddenFor(x => x.ToDate)
+        @(Html.Kendo().ComboBoxFor(x => x.OwnerTargetId).HtmlAttributes(new { style = "width:170px;" })
+              .Filter("contains")
+            .Placeholder("Tiềm năng chủ nhà..")
+            .DataTextField("Name")
+            .DataValueField("BitMask")
+            .Filter(FilterType.Contains)
+            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerPotentialType" }))))
+        @(Html.Kendo().ComboBoxFor(x => x.CustomerTargetId).HtmlAttributes(new { style = "width:170px;" })
+              .Filter("contains")
+            .Placeholder("Tiềm năng khách hàng..")
+            .DataTextField("Name")
+            .DataValueField("BitMask")
+            .Filter(FilterType.Contains)
+            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "CustomerPotentialType" }))))
+        @(Html.Kendo().ComboBoxFor(x=>x.Unit).HtmlAttributes(new { style = "width:120px;" })
+                                .Placeholder("Thống kê theo..")
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                  .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "Ngày", Value = "d"
+                  },
+                  new SelectListItem() {
+                      Text = "Tháng", Value = "m"
+                  },
+                  new SelectListItem() {
+                      Text = "Năm", Value = "y"
+                  }
+              })
+        )
+        <button id="btnSearch" type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Tìm kiếm</button>
+        @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;display:none;" })
+        @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;display:none;" })
+    </div>
+
+    <div class="row" style="margin-top:70px;">
+        <div class="col-md-12">
+            @(Html.Kendo().Chart<HappyRE.Core.Entities.ViewModel.ReportDailyViewModel> ()
+                                      .Name("saleOrderReport")
+                                      .Title("Số lượng giao dịch")
+                                      .Legend(legend => legend
+                                          .Position(ChartLegendPosition.Bottom)
+                                      )
+                                      .SeriesDefaults(seriesDefaults =>
+                                          seriesDefaults.Line().Style(ChartLineStyle.Smooth)
+                                      )
+                                      .DataSource(ds => ds.Read(read => read.Action("SaleOrderDailyChart", "Report").Data("additionalData")))
+                                      .Series(series =>
+                                      {
+                                          series.Line(model => model.Total).Name("Số lượng");
+                                      })
+                                      .CategoryAxis(axis => axis
+                                          .Categories(model => model.DateKey)
+                                          .Labels(labels => labels.Rotation(-50))
+                                          .Crosshair(c => c.Visible(true))
+                                      )
+                                      .ValueAxis(axis => axis.Numeric()
+                                          .Labels(labels => labels.Format("{0:N0}"))
+                                      )
+                                      .Tooltip(tooltip => tooltip
+                                          .Visible(true)
+                                          .Shared(true)
+                                          .Format("{0:N0}")
+                                      ))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="block">
+                <div class="block-title">
+                    <h2>Số lượng giao dịch</h2>
+                </div>
+
+                @(Html.Kendo().Grid<HappyRE.Core.Entities.ViewModel.ReportDailyViewModel>()
+          .Name("_listSaleOrder")
+         .Columns(columns =>
+         {
+             columns.Template(t => { }).ClientTemplate("#= baseListing.renderNumber(data) #").Title("#").Width(20);
+             columns.Bound(e => e.DateKey).Title("Ngày");
+             columns.Bound(e => e.Total).Title("Đã nhập");
+         })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("SaleOrderDaily", "Report").Data("additionalData"))
+          )
+          )
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function additionalData() {
+            return {
+                'FromDate': $("#FromDate").val(),
+                'ToDate': $("#ToDate").val(),
+                'OwnerTargetId': $("#OwnerTargetId").val(),
+                'CustomerTargetId': $("#CustomerTargetId").val(),
+                'Unit': $("#Unit").val()
+            }
+        }
+</script>
+
+

@@ -28,7 +28,7 @@
         @Html.Kendo().DatePickerFor(x => x.FromDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "Từ ngày", style = "width:120px;" })
         @Html.Kendo().DatePickerFor(x => x.ToDate).Max(DateTime.Today).HtmlAttributes(new { placeHolder = "đến ngày", style = "width:120px;" })
         @(Html.Kendo().ComboBoxFor(x=>x.IsChecked_Filter).HtmlAttributes(new { style = "width:120px;" })
-                                .Placeholder("Trạng thái")
+                                .Placeholder("Xác thực..")
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                   .BindTo(new List<SelectListItem>() {
@@ -54,20 +54,20 @@
             .DataValueField("Id")
             .Filter(FilterType.Contains)
             .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "ContractType" }))))*@
-        @*@(Html.Kendo().ComboBoxFor(x => x.StatusId_Filter).HtmlAttributes(new { style = "width:120px;" })
+        @(Html.Kendo().ComboBoxFor(x => x.StatusId_Filter).HtmlAttributes(new { style = "width:150px;" })
                                   .Filter("contains")
                                 .Placeholder("Trạng thái..")
                                 .DataTextField("Name")
-                                .DataValueField("Id")
+                                .DataValueField("BitMask")
                                 .Filter(FilterType.Contains)
                                 .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyStatusType" }))))
-            @(Html.Kendo().ComboBoxFor(x => x.LegalId_Filter).HtmlAttributes(new { style = "width:120px;" })
-                                  .Filter("contains")
-                                .Placeholder("Pháp lý..")
-                                .DataTextField("Name")
-                                .DataValueField("Id")
-                                .Filter(FilterType.Contains)
-                                .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyLegalType" }))))*@
+        @*@(Html.Kendo().ComboBoxFor(x => x.LegalId_Filter).HtmlAttributes(new { style = "width:120px;" })
+              .Filter("contains")
+            .Placeholder("Pháp lý..")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .Filter(FilterType.Contains)
+            .DataSource(source => source.Read(read => read.Action("_Gets", "Syscode", new { tableId = "PropertyLegalType" }))))*@
         @(Html.Kendo().ComboBoxFor(x => x.UtilityId_Filter).HtmlAttributes(new { style = "width:120px;" })
                               .Filter("contains")
                             .Placeholder("Tiện ích..")
@@ -505,7 +505,7 @@
                 'TypeId_Filter': $("#TypeId_Filter").val(),
                 //'ContractId_Filter': $("#ContractId_Filter").val(),
                 'IsChecked_Filter': $("#IsChecked_Filter").val(),
-                //'StatusId_Filter': $("#StatusId_Filter").val(),
+                'StatusId_Filter': $("#StatusId_Filter").val(),
                 //'LegalId_Filter': $("#LegalId_Filter").val(),
                 'UtilityId_Filter': $("#UtilityId_Filter").val(),
                 //'SourceId_Filter': $("#SourceId_Filter").val(),

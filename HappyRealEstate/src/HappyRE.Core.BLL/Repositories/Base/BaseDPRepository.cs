@@ -224,6 +224,13 @@ namespace HappyRE.Core.BLL.Repositories
             return await this.GetListPaged<T>(query.Page, query.Limit, conditions, "id", new { keyword = query.KeywordLike });
         }
 
+        public async Task<bool> CheckInsertLimit<T>(int max=999999999)
+        {
+            string conditions = "where Deleted=0 ";
+            var total= await DbConnection.RecordCountAsync<T>(conditions, new { }, null, 0);
+            return total <= max;
+        }
+
         #region Log
         public virtual void LogActivity(int? tableKeyId, string content, string action = "add",bool isTracking=true)
         {
